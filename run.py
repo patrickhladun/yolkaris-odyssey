@@ -1,14 +1,23 @@
 # Terminal size is 80 characters wide and 24 rows high
 
-def main_story():
-    print("This is the main story")
+class Game():
+    """
+    This is the main class for the game.
+    """
+    def __init__(self):
+        self.game_over = False
+        self.player = None
 
-def side_story():
-    print("This is the side story")
-    
-def main():
-    print("Hello Player!")
-    main_story()
+    def start_game(self):
+        """
+        This is the main game loop.
+        """
+        while not self.game_over:
+            print("Welcome to the game!")
+            input("Press enter to exit ...")
+            self.game_over = True
+
 
 if __name__ == "__main__":
-    main()
+    game = Game()
+    game.start_game()
