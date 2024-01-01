@@ -3,22 +3,22 @@ from art import *
 from utils import text, space, clear_terminal
 
 class Character:
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         self.name = name
 
 class Player(Character):
-    def __init__(self, name):
+    def __init__(self, name) -> None:
         super().__init__(name)
 
 class Location:
-    def __init__(self, name, description, size):
+    def __init__(self, name, description, size) -> None:
         self.name = name
         self.description = description
         self.size = size
         self.map = [[" " for _ in range(size[0])] for _ in range(size[1])]
         self.player_position = (0, 0)
 
-    def display_map(self):
+    def display_map(self) -> None:
         text("Map:")
         for y in range(self.size[1]):
             for x in range(self.size[0]):
@@ -30,27 +30,27 @@ class Location:
             print()  # New line after each row
         print()  # Extra line for spacing
         
-    def is_valid_position(self, position):
+    def is_valid_position(self, position) -> bool:
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
 class Yolkaris(Location):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7))
 
 class Mystara(Location):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (2, 2))
 
 class Luminara(Location):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2))
 
 class Game():
     """
     This is the main class for the game.
     """
-    def __init__(self):
+    def __init__(self) -> None:
         self.location_objects = {
             "Yolkaris": Yolkaris(),
             "Mystara": Mystara(),
@@ -61,7 +61,7 @@ class Game():
         self.player = None
         self.config = Config()
 
-    def create_player(self):
+    def create_player(self) -> None:
         """
         This creates the player.
         """
@@ -70,9 +70,8 @@ class Game():
         self.player = Player(name)
         text(f"Hello {self.player.name}!")
         text("Good luck on your journey!")
-        input("Press ENTER to continue ... ")
 
-    def show_player_stats(self):
+    def show_player_stats(self) -> None:
         player = self.player
         current_location = self.get_current_location()
 
@@ -84,7 +83,7 @@ class Game():
         text(f"\nCurrent Location: {current_location.name}")
         text(f"{current_location.description}\n")
 
-    def game_title(self):
+    def game_title(self) -> None:
         """
         This is the main menu.
         """
@@ -92,9 +91,8 @@ class Game():
         odyssey=text2art("Odyssey", font="dos_rebel", chr_ignore=True)
         print(yolkaris)
         print(odyssey)
-        pass
 
-    def intro(self):
+    def intro(self) -> None:
         """
         This is the introduction to the game.
         """
@@ -135,7 +133,7 @@ class Game():
 
         input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
 
-    def show_help(self):
+    def show_help(self) -> None:
         clear_terminal()
         text("Available Commands:", space=1)
         text("  north      - Move North (up)", delay=0.1)
@@ -145,7 +143,7 @@ class Game():
         text("  help       - Show this help message", delay=0.1)
         text("  quit       - Quit the game", delay=0.1)
 
-    def choose_action(self):
+    def choose_action(self) -> None:
         action = input(": ")
         if action == "help":
             self.show_help()
@@ -164,7 +162,7 @@ class Game():
         elif action == "quit":
             self.game_over = True
 
-    def start_game(self):
+    def start_game(self) -> None:
         """
         This is the main game loop.
         """
@@ -174,12 +172,17 @@ class Game():
         text("This is a text-based adventure game.")
         input("Press ENTER to start the game ...")
         clear_terminal()
+        # Create player
         self.create_player()
+        # Assign player to current location
+        self.assign_player_to_location()
+        input("Press ENTER to continue ... ")
+        # Start game intro
         self.intro()
         while not self.game_over:
             self.choose_action()
 
-    def get_current_location(self):
+    def get_current_location(self) -> Location:
         """
         Retrieves the current location object based on the player's position.
 
@@ -192,7 +195,19 @@ class Game():
         current_location_name = list(self.location_objects.keys())[self.current_location]
         return self.location_objects[current_location_name]
 
-    def display_map(self):
+    def assign_player_to_location(self) -> None:
+        """
+        Assigns the player to their current location in the game.
+
+        This method updates the current location object to include a reference
+        to the player object.
+        """
+        # Retrieve the current location object
+        current_location = self.get_current_location()
+        # Assign the player to the current location
+        current_location.player = self.player
+
+    def display_map(self) -> None:
         """
         This method displays the map of the current location.
         """
@@ -200,13 +215,13 @@ class Game():
         text(f"Current Location: {current_location.name}")
         current_location.display_map()
 
-    def development(self):
+    def development(self) -> None:
         self.create_player()
         while not self.game_over:
             self.get_current_location()
             self.choose_action()
 
-    def update_player_position(self, dx, dy):
+    def update_player_position(self, dx, dy) -> None:
         current_location = self.get_current_location()
         x, y = current_location.player_position
         new_position = (x + dx, y + dy)
@@ -216,19 +231,19 @@ class Game():
         else:
             print("You can't move in that direction.")       
 
-    def move_north(self):
+    def move_north(self) -> None:
         self.update_player_position(0, -1)
 
-    def move_south(self):
+    def move_south(self) -> None:
         self.update_player_position(0, 1)
 
-    def move_east(self):
+    def move_east(self) -> None:
         self.update_player_position(1, 0)
     
-    def move_west(self):
+    def move_west(self) -> None:
         self.update_player_position(-1, 0)
 
 if __name__ == "__main__":
     game = Game()
-    # game.start_game()
-    game.development()
+    game.start_game()
+    # game.development()
