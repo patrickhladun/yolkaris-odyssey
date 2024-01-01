@@ -27,11 +27,10 @@ class Location:
         """
         This method displays the map of the current location.
         """
-        text("Map:", space=1)
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
-                    char = " \uff30"
+                    char = "\033[93m \uff30\033[0m"
                 elif self.visited[y][x]:
                     char = "\033[90m \uff4f\033[0m"
                 else:
@@ -230,14 +229,8 @@ class Game:
         This method displays the map of the current location.
         """
         current_location = self.get_current_location()
-        text(f"Current Location: {current_location.name}")
+        text(f"Map of {current_location.name}")
         current_location.display_map()
-
-    def development(self) -> None:
-        self.create_player()
-        while not self.game_over:
-            self.get_current_location()
-            self.choose_action()
 
     def update_player_position(self, dx: int, dy: int) -> None:
         current_location = self.get_current_location()
@@ -266,4 +259,3 @@ class Game:
 if __name__ == "__main__":
     game = Game()
     game.start_game()
-    # game.development()
