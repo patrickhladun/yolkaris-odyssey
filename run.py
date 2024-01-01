@@ -3,13 +3,12 @@ from art import *
 from utils import text, space, clear_terminal
 
 class Character:
-    def __init__(self, name, description):
+    def __init__(self, name):
         self.name = name
-        self.description = description
 
 class Player(Character):
-    def __init__(self, name, description):
-        super().__init__(name, description)
+    def __init__(self, name):
+        super().__init__(name)
 
 class Location:
     def __init__(self, name, description, size):
@@ -68,9 +67,8 @@ class Game():
         """
         text("Welcome to the game! Great adventurer.")
         name = input("What is your name? ")
-        description = input("Write about yourself: ")
-        self.player = Player(name, description)
-        text(f"Hello {self.player.name} {self.player.description}!")
+        self.player = Player(name)
+        text(f"Hello {self.player.name}!")
         text("Good luck on your journey!")
         input("Press ENTER to continue ... ")
 
@@ -82,7 +80,6 @@ class Game():
         clear_terminal()
         text("Player Stats:")
         text(f"Name: {player.name}")
-        text(f"Description: {player.description}")
     
         text(f"\nCurrent Location: {current_location.name}")
         text(f"{current_location.description}\n")
@@ -185,7 +182,7 @@ class Game():
     def get_current_location(self):
         current_location_name = list(self.location_objects.keys())[self.current_location]
         return self.location_objects[current_location_name]
-    
+
     def display_map(self):
         """
         This method displays the map of the current location.
@@ -197,6 +194,7 @@ class Game():
     def development(self):
         self.create_player()
         while not self.game_over:
+            self.get_current_location()
             self.choose_action()
 
     def update_player_position(self, dx, dy):
