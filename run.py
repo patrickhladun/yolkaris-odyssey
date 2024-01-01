@@ -31,6 +31,10 @@ class Location:
             print()  # New line after each row
         print()  # Extra line for spacing
         
+    def is_valid_position(self, position):
+        x, y = position
+        return 0 <= x < self.size[0] and 0 <= y < self.size[1]
+
 class Yolkaris(Location):
     def __init__(self):
         super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7))
@@ -136,9 +140,13 @@ class Game():
 
     def show_help(self):
         clear_terminal()
-        print("\nAvailable Commands:")
-        print("  help      - Show this help message")
-        print("  quit      - Quit the game\n")
+        text("Available Commands:", space=1)
+        text("  north      - Move North (up)", delay=0.1)
+        text("  south      - Move South (down)", delay=0.1)
+        text("  east       - Move East (up)", delay=0.1)
+        text("  west       - Move West (up)", delay=0.1, space=1)
+        text("  help       - Show this help message", delay=0.1)
+        text("  quit       - Quit the game", delay=0.1)
 
     def choose_action(self):
         action = input(": ")
@@ -146,6 +154,14 @@ class Game():
             self.show_help()
         elif action == "map":
             self.display_map()
+        elif action == "north":
+            self.move_north()
+        elif action == "south":
+            self.move_south()
+        elif action == "east":
+            self.move_east() 
+        elif action == "west":
+            self.move_west()               
         elif action == "stats":
             self.show_player_stats()
         elif action == "quit":
@@ -182,6 +198,28 @@ class Game():
         self.create_player()
         while not self.game_over:
             self.choose_action()
+
+    def update_player_position(self, dx, dy):
+        current_location = self.get_current_location()
+        x, y = current_location.player_position
+        new_position = (x + dx, y + dy)
+
+        if current_location.is_valid_position(new_position):
+            current_location.player_position = new_position
+        else:
+            print("You can't move in that direction.")       
+
+    def move_north(self):
+        self.update_player_position(0, -1)
+
+    def move_south(self):
+        self.update_player_position(0, 1)
+
+    def move_east(self):
+        self.update_player_position(1, 0)
+    
+    def move_west(self):
+        self.update_player_position(-1, 0)
 
 if __name__ == "__main__":
     game = Game()
