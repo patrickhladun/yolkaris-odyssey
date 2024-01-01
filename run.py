@@ -186,7 +186,7 @@ class Game:
         """
         clear_terminal()
         game_title()
-        text("Welcome to Yolkaris Odyssey! v0.2")
+        text("Welcome to Yolkaris Odyssey! v0.3")
         text("This is a text-based adventure game.")
         input("Press ENTER to start the game ...")
         clear_terminal()
