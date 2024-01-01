@@ -24,18 +24,21 @@ class Location:
         self.mark_visited(self.player_position)
 
     def display_map(self) -> None:
-        print("Map:")
+        """
+        This method displays the map of the current location.
+        """
+        text("Map:", space=1)
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
-                    char = " \uff30"  # Player position with space
+                    char = " \uff30"
                 elif self.visited[y][x]:
-                    char = "\033[90m \uff4f\033[0m"  # Dot for visited cells
+                    char = "\033[90m \uff4f\033[0m"
                 else:
-                    char = " \uff0a"  # Light dot or space for unvisited cells
+                    char = " \uff0a"
                 print(char, end="")
-            print()  # New line after each row
-        print()  # Extra line for spacing
+            print()
+        print()
 
     def mark_visited(self, position) -> None:
         x, y = position
