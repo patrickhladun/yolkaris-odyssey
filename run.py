@@ -12,21 +12,36 @@ class Player(Character):
         super().__init__(name, description)
 
 class Location:
-    def __init__(self, name, description):
+    def __init__(self, name, description, size):
         self.name = name
         self.description = description
+        self.size = size
+        self.map = [[" " for _ in range(size[0])] for _ in range(size[1])]
+        self.player_position = (0, 0)
+
+    def display_map(self):
+        text("Map:")
+        for y in range(self.size[1]):
+            for x in range(self.size[0]):
+                if (x, y) == self.player_position:
+                    char = "P "  # Player position
+                else:
+                    char = self.map[y][x] + "\u0387"
+                print(char, end="")
+            print()  # New line after each row
+        print()  # Extra line for spacing
         
 class Yolkaris(Location):
     def __init__(self):
-        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.")
+        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7))
 
 class Mystara(Location):
     def __init__(self):
-        super().__init__("Mystara", "A mysterious planet covered in thick jungles.")
+        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (2, 2))
 
 class Luminara(Location):
     def __init__(self):
-        super().__init__("Luminara", "A radiant planet with a luminous landscape.")
+        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2))
 
 class Game():
     """
@@ -129,6 +144,8 @@ class Game():
         action = input(": ")
         if action == "help":
             self.show_help()
+        elif action == "map":
+            self.display_map()
         elif action == "stats":
             self.show_player_stats()
         elif action == "quit":
@@ -152,6 +169,14 @@ class Game():
     def get_current_location(self):
         current_location_name = list(self.location_objects.keys())[self.current_location]
         return self.location_objects[current_location_name]
+    
+    def display_map(self):
+        """
+        This method displays the map of the current location.
+        """
+        current_location = self.get_current_location()
+        text(f"Current Location: {current_location.name}")
+        current_location.display_map()
 
     def development(self):
         self.create_player()
