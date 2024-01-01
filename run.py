@@ -11,11 +11,34 @@ class Player(Character):
     def __init__(self, name, description):
         super().__init__(name, description)
 
+class Location:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        
+class Yolkaris(Location):
+    def __init__(self):
+        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.")
+
+class Mystara(Location):
+    def __init__(self):
+        super().__init__("Mystara", "A mysterious planet covered in thick jungles.")
+
+class Luminara(Location):
+    def __init__(self):
+        super().__init__("Luminara", "A radiant planet with a luminous landscape.")
+
 class Game():
     """
     This is the main class for the game.
     """
     def __init__(self):
+        self.location_objects = {
+            "Yolkaris": Yolkaris(),
+            "Mystara": Mystara(),
+            "Luminara": Luminara()
+        }
+        self.current_location = 0
         self.game_over = False
         self.player = None
         self.config = Config()
@@ -31,6 +54,19 @@ class Game():
         text(f"Hello {self.player.name} {self.player.description}!")
         text("Good luck on your journey!")
         input("Press ENTER to continue ... ")
+
+    def show_player_stats(self):
+        player = self.player
+        current_location = self.get_current_location()
+
+        # Display player's basic stats
+        clear_terminal()
+        text("Player Stats:")
+        text(f"Name: {player.name}")
+        text(f"Description: {player.description}")
+    
+        text(f"\nCurrent Location: {current_location.name}")
+        text(f"{current_location.description}\n")
 
     def game_title(self):
         """
@@ -93,6 +129,8 @@ class Game():
         action = input(": ")
         if action == "help":
             self.show_help()
+        elif action == "stats":
+            self.show_player_stats()
         elif action == "quit":
             self.game_over = True
 
@@ -111,6 +149,16 @@ class Game():
         while not self.game_over:
             self.choose_action()
 
+    def get_current_location(self):
+        current_location_name = list(self.location_objects.keys())[self.current_location]
+        return self.location_objects[current_location_name]
+
+    def development(self):
+        self.create_player()
+        while not self.game_over:
+            self.choose_action()
+
 if __name__ == "__main__":
     game = Game()
-    game.start_game()
+    # game.start_game()
+    game.development()
