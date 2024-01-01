@@ -1,5 +1,6 @@
 from game.config import Config
-from utils.text_utils import text, space, clear_terminal
+from art import *
+from utils import text, space, clear_terminal
 
 class Character:
     def __init__(self, name, description):
@@ -23,54 +24,77 @@ class Game():
         """
         This creates the player.
         """
-        text("Welcome to the game!", self.config.text_delay)
+        text("Welcome to the game! Great adventurer.")
         name = input("What is your name? ")
         description = input("Write about yourself: ")
         self.player = Player(name, description)
-        text(f"Welcome {self.player.name}!", self.config.text_delay)
+        text(f"Hello {self.player.name} {self.player.description}!")
+        text("Good luck on your journey!")
+        input("Press ENTER to continue ... ")
+
+    def game_title(self):
+        """
+        This is the main menu.
+        """
+        yolkaris=text2art("Yolkaris", font="dos_rebel", chr_ignore=True)
+        odyssey=text2art("Odyssey", font="dos_rebel", chr_ignore=True)
+        print(yolkaris)
+        print(odyssey)
+        pass
 
     def intro(self):
         """
         This is the introduction to the game.
         """
-
-        text("In the far reaches of the galaxy, nestled among the stars, lies a world")
-        text("unlike any other - the planet Yolkaris. A world brimming with mystery and")
-        text("adventure, where legends speak of an ancient power hidden deep within its")
-        text("vibrant landscapes.", delay=0.6, space=1)
+        clear_terminal()
         
-        text("You are Clucky, an intrepid space chicken from the distant planet of Aviara.")
-        text("Your journey has brought you to Yolkaris on a quest of great importance. The")
-        text("fate of your home planet hangs in the balance, threatened by a mysterious")
-        text("force known only as The Dark Dust.", delay=0.6, space=1)
+        text("In the boundless expanse of the cosmos, among a sea of twinkling stars,")
+        text("lies Yolkaris - a vibrant and lively planet home to an extraordinary species")
+        text("of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis.")
+        text("A mysterious and malevolent cosmic dust, known as The Dark Dust, has")
+        text("enshrouded the planet in shadow, blocking the essential sunlight and")
+        text("disrupting the delicate balance of its ecosystem. The once bright and")
+        text("bustling world, a haven of clucking harmony, now teeters on the brink")
+        text("of ecological collapse.", delay=0.6, space=1)
 
-        text("The Dark Dust is a cosmic entity that has plagued the galaxy for millennia,")
-        text("devouring entire worlds and leaving nothing but darkness in its wake. It is")
-        text("said that the only power capable of stopping The Dark Dust is the legendary")
-        text("Aurora Orb, a relic of immense power hidden somewhere on Yolkaris.", delay=0.6, space=1)
+        input("Press ENTER to continue ... ")
+        clear_terminal()
 
-        text("You must find the Aurora Orb and use its power to save Aviara from certain")
-        text("destruction. But you are not alone in your quest. You will be joined by")
-        text("your trusty sidekick, Eggy, a small robot with a big heart.", delay=0.6, space=1)
+        text("In this hour of desperation, hope rests on the wings of one brave hero - Clucky.")
+        text("Renowned for courage and cleverness, Clucky's destiny is to embark on a quest")
+        text("beyond the stars. The mission is dangerous, the stakes are high, and the journey")
+        text("will take Clucky to uncharted corners of the galaxy.", delay=0.6, space=1)
 
-        text("Together, you will explore the vast landscapes of Yolkaris, uncovering its")
-        text("secrets and discovering the truth behind the legend of the Aurora Orb.", delay=0.6, space=1)
-
-        text("will you rise to the challenge and become the hero that Aviara needs? Or will")
-        text("the secrets of Yolkaris remain locked away forever, shrouded in the shadows")
-        text("of the cosmos?", delay=0.6, space=1)
+        text("As Clucky, you will traverse through cosmic wonders and confront unknown dangers.")
+        text("Your quest will lead you to ancient relics and forgotten worlds, where secrets")
+        text("of The Dark Dust await to be uncovered. The journey promises challenges, trials,")
+        text("and the chance to become the saviour that Yolkaris desperately needs.", delay=0.6, space=1)
         
-        text("The adventure begins now, and the destiny of a world rests in your wings.",space=0)
-        text("Good luck!")
+        input("Press ENTER to continue ... ")
+        clear_terminal()
+
+        text("Do you have the courage to step into Clucky's shoes? Are you ready to soar beyond the stars,")
+        text("unravel the mystery of The Dark Dust, and find the key to save your beloved planet?")
+        text("Your decisions, bravery, and wits will shape the fate of Yolkaris.", delay=0.6, space=1)
+
+        text("Prepare for an odyssey that spans the cosmos - an adventure where your actions will determine")
+        text("the survival of an entire world. The journey of Yolkaris Odyssey begins now, and the destiny")
+        text("of a planet rests in your wings.", delay=0.6, space=1)
+
+        input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
 
     def start_game(self):
         """
         This is the main game loop.
         """
+        clear_terminal()
+        self.game_title()
+        text("Welcome to Yolkaris Odyssey! v0.1")
+        text("This is a text-based adventure game.")
+        input("Press ENTER to start the game ...")
+        clear_terminal()
         self.create_player()
         while not self.game_over:
-            text("Welcome to the game!")
-            input("Press enter to exit ...")
             self.intro()
             input("Press enter to exit ...")
             self.game_over = True
