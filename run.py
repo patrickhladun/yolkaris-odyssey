@@ -20,6 +20,8 @@ class Location:
         self.size = size
         self.map = [[" " for _ in range(size[0])] for _ in range(size[1])]
         self.player_position = (0, 0)
+        self.visited = [[False for _ in range(size[0])] for _ in range(size[1])]
+        self.mark_visited(self.player_position)
 
     def display_map(self) -> None:
         print("Map:")
@@ -27,12 +29,18 @@ class Location:
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
                     char = " \uff30"  # Player position with space
+                elif self.visited[y][x]:
+                    char = " \uff4f"  # Dot for visited cells
                 else:
-                    char = self.map[y][x] + "\uff0a"
+                    char = " \uff0a"  # Light dot or space for unvisited cells
                 print(char, end="")
             print()  # New line after each row
         print()  # Extra line for spacing
 
+    def mark_visited(self, position) -> None:
+        x, y = position
+        if 0 <= x < self.size[0] and 0 <= y < self.size[1]:
+            self.visited[y][x] = True
 
 
     def is_valid_position(self, position) -> bool:
@@ -184,9 +192,8 @@ class Game:
         self.create_player()
         # Assign player to current location
         self.assign_player_to_location()
-        input("Press ENTER to continue ... ")
         # Start game intro
-        intro()
+        # intro()
         while not self.game_over:
             self.choose_action()
 
@@ -236,6 +243,7 @@ class Game:
 
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
+            current_location.mark_visited(new_position)
         else:
             print("You can't move in that direction.")
 
