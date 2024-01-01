@@ -83,6 +83,19 @@ class Game():
 
         input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
 
+    def show_help(self):
+        clear_terminal()
+        print("\nAvailable Commands:")
+        print("  help      - Show this help message")
+        print("  quit      - Quit the game\n")
+
+    def choose_action(self):
+        action = input(": ")
+        if action == "help":
+            self.show_help()
+        elif action == "quit":
+            self.game_over = True
+
     def start_game(self):
         """
         This is the main game loop.
@@ -94,10 +107,9 @@ class Game():
         input("Press ENTER to start the game ...")
         clear_terminal()
         self.create_player()
+        self.intro()
         while not self.game_over:
-            self.intro()
-            input("Press enter to exit ...")
-            self.game_over = True
+            self.choose_action()
 
 if __name__ == "__main__":
     game = Game()
