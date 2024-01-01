@@ -30,7 +30,7 @@ class Location:
                 if (x, y) == self.player_position:
                     char = " \uff30"  # Player position with space
                 elif self.visited[y][x]:
-                    char = " \uff4f"  # Dot for visited cells
+                    char = "\033[90m \uff4f\033[0m"  # Dot for visited cells
                 else:
                     char = " \uff0a"  # Light dot or space for unvisited cells
                 print(char, end="")
