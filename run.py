@@ -180,6 +180,15 @@ class Game():
             self.choose_action()
 
     def get_current_location(self):
+        """
+        Retrieves the current location object based on the player's position.
+
+        This method accesses the `location_objects` dictionary using the
+        `current_location` index, which represents the player's current location
+
+        Returns the current location object where the player is at present.
+        """
+        # Retrieve the name of the current location based on the player's position
         current_location_name = list(self.location_objects.keys())[self.current_location]
         return self.location_objects[current_location_name]
 
