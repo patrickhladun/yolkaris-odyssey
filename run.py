@@ -20,18 +20,30 @@ class Location:
         self.size = size
         self.map = [[" " for _ in range(size[0])] for _ in range(size[1])]
         self.player_position = (0, 0)
+        self.visited = [[False for _ in range(size[0])] for _ in range(size[1])]
+        self.mark_visited(self.player_position)
 
     def display_map(self) -> None:
-        text("Map:")
+        """
+        This method displays the map of the current location.
+        """
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
-                    char = "P "  # Player position
+                    char = "\033[93m \uff30\033[0m"
+                elif self.visited[y][x]:
+                    char = "\033[90m \uff4f\033[0m"
                 else:
-                    char = self.map[y][x] + "\u0387"
+                    char = " \uff0a"
                 print(char, end="")
-            print()  # New line after each row
-        print()  # Extra line for spacing
+            print()
+        print()
+
+    def mark_visited(self, position) -> None:
+        x, y = position
+        if 0 <= x < self.size[0] and 0 <= y < self.size[1]:
+            self.visited[y][x] = True
+
 
     def is_valid_position(self, position) -> bool:
         x, y = position
@@ -88,30 +100,25 @@ def intro() -> None:
     text("disrupting the delicate balance of its ecosystem. The once bright and")
     text("bustling world, a haven of clucking harmony, now teeters on the brink")
     text("of ecological collapse.", delay=0.6, space=1)
-
+    text("In this hour of desperation, hope rests on the wings of one brave")
+    text("hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is")
+    text("to embark on a quest beyond the stars. The mission is dangerous, the")
+    text("stakes are high, and the journey will take Clucky to uncharted ")
+    text("corners of the galaxy.", delay=0.6, space=1)
+    text("As Clucky, you will traverse through cosmic wonders and confront unknown")
+    text("dangers. Your quest will lead you to ancient relics and forgotten worlds,")
+    text("where secrets of The Dark Dust await to be uncovered. The journey promises")
+    text("challenges, trials, and the chance to become the saviour that Yolkaris")
+    text("desperately needs.", delay=0.6, space=1)
     input("Press ENTER to continue ... ")
     clear_terminal()
-
-    text("In this hour of desperation, hope rests on the wings of one brave hero - Clucky.")
-    text("Renowned for courage and cleverness, Clucky's destiny is to embark on a quest")
-    text("beyond the stars. The mission is dangerous, the stakes are high, and the journey")
-    text("will take Clucky to uncharted corners of the galaxy.", delay=0.6, space=1)
-
-    text("As Clucky, you will traverse through cosmic wonders and confront unknown dangers.")
-    text("Your quest will lead you to ancient relics and forgotten worlds, where secrets")
-    text("of The Dark Dust await to be uncovered. The journey promises challenges, trials,")
-    text("and the chance to become the saviour that Yolkaris desperately needs.", delay=0.6, space=1)
-
-    input("Press ENTER to continue ... ")
-    clear_terminal()
-
-    text("Do you have the courage to step into Clucky's shoes? Are you ready to soar beyond the stars,")
-    text("unravel the mystery of The Dark Dust, and find the key to save your beloved planet?")
-    text("Your decisions, bravery, and wits will shape the fate of Yolkaris.", delay=0.6, space=1)
-
-    text("Prepare for an odyssey that spans the cosmos - an adventure where your actions will determine")
-    text("the survival of an entire world. The journey of Yolkaris Odyssey begins now, and the destiny")
-    text("of a planet rests in your wings.", delay=0.6, space=1)
+    text("Do you have the courage to step into Clucky's shoes? Are you ready to")
+    text("soar beyond the stars, unravel the mystery of The Dark Dust, and find the")
+    text("key to save your beloved planet? Your decisions, bravery, and wits will")
+    text("shape the fate of Yolkaris.", delay=0.6, space=1)
+    text("Prepare for an odyssey that spans the cosmos - an adventure where your")
+    text("actions will determine the survival of an entire world. The journey of ")
+    text("Yolkaris Odyssey begins now, and the destiny of a planet rests in your wings.", delay=0.6, space=1)
 
     input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
 
@@ -179,7 +186,7 @@ class Game:
         """
         clear_terminal()
         game_title()
-        text("Welcome to Yolkaris Odyssey! v0.2")
+        text("Welcome to Yolkaris Odyssey! v0.3")
         text("This is a text-based adventure game.")
         input("Press ENTER to start the game ...")
         clear_terminal()
@@ -187,9 +194,8 @@ class Game:
         self.create_player()
         # Assign player to current location
         self.assign_player_to_location()
-        input("Press ENTER to continue ... ")
         # Start game intro
-        intro()
+        # intro()
         while not self.game_over:
             self.choose_action()
 
@@ -223,14 +229,8 @@ class Game:
         This method displays the map of the current location.
         """
         current_location = self.get_current_location()
-        text(f"Current Location: {current_location.name}")
+        text(f"Map of {current_location.name}")
         current_location.display_map()
-
-    def development(self) -> None:
-        self.create_player()
-        while not self.game_over:
-            self.get_current_location()
-            self.choose_action()
 
     def update_player_position(self, dx: int, dy: int) -> None:
         current_location = self.get_current_location()
@@ -239,6 +239,7 @@ class Game:
 
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
+            current_location.mark_visited(new_position)
         else:
             print("You can't move in that direction.")
 
@@ -258,4 +259,3 @@ class Game:
 if __name__ == "__main__":
     game = Game()
     game.start_game()
-    # game.development()
