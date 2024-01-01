@@ -37,7 +37,7 @@ class Game():
         """
         This is the introduction to the game.
         """
-        
+
         text("In the far reaches of the galaxy, nestled among the stars, lies a world")
         text("unlike any other - the planet Yolkaris. A world brimming with mystery and")
         text("adventure, where legends speak of an ancient power hidden deep within its")
@@ -80,11 +80,22 @@ class Game():
             self.game_over = True
 
 def text(text, delay=0.2, space=0):
+    """
+    This prints text to the terminal.
+    - text: the text to print
+    - delay: the delay between each character
+    - space: the number of new lines to print after the text
+    """
     line_space = '\n' * space
     print(text + line_space)
     time.sleep(delay)
 
 def space(space=1,delay=0.2):
+    """
+    This prints a new line to the terminal.
+    - space: the number of new lines to print
+    - delay: the delay between each new line
+    """
     print('\n')
     time.sleep(delay)
 
