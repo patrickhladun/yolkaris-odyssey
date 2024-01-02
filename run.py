@@ -72,10 +72,22 @@ class Interaction:
             area.enemy.interact(self)
 
     def with_enemy(self, enemy):
+        combat = Combat(self.player, enemy)
         text(f"{enemy.name} stand on your way, {self.player.name}")
         paragraph(enemy.description)
         paragraph(enemy.narration)
         paragraph(enemy.dialogue)
+        combat.start_combat()
+
+
+class Combat:
+    def __init__(self, player, enemy):
+        self.player = player
+        self.enemy = enemy
+
+    def start_combat(self):
+        text(f"Lets fight: {self.player.name} and {self.enemy.name}")
+        input("Finish the fight")
 
 
 class Location:
@@ -205,9 +217,8 @@ class Area:
 
         interaction.with_area(self)
 
-        # Handle specific interactions based on area content
         if self.enemy:
-            interaction.with_enemy(self.enemy)
+            interaction.with_enemy(self.enemy) 
 
 
 yolkaris_areas = [
@@ -464,6 +475,7 @@ class Game:
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
             current_location.mark_visited(new_position)
+            print(f"PLAYER : {self.player.name}")
             current_location.check_for_interaction(new_position, self.player)
         else:
             print("You can't move in that direction.")
