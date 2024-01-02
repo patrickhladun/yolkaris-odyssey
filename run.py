@@ -1,4 +1,5 @@
 from game.config import Config
+import random
 from art import *
 from utils import text, space, clear_terminal
 from pprint import pprint
@@ -18,24 +19,60 @@ class Location:
         self.name = name
         self.description = description
         self.size = size
-        self.map = [["" for _ in range(size[0])] for _ in range(size[1])]
+        self.areas = areas if areas else []
         self.player_position = (0, 0)
+        self.contents = {}
+        self.map = [["" for _ in range(size[0])] for _ in range(size[1])]
         self.visited = [[False for _ in range(size[0])] for _ in range(size[1])]
         self.mark_visited(self.player_position)
-        self.areas = areas
+        self.randomly_place_elements()
+
+    def place_on_map(self, element, position=None):
+        """
+        Places an element on the map at the specified position.
+        """
+        while position is None or position in self.contents:
+            position = self.get_random_position()
+        self.contents[position] = element
+
+    def randomly_place_elements(self):
+        """
+        This method randomly places elements in the location.
+        """
+        areas = random.sample(area_list, 4)
+
+        # Randomly place areas on map if area has no location attribute specified
+        for area in areas:
+            if hasattr(area, 'location') and area.location is not None and self.is_valid_position(area.location):
+                self.place_on_map(area, area.location)
+            else:
+                self.place_on_map(area)
+
+    def get_random_position(self):
+        x = random.randint(0, self.size[0] - 1)
+        y = random.randint(0, self.size[1] - 1)
+        return (x, y)            
 
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
         """
         print(f"Position: {self.player_position}")
-        pprint(self.map)
-        print('Visited')
-        pprint(f"{self.visited}", width=135)
+        # pprint(self.map)
+        print('Contents')
+        pprint(f"{self.contents}", width=135)
+        # print('Visited')
+        # pprint(f"{self.visited}", width=135)
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
                     char = "\033[93m \uff30\033[0m"
+                elif (x, y) in self.contents:
+                    element = self.contents[(x, y)]
+                    if isinstance(element, Area):
+                        char = "\033[92m \uff0a\033[0m"
+                    else:
+                        char = " \uff0a"
                 elif self.visited[y][x]:
                     char = "\033[90m \uff4f\033[0m"
                 else:
@@ -52,35 +89,36 @@ class Location:
         if 0 <= x < self.size[0] and 0 <= y < self.size[1]:
             self.visited[y][x] = True
 
-
     def is_valid_position(self, position) -> bool:
         """
         This method checks if the position is valid.
         """
+        print(f"Checking if position is valid: {position}")  # Diagnostic print
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
 
 class Yolkaris(Location):
     def __init__(self) -> None:
-        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7))
+        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7), area_list)
 
 
 class Mystara(Location):
     def __init__(self) -> None:
-        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (2, 2))
+        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (2, 2), area_list)
 
 
 class Luminara(Location):
     def __init__(self) -> None:
-        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2))
+        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2), area_list)
 
 
 class Area:
-    def __init__(self, name, description, narration ):
+    def __init__(self, name, description, narration, location=None):
         self.name = name
         self.description = description
         self.narration = narration
+        self.location = location
 
 
 area_list = [
@@ -102,7 +140,8 @@ area_list = [
 
     Area("Mystical Mountain Summit",
          "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
-         "Standing here, above everything, you feel a connection with the sky and the stars."),
+         "Standing here, above everything, you feel a connection with the sky and the stars.",
+         (1, 1)),
 ]
 
 
