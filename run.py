@@ -1,7 +1,7 @@
 from game.config import Config
 from art import *
 from utils import text, space, clear_terminal
-
+from pprint import pprint
 
 class Character:
     def __init__(self, name) -> None:
@@ -14,19 +14,24 @@ class Player(Character):
 
 
 class Location:
-    def __init__(self, name: str, description: str, size: tuple) -> None:
+    def __init__(self, name: str, description: str, size: tuple, areas) -> None:
         self.name = name
         self.description = description
         self.size = size
-        self.map = [[" " for _ in range(size[0])] for _ in range(size[1])]
+        self.map = [["" for _ in range(size[0])] for _ in range(size[1])]
         self.player_position = (0, 0)
         self.visited = [[False for _ in range(size[0])] for _ in range(size[1])]
         self.mark_visited(self.player_position)
+        self.areas = areas
 
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
         """
+        print(f"Position: {self.player_position}")
+        pprint(self.map)
+        print('Visited')
+        pprint(f"{self.visited}", width=135)
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
@@ -69,6 +74,36 @@ class Mystara(Location):
 class Luminara(Location):
     def __init__(self) -> None:
         super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2))
+
+
+class Area:
+    def __init__(self, name, description, narration ):
+        self.name = name
+        self.description = description
+        self.narration = narration
+
+
+area_list = [
+    Area("Enchanted Forest",
+         "A mystical woodland brimming with magical creatures and ancient trees.",
+         "Every step in this forest feels like walking through a fairy tale."),
+
+    Area("Crystal Caverns",
+         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
+         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
+
+    Area("Lost City Ruins",
+         "Ancient structures overrun by time, with remnants of a once-great civilization.",
+         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
+
+    Area("Haunted Graveyard",
+         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
+         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
+
+    Area("Mystical Mountain Summit",
+         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
+         "Standing here, above everything, you feel a connection with the sky and the stars."),
+]
 
 
 def game_title() -> None:
@@ -208,7 +243,7 @@ class Game:
         game_title()
         text("Welcome to Yolkaris Odyssey! v0.3")
         text("This is a text-based adventure game.")
-        input("Press ENTER to start the game ...")
+        # input("Press ENTER to start the game ...")
         clear_terminal()
         # Create player
         self.create_player()
@@ -217,6 +252,7 @@ class Game:
         # Start game intro
         # intro()
         while not self.game_over:
+            self.display_map()
             self.choose_action()
 
     def get_current_location(self) -> Location:
