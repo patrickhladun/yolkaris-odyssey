@@ -67,14 +67,10 @@ class Location:
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
                     char = "\033[93m \uff30\033[0m"
-                elif (x, y) in self.contents:
-                    element = self.contents[(x, y)]
-                    if isinstance(element, Area):
-                        char = "\033[92m \uff0a\033[0m"
-                    else:
-                        char = " \uff0a"
                 elif self.visited[y][x]:
                     char = "\033[90m \uff4f\033[0m"
+                elif (x, y) in self.contents and isinstance(self.contents[(x, y)], Area):
+                    char = "\033[92m \uff0a\033[0m"
                 else:
                     char = " \uff0a"
                 print(char, end="")
@@ -97,10 +93,16 @@ class Location:
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
+    def check_for_interaction(self, position):
+        if position in self.contents:
+            element = self.contents[position]
+            if isinstance(element, Area):
+                element.interact(self.player)
+
 
 class Yolkaris(Location):
     def __init__(self) -> None:
-        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (18, 7), area_list)
+        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (12, 4), area_list)
 
 
 class Mystara(Location):
@@ -119,6 +121,11 @@ class Area:
         self.description = description
         self.narration = narration
         self.location = location
+
+    def interact(self, player):
+        text(f"You are visiting {self.name}")
+        text(f"Description: {self.description}")
+        text(f"Narration: {self.narration}")
 
 
 area_list = [
@@ -291,7 +298,6 @@ class Game:
         # Start game intro
         # intro()
         while not self.game_over:
-            self.display_map()
             self.choose_action()
 
     def get_current_location(self) -> Location:
@@ -346,6 +352,7 @@ class Game:
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
             current_location.mark_visited(new_position)
+            current_location.check_for_interaction(new_position)
         else:
             print("You can't move in that direction.")
 
