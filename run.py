@@ -4,6 +4,7 @@ from art import *
 from utils import text, space, clear_terminal
 from pprint import pprint
 
+
 class Character:
     def __init__(self, name) -> None:
         self.name = name
@@ -12,6 +13,20 @@ class Character:
 class Player(Character):
     def __init__(self, name) -> None:
         super().__init__(name)
+
+
+class Enemy(Character):
+    """
+    Initializes an enemy character.
+    """
+
+    def __init__(self, name: str, description: str):
+        super().__init__(name)
+        self.description = description
+
+    def interact(self, player):
+        text(f"{self.name} stand on your way")
+        text(f"Description: {self.description}")
 
 
 class Location:
@@ -39,19 +54,19 @@ class Location:
         """
         This method randomly places elements in the location.
         """
-        areas = random.sample(self.areas, 4)
-
-        # Randomly place areas on map if area has no location attribute specified
-        for area in areas:
-            if hasattr(area, 'location') and area.location is not None and self.is_valid_position(area.location):
-                self.place_on_map(area, area.location)
+        for area in self.areas:
+            if hasattr(area, 'position') and area.position is not None and self.is_valid_position(area.position):
+                if area.position not in self.contents:
+                    self.place_on_map(area, area.position)
+                else:
+                    self.place_on_map(area)
             else:
                 self.place_on_map(area)
 
     def get_random_position(self):
         x = random.randint(0, self.size[0] - 1)
         y = random.randint(0, self.size[1] - 1)
-        return (x, y)            
+        return (x, y)
 
     def display_map(self) -> None:
         """
@@ -99,6 +114,17 @@ class Location:
             if isinstance(element, Area):
                 element.interact(self.player)
 
+    def print_contents(self):
+        if not self.contents:
+            print("There are no items or enemies in this location.")
+            return
+
+        clear_terminal()
+        print("Contents of the location:")
+        for position, element in self.contents.items():
+            element_type = type(element).__name__
+            element_info = f"{element.name}" if hasattr(element, 'name') else "Unknown"
+            print(f"Position {position}: {element_type} - {element_info}")
 
 class Yolkaris(Location):
     def __init__(self) -> None:
@@ -116,10 +142,11 @@ class Luminara(Location):
 
 
 class Area:
-    def __init__(self, name, description, narration, position=None):
+    def __init__(self, name: str, description, narration, enemy=None, position=None):
         self.name = name
         self.description = description
         self.narration = narration
+        self.enemy = enemy
         self.position = position
 
     def interact(self, player):
@@ -127,74 +154,39 @@ class Area:
         text(f"Description: {self.description}")
         text(f"Narration: {self.narration}")
 
+        if self.enemy:
+            self.enemy.interact(player)
+
 
 yolkaris_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale."),
-
-    Area("Crystal Caverns",
-         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
-         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
-
+         "Every step in this forest feels like walking through a fairy tale.",
+         position=(1, 1),
+         enemy=Enemy('Yorkish', 'Nasty busty monter yey')),
     Area("Lost City Ruins",
          "Ancient structures overrun by time, with remnants of a once-great civilization.",
-         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
-
+         "Echoes of the past resonate through the crumbling stone, whispering old secrets.",
+         position=(3, 0),),
+    Area("Crystal Caverns",
+         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
+         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
+         ),
     Area("Haunted Graveyard",
          "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
          "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
-
-    Area("Mystical Mountain Summit",
-         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
-         "Standing here, above everything, you feel a connection with the sky and the stars.",
-         (1, 1)),
 ]
 
 mystara_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
          "Every step in this forest feels like walking through a fairy tale."),
-
-    Area("Crystal Caverns",
-         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
-         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
-
-    Area("Lost City Ruins",
-         "Ancient structures overrun by time, with remnants of a once-great civilization.",
-         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
-
-    Area("Haunted Graveyard",
-         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
-         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
-
-    Area("Mystical Mountain Summit",
-         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
-         "Standing here, above everything, you feel a connection with the sky and the stars.",
-         (1, 1)),
 ]
 
 luminara_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
          "Every step in this forest feels like walking through a fairy tale."),
-
-    Area("Crystal Caverns",
-         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
-         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
-
-    Area("Lost City Ruins",
-         "Ancient structures overrun by time, with remnants of a once-great civilization.",
-         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
-
-    Area("Haunted Graveyard",
-         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
-         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
-
-    Area("Mystical Mountain Summit",
-         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
-         "Standing here, above everything, you feel a connection with the sky and the stars.",
-         (1, 1)),
 ]
 
 
@@ -325,6 +317,8 @@ class Game:
             self.move_west()
         elif action == "stats":
             self.show_player_stats()
+        elif action == "contents":
+            self.show_location_contents()
         elif action == "quit":
             self.game_over = True
 
@@ -427,6 +421,9 @@ class Game:
         """
         self.update_player_position(-1, 0)
 
+    def show_location_contents(self):
+        current_location = self.get_current_location()
+        current_location.print_contents()
 
 if __name__ == "__main__":
     game = Game()
