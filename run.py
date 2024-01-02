@@ -40,12 +40,18 @@ class Location:
         print()
 
     def mark_visited(self, position) -> None:
+        """
+        This method marks the position as visited.
+        """
         x, y = position
         if 0 <= x < self.size[0] and 0 <= y < self.size[1]:
             self.visited[y][x] = True
 
 
     def is_valid_position(self, position) -> bool:
+        """
+        This method checks if the position is valid.
+        """
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
@@ -76,12 +82,16 @@ def game_title() -> None:
 
 
 def show_help() -> None:
+    """
+    This function displays the available commands.
+    """
     clear_terminal()
     text("Available Commands:", space=1)
     text("  north      - Move North (up)", delay=0.1)
     text("  south      - Move South (down)", delay=0.1)
     text("  east       - Move East (up)", delay=0.1)
     text("  west       - Move West (up)", delay=0.1, space=1)
+    text("  map        - Show the map", delay=0.1)
     text("  help       - Show this help message", delay=0.1)
     text("  quit       - Quit the game", delay=0.1)
 
@@ -125,7 +135,7 @@ def intro() -> None:
 
 class Game:
     """
-    This is the main class for the game.
+    This is the main class for the game. 
     """
 
     def __init__(self) -> None:
@@ -145,11 +155,16 @@ class Game:
         """
         text("Welcome to the game! Great adventurer.")
         name = input("What is your name? ")
+        # Create player object and assign it to the game object
         self.player = Player(name)
         text(f"Hello {self.player.name}!")
         text("Good luck on your journey!")
 
     def show_player_stats(self) -> None:
+        """
+        This method displays the player's stats.
+        """
+        # Retrieve the player object and current location object
         player = self.player
         current_location = self.get_current_location()
 
@@ -157,11 +172,16 @@ class Game:
         clear_terminal()
         text("Player Stats:")
         text(f"Name: {player.name}")
-
+        # Display player's current location
         text(f"\nCurrent Location: {current_location.name}")
         text(f"{current_location.description}\n")
 
     def choose_action(self) -> None:
+        """
+        This method displays the available actions and prompts the player to choose
+        an action. The method then calls the appropriate method based on the player's
+        choice.
+        """
         action = input(": ")
         if action == "help":
             show_help()
@@ -228,15 +248,26 @@ class Game:
         """
         This method displays the map of the current location.
         """
+        # Retrieve the current location object
         current_location = self.get_current_location()
+        # Display the map of the current location
         text(f"Map of {current_location.name}")
         current_location.display_map()
 
     def update_player_position(self, dx: int, dy: int) -> None:
+        """
+        This method updates the player's position in the current location.
+        dx: int - The change in the x-axis
+        dy: int - The change in the y-axis
+        """
+        # Retrieve the current location object
         current_location = self.get_current_location()
+        # Retrieve the player's current position
         x, y = current_location.player_position
+        # Calculate the new position
         new_position = (x + dx, y + dy)
 
+        # Check if the new position is valid
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
             current_location.mark_visited(new_position)
@@ -244,15 +275,27 @@ class Game:
             print("You can't move in that direction.")
 
     def move_north(self) -> None:
+        """
+        This method moves the player north.
+        """
         self.update_player_position(0, -1)
 
     def move_south(self) -> None:
+        """
+        This method moves the player south.
+        """
         self.update_player_position(0, 1)
 
     def move_east(self) -> None:
+        """
+        This method moves the player east.
+        """
         self.update_player_position(1, 0)
 
     def move_west(self) -> None:
+        """
+        This method moves the player west.
+        """
         self.update_player_position(-1, 0)
 
 
