@@ -5,5 +5,5 @@
 
 ## Running the Game
 
-1. Run `docker build -t yolkaris-odyssey .`
-2. Run 
+1. Build the container `docker build -t yolkaris-odyssey .`
+2. Run the container `docker run -p 3000:8000 yolkaris-odyssey`
