@@ -39,7 +39,7 @@ class Location:
         """
         This method randomly places elements in the location.
         """
-        areas = random.sample(area_list, 4)
+        areas = random.sample(self.areas, 4)
 
         # Randomly place areas on map if area has no location attribute specified
         for area in areas:
@@ -102,25 +102,25 @@ class Location:
 
 class Yolkaris(Location):
     def __init__(self) -> None:
-        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (12, 4), area_list)
+        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (4, 2), yolkaris_areas)
 
 
 class Mystara(Location):
     def __init__(self) -> None:
-        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (2, 2), area_list)
+        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (8, 4), mystara_areas)
 
 
 class Luminara(Location):
     def __init__(self) -> None:
-        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (2, 2), area_list)
+        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (7, 4), luminara_areas)
 
 
 class Area:
-    def __init__(self, name, description, narration, location=None):
+    def __init__(self, name, description, narration, position=None):
         self.name = name
         self.description = description
         self.narration = narration
-        self.location = location
+        self.position = position
 
     def interact(self, player):
         text(f"You are visiting {self.name}")
@@ -128,7 +128,53 @@ class Area:
         text(f"Narration: {self.narration}")
 
 
-area_list = [
+yolkaris_areas = [
+    Area("Enchanted Forest",
+         "A mystical woodland brimming with magical creatures and ancient trees.",
+         "Every step in this forest feels like walking through a fairy tale."),
+
+    Area("Crystal Caverns",
+         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
+         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
+
+    Area("Lost City Ruins",
+         "Ancient structures overrun by time, with remnants of a once-great civilization.",
+         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
+
+    Area("Haunted Graveyard",
+         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
+         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
+
+    Area("Mystical Mountain Summit",
+         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
+         "Standing here, above everything, you feel a connection with the sky and the stars.",
+         (1, 1)),
+]
+
+mystara_areas = [
+    Area("Enchanted Forest",
+         "A mystical woodland brimming with magical creatures and ancient trees.",
+         "Every step in this forest feels like walking through a fairy tale."),
+
+    Area("Crystal Caverns",
+         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
+         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story."),
+
+    Area("Lost City Ruins",
+         "Ancient structures overrun by time, with remnants of a once-great civilization.",
+         "Echoes of the past resonate through the crumbling stone, whispering old secrets."),
+
+    Area("Haunted Graveyard",
+         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
+         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
+
+    Area("Mystical Mountain Summit",
+         "The peak of the world, surrounded by clouds and echoing with the songs of the wind.",
+         "Standing here, above everything, you feel a connection with the sky and the stars.",
+         (1, 1)),
+]
+
+luminara_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
          "Every step in this forest feels like walking through a fairy tale."),
@@ -226,6 +272,7 @@ class Game:
             "Luminara": Luminara()
         }
         self.current_location = 0
+
         self.game_over = False
         self.player = None
         self.config = Config()
