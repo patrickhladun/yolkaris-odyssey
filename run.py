@@ -6,13 +6,21 @@ from pprint import pprint
 
 
 class Character:
-    def __init__(self, name) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
 
 
 class Player(Character):
-    def __init__(self, name) -> None:
+    def __init__(self,
+                 name: str,
+                 health: int,
+                 attack: int,
+                 defence: int
+                 ) -> None:
         super().__init__(name)
+        self.health = health
+        self.attack = attack
+        self.defence = defence
 
 
 class Enemy(Character):
@@ -20,18 +28,54 @@ class Enemy(Character):
     Initializes an enemy character.
     """
 
-    def __init__(self, name: str, description: str, narration: str, dialogue: str):
+    def __init__(self,
+                 name: str,
+                 description: str,
+                 narration: str,
+                 dialogue: str,
+                 health: int,
+                 attack: int,
+                 defence: int
+                 ) -> None:
         super().__init__(name)
         self.description = description
         self.narration = narration
         self.dialogue = dialogue
+        self.health = health
+        self.attack = attack
+        self.defence = defence
+        self.player = None
 
     def interact(self, player):
         text(f"{self.name} stand on your way")
         paragraph(self.description)
         paragraph(self.narration)
         paragraph(self.dialogue)
-        input('exit the fight')
+
+
+class Neutral(Character):
+    def __init__(self, name) -> None:
+        super().__init__(name)
+
+
+class Interaction:
+    def __init__(self, player):
+        self.player = player
+
+    def with_area(self, area):
+        clear_terminal()
+        paragraph(f"You are visiting {area.name}, {area.description}")
+        paragraph(area.narration)
+        paragraph(area.dialogue)
+
+        if area.enemy:
+            area.enemy.interact(self)
+
+    def with_enemy(self, enemy):
+        text(f"{enemy.name} stand on your way, {self.player.name}")
+        paragraph(enemy.description)
+        paragraph(enemy.narration)
+        paragraph(enemy.dialogue)
 
 
 class Location:
@@ -113,11 +157,11 @@ class Location:
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
-    def check_for_interaction(self, position):
+    def check_for_interaction(self, position, player):
         if position in self.contents:
             element = self.contents[position]
             if isinstance(element, Area):
-                element.interact(self.player)
+                element.interact(player)
 
     def print_contents(self):
         if not self.contents:
@@ -130,6 +174,7 @@ class Location:
             element_type = type(element).__name__
             element_info = f"{element.name}" if hasattr(element, 'name') else "Unknown"
             print(f"Position {position}: {element_type} - {element_info}")
+
 
 class Yolkaris(Location):
     def __init__(self) -> None:
@@ -156,13 +201,13 @@ class Area:
         self.position = position
 
     def interact(self, player):
-        clear_terminal()
-        paragraph(f"You are visiting {self.name}, {self.description}")
-        paragraph(self.narration)
-        paragraph(self.dialogue)
+        interaction = Interaction(player)
 
+        interaction.with_area(self)
+
+        # Handle specific interactions based on area content
         if self.enemy:
-            self.enemy.interact(player)
+            interaction.with_enemy(self.enemy)
 
 
 yolkaris_areas = [
@@ -179,7 +224,10 @@ yolkaris_areas = [
             name='Yorkish',
             description='Nasty busty monster yey',
             narration="This monster will bit you in 5 sec",
-            dialogue="I think I should be ok against this one"
+            dialogue="I think I should be ok against this one",
+            health=20,
+            attack=7,
+            defence=9
         )
     ),
     Area("Lost City Ruins",
@@ -299,7 +347,7 @@ class Game:
         text("Welcome to the game! Great adventurer.")
         name = input("What is your name? ")
         # Create player object and assign it to the game object
-        self.player = Player(name)
+        self.player = Player(name, 100, 10, 10)
         text(f"Hello {self.player.name}!")
         text("Good luck on your journey!")
 
@@ -416,7 +464,7 @@ class Game:
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
             current_location.mark_visited(new_position)
-            current_location.check_for_interaction(new_position)
+            current_location.check_for_interaction(new_position, self.player)
         else:
             print("You can't move in that direction.")
 
@@ -447,6 +495,7 @@ class Game:
     def show_location_contents(self):
         current_location = self.get_current_location()
         current_location.print_contents()
+
 
 if __name__ == "__main__":
     game = Game()
