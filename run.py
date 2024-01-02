@@ -1,7 +1,7 @@
 from game.config import Config
 import random
 from art import *
-from utils import text, space, clear_terminal
+from utils import text, paragraph, space, clear_terminal
 from pprint import pprint
 
 
@@ -20,13 +20,18 @@ class Enemy(Character):
     Initializes an enemy character.
     """
 
-    def __init__(self, name: str, description: str):
+    def __init__(self, name: str, description: str, narration: str, dialogue: str):
         super().__init__(name)
         self.description = description
+        self.narration = narration
+        self.dialogue = dialogue
 
     def interact(self, player):
         text(f"{self.name} stand on your way")
-        text(f"Description: {self.description}")
+        paragraph(self.description)
+        paragraph(self.narration)
+        paragraph(self.dialogue)
+        input('exit the fight')
 
 
 class Location:
@@ -142,51 +147,69 @@ class Luminara(Location):
 
 
 class Area:
-    def __init__(self, name: str, description, narration, enemy=None, position=None):
+    def __init__(self, name: str, description, narration, dialogue, enemy=None, position=None):
         self.name = name
         self.description = description
         self.narration = narration
+        self.dialogue = dialogue
         self.enemy = enemy
         self.position = position
 
     def interact(self, player):
-        text(f"You are visiting {self.name}")
-        text(f"Description: {self.description}")
-        text(f"Narration: {self.narration}")
+        clear_terminal()
+        paragraph(f"You are visiting {self.name}, {self.description}")
+        paragraph(self.narration)
+        paragraph(self.dialogue)
 
         if self.enemy:
             self.enemy.interact(player)
 
 
 yolkaris_areas = [
-    Area("Enchanted Forest",
-         "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale.",
-         position=(1, 1),
-         enemy=Enemy('Yorkish', 'Nasty busty monter yey')),
+    Area(
+        name="Enchanted Forest",
+        description="A mystical woodland brimming with magical creatures and ancient trees.",
+        narration="As you step into the Enchanted Forest, a sense of awe washes over you. The sights and sounds of the "
+        "forest are like nothing you've ever experienced. The air feels thick with magic, almost as if you could reach "
+        "out and touch it.",
+        dialogue="I feel tired; the journey has been so long already. A cup of nice coffee would be a "
+        "blessing now. I wonder how folks are doing back home. This seems like a good spot for a quick nap.",
+        position=(0, 1),
+        enemy=Enemy(
+            name='Yorkish',
+            description='Nasty busty monster yey',
+            narration="This monster will bit you in 5 sec",
+            dialogue="I think I should be ok against this one"
+        )
+    ),
     Area("Lost City Ruins",
          "Ancient structures overrun by time, with remnants of a once-great civilization.",
          "Echoes of the past resonate through the crumbling stone, whispering old secrets.",
+         "",
          position=(3, 0),),
     Area("Crystal Caverns",
          "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
          "The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
+         ""
          ),
     Area("Haunted Graveyard",
          "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
-         "The air here is heavy with unspoken stories, and every grave has its own chilling tale."),
+         "The air here is heavy with unspoken stories, and every grave has its own chilling tale.",
+         ""),
 ]
 
 mystara_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale."),
+         "Every step in this forest feels like walking through a fairy tale.",
+         ""),
 ]
 
 luminara_areas = [
     Area("Enchanted Forest",
          "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale."),
+         "Every step in this forest feels like walking through a fairy tale.",
+         ""),
 ]
 
 
