@@ -15,12 +15,12 @@ class Player(Character):
                  name: str,
                  health: int,
                  attack: int,
-                 defence: int
+                 defense: int
                  ) -> None:
         super().__init__(name)
         self.health = health
         self.attack = attack
-        self.defence = defence
+        self.defense = defense
 
 
 class Enemy(Character):
@@ -35,7 +35,7 @@ class Enemy(Character):
                  dialogue: str,
                  health: int,
                  attack: int,
-                 defence: int
+                 defense: int
                  ) -> None:
         super().__init__(name)
         self.description = description
@@ -43,7 +43,7 @@ class Enemy(Character):
         self.dialogue = dialogue
         self.health = health
         self.attack = attack
-        self.defence = defence
+        self.defense = defense
 
     def interact(self, player):
         text(f"{self.name} stand on your way")
@@ -92,12 +92,12 @@ class Combat:
         clear_terminal()
 
         while player.health > 0 and enemy.health > 0:
-            print('Player Attack')
+            self.player_attack()
             if enemy.health <= 0:
                 print("Enemy defeated!")
                 break
 
-            print('Enemy Attack')
+            self.enemy_attack()
             if player.health <= 0:
                 print("Player defeated!")
                 break
@@ -108,6 +108,19 @@ class Combat:
 
         print(f"Player: health:{player.health}")
         print(f"Enemy: health:{enemy.health}")
+
+    def player_attack(self):
+        damage = self.calculate_damage(self.player.attack, self.enemy.defense)
+        self.enemy.health -= damage
+        print(f"You hit the enemy causing {damage} damage.")
+
+    def enemy_attack(self):
+        damage = self.calculate_damage(self.enemy.attack, self.player.defense)
+        self.player.health -= damage
+        print(f"Enemy hits you causing {damage} damage.")
+
+    def calculate_damage(self, attack, defense):
+        return max(int(random.uniform(0, attack) - random.uniform(0, defense)), 0)
 
 
 class Location:
@@ -258,7 +271,7 @@ yolkaris_areas = [
             dialogue="I think I should be ok against this one",
             health=20,
             attack=7,
-            defence=9
+            defense=9
         )
     ),
     Area("Lost City Ruins",
