@@ -44,7 +44,6 @@ class Enemy(Character):
         self.health = health
         self.attack = attack
         self.defence = defence
-        self.player = None
 
     def interact(self, player):
         text(f"{self.name} stand on your way")
@@ -86,8 +85,29 @@ class Combat:
         self.enemy = enemy
 
     def start_combat(self):
-        text(f"Lets fight: {self.player.name} and {self.enemy.name}")
-        input("Finish the fight")
+        player = self.player
+        enemy = self.enemy
+
+        input("Lats fight!")
+        clear_terminal()
+
+        while player.health > 0 and enemy.health > 0:
+            print('Player Attack')
+            if enemy.health <= 0:
+                print("Enemy defeated!")
+                break
+
+            print('Enemy Attack')
+            if player.health <= 0:
+                print("Player defeated!")
+                break
+
+            choice = input("Continue fighting (yes) or flee (no)? ")
+            if choice.lower() != "yes":
+                break
+
+        print(f"Player: health:{player.health}")
+        print(f"Enemy: health:{enemy.health}")
 
 
 class Location:
@@ -218,7 +238,7 @@ class Area:
         interaction.with_area(self)
 
         if self.enemy:
-            interaction.with_enemy(self.enemy) 
+            interaction.with_enemy(self.enemy)
 
 
 yolkaris_areas = [
