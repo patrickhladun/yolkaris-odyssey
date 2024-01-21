@@ -4,7 +4,6 @@ from art import *
 from utils import text, paragraph, space, clear_terminal
 from pprint import pprint
 
-
 class Character:
     def __init__(self, name: str) -> None:
         self.name = name
@@ -330,6 +329,19 @@ def show_help() -> None:
     text("  quit       - Quit the game", delay=0.1)
 
 
+
+def next_to_continue():
+    """
+    Function to prompt the user to type 'next' or 'n' and press Enter to continue the game.
+    """
+    while True:
+        user_input = input("Type 'next' or 'n' and press Enter to continue: ").strip().lower()
+        if user_input == "next" or user_input == "n":
+            break
+        else:
+            print("Invalid input. Please type 'next' or 'n'.")
+
+
 class Game:
     """
     This is the main class for the game. 
@@ -425,7 +437,7 @@ class Game:
 
         text(f"Hello {self.player.name}!")
         text("Welcome to Yolkaris Odyssey!", delay=0.6, space=1)
-        input("Press ENTER to continue ... ")
+        next_to_continue()
 
         clear_terminal()
         text("In the boundless expanse of the cosmos, among a sea of twinkling stars,")
@@ -446,7 +458,8 @@ class Game:
         text("where secrets of The Dark Dust await to be uncovered. The journey promises")
         text("challenges, trials, and the chance to become the saviour that Yolkaris")
         text("desperately needs.", delay=0.6, space=1)
-        input("Press ENTER to continue ... ")
+        next_to_continue()
+
         clear_terminal()
         text("Do you have the courage to step into Clucky's shoes? Are you ready to")
         text("soar beyond the stars, unravel the mystery of The Dark Dust, and find the")
@@ -455,9 +468,11 @@ class Game:
         text("Prepare for an odyssey that spans the cosmos - an adventure where your")
         text("actions will determine the survival of an entire world. The journey of ")
         text("Yolkaris Odyssey begins now, and the destiny of a planet rests in your wings.", delay=0.6, space=1)
-        input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
+        next_to_continue()
+
         clear_terminal()
         show_help()
+
 
     def get_current_location(self) -> Location:
         """
