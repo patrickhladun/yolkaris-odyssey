@@ -364,9 +364,15 @@ class Game:
         This creates the player.
         """
         text("Welcome to the game! Great adventurer.")
-        name = input("What is your name? ")
-        # Create player object and assign it to the game object
-        self.player = Player(name, 100, 10, 10)
+        while True:
+            username = input("Please enter your username: ").strip()
+            if 3 <= len(username) <= 24 and username.isalnum() and '_' not in username:
+                self.player = Player(username, 100, 10, 10)
+                break
+            else:
+                print("Invalid username. It should be between 3 to 24 characters, contain only letters and numbers, and no underscores.")
+        
+        
 
     def show_player_stats(self) -> None:
         """
