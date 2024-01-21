@@ -88,7 +88,7 @@ class Combat:
         player = self.player
         enemy = self.enemy
 
-        input("Lats fight!")
+        input("Lets fight!")
         clear_terminal()
 
         while player.health > 0 and enemy.health > 0:
@@ -102,8 +102,8 @@ class Combat:
                 print("Player defeated!")
                 break
 
-            choice = input("Continue fighting (yes) or flee (no)? ")
-            if choice.lower() != "yes":
+            choice = input("To continue press enter, to run type 'no'")
+            if choice.lower() == "no":
                 break
 
         print(f"Player: health:{player.health}")
