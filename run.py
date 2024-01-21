@@ -166,10 +166,10 @@ class Location:
         """
         This method displays the map of the current location.
         """
-        print(f"Position: {self.player_position}")
+        # print(f"Position: {self.player_position}")
         # pprint(self.map)
-        print('Contents')
-        pprint(f"{self.contents}", width=135)
+        # print('Contents')
+        # pprint(f"{self.contents}", width=135)
         # print('Visited')
         # pprint(f"{self.visited}", width=135)
         for y in range(self.size[1]):
@@ -330,43 +330,6 @@ def show_help() -> None:
     text("  quit       - Quit the game", delay=0.1)
 
 
-def intro() -> None:
-    """
-    This is the introduction to the game.
-    """
-    clear_terminal()
-
-    text("In the boundless expanse of the cosmos, among a sea of twinkling stars,")
-    text("lies Yolkaris - a vibrant and lively planet home to an extraordinary species")
-    text("of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis.")
-    text("A mysterious and malevolent cosmic dust, known as The Dark Dust, has")
-    text("enshrouded the planet in shadow, blocking the essential sunlight and")
-    text("disrupting the delicate balance of its ecosystem. The once bright and")
-    text("bustling world, a haven of clucking harmony, now teeters on the brink")
-    text("of ecological collapse.", delay=0.6, space=1)
-    text("In this hour of desperation, hope rests on the wings of one brave")
-    text("hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is")
-    text("to embark on a quest beyond the stars. The mission is dangerous, the")
-    text("stakes are high, and the journey will take Clucky to uncharted ")
-    text("corners of the galaxy.", delay=0.6, space=1)
-    text("As Clucky, you will traverse through cosmic wonders and confront unknown")
-    text("dangers. Your quest will lead you to ancient relics and forgotten worlds,")
-    text("where secrets of The Dark Dust await to be uncovered. The journey promises")
-    text("challenges, trials, and the chance to become the saviour that Yolkaris")
-    text("desperately needs.", delay=0.6, space=1)
-    input("Press ENTER to continue ... ")
-    clear_terminal()
-    text("Do you have the courage to step into Clucky's shoes? Are you ready to")
-    text("soar beyond the stars, unravel the mystery of The Dark Dust, and find the")
-    text("key to save your beloved planet? Your decisions, bravery, and wits will")
-    text("shape the fate of Yolkaris.", delay=0.6, space=1)
-    text("Prepare for an odyssey that spans the cosmos - an adventure where your")
-    text("actions will determine the survival of an entire world. The journey of ")
-    text("Yolkaris Odyssey begins now, and the destiny of a planet rests in your wings.", delay=0.6, space=1)
-
-    input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
-
-
 class Game:
     """
     This is the main class for the game. 
@@ -392,8 +355,6 @@ class Game:
         name = input("What is your name? ")
         # Create player object and assign it to the game object
         self.player = Player(name, 100, 10, 10)
-        text(f"Hello {self.player.name}!")
-        text("Good luck on your journey!")
 
     def show_player_stats(self) -> None:
         """
@@ -445,16 +406,58 @@ class Game:
         game_title()
         text("Welcome to Yolkaris Odyssey! v0.3")
         text("This is a text-based adventure game.")
-        # input("Press ENTER to start the game ...")
+        input("Press ENTER to start the game ...")
         clear_terminal()
         # Create player
         self.create_player()
         # Assign player to current location
         self.assign_player_to_location()
         # Start game intro
-        # intro()
+        self.intro()
         while not self.game_over:
             self.choose_action()
+
+    def intro(self) -> None:
+        """
+        This is the introduction to the game.
+        """
+        clear_terminal()
+
+        text(f"Hello {self.player.name}!")
+        text("Welcome to Yolkaris Odyssey!", delay=0.6, space=1)
+        input("Press ENTER to continue ... ")
+
+        clear_terminal()
+        text("In the boundless expanse of the cosmos, among a sea of twinkling stars,")
+        text("lies Yolkaris - a vibrant and lively planet home to an extraordinary species")
+        text("of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis.")
+        text("A mysterious and malevolent cosmic dust, known as The Dark Dust, has")
+        text("enshrouded the planet in shadow, blocking the essential sunlight and")
+        text("disrupting the delicate balance of its ecosystem. The once bright and")
+        text("bustling world, a haven of clucking harmony, now teeters on the brink")
+        text("of ecological collapse.", delay=0.6, space=1)
+        text("In this hour of desperation, hope rests on the wings of one brave")
+        text("hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is")
+        text("to embark on a quest beyond the stars. The mission is dangerous, the")
+        text("stakes are high, and the journey will take Clucky to uncharted ")
+        text("corners of the galaxy.", delay=0.6, space=1)
+        text("As Clucky, you will traverse through cosmic wonders and confront unknown")
+        text("dangers. Your quest will lead you to ancient relics and forgotten worlds,")
+        text("where secrets of The Dark Dust await to be uncovered. The journey promises")
+        text("challenges, trials, and the chance to become the saviour that Yolkaris")
+        text("desperately needs.", delay=0.6, space=1)
+        input("Press ENTER to continue ... ")
+        clear_terminal()
+        text("Do you have the courage to step into Clucky's shoes? Are you ready to")
+        text("soar beyond the stars, unravel the mystery of The Dark Dust, and find the")
+        text("key to save your beloved planet? Your decisions, bravery, and wits will")
+        text("shape the fate of Yolkaris.", delay=0.6, space=1)
+        text("Prepare for an odyssey that spans the cosmos - an adventure where your")
+        text("actions will determine the survival of an entire world. The journey of ")
+        text("Yolkaris Odyssey begins now, and the destiny of a planet rests in your wings.", delay=0.6, space=1)
+        input("Press ENTER to embark on your journey and become the hero Yolkaris needs... ")
+        clear_terminal()
+        show_help()
 
     def get_current_location(self) -> Location:
         """
