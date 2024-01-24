@@ -88,6 +88,7 @@ class Combat:
         enemy = self.enemy
 
         input("Lets fight!")
+        
         clear_terminal()
 
         while player.health > 0 and enemy.health > 0:
@@ -318,28 +319,47 @@ def show_help() -> None:
     """
     This function displays the available commands.
     """
-    clear_terminal()
     text("Available Commands:", space=1)
+
     text("  north      - Move North (up)", delay=0.1)
     text("  south      - Move South (down)", delay=0.1)
     text("  east       - Move East (up)", delay=0.1)
     text("  west       - Move West (up)", delay=0.1, space=1)
+
     text("  map        - Show the map", delay=0.1)
     text("  help       - Show this help message", delay=0.1)
     text("  quit       - Quit the game", delay=0.1)
-
+    text(" ")
 
 
 def next_to_continue():
     """
     Function to prompt the user to type 'next' or 'n' and press Enter to continue the game.
     """
+    
     while True:
         user_input = input("Type 'next' or 'n' and press Enter to continue: ").strip().lower()
         if user_input == "next" or user_input == "n":
             break
         else:
             print("Invalid input. Please type 'next' or 'n'.")
+
+
+def next(type: str, message: str = None):
+    """
+    Function to prompt the user to type 'next' or 'n§' and press Enter to continue the game.
+    """
+    if type == "continue":
+        message = message if message else "Press enter to continue: "
+        input(message)
+    # elif type == "confirm":
+    #     message = message if message else "Type 'yes' or 'no' "
+    #     while True:
+    #         user_input = input(f"{message}").strip().lower()
+    #         if user_input == "yes" or user_input == "no":
+    #             break
+    #         else:
+    #             print("Invalid input. Please type 'next' or 'n'.")
 
 
 class Game:
@@ -363,6 +383,7 @@ class Game:
         """
         This creates the player.
         """
+        clear_terminal()
         text("Welcome to the game! Great adventurer.")
         while True:
             username = input("Please enter your username: ").strip()
@@ -373,7 +394,6 @@ class Game:
                 print("Invalid username. It should be between 3 to 24 characters, contain only letters and numbers, and no underscores.")
         
         
-
     def show_player_stats(self) -> None:
         """
         This method displays the player's stats.
@@ -422,14 +442,15 @@ class Game:
         """
         clear_terminal()
         game_title()
-        text("Welcome to Yolkaris Odyssey! v0.3")
-        text("This is a text-based adventure game.")
-        input("Press ENTER to start the game ...")
-        clear_terminal()
+        paragraph("Welcome to 'Yolkari Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
+        next('continue', 'Press enter to start the game: ')
+
         # Create player
         self.create_player()
+
         # Assign player to current location
         self.assign_player_to_location()
+        
         # Start game intro
         self.intro()
         while not self.game_over:
@@ -441,43 +462,30 @@ class Game:
         """
         clear_terminal()
 
-        text(f"Hello {self.player.name}!")
-        text("Welcome to Yolkaris Odyssey!", delay=0.6, space=1)
-        next_to_continue()
+        text(f"Hello {self.player.name}!", delay=0.8, space=1)
+        paragraph("You'll step into Clucky's shoes, a valiant and clever chicken from the vibrant planet Yolkaris. Once a haven of peace and harmony, Yolkaris now faces a dire threat that jeopardizes its existence. As Clucky, it's up to you to embark on a daring quest to save your home planet. Are you ready to don the feathers of Clucky and become the hero Yolkaris needs?")
+
+        # Ask if user is ready if not, exit the game and show funny message
+        next('continue')
 
         clear_terminal()
-        text("In the boundless expanse of the cosmos, among a sea of twinkling stars,")
-        text("lies Yolkaris - a vibrant and lively planet home to an extraordinary species")
-        text("of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis.")
-        text("A mysterious and malevolent cosmic dust, known as The Dark Dust, has")
-        text("enshrouded the planet in shadow, blocking the essential sunlight and")
-        text("disrupting the delicate balance of its ecosystem. The once bright and")
-        text("bustling world, a haven of clucking harmony, now teeters on the brink")
-        text("of ecological collapse.", delay=0.6, space=1)
-        text("In this hour of desperation, hope rests on the wings of one brave")
-        text("hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is")
-        text("to embark on a quest beyond the stars. The mission is dangerous, the")
-        text("stakes are high, and the journey will take Clucky to uncharted ")
-        text("corners of the galaxy.", delay=0.6, space=1)
-        text("As Clucky, you will traverse through cosmic wonders and confront unknown")
-        text("dangers. Your quest will lead you to ancient relics and forgotten worlds,")
-        text("where secrets of The Dark Dust await to be uncovered. The journey promises")
-        text("challenges, trials, and the chance to become the saviour that Yolkaris")
-        text("desperately needs.", delay=0.6, space=1)
-        next_to_continue()
+        text("Here is the story of Yolkaris Odyssey.", delay=0.8, space=1)
+        paragraph("In the boundless expanse of the cosmos, among a sea of twinkling stars, lies Yolkaris - a vibrant and lively planet home to an extraordinary species of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis. A mysterious and malevolent cosmic dust, known as The Dark Dust, has enshrouded the planet in shadow, blocking the essential sunlight and disrupting the delicate balance of its ecosystem. The once bright and bustling world, a haven of clucking harmony, now teeters on the brink of ecological collapse.")
+        paragraph("In this hour of desperation, hope rests on the wings of one brave hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is to embark on a quest beyond the stars. The mission is dangerous, the stakes are high, and the journey will take Clucky to uncharted corners of the galaxy.")
+        paragraph("As Clucky, you will traverse through cosmic wonders and confront unknown dangers. Your quest will lead you to ancient relics and forgotten worlds, where secrets of The Dark Dust await to be uncovered. The journey promises challenges, trials, and the chance to become the saviour that Yolkaris desperately needs.")
+        next('continue')
 
         clear_terminal()
-        text("Do you have the courage to step into Clucky's shoes? Are you ready to")
-        text("soar beyond the stars, unravel the mystery of The Dark Dust, and find the")
-        text("key to save your beloved planet? Your decisions, bravery, and wits will")
-        text("shape the fate of Yolkaris.", delay=0.6, space=1)
-        text("Prepare for an odyssey that spans the cosmos - an adventure where your")
-        text("actions will determine the survival of an entire world. The journey of ")
-        text("Yolkaris Odyssey begins now, and the destiny of a planet rests in your wings.", delay=0.6, space=1)
-        next_to_continue()
-
-        clear_terminal()
-        show_help()
+        text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
+        text("- There are three locations in the game: Yolkaris, Mystara, and Luminara.")
+        text("- You can see your current position within a location by using the 'map' command.")
+        text("- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'.")
+        text("- If you encounter items or enemies, you will be prompted to interact with them.")
+        text("- You can carry items in your inventory. Check your inventory using the 'inventory' command.")
+        text("- Keep an eye on your health, attack, and defense stats. They are crucial for survival.")
+        text("- If you need to see the list of available commands at any time, use the 'help' command.", delay=0.6, space=1)
+        text("Good luck on your adventure to save Yolkaris!", delay=0.6, space=1)
+        self.display_map()
 
 
     def get_current_location(self) -> Location:
@@ -512,7 +520,7 @@ class Game:
         # Retrieve the current location object
         current_location = self.get_current_location()
         # Display the map of the current location
-        text(f"Map of {current_location.name}")
+        text(f"Map of {current_location.name}", space=1)
         current_location.display_map()
 
     def update_player_position(self, dx: int, dy: int) -> None:
