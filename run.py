@@ -20,6 +20,9 @@ class Player(Character):
         self.health = health
         self.attack = attack
         self.defense = defense
+        self.inventory = []
+        self.weapon = None
+        self.armor = None
 
 
 class Enemy(Character):
@@ -188,7 +191,6 @@ class Location:
         """
         This method checks if the position is valid.
         """
-        print(f"Checking if position is valid: {position}")  # Diagnostic print
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
@@ -227,13 +229,14 @@ class Luminara(Location):
 
 
 class Area:
-    def __init__(self, name: str, description, narration, dialogue, enemy=None, position=None):
+    def __init__(self, name: str, description, narration, dialogue, enemy=None, position=None, items=None) -> None:
         self.name = name
         self.description = description
         self.narration = narration
         self.dialogue = dialogue
         self.enemy = enemy
         self.position = position
+        self.items = items
 
     def interact(self, player):
         interaction = Interaction(player)
@@ -242,7 +245,29 @@ class Area:
             interaction.with_enemy(self.enemy)
 
 
+weapons = {
+    "sword": {
+        "name": "Sword",
+        "description": "A sharp sword.",
+        "attack": 4,
+        "actions": [
+            "slash",
+            "stab"
+        ]
+    },
+}
+
 yolkaris_areas = [
+    Area(
+        name="Lost City Ruins",
+        description="Ancient structures overrun by time, with remnants of a once-great civilization. Echoes of the past resonate through the crumbling stone, whispering old secrets.",
+        narration="The ruins are a haunting reminder of the planet's past, and a testament to the power of time.",
+        dialogue="I wonder what secrets these ruins hold. I should explore the area to find out.",
+        items=[{
+        "item": weapons['sword'],
+        "type": 'weapon'
+        }],
+        position=(0, 0),),
     Area(
         name="Enchanted Forest",
         description="A mystical woodland brimming with magical creatures and ancient trees.",
@@ -257,13 +282,8 @@ yolkaris_areas = [
             health=20,
             attack=7,
             defense=9
-        )
+        ),
     ),
-    Area("Lost City Ruins",
-         "Ancient structures overrun by time, with remnants of a once-great civilization.",
-         "Echoes of the past resonate through the crumbling stone, whispering old secrets.",
-         "",
-         position=(3, 0),),
     Area("Crystal Caverns",
          "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
          "The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
@@ -359,7 +379,6 @@ class Game:
             "Luminara": Luminara()
         }
         self.current_location = 0
-
         self.game_over = False
         self.player = None
         self.config = Config()
@@ -368,7 +387,7 @@ class Game:
         """
         This creates the player.
         """
-        clear_terminal()
+        # clear_terminal()
         text("Welcome to the game! Great adventurer.")
         while True:
             username = input("Please enter your username: ").strip()
@@ -391,6 +410,12 @@ class Game:
         clear_terminal()
         text("Player Stats:")
         text(f"Name: {player.name}")
+        text(f"Health: {player.health}")
+        text(f"Attack: {player.attack}")
+        text(f"Defense: {player.defense}")
+        text(f"Armour: {player.armor.name if player.armor else 'None'}")
+        text(f"Weapon: {player.weapon.name if player.weapon else 'None'}")
+        text(f"Inventory: {player.inventory}")
         # Display player's current location
         text(f"\nCurrent Location: {current_location.name}")
         text(f"{current_location.description}\n")
@@ -425,10 +450,10 @@ class Game:
         """
         This is the main game loop.
         """
-        clear_terminal()
-        game_title()
-        paragraph("Welcome to 'Yolkari Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
-        next('continue', 'Press enter to start the game: ')
+        # clear_terminal()
+        # game_title()
+        # paragraph("Welcome to 'Yolkari Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
+        # next('continue', 'Press enter to start the game: ')
 
         # Create player
         self.create_player()
@@ -437,7 +462,7 @@ class Game:
         self.assign_player_to_location()
         
         # Start game intro
-        self.intro()
+        # self.intro()
         while not self.game_over:
             self.choose_action()
 
@@ -486,6 +511,7 @@ class Game:
         current_location_name = list(self.location_objects.keys())[self.current_location]
         return self.location_objects[current_location_name]
 
+
     def assign_player_to_location(self) -> None:
         """
         Assigns the player to their current location in the game.
@@ -498,6 +524,7 @@ class Game:
         # Assign the player to the current location
         current_location.player = self.player
 
+
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
@@ -507,6 +534,7 @@ class Game:
         # Display the map of the current location
         text(f"Map of {current_location.name}", space=1)
         current_location.display_map()
+
 
     def update_player_position(self, dx: int, dy: int) -> None:
         """
@@ -530,11 +558,13 @@ class Game:
         else:
             print("You can't move in that direction.")
 
+
     def move_north(self) -> None:
         """
         This method moves the player north.
         """
         self.update_player_position(0, -1)
+
 
     def move_south(self) -> None:
         """
@@ -542,17 +572,20 @@ class Game:
         """
         self.update_player_position(0, 1)
 
+
     def move_east(self) -> None:
         """
         This method moves the player east.
         """
         self.update_player_position(1, 0)
 
+
     def move_west(self) -> None:
         """
         This method moves the player west.
         """
         self.update_player_position(-1, 0)
+
 
     def show_location_contents(self):
         current_location = self.get_current_location()
