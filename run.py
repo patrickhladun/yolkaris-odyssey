@@ -44,12 +44,6 @@ class Enemy(Character):
         self.attack = attack
         self.defense = defense
 
-    def interact(self, player):
-        text(f"{self.name} stand on your way")
-        paragraph(self.description)
-        paragraph(self.narration)
-        paragraph(self.dialogue)
-
 
 class Neutral(Character):
     def __init__(self, name) -> None:
@@ -64,17 +58,16 @@ class Interaction:
         clear_terminal()
         paragraph(f"You are visiting {area.name}, {area.description}")
         paragraph(area.narration)
-        paragraph(area.dialogue)
+        paragraph(f"Clucky: {area.dialogue}")
 
-        if area.enemy:
-            area.enemy.interact(self)
 
     def with_enemy(self, enemy):
         combat = Combat(self.player, enemy)
         text(f"{enemy.name} stand on your way, {self.player.name}")
         paragraph(enemy.description)
         paragraph(enemy.narration)
-        paragraph(enemy.dialogue)
+        paragraph(f"Clucky: {enemy.dialogue}")
+        next('continue', 'Press enter to start the battle: ')
         combat.start_combat()
 
 
@@ -86,28 +79,25 @@ class Combat:
     def start_combat(self):
         player = self.player
         enemy = self.enemy
-
-        input("Lets fight!")
         
         clear_terminal()
-
         while player.health > 0 and enemy.health > 0:
             self.player_attack()
             if enemy.health <= 0:
-                print("Enemy defeated!")
+                text("Enemy defeated!", space=1)
                 break
 
             self.enemy_attack()
             if player.health <= 0:
-                print("Player defeated!")
+                text("Player defeated!", space=1)
                 break
 
             choice = input("To continue press enter, to run type 'no'")
             if choice.lower() == "no":
                 break
 
-        print(f"Player: health:{player.health}")
-        print(f"Enemy: health:{enemy.health}")
+        text(f"Player: health:{player.health}")
+        text(f"Enemy: health:{enemy.health}", delay=0.3, space=1)
 
     def player_attack(self):
         damage = self.calculate_damage(self.player.attack, self.enemy.defense)
@@ -247,9 +237,7 @@ class Area:
 
     def interact(self, player):
         interaction = Interaction(player)
-
         interaction.with_area(self)
-
         if self.enemy:
             interaction.with_enemy(self.enemy)
 
@@ -258,16 +246,13 @@ yolkaris_areas = [
     Area(
         name="Enchanted Forest",
         description="A mystical woodland brimming with magical creatures and ancient trees.",
-        narration="As you step into the Enchanted Forest, a sense of awe washes over you. The sights and sounds of the "
-        "forest are like nothing you've ever experienced. The air feels thick with magic, almost as if you could reach "
-        "out and touch it.",
-        dialogue="I feel tired; the journey has been so long already. A cup of nice coffee would be a "
-        "blessing now. I wonder how folks are doing back home. This seems like a good spot for a quick nap.",
+        narration="As you step into the Enchanted Forest, a sense of awe washes over you. The sights and sounds of the forest are like nothing you've ever experienced. The air feels thick with magic, almost as if you could reach out and touch it.",
+        dialogue="I feel tired; the journey has been so long already. A cup of nice coffee would be a blessing now. I wonder how folks are doing back home. This seems like a good spot for a quick nap",
         position=(0, 1),
         enemy=Enemy(
             name='Yorkish',
             description='Nasty busty monster yey',
-            narration="This monster will bit you in 5 sec",
+            narration="This monster will bite you in 5 sec",
             dialogue="I think I should be ok against this one",
             health=20,
             attack=7,
