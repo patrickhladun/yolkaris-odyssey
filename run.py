@@ -242,9 +242,7 @@ class Location:
 
     def interact_with_item(self, item, area, player):
         if item in weapons.values():
-            text(f"You found a {item['name']}. Do you want to equip it? (yes/no)")
-            choice = input()
-            if choice.lower() == 'yes':
+            if next("confirm", f"You found a {item['name']}. Do you want to equip it?"):
                 if player.weapon:
                     # Drop the current weapon
                     area.items.append(player.weapon)
@@ -254,9 +252,7 @@ class Location:
                 # Remove the new weapon from the area
                 area.items.remove(item)
         elif item in armors.values():
-            text(f"You found a {item['name']}. Do you want to wear it? (yes/no)")
-            choice = input()
-            if choice.lower() == 'yes':
+            if next("confirm", f"You found a {item['name']}. Do you want to wear it?"):
                 if player.armor:
                     # Drop the current armor
                     area.items.append(player.armor)
@@ -462,21 +458,20 @@ def next_to_continue():
             print("Invalid input. Please type 'next' or 'n'.")
 
 
-def next(type: str, message: str = None):
+def next(type: str, prompt: str = None):
     """
     Function to prompt the user to type 'next' or 'n§' and press Enter to continue the game.
     """
     if type == "continue":
-        message = message if message else "Press enter to continue: "
-        input(message)
-    # elif type == "confirm":
-    #     message = message if message else "Type 'yes' or 'no' "
-    #     while True:
-    #         user_input = input(f"{message}").strip().lower()
-    #         if user_input == "yes" or user_input == "no":
-    #             break
-    #         else:
-    #             print("Invalid input. Please type 'next' or 'n'.")
+        prompt = prompt if prompt else "Press enter to continue: "
+        input(prompt)
+    elif type == "confirm":
+        prompt = prompt if prompt else "Select 'yes' or 'no': "
+        while True:
+            choice = input(prompt + " (yes/no): ").lower()
+            if choice in ['yes', 'no']:
+                return choice == 'yes'
+            print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 class Game:
