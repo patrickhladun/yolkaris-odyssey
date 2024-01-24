@@ -80,40 +80,55 @@ class Combat:
         self.enemy = enemy
 
     def start_combat(self):
-        player = self.player
-        enemy = self.enemy
-        
-        clear_terminal()
-        while player.health > 0 and enemy.health > 0:
+        while self.player.health > 0 and self.enemy.health > 0:
             self.player_attack()
-            if enemy.health <= 0:
+            if self.enemy.health <= 0:
                 text("Enemy defeated!", space=1)
                 break
 
             self.enemy_attack()
-            if player.health <= 0:
+            if self.player.health <= 0:
                 text("Player defeated!", space=1)
                 break
 
-            choice = input("To continue press enter, to run type 'no'")
-            if choice.lower() == "no":
+            if not self.confirm_continue():
                 break
 
-        text(f"Player: health:{player.health}")
-        text(f"Enemy: health:{enemy.health}", delay=0.3, space=1)
+        self.display_combat_status()
 
     def player_attack(self):
-        damage = self.calculate_damage(self.player.attack, self.enemy.defense)
+        player_attack_power = self.calculate_player_attack_power()
+        damage = self.calculate_damage(player_attack_power, self.enemy.defense)
         self.enemy.health -= damage
-        print(f"You hit the enemy causing {damage} damage.")
+        text(f"You hit the enemy causing {damage} damage.")
 
     def enemy_attack(self):
-        damage = self.calculate_damage(self.enemy.attack, self.player.defense)
+        damage = self.calculate_damage(self.enemy.attack, self.calculate_player_defense())
         self.player.health -= damage
-        print(f"Enemy hits you causing {damage} damage.")
+        text(f"Enemy hits you causing {damage} damage.")
+
+    def calculate_player_attack_power(self):
+        base_attack = self.player.attack
+        weapon_bonus = self.player.weapon['attack'] if self.player.weapon else 0
+        return base_attack + weapon_bonus
+
+    def calculate_player_defense(self):
+        base_defense = self.player.defense
+        armor_bonus = self.player.armor['defense'] if self.player.armor else 0
+        return base_defense + armor_bonus
 
     def calculate_damage(self, attack, defense):
-        return max(int(random.uniform(0, attack) - random.uniform(0, defense)), 0)
+        return max(int(random.uniform(0.5 * attack, attack) - random.uniform(0, defense)), 1)
+
+    def display_combat_status(self):
+        text(f"Player: health:{self.player.health}")
+        if self.enemy.health > 0:
+            text(f"Enemy: health:{self.enemy.health}", delay=0.3, space=1)
+
+    def confirm_continue(self):
+        choice = input("To continue press enter, to run type 'no'")
+        return choice.lower() != "no"
+
 
 
 class Location:
@@ -239,7 +254,6 @@ class Location:
             else:
                 print("You searched the area but found nothing.")
 
-
     def interact_with_item(self, item, area, player):
         if item in weapons.values():
             if next("confirm", f"You found a {item['name']}. Do you want to equip it?"):
@@ -304,7 +318,7 @@ weapons = {
     "sword": {
         "name": "Sword",
         "description": "A sharp sword.",
-        "attack": 4,
+        "attack": 15,
         "actions": [
             "slash",
             "stab"
