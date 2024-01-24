@@ -130,7 +130,6 @@ class Combat:
         return choice.lower() != "no"
 
 
-
 class Location:
     def __init__(self, name: str, description: str, size: tuple, areas) -> None:
         self.name = name
@@ -457,35 +456,6 @@ def show_help() -> None:
     text("  help       - Show this help message", delay=0.1)
     text("  quit       - Quit the game", delay=0.1)
     text(" ")
-
-
-def next_to_continue():
-    """
-    Function to prompt the user to type 'next' or 'n' and press Enter to continue the game.
-    """
-    
-    while True:
-        user_input = input("Type 'next' or 'n' and press Enter to continue: ").strip().lower()
-        if user_input == "next" or user_input == "n":
-            break
-        else:
-            print("Invalid input. Please type 'next' or 'n'.")
-
-
-def next(type: str, prompt: str = None):
-    """
-    Function to prompt the user to type 'next' or 'n§' and press Enter to continue the game.
-    """
-    if type == "continue":
-        prompt = prompt if prompt else "Press enter to continue: "
-        input(prompt)
-    elif type == "confirm":
-        prompt = prompt if prompt else "Select 'yes' or 'no': "
-        while True:
-            choice = input(prompt + " (yes/no): ").lower()
-            if choice in ['yes', 'no']:
-                return choice == 'yes'
-            print("Invalid input. Please enter 'yes' or 'no'.")
 
 
 class Game:

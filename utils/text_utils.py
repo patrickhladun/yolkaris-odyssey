@@ -34,8 +34,25 @@ def space(space=1, delay=0.2):
     print('\n')
     time.sleep(delay)
 
+
 def clear_terminal():
     """ 
     Clears terminal.
     """
     os.system('clear')
+
+
+def next(type: str, prompt: str = None):
+    """
+    Function to prompt the user to type 'next' or 'n§' and press Enter to continue the game.
+    """
+    if type == "continue":
+        prompt = prompt if prompt else "Press enter to continue: "
+        input(prompt)
+    elif type == "confirm":
+        prompt = prompt if prompt else "Select 'yes' or 'no': "
+        while True:
+            choice = input(prompt + " (yes/no): ").lower()
+            if choice in ['yes', 'no']:
+                return choice == 'yes'
+            print("Invalid input. Please enter 'yes' or 'no'.")
