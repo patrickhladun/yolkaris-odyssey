@@ -73,6 +73,32 @@ class Interaction:
         next('continue', 'Press enter to start the battle: ')
         combat.start_combat()
 
+    def with_items(self, area):
+        if area.items:
+            print(f"You find the following items in {area.name}:")
+            for i, item in enumerate(area.items):
+                print(f"{i+1}. {item.name} - {item.description}")
+            
+            choice = input("Do you want to pick up any item? Enter the number (or 'no' to skip): ")
+            if choice.lower() == 'no':
+                return
+            try:
+                selected_item = area.items[int(choice)-1]
+                self.handle_item(selected_item)
+            except (IndexError, ValueError):
+                print("Invalid choice.")
+
+    def handle_item(self, item):
+        if isinstance(item, Weapon):
+            self.player.weapon = item
+            print(f"You equipped {item.name}.")
+        elif isinstance(item, Armor):
+            self.player.armor = item
+            print(f"You put on {item.name}.")
+        else:
+            self.player.inventory.append(item)
+            print(f"{item.name} added to your inventory.")
+
 
 class Combat:
     def __init__(self, player, enemy):
@@ -198,7 +224,10 @@ class Location:
         if position in self.contents:
             element = self.contents[position]
             if isinstance(element, Area):
-                element.interact(player)
+                interaction = Interaction(player)
+                interaction.with_area(element)
+                if element.enemy:
+                    interaction.with_enemy(element.enemy)
 
     def print_contents(self):
         if not self.contents:
@@ -211,6 +240,27 @@ class Location:
             element_type = type(element).__name__
             element_info = f"{element.name}" if hasattr(element, 'name') else "Unknown"
             print(f"Position {position}: {element_type} - {element_info}")
+
+    def search_area(self, player):
+        found_items = []
+        position = self.player_position
+        if position in self.contents:
+            area = self.contents[position]
+            if hasattr(area, 'items') and area.items:
+                found_items = area.items
+                for item in found_items:
+                    if item in weapons.values():
+                        player.weapon = item
+                        print(f"You found and equipped a {item['name']}.")
+                    elif item in armors.values():
+                        player.armor = item
+                        print(f"You found and put on a {item['name']}.")
+                    else:
+                        player.inventory.append(item)
+                        print(f"You found a {item['name']} and added it to your inventory.")
+                area.items = []  # Remove items after they are found
+        if not found_items:
+            print("You searched the area but found nothing.")
 
 
 class Yolkaris(Location):
@@ -236,7 +286,7 @@ class Area:
         self.dialogue = dialogue
         self.enemy = enemy
         self.position = position
-        self.items = items
+        self.items = items if items else []
 
     def interact(self, player):
         interaction = Interaction(player)
@@ -255,6 +305,23 @@ weapons = {
             "stab"
         ]
     },
+    "stick": {
+        "name": "Stick",
+        "description": "Small stick.",
+        "attack": 1,
+        "actions": [
+            "slash",
+            "stab"
+        ]
+    },
+}
+
+armors = {
+    "shield": {
+        "name": "shield",
+        "description": "Small shield.",
+        "defense": 2,
+    },
 }
 
 yolkaris_areas = [
@@ -263,11 +330,16 @@ yolkaris_areas = [
         description="Ancient structures overrun by time, with remnants of a once-great civilization. Echoes of the past resonate through the crumbling stone, whispering old secrets.",
         narration="The ruins are a haunting reminder of the planet's past, and a testament to the power of time.",
         dialogue="I wonder what secrets these ruins hold. I should explore the area to find out.",
-        items=[{
-        "item": weapons['sword'],
-        "type": 'weapon'
-        }],
+        items=[weapons['stick']],
         position=(0, 0),),
+    Area(
+        name="Crystal Caverns",
+        description="Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
+        narration="The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
+        dialogue="The crystals are so beautiful. I wish I could take some with me.",
+        items=[weapons['sword']],
+        position=(1, 0),
+         ),
     Area(
         name="Enchanted Forest",
         description="A mystical woodland brimming with magical creatures and ancient trees.",
@@ -284,11 +356,6 @@ yolkaris_areas = [
             defense=9
         ),
     ),
-    Area("Crystal Caverns",
-         "Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
-         "The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
-         ""
-         ),
     Area("Haunted Graveyard",
          "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
          "The air here is heavy with unspoken stories, and every grave has its own chilling tale.",
@@ -413,8 +480,8 @@ class Game:
         text(f"Health: {player.health}")
         text(f"Attack: {player.attack}")
         text(f"Defense: {player.defense}")
-        text(f"Armour: {player.armor.name if player.armor else 'None'}")
-        text(f"Weapon: {player.weapon.name if player.weapon else 'None'}")
+        text(f"Armour: {player.armor['name'] if player.armor else 'None'}")
+        text(f"Weapon: {player.weapon['name'] if player.weapon else 'None'}")
         text(f"Inventory: {player.inventory}")
         # Display player's current location
         text(f"\nCurrent Location: {current_location.name}")
@@ -443,8 +510,19 @@ class Game:
             self.show_player_stats()
         elif action == "contents":
             self.show_location_contents()
+        elif action == "s":
+            self.search_current_area()
         elif action == "quit":
             self.game_over = True
+
+
+    def search_current_area(self):
+        """
+        This method searches the current area for items.
+        """
+        current_location = self.get_current_location()
+        current_location.search_area(self.player)
+
 
     def start_game(self) -> None:
         """
