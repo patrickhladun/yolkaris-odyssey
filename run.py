@@ -73,32 +73,6 @@ class Interaction:
         next('continue', 'Press enter to start the battle: ')
         combat.start_combat()
 
-    def with_items(self, area):
-        if area.items:
-            print(f"You find the following items in {area.name}:")
-            for i, item in enumerate(area.items):
-                print(f"{i+1}. {item.name} - {item.description}")
-            
-            choice = input("Do you want to pick up any item? Enter the number (or 'no' to skip): ")
-            if choice.lower() == 'no':
-                return
-            try:
-                selected_item = area.items[int(choice)-1]
-                self.handle_item(selected_item)
-            except (IndexError, ValueError):
-                print("Invalid choice.")
-
-    def handle_item(self, item):
-        if isinstance(item, Weapon):
-            self.player.weapon = item
-            print(f"You equipped {item.name}.")
-        elif isinstance(item, Armor):
-            self.player.armor = item
-            print(f"You put on {item.name}.")
-        else:
-            self.player.inventory.append(item)
-            print(f"{item.name} added to your inventory.")
-
 
 class Combat:
     def __init__(self, player, enemy):
@@ -242,25 +216,35 @@ class Location:
             print(f"Position {position}: {element_type} - {element_info}")
 
     def search_area(self, player):
-        found_items = []
         position = self.player_position
         if position in self.contents:
             area = self.contents[position]
             if hasattr(area, 'items') and area.items:
-                found_items = area.items
-                for item in found_items:
+                for item in list(area.items):  # Iterate over a copy of the list
                     if item in weapons.values():
-                        player.weapon = item
-                        print(f"You found and equipped a {item['name']}.")
+                        print(f"You found a {item['name']}. Do you want to equip it? (yes/no)")
+                        choice = input()
+                        if choice.lower() == 'yes':
+                            if player.weapon:
+                                area.items.append(player.weapon)  # Drop the current weapon
+                            player.weapon = item  # Equip the new weapon
+                            print(f"You have equipped the {item['name']}.")
+                            area.items.remove(item)  # Remove the new weapon from the area
                     elif item in armors.values():
-                        player.armor = item
-                        print(f"You found and put on a {item['name']}.")
+                        print(f"You found a {item['name']}. Do you want to wear it? (yes/no)")
+                        choice = input()
+                        if choice.lower() == 'yes':
+                            if player.armor:
+                                area.items.append(player.armor)  # Drop the current armor
+                            player.armor = item  # Wear the new armor
+                            print(f"You have put on the {item['name']}.")
+                            area.items.remove(item)  # Remove the new armor from the area
                     else:
                         player.inventory.append(item)
                         print(f"You found a {item['name']} and added it to your inventory.")
-                area.items = []  # Remove items after they are found
-        if not found_items:
-            print("You searched the area but found nothing.")
+                        area.items.remove(item)  # Remove the item from the area
+            else:
+                print("You searched the area but found nothing.")
 
 
 class Yolkaris(Location):
