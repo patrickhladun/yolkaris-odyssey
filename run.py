@@ -220,31 +220,56 @@ class Location:
         if position in self.contents:
             area = self.contents[position]
             if hasattr(area, 'items') and area.items:
-                for item in list(area.items):  # Iterate over a copy of the list
-                    if item in weapons.values():
-                        print(f"You found a {item['name']}. Do you want to equip it? (yes/no)")
-                        choice = input()
-                        if choice.lower() == 'yes':
-                            if player.weapon:
-                                area.items.append(player.weapon)  # Drop the current weapon
-                            player.weapon = item  # Equip the new weapon
-                            print(f"You have equipped the {item['name']}.")
-                            area.items.remove(item)  # Remove the new weapon from the area
-                    elif item in armors.values():
-                        print(f"You found a {item['name']}. Do you want to wear it? (yes/no)")
-                        choice = input()
-                        if choice.lower() == 'yes':
-                            if player.armor:
-                                area.items.append(player.armor)  # Drop the current armor
-                            player.armor = item  # Wear the new armor
-                            print(f"You have put on the {item['name']}.")
-                            area.items.remove(item)  # Remove the new armor from the area
+                text("You found the following items:")
+                for index, item in enumerate(area.items):
+                    print(f"{index + 1}. {item['name']}")
+
+                choice = input("Select an item to interact with (enter the number), or type '0' to cancel: ")
+                try:
+                    choice_index = int(choice) - 1
+                    if 0 <= choice_index < len(area.items):
+                        selected_item = area.items[choice_index]
+                        self.interact_with_item(selected_item, area, player)
+                    elif choice_index == -1:
+                        text("You decided not to pick up any items.")
                     else:
-                        player.inventory.append(item)
-                        print(f"You found a {item['name']} and added it to your inventory.")
-                        area.items.remove(item)  # Remove the item from the area
+                        text("Invalid choice.")
+                except ValueError:
+                    text("Invalid input. Please enter a number.")
             else:
                 print("You searched the area but found nothing.")
+
+
+    def interact_with_item(self, item, area, player):
+        if item in weapons.values():
+            text(f"You found a {item['name']}. Do you want to equip it? (yes/no)")
+            choice = input()
+            if choice.lower() == 'yes':
+                if player.weapon:
+                    # Drop the current weapon
+                    area.items.append(player.weapon)
+                # Equip the new weapon
+                player.weapon = item
+                text(f"You have equipped the {item['name']}.")
+                # Remove the new weapon from the area
+                area.items.remove(item)
+        elif item in armors.values():
+            text(f"You found a {item['name']}. Do you want to wear it? (yes/no)")
+            choice = input()
+            if choice.lower() == 'yes':
+                if player.armor:
+                    # Drop the current armor
+                    area.items.append(player.armor)
+                # Wear the new armor
+                player.armor = item
+                text(f"You have put on the {item['name']}.")
+                # Remove the new armor from the area
+                area.items.remove(item)
+        else:
+            player.inventory.append(item)
+            text(f"You found a {item['name']} and added it to your inventory.")
+            # Remove the item from the area
+            area.items.remove(item)
 
 
 class Yolkaris(Location):
@@ -301,11 +326,40 @@ weapons = {
 }
 
 armors = {
-    "shield": {
-        "name": "shield",
-        "description": "Small shield.",
+    "wooden_shield": {
+        "name": "Wooden Shield",
+        "description": "Small Metal shield.",
         "defense": 2,
     },
+    "metal_shield": {
+        "name": "Metal Shield",
+        "description": "Small Metal shield.",
+        "defense": 12,
+    },
+}
+
+items = {
+    "potion": {
+        "name": "Potion",
+        "description": "A healing potion.",
+        "health": 10,
+    },
+    "key": {
+        "name": "Key",
+        "description": "A key.",
+    },
+    "coin": {
+        "name": "Coin",
+        "description": "A coin.",
+    },
+    "gem": {
+        "name": "Gem",
+        "description": "A gem.",
+    },
+    "scroll": {
+        "name": "Scroll",
+        "description": "A scroll.",
+    },  
 }
 
 yolkaris_areas = [
@@ -321,7 +375,14 @@ yolkaris_areas = [
         description="Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
         narration="The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
         dialogue="The crystals are so beautiful. I wish I could take some with me.",
-        items=[weapons['sword']],
+        items=[
+            weapons['sword'], 
+            armors['wooden_shield'], 
+            armors['metal_shield'],
+            items['potion'],
+            items['key'],
+            items['coin'],
+        ],
         position=(1, 0),
          ),
     Area(
@@ -466,7 +527,8 @@ class Game:
         text(f"Defense: {player.defense}")
         text(f"Armour: {player.armor['name'] if player.armor else 'None'}")
         text(f"Weapon: {player.weapon['name'] if player.weapon else 'None'}")
-        text(f"Inventory: {player.inventory}")
+        inventory = ', '.join([item['name'] for item in player.inventory])
+        text(f"Inventory: {inventory}")
         # Display player's current location
         text(f"\nCurrent Location: {current_location.name}")
         text(f"{current_location.description}\n")
