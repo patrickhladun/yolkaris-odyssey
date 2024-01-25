@@ -1,7 +1,7 @@
 from game.config import Config
 import random
 from art import *
-from utils import text, paragraph, space, clear_terminal
+from utils import text, paragraph, space, clear_terminal, ask_user
 from pprint import pprint
 
 class Character:
@@ -70,7 +70,7 @@ class Interaction:
         paragraph(enemy.description)
         paragraph(enemy.narration)
         paragraph(f"Clucky: {enemy.dialogue}")
-        next('continue', 'Press enter to start the battle: ')
+        ask_user('continue', 'Press enter to start the battle: ')
         combat.start_combat()
 
 
@@ -234,10 +234,11 @@ class Location:
         if position in self.contents:
             area = self.contents[position]
             if hasattr(area, 'items') and area.items:
-                text("You found the following items:")
+                text("You found the following items:", space=1)
                 for index, item in enumerate(area.items):
-                    print(f"{index + 1}. {item['name']}")
+                    text(f"{index + 1}. {item['name']}", delay=0.2)
 
+                space()
                 choice = input("Select an item to interact with (enter the number), or type '0' to cancel: ")
                 try:
                     choice_index = int(choice) - 1
@@ -255,7 +256,7 @@ class Location:
 
     def interact_with_item(self, item, area, player):
         if item in weapons.values():
-            if next("confirm", f"You found a {item['name']}. Do you want to equip it?"):
+            if ask_user("confirm", f"You found a {item['name']}. Do you want to equip it?"):
                 if player.weapon:
                     # Drop the current weapon
                     area.items.append(player.weapon)
@@ -265,7 +266,7 @@ class Location:
                 # Remove the new weapon from the area
                 area.items.remove(item)
         elif item in armors.values():
-            if next("confirm", f"You found a {item['name']}. Do you want to wear it?"):
+            if ask_user("confirm", f"You found a {item['name']}. Do you want to wear it?"):
                 if player.armor:
                     # Drop the current armor
                     area.items.append(player.armor)
@@ -555,8 +556,8 @@ class Game:
         """
         # clear_terminal()
         # game_title()
-        # paragraph("Welcome to 'Yolkari Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
-        # next('continue', 'Press enter to start the game: ')
+        # paragraph("Welcome to 'Yolkaris Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
+        # ask_user('continue', 'Press enter to start the game: ')
 
         # Create player
         self.create_player()
@@ -579,14 +580,14 @@ class Game:
         paragraph("You'll step into Clucky's shoes, a valiant and clever chicken from the vibrant planet Yolkaris. Once a haven of peace and harmony, Yolkaris now faces a dire threat that jeopardizes its existence. As Clucky, it's up to you to embark on a daring quest to save your home planet. Are you ready to don the feathers of Clucky and become the hero Yolkaris needs?")
 
         # Ask if user is ready if not, exit the game and show funny message
-        next('continue')
+        ask_user('continue')
 
         clear_terminal()
         text("Here is the story of Yolkaris Odyssey.", delay=0.8, space=1)
         paragraph("In the boundless expanse of the cosmos, among a sea of twinkling stars, lies Yolkaris - a vibrant and lively planet home to an extraordinary species of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis. A mysterious and malevolent cosmic dust, known as The Dark Dust, has enshrouded the planet in shadow, blocking the essential sunlight and disrupting the delicate balance of its ecosystem. The once bright and bustling world, a haven of clucking harmony, now teeters on the brink of ecological collapse.")
         paragraph("In this hour of desperation, hope rests on the wings of one brave hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is to embark on a quest beyond the stars. The mission is dangerous, the stakes are high, and the journey will take Clucky to uncharted corners of the galaxy.")
         paragraph("As Clucky, you will traverse through cosmic wonders and confront unknown dangers. Your quest will lead you to ancient relics and forgotten worlds, where secrets of The Dark Dust await to be uncovered. The journey promises challenges, trials, and the chance to become the saviour that Yolkaris desperately needs.")
-        next('continue')
+        ask_user('continue')
 
         clear_terminal()
         text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
