@@ -314,7 +314,7 @@ class Area:
             interaction.with_enemy(self.enemy)
 
 
-weapons = {
+weapon = {
     "sword": {
         "name": "Sword",
         "description": "A sharp sword.",
@@ -335,7 +335,7 @@ weapons = {
     },
 }
 
-armors = {
+armor = {
     "wooden_shield": {
         "name": "Wooden Shield",
         "description": "Small Metal shield.",
@@ -348,7 +348,7 @@ armors = {
     },
 }
 
-items = {
+item = {
     "potion": {
         "name": "Potion",
         "description": "A healing potion.",
@@ -378,7 +378,7 @@ yolkaris_areas = [
         description="Ancient structures overrun by time, with remnants of a once-great civilization. Echoes of the past resonate through the crumbling stone, whispering old secrets.",
         narration="The ruins are a haunting reminder of the planet's past, and a testament to the power of time.",
         dialogue="I wonder what secrets these ruins hold. I should explore the area to find out.",
-        items=[weapons['stick']],
+        items=[weapon['stick']],
         position=(0, 0),),
     Area(
         name="Crystal Caverns",
@@ -386,12 +386,12 @@ yolkaris_areas = [
         narration="The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
         dialogue="The crystals are so beautiful. I wish I could take some with me.",
         items=[
-            weapons['sword'], 
-            armors['wooden_shield'], 
-            armors['metal_shield'],
-            items['potion'],
-            items['key'],
-            items['coin'],
+            weapon['sword'], 
+            armor['wooden_shield'], 
+            armor['metal_shield'],
+            item['potion'],
+            item['key'],
+            item['coin'],
         ],
         position=(1, 0),
          ),
