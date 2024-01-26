@@ -66,15 +66,13 @@ class Interaction:
         paragraph(f"Clucky: {area.dialogue}")
 
     def with_enemy(self, enemy, location):
-        text(f"{enemy.name} stands in your way, {self.player.name}")
-        paragraph(enemy.description)
         space()
-        text(f"Enemy health: {enemy.health}")
-        text(f"Enemy attack: {enemy.attack}")
-        text(f"Enemy defense: {enemy.defense}", space=1)
-
+        text(f"{enemy.name} stands in your way, {self.player.name}", space=1)
+        paragraph(enemy.description)
         paragraph(enemy.narration)
-        paragraph(f"Clucky: {enemy.dialogue}")
+        paragraph(f'Clucky: {enemy.dialogue}')
+        text(f"{enemy.name}'s health: {enemy.health}, attack: {enemy.attack}, "
+             f"defense: {enemy.defense}", space=1)
         combat = Combat(self.player, enemy)
         results = combat.to_fight_or_not_to_fight()
         if results == "retreat":
@@ -261,6 +259,7 @@ class Location:
                 interaction = Interaction(player)
                 interaction.with_area(element)
                 if element.enemy:
+                    ask_user('continue')
                     interaction.with_enemy(element.enemy, self)
 
     def print_contents(self):
@@ -493,9 +492,14 @@ yolkaris_areas = [
         position=(0, 1),
         enemy=Enemy(
             name="Yorkish",
-            description="Nasty busty monster yey",
-            narration="This monster will bite you in 5 sec",
-            dialogue="I think I should be ok against this one",
+            description="Yorkish, a shadowy figure with glowing eyes and sharp"
+            ",dark feathers, moves silently. Its eerie screech is feared in "
+            "the Enchanted Forest.",
+            narration="As you feel its presence, the forest falls eerily "
+            "quiet. Confronted by Yorkish's menacing stare, you face a "
+            "critical choice: fight bravely or retreat swiftly.",
+            dialogue="Whoa, that's Yorkish! Okay, stay calm. Do I fight this "
+            "creature or back away? Quick thinking is key here.",
             health=20,
             attack=7,
             defense=9,
