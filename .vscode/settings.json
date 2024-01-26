@@ -1,3 +1,7 @@
 {
-  "cSpell.words": ["Clucky", "Luminara", "Mystara", "Yolkaris"]
+  "editor.fontSize": 14,
+  "cSpell.words": ["Clucky", "Luminara", "Mystara", "Yolkaris"],
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2,
+  "editor.rulers": [79]
 }
