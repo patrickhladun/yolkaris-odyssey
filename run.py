@@ -244,7 +244,15 @@ class Location:
 
     def return_to_previous_position(self):
         self.player_position = self.player_prev_position
-        text("You have returned to the previous area.")
+        area_name = self.get_area_name_by_position(self.player_prev_position)
+        text(f"You have returned to the {area_name}.")
+
+    def get_area_name_by_position(self, position):
+        area = self.contents.get(position)
+        if area and isinstance(area, Area):
+            return area.name
+        else:
+            return "Unknown Area"
 
     def check_for_interaction(self, position, player):
         if position in self.contents:
