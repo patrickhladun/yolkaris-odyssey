@@ -4,18 +4,19 @@ from art import *
 from utils import text, paragraph, space, clear_terminal, ask_user
 from pprint import pprint
 
+
 class Character:
     def __init__(self, name: str) -> None:
         self.name = name
 
 
 class Player(Character):
-    def __init__(self,
-                 name: str,
-                 health: int,
-                 attack: int,
-                 defense: int
-                 ) -> None:
+    def __init__(
+            self,
+            name: str,
+            health: int,
+            attack: int,
+            defense: int) -> None:
         super().__init__(name)
         self.health = health
         self.attack = attack
@@ -30,15 +31,16 @@ class Enemy(Character):
     Initializes an enemy character.
     """
 
-    def __init__(self,
-                 name: str,
-                 description: str,
-                 narration: str,
-                 dialogue: str,
-                 health: int,
-                 attack: int,
-                 defense: int
-                 ) -> None:
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        narration: str,
+        dialogue: str,
+        health: int,
+        attack: int,
+        defense: int,
+    ) -> None:
         super().__init__(name)
         self.description = description
         self.narration = narration
@@ -63,14 +65,13 @@ class Interaction:
         paragraph(area.narration)
         paragraph(f"Clucky: {area.dialogue}")
 
-
     def with_enemy(self, enemy):
         combat = Combat(self.player, enemy)
         text(f"{enemy.name} stand on your way, {self.player.name}")
         paragraph(enemy.description)
         paragraph(enemy.narration)
         paragraph(f"Clucky: {enemy.dialogue}")
-        ask_user('continue', 'Press enter to start the battle: ')
+        ask_user("continue", "Press enter to start the battle: ")
         combat.start_combat()
 
 
@@ -103,22 +104,27 @@ class Combat:
         text(f"You hit the enemy causing {damage} damage.")
 
     def enemy_attack(self):
-        damage = self.calculate_damage(self.enemy.attack, self.calculate_player_defense())
+        damage = self.calculate_damage(
+            self.enemy.attack, self.calculate_player_defense()
+        )
         self.player.health -= damage
         text(f"Enemy hits you causing {damage} damage.")
 
     def calculate_player_attack_power(self):
         base_attack = self.player.attack
-        weapon_bonus = self.player.weapon['attack'] if self.player.weapon else 0
+        weapon_bonus = self.player.weapon["attack"] if self.player.weapon else 0
         return base_attack + weapon_bonus
 
     def calculate_player_defense(self):
         base_defense = self.player.defense
-        armor_bonus = self.player.armor['defense'] if self.player.armor else 0
+        armor_bonus = self.player.armor["defense"] if self.player.armor else 0
         return base_defense + armor_bonus
 
     def calculate_damage(self, attack, defense):
-        return max(int(random.uniform(0.5 * attack, attack) - random.uniform(0, defense)), 1)
+        return max(
+            int(random.uniform(0.5 * attack, attack) -
+                random.uniform(0, defense)), 1
+        )
 
     def display_combat_status(self):
         text(f"Player: health:{self.player.health}")
@@ -131,7 +137,7 @@ class Combat:
 
 
 class Location:
-    def __init__(self, name: str, description: str, size: tuple, areas) -> None:
+    def __init__(self, name: str, description: str, size: tuple, areas: dict) -> None:
         self.name = name
         self.description = description
         self.size = size
@@ -139,7 +145,8 @@ class Location:
         self.player_position = (0, 0)
         self.contents = {}
         self.map = [["" for _ in range(size[0])] for _ in range(size[1])]
-        self.visited = [[False for _ in range(size[0])] for _ in range(size[1])]
+        self.visited = [[False for _ in range(
+            size[0])] for _ in range(size[1])]
         self.mark_visited(self.player_position)
         self.randomly_place_elements()
 
@@ -156,7 +163,11 @@ class Location:
         This method randomly places elements in the location.
         """
         for area in self.areas:
-            if hasattr(area, 'position') and area.position is not None and self.is_valid_position(area.position):
+            if (
+                hasattr(area, "position")
+                and area.position is not None
+                and self.is_valid_position(area.position)
+            ):
                 if area.position not in self.contents:
                     self.place_on_map(area, area.position)
                 else:
@@ -185,7 +196,9 @@ class Location:
                     char = "\033[93m \uff30\033[0m"
                 elif self.visited[y][x]:
                     char = "\033[90m \uff4f\033[0m"
-                elif (x, y) in self.contents and isinstance(self.contents[(x, y)], Area):
+                elif (x, y) in self.contents and isinstance(
+                    self.contents[(x, y)], Area
+                ):
                     char = "\033[92m \uff0a\033[0m"
                 else:
                     char = " \uff0a"
@@ -226,20 +239,24 @@ class Location:
         print("Contents of the location:")
         for position, element in self.contents.items():
             element_type = type(element).__name__
-            element_info = f"{element.name}" if hasattr(element, 'name') else "Unknown"
+            element_info = f"{element.name}" if hasattr(
+                element, "name") else "Unknown"
             print(f"Position {position}: {element_type} - {element_info}")
 
     def search_area(self, player):
         position = self.player_position
         if position in self.contents:
             area = self.contents[position]
-            if hasattr(area, 'items') and area.items:
+            if hasattr(area, "items") and area.items:
                 text("You found the following items:", space=1)
                 for index, item in enumerate(area.items):
                     text(f"{index + 1}. {item['name']}", delay=0.2)
 
                 space()
-                choice = input("Select an item to interact with (enter the number), or type '0' to cancel: ")
+                choice = input(
+                    "Select an item to interact with (enter the number), "
+                    "or type '0' to cancel: "
+                )
                 try:
                     choice_index = int(choice) - 1
                     if 0 <= choice_index < len(area.items):
@@ -255,8 +272,11 @@ class Location:
                 print("You searched the area but found nothing.")
 
     def interact_with_item(self, item, area, player):
-        if item in weapons.values():
-            if ask_user("confirm", f"You found a {item['name']}. Do you want to equip it?"):
+        if item in weapon.values():
+            if ask_user(
+                "confirm", f"You found a {item['name']}. Do you want to "
+                           f"equip it? "
+            ):
                 if player.weapon:
                     # Drop the current weapon
                     area.items.append(player.weapon)
@@ -265,8 +285,11 @@ class Location:
                 text(f"You have equipped the {item['name']}.")
                 # Remove the new weapon from the area
                 area.items.remove(item)
-        elif item in armors.values():
-            if ask_user("confirm", f"You found a {item['name']}. Do you want to wear it?"):
+        elif item in armor.values():
+            if ask_user(
+                "confirm", f"You found a {item['name']}. Do you want to wear "
+                           f"it? "
+            ):
                 if player.armor:
                     # Drop the current armor
                     area.items.append(player.armor)
@@ -284,21 +307,45 @@ class Location:
 
 class Yolkaris(Location):
     def __init__(self) -> None:
-        super().__init__("Yolkaris", "A vibrant planet with diverse ecosystems.", (4, 2), yolkaris_areas)
+        super().__init__(
+            name="Yolkaris",
+            description="A vibrant planet with diverse ecosystems.",
+            size=(4, 2),
+            areas=yolkaris_areas
+        )
 
 
 class Mystara(Location):
     def __init__(self) -> None:
-        super().__init__("Mystara", "A mysterious planet covered in thick jungles.", (8, 4), mystara_areas)
+        super().__init__(
+            name="Mystara",
+            description="A mysterious planet covered in thick jungles.",
+            size=(8, 4),
+            areas=mystara_areas,
+        )
 
 
 class Luminara(Location):
     def __init__(self) -> None:
-        super().__init__("Luminara", "A radiant planet with a luminous landscape.", (7, 4), luminara_areas)
+        super().__init__(
+            name="Luminara",
+            description="A radiant planet with a luminous landscape.",
+            size=(7, 4),
+            areas=luminara_areas,
+        )
 
 
 class Area:
-    def __init__(self, name: str, description, narration, dialogue, enemy=None, position=None, items=None) -> None:
+    def __init__(
+        self,
+        name: str,
+        description,
+        narration,
+        dialogue,
+        enemy=None,
+        position=None,
+        items=None,
+    ) -> None:
         self.name = name
         self.description = description
         self.narration = narration
@@ -319,19 +366,13 @@ weapon = {
         "name": "Sword",
         "description": "A sharp sword.",
         "attack": 15,
-        "actions": [
-            "slash",
-            "stab"
-        ]
+        "actions": ["slash", "stab"],
     },
     "stick": {
         "name": "Stick",
         "description": "Small stick.",
         "attack": 1,
-        "actions": [
-            "slash",
-            "stab"
-        ]
+        "actions": ["slash", "stab"],
     },
 }
 
@@ -369,66 +410,98 @@ item = {
     "scroll": {
         "name": "Scroll",
         "description": "A scroll.",
-    },  
+    },
 }
 
 yolkaris_areas = [
     Area(
         name="Lost City Ruins",
-        description="Ancient structures overrun by time, with remnants of a once-great civilization. Echoes of the past resonate through the crumbling stone, whispering old secrets.",
-        narration="The ruins are a haunting reminder of the planet's past, and a testament to the power of time.",
-        dialogue="I wonder what secrets these ruins hold. I should explore the area to find out.",
-        items=[weapon['stick']],
-        position=(0, 0),),
+        description="Ancient structures overrun by time, with remnants of a "
+                    "once-great civilization. Echoes of the past resonate "
+                    "through the crumbling stone, whispering old secrets.",
+        narration="The ruins are a haunting reminder of the planet's past, "
+                  "and a testament to the power of time.",
+        dialogue="I wonder what secrets these ruins hold. I should explore "
+                 "the area to find out.",
+        items=[weapon["stick"]],
+        position=(0, 0),
+    ),
     Area(
         name="Crystal Caverns",
-        description="Gleaming crystals illuminate this underground wonder, casting colorful reflections.",
-        narration="The caverns sparkle with a thousand hues, each crystal telling its own ancient story.",
-        dialogue="The crystals are so beautiful. I wish I could take some with me.",
+        description="Gleaming crystals illuminate this underground wonder, "
+                    "casting colorful reflections.",
+        narration="The caverns sparkle with a thousand hues, each crystal "
+                  "telling its own ancient story.",
+        dialogue="The crystals are so beautiful. I wish I could take some "
+                 "with me.",
         items=[
-            weapon['sword'], 
-            armor['wooden_shield'], 
-            armor['metal_shield'],
-            item['potion'],
-            item['key'],
-            item['coin'],
+            weapon["sword"],
+            armor["wooden_shield"],
+            armor["metal_shield"],
+            item["potion"],
+            item["key"],
+            item["coin"],
         ],
         position=(1, 0),
-         ),
+    ),
     Area(
         name="Enchanted Forest",
-        description="A mystical woodland brimming with magical creatures and ancient trees.",
-        narration="As you step into the Enchanted Forest, a sense of awe washes over you. The sights and sounds of the forest are like nothing you've ever experienced. The air feels thick with magic, almost as if you could reach out and touch it.",
-        dialogue="I feel tired; the journey has been so long already. A cup of nice coffee would be a blessing now. I wonder how folks are doing back home. This seems like a good spot for a quick nap",
+        description="A mystical woodland brimming with magical creatures and "
+                    "ancient trees.",
+        narration="As you step into the Enchanted Forest, a sense of awe "
+                  "washes over you. The sights and sounds of the forest are "
+                  "like nothing you've ever experienced. The air feels thick "
+                  "with magic, almost as if you could reach out and touch "
+                  "it.",
+        dialogue="I feel tired; the journey has been so long already. A cup "
+                 "of nice coffee would be a blessing now. I "
+                 "wonder how folks are doing back home. This seems like a "
+                 "good spot for a quick nap",
         position=(0, 1),
         enemy=Enemy(
-            name='Yorkish',
-            description='Nasty busty monster yey',
+            name="Yorkish",
+            description="Nasty busty monster yey",
             narration="This monster will bite you in 5 sec",
             dialogue="I think I should be ok against this one",
             health=20,
             attack=7,
-            defense=9
+            defense=9,
         ),
     ),
-    Area("Haunted Graveyard",
-         "An eerie graveyard where fog hugs the ground and shadows move in the corner of your eye.",
-         "The air here is heavy with unspoken stories, and every grave has its own chilling tale.",
-         ""),
+    Area(
+        name="Haunted Graveyard",
+        description="An eerie graveyard where fog hugs the ground and "
+                    "shadows move in the corner of your eye.",
+        narration="The air here is heavy with unspoken stories, and every "
+                  "grave has its own chilling tale.",
+        dialogue="I feel a chill in the air. I should be careful.",
+    ),
 ]
 
 mystara_areas = [
-    Area("Enchanted Forest",
-         "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale.",
-         ""),
+    Area(
+        name="Enchanted Forest",
+        description="A mystical woodland brimming with magical creatures and "
+                    "ancient trees.",
+        narration="Every step in this forest feels like walking through a "
+                  "fairy tale.",
+        dialogue="I feel tired; the journey has been so long already. A cup "
+                 "of nice coffee would be a blessing now. I wonder how folks "
+                 "are doing back home. This seems like a good spot for a "
+                 "quick nap",
+    ),
 ]
 
 luminara_areas = [
-    Area("Enchanted Forest",
-         "A mystical woodland brimming with magical creatures and ancient trees.",
-         "Every step in this forest feels like walking through a fairy tale.",
-         ""),
+    Area(
+        name="Enchanted Forest",
+        description="A mystical woodland brimming with magical creatures and "
+                    "ancient trees.",
+        narration="Every step in this forest feels like walking through a "
+                  "fairy tale.",
+        dialogue="I feel tired; the journey has been so long already. A cup "
+                 "of nice coffee would be a blessing now.",
+    ),
 ]
 
 
@@ -461,14 +534,14 @@ def show_help() -> None:
 
 class Game:
     """
-    This is the main class for the game. 
+    This is the main class for the game.
     """
 
     def __init__(self) -> None:
         self.location_objects = {
             "Yolkaris": Yolkaris(),
             "Mystara": Mystara(),
-            "Luminara": Luminara()
+            "Luminara": Luminara(),
         }
         self.current_location = 0
         self.game_over = False
@@ -483,13 +556,15 @@ class Game:
         text("Welcome to the game! Great adventurer.")
         while True:
             username = input("Please enter your username: ").strip()
-            if 3 <= len(username) <= 24 and username.isalnum() and '_' not in username:
+            if 3 <= len(username) <= 24 and username.isalnum() and "_" not in username:
                 self.player = Player(username, 100, 10, 10)
                 break
             else:
-                print("Invalid username. It should be between 3 to 24 characters, contain only letters and numbers, and no underscores.")
-        
-        
+                print(
+                    "Invalid username. It should be between 3 to 24 characters"
+                    ",contain only letters and numbers, and no underscores."
+                )
+
     def show_player_stats(self) -> None:
         """
         This method displays the player's stats.
@@ -507,7 +582,7 @@ class Game:
         text(f"Defense: {player.defense}")
         text(f"Armour: {player.armor['name'] if player.armor else 'None'}")
         text(f"Weapon: {player.weapon['name'] if player.weapon else 'None'}")
-        inventory = ', '.join([item['name'] for item in player.inventory])
+        inventory = ", ".join([item["name"] for item in player.inventory])
         text(f"Inventory: {inventory}")
         # Display player's current location
         text(f"\nCurrent Location: {current_location.name}")
@@ -515,9 +590,9 @@ class Game:
 
     def choose_action(self) -> None:
         """
-        This method displays the available actions and prompts the player to choose
-        an action. The method then calls the appropriate method based on the player's
-        choice.
+        This method displays the available actions and prompts the player to 
+        choose an action. The method then calls the appropriate method based on 
+        the player's choice.
         """
         action = input(": ")
         if action == "help":
@@ -541,7 +616,6 @@ class Game:
         elif action == "quit":
             self.game_over = True
 
-
     def search_current_area(self):
         """
         This method searches the current area for items.
@@ -549,14 +623,15 @@ class Game:
         current_location = self.get_current_location()
         current_location.search_area(self.player)
 
-
     def start_game(self) -> None:
         """
         This is the main game loop.
         """
         # clear_terminal()
         # game_title()
-        # paragraph("Welcome to 'Yolkaris Odyssey'! Immerse yourself in a Python text-based adventure game filled with multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting battles with enemies. Get ready for an engaging and fun-filled journey!")
+        # paragraph("Welcome to 'Yolkaris Odyssey'! Immerse yourself in a Python text-based adventure game filled with "
+        #          "multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting "
+        #          "battles with enemies. Get ready for an engaging and fun-filled journey!")
         # ask_user('continue', 'Press enter to start the game: ')
 
         # Create player
@@ -564,7 +639,7 @@ class Game:
 
         # Assign player to current location
         self.assign_player_to_location()
-        
+
         # Start game intro
         # self.intro()
         while not self.game_over:
@@ -577,30 +652,66 @@ class Game:
         clear_terminal()
 
         text(f"Hello {self.player.name}!", delay=0.8, space=1)
-        paragraph("You'll step into Clucky's shoes, a valiant and clever chicken from the vibrant planet Yolkaris. Once a haven of peace and harmony, Yolkaris now faces a dire threat that jeopardizes its existence. As Clucky, it's up to you to embark on a daring quest to save your home planet. Are you ready to don the feathers of Clucky and become the hero Yolkaris needs?")
+        paragraph(
+            "You'll step into Clucky's shoes, a valiant and clever chicken from the vibrant planet Yolkaris. Once a "
+            "haven of peace and harmony, Yolkaris now faces a dire threat that jeopardizes its existence. As Clucky, "
+            "it's up to you to embark on a daring quest to save your home planet. Are you ready to don the feathers "
+            "of Clucky and become the hero Yolkaris needs? "
+        )
 
         # Ask if user is ready if not, exit the game and show funny message
-        ask_user('continue')
+        ask_user("continue")
 
         clear_terminal()
         text("Here is the story of Yolkaris Odyssey.", delay=0.8, space=1)
-        paragraph("In the boundless expanse of the cosmos, among a sea of twinkling stars, lies Yolkaris - a vibrant and lively planet home to an extraordinary species of spacefaring chickens. But now, Yolkaris faces an unprecedented crisis. A mysterious and malevolent cosmic dust, known as The Dark Dust, has enshrouded the planet in shadow, blocking the essential sunlight and disrupting the delicate balance of its ecosystem. The once bright and bustling world, a haven of clucking harmony, now teeters on the brink of ecological collapse.")
-        paragraph("In this hour of desperation, hope rests on the wings of one brave hero - Clucky. Renowned for courage and cleverness, Clucky's destiny is to embark on a quest beyond the stars. The mission is dangerous, the stakes are high, and the journey will take Clucky to uncharted corners of the galaxy.")
-        paragraph("As Clucky, you will traverse through cosmic wonders and confront unknown dangers. Your quest will lead you to ancient relics and forgotten worlds, where secrets of The Dark Dust await to be uncovered. The journey promises challenges, trials, and the chance to become the saviour that Yolkaris desperately needs.")
-        ask_user('continue')
+        paragraph(
+            "In the boundless expanse of the cosmos, among a sea of twinkling stars, lies Yolkaris - a vibrant and "
+            "lively planet home to an extraordinary species of spacefaring chickens. But now, Yolkaris faces an "
+            "unprecedented crisis. A mysterious and malevolent cosmic dust, known as The Dark Dust, has enshrouded "
+            "the planet in shadow, blocking the essential sunlight and disrupting the delicate balance of its "
+            "ecosystem. The once bright and bustling world, a haven of clucking harmony, now teeters on the brink of "
+            "ecological collapse. "
+        )
+        paragraph(
+            "In this hour of desperation, hope rests on the wings of one brave hero - Clucky. Renowned for courage "
+            "and cleverness, Clucky's destiny is to embark on a quest beyond the stars. The mission is dangerous, "
+            "the stakes are high, and the journey will take Clucky to uncharted corners of the galaxy. "
+        )
+        paragraph(
+            "As Clucky, you will traverse through cosmic wonders and confront unknown dangers. Your quest will lead "
+            "you to ancient relics and forgotten worlds, where secrets of The Dark Dust await to be uncovered. The "
+            "journey promises challenges, trials, and the chance to become the saviour that Yolkaris desperately "
+            "needs. "
+        )
+        ask_user("continue")
 
         clear_terminal()
         text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
-        text("- There are three locations in the game: Yolkaris, Mystara, and Luminara.")
-        text("- You can see your current position within a location by using the 'map' command.")
-        text("- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'.")
-        text("- If you encounter items or enemies, you will be prompted to interact with them.")
-        text("- You can carry items in your inventory. Check your inventory using the 'inventory' command.")
-        text("- Keep an eye on your health, attack, and defense stats. They are crucial for survival.")
-        text("- If you need to see the list of available commands at any time, use the 'help' command.", delay=0.6, space=1)
+        text(
+            "- There are three locations in the game: Yolkaris, Mystara, and Luminara."
+        )
+        text(
+            "- You can see your current position within a location by using the 'map' command."
+        )
+        text(
+            "- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'."
+        )
+        text(
+            "- If you encounter items or enemies, you will be prompted to interact with them."
+        )
+        text(
+            "- You can carry items in your inventory. Check your inventory using the 'inventory' command."
+        )
+        text(
+            "- Keep an eye on your health, attack, and defense stats. They are crucial for survival."
+        )
+        text(
+            "- If you need to see the list of available commands at any time, use the 'help' command.",
+            delay=0.6,
+            space=1,
+        )
         text("Good luck on your adventure to save Yolkaris!", delay=0.6, space=1)
         self.display_map()
-
 
     def get_current_location(self) -> Location:
         """
@@ -612,9 +723,10 @@ class Game:
         Returns the current location object where the player is at present.
         """
         # Retrieve the name of the current location based on the player's position
-        current_location_name = list(self.location_objects.keys())[self.current_location]
+        current_location_name = list(self.location_objects.keys())[
+            self.current_location
+        ]
         return self.location_objects[current_location_name]
-
 
     def assign_player_to_location(self) -> None:
         """
@@ -628,7 +740,6 @@ class Game:
         # Assign the player to the current location
         current_location.player = self.player
 
-
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
@@ -638,7 +749,6 @@ class Game:
         # Display the map of the current location
         text(f"Map of {current_location.name}", space=1)
         current_location.display_map()
-
 
     def update_player_position(self, dx: int, dy: int) -> None:
         """
@@ -662,13 +772,11 @@ class Game:
         else:
             print("You can't move in that direction.")
 
-
     def move_north(self) -> None:
         """
         This method moves the player north.
         """
         self.update_player_position(0, -1)
-
 
     def move_south(self) -> None:
         """
@@ -676,20 +784,17 @@ class Game:
         """
         self.update_player_position(0, 1)
 
-
     def move_east(self) -> None:
         """
         This method moves the player east.
         """
         self.update_player_position(1, 0)
 
-
     def move_west(self) -> None:
         """
         This method moves the player west.
         """
         self.update_player_position(-1, 0)
-
 
     def show_location_contents(self):
         current_location = self.get_current_location()
