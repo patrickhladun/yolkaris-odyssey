@@ -65,14 +65,30 @@ class Interaction:
         paragraph(area.narration)
         paragraph(f"Clucky: {area.dialogue}")
 
-    def with_enemy(self, enemy):
-        combat = Combat(self.player, enemy)
-        text(f"{enemy.name} stand on your way, {self.player.name}")
+    def with_enemy(self, enemy, location):
+        text(f"{enemy.name} stands in your way, {self.player.name}")
+        text(f"Enemy health: {enemy.health}")
+        text(f"Enemy attack: {enemy.attack}")
+        text(f"Enemy defense: {enemy.defense}")
         paragraph(enemy.description)
         paragraph(enemy.narration)
         paragraph(f"Clucky: {enemy.dialogue}")
-        ask_user("continue", "Press enter to start the battle: ")
-        combat.start_combat()
+
+        # Ask the player if they want to fight or flee
+        choice = input("Do you want to fight or flee? (fight/flee): ")
+        if choice.lower() == "fight":
+            combat = Combat(self.player, enemy)
+            ask_user('continue', 'Press enter to start the battle: ')
+            combat.start_combat()
+        elif choice.lower() == "flee":
+            # Move player back to the previous position
+            location.player_position = location.player_prev_position
+            text("You decided to flee and return to the previous area.", space=1)
+        else:
+            text("Invalid choice. Assuming you chose to fight.")
+            combat = Combat(self.player, enemy)
+            ask_user('continue', 'Press enter to start the battle: ')
+            combat.start_combat()
 
 
 class Combat:
@@ -143,6 +159,7 @@ class Location:
         self.size = size
         self.areas = areas if areas else []
         self.player_position = (0, 0)
+        self.player_prev_position = (0, 0)
         self.contents = {}
         self.map = [["" for _ in range(size[0])] for _ in range(size[1])]
         self.visited = [[False for _ in range(
@@ -228,7 +245,7 @@ class Location:
                 interaction = Interaction(player)
                 interaction.with_area(element)
                 if element.enemy:
-                    interaction.with_enemy(element.enemy)
+                    interaction.with_enemy(element.enemy, self)
 
     def print_contents(self):
         if not self.contents:
@@ -758,10 +775,13 @@ class Game:
         """
         # Retrieve the current location object
         current_location = self.get_current_location()
-        # Retrieve the player's current position
-        x, y = current_location.player_position
+
+        # Update previous position before changing the current position
+        current_location.player_prev_position = current_location.player_position
+
         # Calculate the new position
-        new_position = (x + dx, y + dy)
+        new_position = (current_location.player_position[0] + dx,
+                        current_location.player_position[1] + dy)
 
         # Check if the new position is valid
         if current_location.is_valid_position(new_position):
