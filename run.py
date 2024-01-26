@@ -67,28 +67,24 @@ class Interaction:
 
     def with_enemy(self, enemy, location):
         text(f"{enemy.name} stands in your way, {self.player.name}")
+        paragraph(enemy.description)
+        space()
         text(f"Enemy health: {enemy.health}")
         text(f"Enemy attack: {enemy.attack}")
-        text(f"Enemy defense: {enemy.defense}")
-        paragraph(enemy.description)
+        text(f"Enemy defense: {enemy.defense}", space=1)
+
         paragraph(enemy.narration)
         paragraph(f"Clucky: {enemy.dialogue}")
-
-        # Ask the player if they want to fight or flee
-        choice = input("Do you want to fight or flee? (fight/flee): ")
-        if choice.lower() == "fight":
-            combat = Combat(self.player, enemy)
-            ask_user('continue', 'Press enter to start the battle: ')
-            combat.start_combat()
-        elif choice.lower() == "flee":
-            # Move player back to the previous position
-            location.player_position = location.player_prev_position
-            text("You decided to flee and return to the previous area.", space=1)
-        else:
-            text("Invalid choice. Assuming you chose to fight.")
-            combat = Combat(self.player, enemy)
-            ask_user('continue', 'Press enter to start the battle: ')
-            combat.start_combat()
+        combat = Combat(self.player, enemy)
+        results = combat.to_fight_or_not_to_fight()
+        if results == "retreat":
+            text("You have retreated from the battle.")
+            location.return_to_previous_position()
+        elif results == "won":
+            text(f"You have defeated {enemy.name}!")
+        elif results == "lost":
+            text(f"You have been defeated by {enemy.name}!")
+            text("Game Over!")
 
 
 class Combat:
@@ -96,22 +92,34 @@ class Combat:
         self.player = player
         self.enemy = enemy
 
-    def start_combat(self):
+    def combat(self):
         while self.player.health > 0 and self.enemy.health > 0:
             self.player_attack()
             if self.enemy.health <= 0:
-                text("Enemy defeated!", space=1)
-                break
+                return "won"
 
             self.enemy_attack()
             if self.player.health <= 0:
-                text("Player defeated!", space=1)
+                return "lost"
+
+            if not self.continue_or_flee():
                 break
 
-            if not self.confirm_continue():
-                break
+        return "retreat"
 
-        self.display_combat_status()
+    def to_fight_or_not_to_fight(self):
+        choice = input("Do you want to fight or retreat? (fight/retreat): ")
+        if choice.lower() == "fight":
+            result = self.combat()
+            return result
+        elif choice.lower() == "retreat":
+            return "retreat"
+        else:
+            text("Invalid choice. Assuming you chose to fight.")
+
+    def continue_or_flee(self):
+        choice = input("To continue press enter, to run type 'retreat': ")
+        return choice.lower() != "retreat"
 
     def player_attack(self):
         player_attack_power = self.calculate_player_attack_power()
@@ -146,10 +154,6 @@ class Combat:
         text(f"Player: health:{self.player.health}")
         if self.enemy.health > 0:
             text(f"Enemy: health:{self.enemy.health}", delay=0.3, space=1)
-
-    def confirm_continue(self):
-        choice = input("To continue press enter, to run type 'no'")
-        return choice.lower() != "no"
 
 
 class Location:
@@ -237,6 +241,10 @@ class Location:
         """
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
+
+    def return_to_previous_position(self):
+        self.player_position = self.player_prev_position
+        text("You have returned to the previous area.")
 
     def check_for_interaction(self, position, player):
         if position in self.contents:
@@ -787,7 +795,6 @@ class Game:
         if current_location.is_valid_position(new_position):
             current_location.player_position = new_position
             current_location.mark_visited(new_position)
-            print(f"PLAYER : {self.player.name}")
             current_location.check_for_interaction(new_position, self.player)
         else:
             print("You can't move in that direction.")
