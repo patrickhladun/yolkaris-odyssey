@@ -35,17 +35,13 @@ class Enemy(Character):
     def __init__(
         self,
         name: str,
-        description: str,
-        narration: str,
-        dialogue: str,
+        storyLine: list,
         health: int,
         attack: int,
         defense: int,
     ) -> None:
         super().__init__(name)
-        self.description = description
-        self.narration = narration
-        self.dialogue = dialogue
+        self.storyLine = storyLine
         self.health = health
         self.attack = attack
         self.defense = defense
@@ -62,16 +58,14 @@ class Interaction:
 
     def with_area(self, area):
         clear_terminal()
-        paragraph(f"You are visiting {area.name}, {area.description}")
-        paragraph(area.narration)
-        paragraph(f"Clucky: {area.dialogue}")
+        for line in area.storyLine:
+            paragraph(line['text'], space=1)
 
     def with_enemy(self, enemy, location):
         space()
         text(f"{enemy.name} stands in your way, {self.player.name}", space=1)
-        paragraph(enemy.description)
-        paragraph(enemy.narration)
-        paragraph(f'Clucky: {enemy.dialogue}')
+        for line in enemy.storyLine:
+            paragraph(line['text'], space=1)
         text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
              f"defense: {enemy.defense}", space=1)
         combat = Combat(self.player, enemy)
@@ -368,26 +362,16 @@ class Area:
     def __init__(
         self,
         name: str,
-        description,
-        narration,
-        dialogue,
+        storyLine: list,
         enemy=None,
         position=None,
         items=None,
     ) -> None:
         self.name = name
-        self.description = description
-        self.narration = narration
-        self.dialogue = dialogue
+        self.storyLine = storyLine
         self.enemy = enemy
         self.position = position
         self.items = items if items else []
-
-    # def interact(self, player):
-    #     interaction = Interaction(player)
-    #     interaction.with_area(self)
-    #     if self.enemy:
-    #         interaction.with_enemy(self.enemy)
 
 
 weapon = {
@@ -445,24 +429,13 @@ item = {
 yolkaris_areas = [
     Area(
         name="Lost City Ruins",
-        description="Ancient structures overrun by time, with remnants of a "
-                    "once-great civilization. Echoes of the past resonate "
-                    "through the crumbling stone, whispering old secrets.",
-        narration="The ruins are a haunting reminder of the planet's past, "
-                  "and a testament to the power of time.",
-        dialogue="I wonder what secrets these ruins hold. I should explore "
-                 "the area to find out.",
+        storyLine=[],
         items=[weapon["stick"]],
         position=(0, 0),
     ),
     Area(
         name="Crystal Caverns",
-        description="Gleaming crystals illuminate this underground wonder, "
-                    "casting colorful reflections.",
-        narration="The caverns sparkle with a thousand hues, each crystal "
-                  "telling its own ancient story.",
-        dialogue="The crystals are so beautiful. I wish I could take some "
-                 "with me.",
+        storyLine=[],
         items=[
             weapon["sword"],
             armor["wooden_shield"],
@@ -475,28 +448,42 @@ yolkaris_areas = [
     ),
     Area(
         name="Enchanted Forest",
-        description="A mystical woodland brimming with magical creatures and "
-                    "ancient trees.",
-        narration="As you step into the Enchanted Forest, a sense of awe "
-                  "washes over you. The sights and sounds of the forest are "
-                  "like nothing you've ever experienced. The air feels thick "
-                  "with magic, almost as if you could reach out and touch "
-                  "it.",
-        dialogue="I feel tired; the journey has been so long already. A cup "
-                 "of nice coffee would be a blessing now. I "
-                 "wonder how folks are doing back home. This seems like a "
-                 "good spot for a quick nap",
+        storyLine=[
+            {
+                "text": "A mystical woodland brimming with magical creatures"
+                " and ancient trees.",
+            },
+            {
+                "text": "As you step into the Enchanted Forest, a sense of awe"
+                " washes over you. The sights and sounds of the forest are"
+                " like nothing you've ever experienced. The air feels thick"
+                " with magic, almost as if you could reach out and touch"
+                " it."
+            },
+            {
+                "text": "Clucky - I feel tired; the journey has been so long"
+                " already. A cup of nice coffee would be a blessing now. I"
+                " wonder how folks are doing back home. This seems like a"
+                " good spot for a quick nap"
+            }
+        ],
         position=(0, 1),
         enemy=Enemy(
             name="Yorkish",
-            description="Yorkish, a shadowy figure with glowing eyes and sharp"
-            ",dark feathers, moves silently. Its eerie screech is feared in "
-            "the Enchanted Forest.",
-            narration="As you feel its presence, the forest falls eerily "
-            "quiet. Confronted by Yorkish's menacing stare, you face a "
-            "critical choice: fight bravely or retreat swiftly.",
-            dialogue="Whoa, that's Yorkish! Okay, stay calm. Do I fight this "
-            "creature or back away? Quick thinking is key here.",
+            storyLine=[
+                {
+                    "text": "Yorkish, a shadowy figure with glowing eyes and"
+                    " sharp dark feathers, moves silently. Its eerie screech"
+                    " is feared in the Enchanted Forest."
+                },
+                {
+                    "text": "As you feel its presence, the forest falls"
+                    " eerily quiet. Confronted by Yorkish's menacing stare,"
+                    " you face a critical choice: fight bravely or retreat"
+                    " swiftly."
+                }
+
+            ],
             health=20,
             attack=7,
             defense=9,
@@ -504,37 +491,21 @@ yolkaris_areas = [
     ),
     Area(
         name="Haunted Graveyard",
-        description="An eerie graveyard where fog hugs the ground and "
-                    "shadows move in the corner of your eye.",
-        narration="The air here is heavy with unspoken stories, and every "
-                  "grave has its own chilling tale.",
-        dialogue="I feel a chill in the air. I should be careful.",
+        storyLine=[],
     ),
 ]
 
 mystara_areas = [
     Area(
         name="Enchanted Forest",
-        description="A mystical woodland brimming with magical creatures and "
-                    "ancient trees.",
-        narration="Every step in this forest feels like walking through a "
-                  "fairy tale.",
-        dialogue="I feel tired; the journey has been so long already. A cup "
-                 "of nice coffee would be a blessing now. I wonder how folks "
-                 "are doing back home. This seems like a good spot for a "
-                 "quick nap",
+        storyLine=[],
     ),
 ]
 
 luminara_areas = [
     Area(
         name="Enchanted Forest",
-        description="A mystical woodland brimming with magical creatures and "
-                    "ancient trees.",
-        narration="Every step in this forest feels like walking through a "
-                  "fairy tale.",
-        dialogue="I feel tired; the journey has been so long already. A cup "
-                 "of nice coffee would be a blessing now.",
+        storyLine=[],
     ),
 ]
 
