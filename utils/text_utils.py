@@ -3,7 +3,6 @@ import os
 import time
 import textwrap
 
-
 # Initialize Colorama
 init(autoreset=True)
 
@@ -67,16 +66,12 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
     - color: the color to apply to the prompt text
     - prompt: the prompt text to display (optional)
     """
-    if prompt is None:
-        if type == "continue":
-            prompt = "Press enter to continue: "
-        elif type == "confirm":
-            prompt = "Select 'yes' or 'no': "
-
     if type == "continue":
+        prompt = prompt if prompt else "Press enter to continue: "
         print(color + prompt + Fore.RESET, end="")
         input()
     elif type == "confirm":
+        prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
             print(color + prompt + " (yes/no): " + Fore.RESET, end="")
             choice = input().lower()
@@ -84,19 +79,19 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
                 return True
             print("Invalid input. Please enter 'yes' or 'no'.")
     elif type == "combat":
+        prompt = "Do you want to 'fight' or 'retreat'? "
         while True:
-            print(color + "Do you want to fight or retreat? (fight/retreat): "
-                  + Fore.RESET, end="")
+            print(color + prompt + Fore.RESET, end="")
             choice = input().lower()
             if choice == 'fight':
                 return 'fight'
             elif choice == 'retreat':
                 return 'retreat'
-            print("Invalid input. Please enter 'yes' or 'no'.")
+            print("Invalid input. Please enter 'fight' or 'retreat'.")
     elif type == "retreat":
+        prompt = "To continue press enter or 'retreat': "
         while True:
-            print(color + "To continue press enter, to run type 'retreat': "
-                  + Fore.RESET, end="")
+            print(color + prompt + Fore.RESET, end="")
             choice = input().lower()
             if choice == 'retreat':
                 return 'retreat'
