@@ -84,9 +84,9 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
             print(color + prompt + Fore.RESET, end="")
             choice = input().lower()
             if choice == 'fight':
-                return 'fight'
+                return True
             elif choice == 'retreat':
-                return 'retreat'
+                return False
             print("Invalid input. Please enter 'fight' or 'retreat'.")
     elif type == "retreat":
         prompt = "To continue press enter or 'retreat': "
@@ -94,5 +94,7 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
             print(color + prompt + Fore.RESET, end="")
             choice = input().lower()
             if choice == 'retreat':
-                return 'retreat'
+                return True
+            elif choice == '':
+                return False
             print("Invalid input. Please enter 'retreat' or enter.")

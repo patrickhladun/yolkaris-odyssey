@@ -101,24 +101,20 @@ class Combat:
             if self.player.health <= 0:
                 return "lost"
 
-            if not self.continue_or_flee():
+            if self.continue_or_flee():
                 break
 
         return "retreat"
 
     def to_fight_or_not_to_fight(self):
-        choice = ask_user('combat', color=color_light_blue)
-        if choice.lower() == "fight":
+        if ask_user('combat', color=color_light_blue):
             result = self.combat()
             return result
-        elif choice.lower() == "retreat":
-            return "retreat"
         else:
-            text("Invalid choice. Assuming you chose to fight.")
+            return "retreat"
 
     def continue_or_flee(self):
-        choice = ask_user('retreat', color=color_light_blue)
-        return choice.lower() != "retreat"
+        return ask_user('retreat', color=color_light_blue)
 
     def player_attack(self):
         player_attack_power = self.calculate_player_attack_power()
