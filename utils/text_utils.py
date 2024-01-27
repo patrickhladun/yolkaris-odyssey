@@ -1,28 +1,45 @@
+from colorama import Fore, Style, init
 import os
 import time
 import textwrap
 
-def text(text, delay=0.2, space=0):
+
+# Initialize Colorama
+init(autoreset=True)
+
+# Define custom colors
+color_light_gray = Fore.LIGHTBLACK_EX  # Light gray color
+color_light_blue = Fore.LIGHTBLUE_EX  # Light blue color
+
+
+def text(text, delay=0.2, space=0, color=Fore.RESET):
     """
-    This prints text to the terminal.
+    Prints text to the terminal with optional color.
     - text: the text to print
     - delay: the delay between each character
     - space: the number of new lines to print after the text
+    - color: the color to apply to the text
     """
     line_space = '\n' * space
-    print(text + line_space)
+    print(color + text + Fore.RESET + line_space)
     time.sleep(delay)
 
 
-def paragraph(long_string, space=1):
+def paragraph(long_string, space=1, color=Fore.RESET):
+    """
+    Prints a paragraph of text to the terminal with optional color.
+    - long_string: the text to wrap and print as a paragraph
+    - space: the number of new lines to print after the paragraph
+    - color: the color to apply to the text
+    """
     wrapped_text = textwrap.fill(long_string, width=75)
     lines = wrapped_text.split('\n')
 
     for i, line in enumerate(lines):
         if i == len(lines) - 1:
-            text(line, space=1)
+            text(line, space=1, color=color)
         else:
-            text(line)
+            text(line, color=color)
 
 
 def space(space: int = 0, delay: float = 0.2):
@@ -43,17 +60,44 @@ def clear_terminal():
     os.system('clear')
 
 
-def ask_user(type: str, prompt: str = None):
+def ask_user(type: str, color=Fore.RESET, prompt: str = None):
     """
-    Function to prompt the user to type 'next' or 'n§' and press Enter to continue the game.
+    Prompts the user for input with an optional color.
+    - type: the type of prompt ('continue' or 'confirm')
+    - color: the color to apply to the prompt text
+    - prompt: the prompt text to display (optional)
     """
+    if prompt is None:
+        if type == "continue":
+            prompt = "Press enter to continue: "
+        elif type == "confirm":
+            prompt = "Select 'yes' or 'no': "
+
     if type == "continue":
-        prompt = prompt if prompt else "Press enter to continue: "
-        input(prompt)
+        print(color + prompt + Fore.RESET, end="")
+        input()
     elif type == "confirm":
-        prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
-            choice = input(prompt + " (yes/no): ").lower()
+            print(color + prompt + " (yes/no): " + Fore.RESET, end="")
+            choice = input().lower()
             if choice in ['yes', 'no']:
                 return True
             print("Invalid input. Please enter 'yes' or 'no'.")
+    elif type == "combat":
+        while True:
+            print(color + "Do you want to fight or retreat? (fight/retreat): "
+                  + Fore.RESET, end="")
+            choice = input().lower()
+            if choice == 'fight':
+                return 'fight'
+            elif choice == 'retreat':
+                return 'retreat'
+            print("Invalid input. Please enter 'yes' or 'no'.")
+    elif type == "retreat":
+        while True:
+            print(color + "To continue press enter, to run type 'retreat': "
+                  + Fore.RESET, end="")
+            choice = input().lower()
+            if choice == 'retreat':
+                return 'retreat'
+            print("Invalid input. Please enter 'retreat' or enter.")

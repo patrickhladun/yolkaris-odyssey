@@ -1,7 +1,8 @@
 from game.config import Config
 import random
 from art import *
-from utils import text, paragraph, space, clear_terminal, ask_user
+from utils import (text, paragraph, space, clear_terminal, ask_user,
+                   color_light_gray, color_light_blue)
 from pprint import pprint
 
 
@@ -71,7 +72,7 @@ class Interaction:
         paragraph(enemy.description)
         paragraph(enemy.narration)
         paragraph(f'Clucky: {enemy.dialogue}')
-        text(f"{enemy.name}'s health: {enemy.health}, attack: {enemy.attack}, "
+        text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
              f"defense: {enemy.defense}", space=1)
         combat = Combat(self.player, enemy)
         results = combat.to_fight_or_not_to_fight()
@@ -106,7 +107,7 @@ class Combat:
         return "retreat"
 
     def to_fight_or_not_to_fight(self):
-        choice = input("Do you want to fight or retreat? (fight/retreat): ")
+        choice = ask_user('combat', color=color_light_blue)
         if choice.lower() == "fight":
             result = self.combat()
             return result
@@ -116,7 +117,7 @@ class Combat:
             text("Invalid choice. Assuming you chose to fight.")
 
     def continue_or_flee(self):
-        choice = input("To continue press enter, to run type 'retreat': ")
+        choice = ask_user('retreat', color=color_light_blue)
         return choice.lower() != "retreat"
 
     def player_attack(self):
@@ -259,7 +260,7 @@ class Location:
                 interaction = Interaction(player)
                 interaction.with_area(element)
                 if element.enemy:
-                    ask_user('continue')
+                    ask_user('continue', color=color_light_blue)
                     interaction.with_enemy(element.enemy, self)
 
     def print_contents(self):
@@ -386,11 +387,11 @@ class Area:
         self.position = position
         self.items = items if items else []
 
-    def interact(self, player):
-        interaction = Interaction(player)
-        interaction.with_area(self)
-        if self.enemy:
-            interaction.with_enemy(self.enemy)
+    # def interact(self, player):
+    #     interaction = Interaction(player)
+    #     interaction.with_area(self)
+    #     if self.enemy:
+    #         interaction.with_enemy(self.enemy)
 
 
 weapon = {
