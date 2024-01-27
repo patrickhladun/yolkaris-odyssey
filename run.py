@@ -48,8 +48,9 @@ class Enemy(Character):
 
 
 class Neutral(Character):
-    def __init__(self, name) -> None:
+    def __init__(self, name, storyLine) -> None:
         super().__init__(name)
+        self.storyLine = storyLine
 
 
 class Interaction:
@@ -73,11 +74,18 @@ class Interaction:
         if results == "retreat":
             text("You have retreated from the battle.")
             location.return_to_previous_position()
+            return False
         elif results == "won":
             text(f"You have defeated {enemy.name}!")
+            return True
         elif results == "lost":
             text(f"You have been defeated by {enemy.name}!")
             text("Game Over!")
+
+    def with_neutral(self, neutral):
+        space()
+        for line in neutral.storyLine:
+            paragraph(line['text'], space=1)
 
 
 class Combat:
@@ -249,9 +257,17 @@ class Location:
             if isinstance(element, Area):
                 interaction = Interaction(player)
                 interaction.with_area(element)
+
+                enemy_defeated = False
                 if element.enemy:
                     ask_user('continue', color=color_light_blue)
-                    interaction.with_enemy(element.enemy, self)
+                    enemy_defeated = interaction.with_enemy(
+                        element.enemy, self)
+
+                # Start interaction with neutral if no enemy or enemy defeated
+                if (not element.enemy or enemy_defeated) and element.neutral:
+                    ask_user('continue', color=color_light_blue)
+                    interaction.with_neutral(element.neutral)
 
     def print_contents(self):
         if not self.contents:
@@ -364,12 +380,14 @@ class Area:
         name: str,
         storyLine: list,
         enemy=None,
+        neutral=None,
         position=None,
         items=None,
     ) -> None:
         self.name = name
         self.storyLine = storyLine
         self.enemy = enemy
+        self.neutral = neutral
         self.position = position
         self.items = items if items else []
 
@@ -488,6 +506,31 @@ yolkaris_areas = [
             attack=7,
             defense=9,
         ),
+        neutral=Neutral(
+            name="Juzek",
+            storyLine=[
+                {
+                    "text": "Stranger - Hi there, that was a nice Fight. For"
+                    " your bravery, I will give you a gift. Here, take this."
+                    " It will help you in your journey."
+                },
+                {
+                    "text": "Clucky - Thank you, kind stranger. What's your"
+                    " name?"
+                },
+                {
+                    "text": "Stranger - I am Juzek, a wanderer. I have been"
+                    " travelling across the galaxy for many years. I have"
+                    " seen many wonders and met many people. I have also"
+                    " heard many stories. I am on a quest to find the"
+                    " greatest story of all. I hope you find yours too."
+                },
+                {
+                    "text": "Clucky - Thank you, Juzek. I hope you find your"
+                    " story too."
+                },
+            ]
+        )
     ),
     Area(
         name="Haunted Graveyard",
