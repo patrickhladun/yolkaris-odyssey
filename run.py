@@ -63,9 +63,13 @@ class Interaction:
         self.player = player
 
     def with_area(self, area):
-        clear_terminal()
         for line in area.storyLine:
-            paragraph(line['text'], space=1)
+            if 'clear' in line:
+                clear_terminal()
+            elif 'text' in line:
+                paragraph(line['text'], space=1)
+            elif 'continue' in line:
+                ask_user('continue', color=color_light_blue)
 
     def with_enemy(self, enemy, location):
         space()
@@ -90,7 +94,12 @@ class Interaction:
     def with_neutral(self, neutral):
         space()
         for line in neutral.storyLine:
-            paragraph(line['text'], space=1)
+            if 'clear' in line:
+                clear_terminal()
+            elif 'text' in line:
+                paragraph(line['text'], space=1)
+            elif 'continue' in line:
+                ask_user('continue', color=color_light_blue)
 
 
 class Combat:
@@ -207,12 +216,6 @@ class Location:
         """
         This method displays the map of the current location.
         """
-        # print(f"Position: {self.player_position}")
-        # pprint(self.map)
-        # print('Contents')
-        # pprint(f"{self.contents}", width=135)
-        # print('Visited')
-        # pprint(f"{self.visited}", width=135)
         for y in range(self.size[1]):
             for x in range(self.size[0]):
                 if (x, y) == self.player_position:
@@ -271,7 +274,6 @@ class Location:
 
                 # Start interaction with neutral if no enemy or enemy defeated
                 if (not element.enemy or enemy_defeated) and element.neutral:
-                    ask_user('continue', color=color_light_blue)
                     interaction.with_neutral(element.neutral)
 
     def print_contents(self):
@@ -447,6 +449,8 @@ def game_title() -> None:
     odyssey = text2art("Odyssey", font="dos_rebel", chr_ignore=True)
     print(yolkaris)
     print(odyssey)
+    text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
+    text("Coded and designed by Patrick Hladun.", delay=0.1)
 
 
 def show_help() -> None:
@@ -484,6 +488,9 @@ if game_level == 1:
             name="Capital City",
             storyLine=[
                 {
+                    "clear": True
+                },
+                {
                     "text": "As you embark on 'The Broken Clock' adventure in"
                     " 'Yolkaris Odyssey', the vibrant energy of The Capital"
                     " surrounds you. The sun bathes the cobblestone streets"
@@ -501,15 +508,64 @@ if game_level == 1:
                     " approach the Grand Clock to investigate the matter."
                     " There, you meet Timekeeper Ticktock, an elderly bird"
                     " with keen eyes behind a shiny monocle."
+                },
+                {
+                    "continue": True
                 }
             ],
             items=[],
             neutral=Neutral(
-                name="Juzek",
+                name="Timekeeper",
                 storyLine=[
                     {
                         "text": "Hello"
-                    }
+                    },
+                    {
+                        "text": "Timekeeper: Ah, Clucky! Our Grand Clock has"
+                        " stopped. Its magic is fading. You must find the Time"
+                        " Crystal in the Crystal Hills to restore it."
+                    },
+                    {
+                        "text": "Clucky: I will find the crystal and save the"
+                        " clock, Timekeeper."
+                    },
+                    {
+                        "text": "Timekeeper: Hurry, for time is of the essence"
+                        " now."
+                    },
+                    {
+                        "continue": True
+                    },
+                    {
+                        "clear": True
+                    },
+                    {
+                        "text": "But before you go here is how to Play"
+                        " Yolkaris Odyssey:"
+                    },
+                    {
+                        "text": "- There is one location in this story, "
+                        " Yolkaris."
+                    },
+                    {
+                        "text": "- You can see your current position within a "
+                        " location by using the 'map' command."
+                    },
+                    {
+                        "text": "- To move around the map, use the directional"
+                        " commands: 'north', 'south', 'east', and 'west'."
+                    },
+                    {
+                        "text": "- You can search the area you are in using"
+                        " the 'search' command."
+                    },
+                    {
+                        "text": "- You can carry items in your inventory."
+                        " Check your inventory using the 'inventory' command."
+                    },
+                    {
+                        "text": "Good Luck, and have fun!"
+                    },
                 ]
             ),
             position=(0, 0),
@@ -617,7 +673,7 @@ class Game:
         current_location = self.get_current_location()
 
         # Display player's basic stats
-        clear_terminal()
+        space()
         text(f"Player {player.name}:")
         text(
             f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}", color=color_light_gray)
@@ -681,7 +737,7 @@ class Game:
         """
         This is the main game loop.
         """
-        # clear_terminal()
+        clear_terminal()
         game_title()
         ask_user('continue', 'Press enter to start the game: ')
 
@@ -696,37 +752,11 @@ class Game:
         This is the introduction to the game.
         """
         clear_terminal()
-
         text(f"Hello {self.player.name}!", delay=0.8, space=1)
 
-        # Ask if user is ready if not, exit the game and show funny message
-        ask_user("continue")
-
-        # text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
-        # text(
-        #     "- There are three locations in the game: Yolkaris, Mystara, and Luminara."
-        # )
-        # text(
-        #     "- You can see your current position within a location by using the 'map' command."
-        # )
-        # text(
-        #     "- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'."
-        # )
-        # text(
-        #     "- If you encounter items or enemies, you will be prompted to interact with them."
-        # )
-        # text(
-        #     "- You can carry items in your inventory. Check your inventory using the 'inventory' command."
-        # )
-        # text(
-        #     "- Keep an eye on your health, attack, and defense stats. They are crucial for survival."
-        # )
-        # text(
-        #     "- If you need to see the list of available commands at any time, use the 'help' command.",
-        #     delay=0.6,
-        #     space=1,
-        # )
-        text("Good luck on your adventure to save Yolkaris!", delay=0.6, space=1)
+        ask_user('continue')
+        starting_location = self.get_current_location()
+        starting_location.check_for_interaction((0, 0), self.player)
         self.display_map()
 
     def get_current_location(self) -> Location:
