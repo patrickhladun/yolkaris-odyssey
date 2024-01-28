@@ -13,8 +13,8 @@ color_light_blue = Fore.LIGHTBLUE_EX  # Light blue color
 color_player = Style.DIM + Fore.LIGHTGREEN_EX  # Light green color
 color_neutral = Style.DIM + Fore.CYAN
 color_error = Style.NORMAL + Fore.RED
-default_blue_color = Fore.BLUE + Style.BRIGHT
 
+color_ask_user = Fore.BLUE + Style.BRIGHT
 
 def text(
     text,
@@ -76,7 +76,8 @@ def clear_terminal():
 
 def ask_user(
         type: str,
-        color=default_blue_color,
+        
+        color=color_ask_user,
         prompt: str = None
 ):
     """
