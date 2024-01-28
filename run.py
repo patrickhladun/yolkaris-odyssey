@@ -17,14 +17,19 @@ class Player(Character):
             name: str,
             health: int,
             attack: int,
+            inventory: list,
+            potions: list,
+            coins: int,
             defense: int) -> None:
         super().__init__(name)
         self.health = health
         self.attack = attack
         self.defense = defense
-        self.inventory = []
+        self.inventory = inventory
+        self.potions = potions
+        self.coins = coins
         self.weapon = None
-        self.armor = None
+        self.armour = None
 
 
 class Enemy(Character):
@@ -138,7 +143,7 @@ class Combat:
 
     def calculate_player_defense(self):
         base_defense = self.player.defense
-        armor_bonus = self.player.armor["defense"] if self.player.armor else 0
+        armor_bonus = self.player.armour["defense"] if self.player.armour else 0
         return base_defense + armor_bonus
 
     def calculate_damage(self, attack, defense):
@@ -288,19 +293,22 @@ class Location:
             area = self.contents[position]
             if hasattr(area, "items") and area.items:
                 text("You found the following items:", space=1)
-                for index, item in enumerate(area.items):
-                    text(f"{index + 1}. {item['name']}", delay=0.2)
+                for index, the_item in enumerate(area.items):
+                    # Ensure that item_dict has 'item' and 'quantity' keys
+                    item = the_item['item']
+                    quantity = the_item['quantity']
+                    name = item.name
+                    text(f"{index + 1}. {name} (Quantity: {quantity})")
 
                 space()
                 choice = input(
-                    "Select an item to interact with (enter the number), "
-                    "or type '0' to cancel: "
-                )
+                    "Select an item to interact with (enter the number), or type '0' to cancel: ")
                 try:
                     choice_index = int(choice) - 1
                     if 0 <= choice_index < len(area.items):
-                        selected_item = area.items[choice_index]
-                        self.interact_with_item(selected_item, area, player)
+                        selected_item_dict = area.items[choice_index]
+                        self.interact_with_area_items(
+                            selected_item_dict, area, player)
                     elif choice_index == -1:
                         text("You decided not to pick up any items.")
                     else:
@@ -310,38 +318,32 @@ class Location:
             else:
                 print("You searched the area but found nothing.")
 
-    def interact_with_item(self, item, area, player):
-        if item in weapon.values():
-            if ask_user(
-                "confirm", f"You found a {item['name']}. Do you want to "
-                           f"equip it? "
-            ):
+    def interact_with_area_items(self, the_item, area, player):
+        item = the_item['item']
+
+        if isinstance(item, Weapon):
+            name = item.name
+            if ask_user("confirm", f"You found a {name}. Do you want to equip it?"):
                 if player.weapon:
-                    # Drop the current weapon
-                    area.items.append(player.weapon)
-                # Equip the new weapon
+                    area.items.append({'item': player.weapon, 'quantity': 1})
                 player.weapon = item
-                text(f"You have equipped the {item['name']}.")
-                # Remove the new weapon from the area
-                area.items.remove(item)
-        elif item in armor.values():
-            if ask_user(
-                "confirm", f"You found a {item['name']}. Do you want to wear "
-                           f"it? "
-            ):
-                if player.armor:
-                    # Drop the current armor
-                    area.items.append(player.armor)
-                # Wear the new armor
-                player.armor = item
-                text(f"You have put on the {item['name']}.")
-                # Remove the new armor from the area
-                area.items.remove(item)
-        else:
-            player.inventory.append(item)
-            text(f"You found a {item['name']} and added it to your inventory.")
-            # Remove the item from the area
-            area.items.remove(item)
+                text(f"You have equipped the {name}.")
+                area.items.remove(the_item)
+
+        elif isinstance(item, Armour):
+            name = item.name
+            if ask_user("confirm", f"You found a {name}. Do you want to equip it?"):
+                if player.armour:
+                    area.items.append({'item': player.armour, 'quantity': 1})
+                player.armour = item
+                text(f"You have equipped the {name}.")
+                area.items.remove(the_item)
+
+        elif isinstance(item, Potion):
+            name = item.name
+            if ask_user("confirm", f"You found a {name}. Do you want to take it?"):
+                player.potions.append(item)
+                area.items.remove(the_item)
 
 
 class Yolkaris(Location):
@@ -392,165 +394,184 @@ class Area:
         self.items = items if items else []
 
 
-weapon = {
-    "sword": {
-        "name": "Sword",
-        "description": "A sharp sword.",
-        "attack": 15,
-        "actions": ["slash", "stab"],
-    },
-    "stick": {
-        "name": "Stick",
-        "description": "Small stick.",
-        "attack": 1,
-        "actions": ["slash", "stab"],
-    },
-}
+class Item:
+    def __init__(self, name: str, description: str = None) -> None:
+        self.name = name
+        self.description = description
 
-armor = {
-    "wooden_shield": {
-        "name": "Wooden Shield",
-        "description": "Small Metal shield.",
-        "defense": 2,
-    },
-    "metal_shield": {
-        "name": "Metal Shield",
-        "description": "Small Metal shield.",
-        "defense": 12,
-    },
-}
 
-item = {
-    "potion": {
-        "name": "Potion",
-        "description": "A healing potion.",
-        "health": 10,
-    },
-    "key": {
-        "name": "Key",
-        "description": "A key.",
-    },
-    "coin": {
-        "name": "Coin",
-        "description": "A coin.",
-    },
-    "gem": {
-        "name": "Gem",
-        "description": "A gem.",
-    },
-    "scroll": {
-        "name": "Scroll",
-        "description": "A scroll.",
-    },
-}
+class Weapon(Item):
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            attack: int,
+            actions: list) -> None:
+        super().__init__(name, description)
+        self.attack = attack
+        self.actions = actions
 
-yolkaris_areas = [
-    Area(
-        name="Lost City Ruins",
-        storyLine=[],
-        items=[weapon["stick"]],
-        position=(0, 0),
-    ),
-    Area(
-        name="Crystal Caverns",
-        storyLine=[],
-        items=[
-            weapon["sword"],
-            armor["wooden_shield"],
-            armor["metal_shield"],
-            item["potion"],
-            item["key"],
-            item["coin"],
-        ],
-        position=(1, 0),
-    ),
-    Area(
-        name="Enchanted Forest",
-        storyLine=[
-            {
-                "text": "A mystical woodland brimming with magical creatures"
-                " and ancient trees.",
+
+class Armour(Item):
+    def __init__(
+            self,
+            name: str,
+            description: str,
+            defense: int) -> None:
+        super().__init__(name, description)
+        self.defense = defense
+
+
+class Potion(Item):
+    def __init__(
+            self,
+            name: str,
+            health: int) -> None:
+        super().__init__(name)
+        self.health = health
+
+
+class Coin(Item):
+    def __init__(
+            self,
+            name: str,
+            description: str) -> None:
+        super().__init__(name, description)
+
+# select game level
+# lvl 1 - A quick game
+# lvl 2 - Not to short not to long
+# lvl 3 - I understand there is no save game implemented
+
+
+game_level = 1
+
+if game_level == 1:
+
+    yolkaris_areas = [
+        Area(
+            name="Lost City Ruins",
+            storyLine=[],
+            items=[{
+                'item': Weapon(
+                    name="Sword",
+                    description="A sharp sword.",
+                    attack=15,
+                    actions=["slash", "stab"],
+                ),
+                'quantity': 1
             },
-            {
-                "text": "As you step into the Enchanted Forest, a sense of awe"
-                " washes over you. The sights and sounds of the forest are"
-                " like nothing you've ever experienced. The air feels thick"
-                " with magic, almost as if you could reach out and touch"
-                " it."
+                {
+                'item': Armour(
+                    name="Wooden Shield",
+                    description="Small Metal shield.",
+                    defense=2,
+                ),
+                'quantity': 1
             },
-            {
-                "text": "Clucky - I feel tired; the journey has been so long"
-                " already. A cup of nice coffee would be a blessing now. I"
-                " wonder how folks are doing back home. This seems like a"
-                " good spot for a quick nap"
-            }
-        ],
-        position=(0, 1),
-        enemy=Enemy(
-            name="Yorkish",
-            storyLine=[
                 {
-                    "text": "Yorkish, a shadowy figure with glowing eyes and"
-                    " sharp dark feathers, moves silently. Its eerie screech"
-                    " is feared in the Enchanted Forest."
-                },
-                {
-                    "text": "As you feel its presence, the forest falls"
-                    " eerily quiet. Confronted by Yorkish's menacing stare,"
-                    " you face a critical choice: fight bravely or retreat"
-                    " swiftly."
-                }
-
+                'item': Potion(
+                    name="Small Potion",
+                    health=10,
+                ),
+                'quantity': 1
+            },
             ],
-            health=20,
-            attack=7,
-            defense=9,
+            position=(0, 0),
         ),
-        neutral=Neutral(
-            name="Juzek",
+        Area(
+            name="Crystal Caverns",
+            storyLine=[],
+            items=[],
+            position=(1, 0),
+        ),
+        Area(
+            name="Enchanted Forest",
             storyLine=[
                 {
-                    "text": "Stranger - Hi there, that was a nice Fight. For"
-                    " your bravery, I will give you a gift. Here, take this."
-                    " It will help you in your journey."
+                    "text": "A mystical woodland brimming with magical creatures"
+                    " and ancient trees.",
                 },
                 {
-                    "text": "Clucky - Thank you, kind stranger. What's your"
-                    " name?"
+                    "text": "As you step into the Enchanted Forest, a sense of awe"
+                    " washes over you. The sights and sounds of the forest are"
+                    " like nothing you've ever experienced. The air feels thick"
+                    " with magic, almost as if you could reach out and touch"
+                    " it."
                 },
                 {
-                    "text": "Stranger - I am Juzek, a wanderer. I have been"
-                    " travelling across the galaxy for many years. I have"
-                    " seen many wonders and met many people. I have also"
-                    " heard many stories. I am on a quest to find the"
-                    " greatest story of all. I hope you find yours too."
-                },
-                {
-                    "text": "Clucky - Thank you, Juzek. I hope you find your"
-                    " story too."
-                },
-            ]
-        )
-    ),
-    Area(
-        name="Haunted Graveyard",
-        storyLine=[],
-    ),
-]
+                    "text": "Clucky - I feel tired; the journey has been so long"
+                    " already. A cup of nice coffee would be a blessing now. I"
+                    " wonder how folks are doing back home. This seems like a"
+                    " good spot for a quick nap"
+                }
+            ],
+            position=(0, 1),
+            enemy=Enemy(
+                name="Yorkish",
+                storyLine=[
+                    {
+                        "text": "Yorkish, a shadowy figure with glowing eyes and"
+                        " sharp dark feathers, moves silently. Its eerie screech"
+                        " is feared in the Enchanted Forest."
+                    },
+                    {
+                        "text": "As you feel its presence, the forest falls"
+                        " eerily quiet. Confronted by Yorkish's menacing stare,"
+                        " you face a critical choice: fight bravely or retreat"
+                        " swiftly."
+                    }
 
-mystara_areas = [
-    Area(
-        name="Enchanted Forest",
-        storyLine=[],
-    ),
-]
+                ],
+                health=20,
+                attack=7,
+                defense=9,
+            ),
+            neutral=Neutral(
+                name="Juzek",
+                storyLine=[
+                    {
+                        "text": "Stranger - Hi there, that was a nice Fight. For"
+                        " your bravery, I will give you a gift. Here, take this."
+                        " It will help you in your journey."
+                    },
+                    {
+                        "text": "Clucky - Thank you, kind stranger. What's your"
+                        " name?"
+                    },
+                    {
+                        "text": "Stranger - I am Juzek, a wanderer. I have been"
+                        " travelling across the galaxy for many years. I have"
+                        " seen many wonders and met many people. I have also"
+                        " heard many stories. I am on a quest to find the"
+                        " greatest story of all. I hope you find yours too."
+                    },
+                    {
+                        "text": "Clucky - Thank you, Juzek. I hope you find your"
+                        " story too."
+                    },
+                ]
+            )
+        ),
+        Area(
+            name="Haunted Graveyard",
+            storyLine=[],
+        ),
+    ]
 
-luminara_areas = [
-    Area(
-        name="Enchanted Forest",
-        storyLine=[],
-    ),
-]
+    mystara_areas = [
+        Area(
+            name="Enchanted Forest",
+            storyLine=[],
+        ),
+    ]
+
+    luminara_areas = [
+        Area(
+            name="Enchanted Forest",
+            storyLine=[],
+        ),
+    ]
 
 
 def game_title() -> None:
@@ -605,7 +626,20 @@ class Game:
         while True:
             username = input("Please enter your username: ").strip()
             if 3 <= len(username) <= 24 and username.isalnum() and "_" not in username:
-                self.player = Player(username, 100, 10, 10)
+                self.player = Player(
+                    name=username,
+                    health=100,
+                    attack=10,
+                    defense=10,
+                    potions=[
+                        Potion(
+                            name="Small Potion",
+                            health=10,
+                        )
+                    ],
+                    coins=0,
+                    inventory=[]
+                )
                 break
             else:
                 print(
@@ -623,18 +657,27 @@ class Game:
 
         # Display player's basic stats
         clear_terminal()
-        text("Player Stats:")
-        text(f"Name: {player.name}")
-        text(f"Health: {player.health}")
-        text(f"Attack: {player.attack}")
-        text(f"Defense: {player.defense}")
-        text(f"Armour: {player.armor['name'] if player.armor else 'None'}")
-        text(f"Weapon: {player.weapon['name'] if player.weapon else 'None'}")
-        inventory = ", ".join([item["name"] for item in player.inventory])
+        text(f"Player {player.name}:")
+        text(
+            f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}", color=color_light_gray)
+        text(f"Armour: {player.armour.name if player.armour else 'None'}")
+        text(f"Weapon: {player.weapon.name if player.weapon else 'None'}")
+
+        # potions count
+        potions_count = len(player.potions)
+        text(f"Potions: {potions_count}")
+        # Generating inventory list
+        inventory_list = []
+        for inventory_item in player.inventory:
+            # This is an instance of Weapon, Armour, or Item
+            item = inventory_item['item']
+            quantity = inventory_item['quantity']
+            item_display = f"{item.name} (Quantity: {quantity})" if quantity > 1 else item.name
+            inventory_list.append(item_display)
+        inventory = ", ".join(inventory_list)
         text(f"Inventory: {inventory}")
-        # Display player's current location
-        text(f"\nCurrent Location: {current_location.name}")
-        text(f"{current_location.description}\n")
+        text(f"Coins: {player.coins}")
+        self.location_and_position()
 
     def choose_action(self) -> None:
         """
@@ -659,8 +702,10 @@ class Game:
             self.show_player_stats()
         elif action == "contents":
             self.show_location_contents()
-        elif action == "s":
+        elif action == "search" or action == "s":
             self.search_current_area()
+        elif action == "inventory" or action == "i":
+            self.show_inventory()
         elif action == "quit":
             self.game_over = True
 
@@ -788,14 +833,19 @@ class Game:
         # Assign the player to the current location
         current_location.player = self.player
 
+    def location_and_position(self) -> None:
+        current_location = self.get_current_location()
+        area_name = current_location.get_area_name_by_position(
+            current_location.player_position)
+        text(f"\nCurrent Location: {current_location.name}")
+        text(f"Current Position: {area_name}", space=1)
+
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
         """
-        # Retrieve the current location object
+        self.location_and_position()
         current_location = self.get_current_location()
-        # Display the map of the current location
-        text(f"Map of {current_location.name}", space=1)
         current_location.display_map()
 
     def update_player_position(self, dx: int, dy: int) -> None:
@@ -849,6 +899,49 @@ class Game:
     def show_location_contents(self):
         current_location = self.get_current_location()
         current_location.print_contents()
+
+    def show_inventory(self):
+        if not self.player.inventory:
+            text("Your inventory is empty.")
+            return
+
+        text("Your inventory contains:")
+        for index, inventory_item in enumerate(self.player.inventory, start=1):
+            item = inventory_item['item']
+            quantity = inventory_item['quantity']
+            name = item.name
+            display_text = f"{index}. {name} (Quantity: {quantity})" if quantity > 1 else f"{index}. {name}"
+            text(display_text)
+
+        choice = input(
+            "Choose an item to interact with (number), or type '0' to cancel: ")
+        try:
+            choice_index = int(choice) - 1
+            if 0 <= choice_index < len(self.player.inventory):
+                self.interact_with_inventory_item(choice_index)
+            elif choice_index == -1:
+                text("Exiting inventory.")
+            else:
+                text("Invalid choice.")
+        except ValueError:
+            text("Invalid input. Please enter a number.")
+
+    def interact_with_inventory_item(self, index):
+        the_item = self.player.inventory[index]
+        item = the_item['item']
+        quantity = the_item['quantity']
+        name = item.name
+        print(f"You selected {name}.")
+        print(f"Quantity: {quantity}")
+
+        action = input(
+            "Do you want to 'use' or 'inspect' the item? (use/inspect): ")
+        if action.lower() == 'use':
+            self.use_inventory_item(the_item)  # Create this method
+        elif action.lower() == 'inspect':
+            self.inspect_inventory_item(the_item)  # Create this method
+        else:
+            text("Invalid action.")
 
 
 if __name__ == "__main__":
