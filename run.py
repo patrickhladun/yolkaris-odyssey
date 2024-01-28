@@ -347,32 +347,32 @@ class Location:
 
 
 class Yolkaris(Location):
-    def __init__(self) -> None:
+    def __init__(self, size, areas) -> None:
         super().__init__(
             name="Yolkaris",
             description="A vibrant planet with diverse ecosystems.",
-            size=(4, 2),
-            areas=yolkaris_areas
+            size=size,
+            areas=areas
         )
 
 
 class Mystara(Location):
-    def __init__(self) -> None:
+    def __init__(self, size, areas) -> None:
         super().__init__(
             name="Mystara",
             description="A mysterious planet covered in thick jungles.",
-            size=(8, 4),
-            areas=mystara_areas,
+            size=size,
+            areas=areas
         )
 
 
 class Luminara(Location):
-    def __init__(self) -> None:
+    def __init__(self, size, areas) -> None:
         super().__init__(
             name="Luminara",
             description="A radiant planet with a luminous landscape.",
-            size=(7, 4),
-            areas=luminara_areas,
+            size=size,
+            areas=areas
         )
 
 
@@ -438,141 +438,6 @@ class Coin(Item):
             description: str) -> None:
         super().__init__(name, description)
 
-# select game level
-# lvl 1 - A quick game
-# lvl 2 - Not to short not to long
-# lvl 3 - I understand there is no save game implemented
-
-
-game_level = 1
-
-if game_level == 1:
-
-    yolkaris_areas = [
-        Area(
-            name="Lost City Ruins",
-            storyLine=[],
-            items=[{
-                'item': Weapon(
-                    name="Sword",
-                    description="A sharp sword.",
-                    attack=15,
-                    actions=["slash", "stab"],
-                ),
-                'quantity': 1
-            },
-                {
-                'item': Armour(
-                    name="Wooden Shield",
-                    description="Small Metal shield.",
-                    defense=2,
-                ),
-                'quantity': 1
-            },
-                {
-                'item': Potion(
-                    name="Small Potion",
-                    health=10,
-                ),
-                'quantity': 1
-            },
-            ],
-            position=(0, 0),
-        ),
-        Area(
-            name="Crystal Caverns",
-            storyLine=[],
-            items=[],
-            position=(1, 0),
-        ),
-        Area(
-            name="Enchanted Forest",
-            storyLine=[
-                {
-                    "text": "A mystical woodland brimming with magical creatures"
-                    " and ancient trees.",
-                },
-                {
-                    "text": "As you step into the Enchanted Forest, a sense of awe"
-                    " washes over you. The sights and sounds of the forest are"
-                    " like nothing you've ever experienced. The air feels thick"
-                    " with magic, almost as if you could reach out and touch"
-                    " it."
-                },
-                {
-                    "text": "Clucky - I feel tired; the journey has been so long"
-                    " already. A cup of nice coffee would be a blessing now. I"
-                    " wonder how folks are doing back home. This seems like a"
-                    " good spot for a quick nap"
-                }
-            ],
-            position=(0, 1),
-            enemy=Enemy(
-                name="Yorkish",
-                storyLine=[
-                    {
-                        "text": "Yorkish, a shadowy figure with glowing eyes and"
-                        " sharp dark feathers, moves silently. Its eerie screech"
-                        " is feared in the Enchanted Forest."
-                    },
-                    {
-                        "text": "As you feel its presence, the forest falls"
-                        " eerily quiet. Confronted by Yorkish's menacing stare,"
-                        " you face a critical choice: fight bravely or retreat"
-                        " swiftly."
-                    }
-
-                ],
-                health=20,
-                attack=7,
-                defense=9,
-            ),
-            neutral=Neutral(
-                name="Juzek",
-                storyLine=[
-                    {
-                        "text": "Stranger - Hi there, that was a nice Fight. For"
-                        " your bravery, I will give you a gift. Here, take this."
-                        " It will help you in your journey."
-                    },
-                    {
-                        "text": "Clucky - Thank you, kind stranger. What's your"
-                        " name?"
-                    },
-                    {
-                        "text": "Stranger - I am Juzek, a wanderer. I have been"
-                        " travelling across the galaxy for many years. I have"
-                        " seen many wonders and met many people. I have also"
-                        " heard many stories. I am on a quest to find the"
-                        " greatest story of all. I hope you find yours too."
-                    },
-                    {
-                        "text": "Clucky - Thank you, Juzek. I hope you find your"
-                        " story too."
-                    },
-                ]
-            )
-        ),
-        Area(
-            name="Haunted Graveyard",
-            storyLine=[],
-        ),
-    ]
-
-    mystara_areas = [
-        Area(
-            name="Enchanted Forest",
-            storyLine=[],
-        ),
-    ]
-
-    luminara_areas = [
-        Area(
-            name="Enchanted Forest",
-            storyLine=[],
-        ),
-    ]
-
 
 def game_title() -> None:
     """
@@ -600,6 +465,102 @@ def show_help() -> None:
     text("  quit       - Quit the game", delay=0.1)
     text(" ")
 
+# select game level
+# lvl 1 - A quick game
+# lvl 2 - Not to short not to long
+# lvl 3 - I understand there is no save game implemented
+
+
+game_level = 1
+
+if game_level == 1:
+
+    yolkaris_size = (3, 1)
+    mystara_size = (2, 1)
+    luminara_size = (2, 1)
+
+    yolkaris_areas = [
+        Area(
+            name="Capital City",
+            storyLine=[
+                {
+                    "text": "As you embark on 'The Broken Clock' adventure in"
+                    " 'Yolkaris Odyssey', the vibrant energy of The Capital"
+                    " surrounds you. The sun bathes the cobblestone streets"
+                    " in a warm glow, and the citizens of Yolkaris go about"
+                    " their daily routines.",
+                },
+                {
+                    "text": "However, an unusual silence draws your attention"
+                    " to the Grand Clock standing majestically at the city's"
+                    " center. To your surprise, its hands have stopped moving,"
+                    " causing a sense of unease among the townsfolk. ",
+                },
+                {
+                    "text": "As Clucky, the brave and curious chicken, you"
+                    " approach the Grand Clock to investigate the matter."
+                    " There, you meet Timekeeper Ticktock, an elderly bird"
+                    " with keen eyes behind a shiny monocle."
+                }
+            ],
+            items=[],
+            neutral=Neutral(
+                name="Juzek",
+                storyLine=[
+                    {
+                        "text": "Hello"
+                    }
+                ]
+            ),
+            position=(0, 0),
+        ),
+        Area(
+            name="Crystal Hills",
+            storyLine=[],
+            items=[],
+        ),
+    ]
+
+    mystara_areas = []
+
+    luminara_areas = []
+
+elif game_level == 2:
+    yolkaris_size = (1, 0)
+    mystara_size = (1, 1)
+    luminara_size = (1, 1)
+
+    yolkaris_areas = [
+        Area(
+            name="Capital City",
+            storyLine=[],
+            items=[],
+            position=(0, 0),
+        ),
+    ]
+
+    mystara_areas = []
+
+    luminara_areas = []
+
+elif game_level == 3:
+    yolkaris_size = (1, 0)
+    mystara_size = (1, 1)
+    luminara_size = (1, 1)
+
+    yolkaris_areas = [
+        Area(
+            name="Capital City",
+            storyLine=[],
+            items=[],
+            position=(0, 0),
+        ),
+    ]
+
+    mystara_areas = []
+
+    luminara_areas = []
+
 
 class Game:
     """
@@ -608,9 +569,9 @@ class Game:
 
     def __init__(self) -> None:
         self.location_objects = {
-            "Yolkaris": Yolkaris(),
-            "Mystara": Mystara(),
-            "Luminara": Luminara(),
+            "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas),
+            "Mystara": Mystara(mystara_size, mystara_areas),
+            "Luminara": Luminara(luminara_size, luminara_areas),
         }
         self.current_location = 0
         self.game_over = False
@@ -721,20 +682,12 @@ class Game:
         This is the main game loop.
         """
         # clear_terminal()
-        # game_title()
-        # paragraph("Welcome to 'Yolkaris Odyssey'! Immerse yourself in a Python text-based adventure game filled with "
-        #          "multiple locations to explore, a dynamic map to guide you, enthralling narrations, and exciting "
-        #          "battles with enemies. Get ready for an engaging and fun-filled journey!")
-        # ask_user('continue', 'Press enter to start the game: ')
+        game_title()
+        ask_user('continue', 'Press enter to start the game: ')
 
-        # Create player
         self.create_player()
-
-        # Assign player to current location
         self.assign_player_to_location()
-
-        # Start game intro
-        # self.intro()
+        self.intro()
         while not self.game_over:
             self.choose_action()
 
@@ -745,64 +698,34 @@ class Game:
         clear_terminal()
 
         text(f"Hello {self.player.name}!", delay=0.8, space=1)
-        paragraph(
-            "You'll step into Clucky's shoes, a valiant and clever chicken from the vibrant planet Yolkaris. Once a "
-            "haven of peace and harmony, Yolkaris now faces a dire threat that jeopardizes its existence. As Clucky, "
-            "it's up to you to embark on a daring quest to save your home planet. Are you ready to don the feathers "
-            "of Clucky and become the hero Yolkaris needs? "
-        )
 
         # Ask if user is ready if not, exit the game and show funny message
         ask_user("continue")
 
-        clear_terminal()
-        text("Here is the story of Yolkaris Odyssey.", delay=0.8, space=1)
-        paragraph(
-            "In the boundless expanse of the cosmos, among a sea of twinkling stars, lies Yolkaris - a vibrant and "
-            "lively planet home to an extraordinary species of spacefaring chickens. But now, Yolkaris faces an "
-            "unprecedented crisis. A mysterious and malevolent cosmic dust, known as The Dark Dust, has enshrouded "
-            "the planet in shadow, blocking the essential sunlight and disrupting the delicate balance of its "
-            "ecosystem. The once bright and bustling world, a haven of clucking harmony, now teeters on the brink of "
-            "ecological collapse. "
-        )
-        paragraph(
-            "In this hour of desperation, hope rests on the wings of one brave hero - Clucky. Renowned for courage "
-            "and cleverness, Clucky's destiny is to embark on a quest beyond the stars. The mission is dangerous, "
-            "the stakes are high, and the journey will take Clucky to uncharted corners of the galaxy. "
-        )
-        paragraph(
-            "As Clucky, you will traverse through cosmic wonders and confront unknown dangers. Your quest will lead "
-            "you to ancient relics and forgotten worlds, where secrets of The Dark Dust await to be uncovered. The "
-            "journey promises challenges, trials, and the chance to become the saviour that Yolkaris desperately "
-            "needs. "
-        )
-        ask_user("continue")
-
-        clear_terminal()
-        text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
-        text(
-            "- There are three locations in the game: Yolkaris, Mystara, and Luminara."
-        )
-        text(
-            "- You can see your current position within a location by using the 'map' command."
-        )
-        text(
-            "- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'."
-        )
-        text(
-            "- If you encounter items or enemies, you will be prompted to interact with them."
-        )
-        text(
-            "- You can carry items in your inventory. Check your inventory using the 'inventory' command."
-        )
-        text(
-            "- Keep an eye on your health, attack, and defense stats. They are crucial for survival."
-        )
-        text(
-            "- If you need to see the list of available commands at any time, use the 'help' command.",
-            delay=0.6,
-            space=1,
-        )
+        # text("How to Play Yolkaris Odyssey:", delay=0.8, space=1)
+        # text(
+        #     "- There are three locations in the game: Yolkaris, Mystara, and Luminara."
+        # )
+        # text(
+        #     "- You can see your current position within a location by using the 'map' command."
+        # )
+        # text(
+        #     "- To move around the map, use the directional commands: 'north', 'south', 'east', and 'west'."
+        # )
+        # text(
+        #     "- If you encounter items or enemies, you will be prompted to interact with them."
+        # )
+        # text(
+        #     "- You can carry items in your inventory. Check your inventory using the 'inventory' command."
+        # )
+        # text(
+        #     "- Keep an eye on your health, attack, and defense stats. They are crucial for survival."
+        # )
+        # text(
+        #     "- If you need to see the list of available commands at any time, use the 'help' command.",
+        #     delay=0.6,
+        #     space=1,
+        # )
         text("Good luck on your adventure to save Yolkaris!", delay=0.6, space=1)
         self.display_map()
 
