@@ -479,7 +479,7 @@ game_level = 1
 
 if game_level == 1:
 
-    yolkaris_size = (3, 1)
+    yolkaris_size = (4, 2)
     mystara_size = (2, 1)
     luminara_size = (2, 1)
 
@@ -487,93 +487,120 @@ if game_level == 1:
         Area(
             name="Capital City",
             storyLine=[
-                {
-                    "clear": True
-                },
-                {
-                    "text": "As you embark on 'The Broken Clock' adventure in"
-                    " 'Yolkaris Odyssey', the vibrant energy of The Capital"
-                    " surrounds you. The sun bathes the cobblestone streets"
-                    " in a warm glow, and the citizens of Yolkaris go about"
-                    " their daily routines.",
-                },
-                {
-                    "text": "However, an unusual silence draws your attention"
-                    " to the Grand Clock standing majestically at the city's"
-                    " center. To your surprise, its hands have stopped moving,"
-                    " causing a sense of unease among the townsfolk. ",
-                },
-                {
-                    "text": "As Clucky, the brave and curious chicken, you"
-                    " approach the Grand Clock to investigate the matter."
-                    " There, you meet Timekeeper Ticktock, an elderly bird"
-                    " with keen eyes behind a shiny monocle."
-                },
-                {
-                    "continue": True
-                }
+                # {
+                #     "clear": True
+                # },
+                # {
+                #     "text": "As you embark on 'The Broken Clock' adventure in"
+                #     " 'Yolkaris Odyssey', the vibrant energy of The Capital"
+                #     " surrounds you. The sun bathes the cobblestone streets"
+                #     " in a warm glow, and the citizens of Yolkaris go about"
+                #     " their daily routines.",
+                # },
+                # {
+                #     "text": "However, an unusual silence draws your attention"
+                #     " to the Grand Clock standing majestically at the city's"
+                #     " center. To your surprise, its hands have stopped moving,"
+                #     " causing a sense of unease among the townsfolk. ",
+                # },
+                # {
+                #     "text": "As Clucky, the brave and curious chicken, you"
+                #     " approach the Grand Clock to investigate the matter."
+                #     " There, you meet Timekeeper Ticktock, an elderly bird"
+                #     " with keen eyes behind a shiny monocle."
+                # },
+                # {
+                #     "continue": True
+                # }
             ],
             items=[],
             neutral=Neutral(
                 name="Timekeeper",
                 storyLine=[
-                    {
-                        "text": "Hello"
-                    },
-                    {
-                        "text": "Timekeeper: Ah, Clucky! Our Grand Clock has"
-                        " stopped. Its magic is fading. You must find the Time"
-                        " Crystal in the Crystal Hills to restore it."
-                    },
-                    {
-                        "text": "Clucky: I will find the crystal and save the"
-                        " clock, Timekeeper."
-                    },
-                    {
-                        "text": "Timekeeper: Hurry, for time is of the essence"
-                        " now."
-                    },
-                    {
-                        "continue": True
-                    },
-                    {
-                        "clear": True
-                    },
-                    {
-                        "text": "But before you go here is how to Play"
-                        " Yolkaris Odyssey:"
-                    },
-                    {
-                        "text": "- There is one location in this story, "
-                        " Yolkaris."
-                    },
-                    {
-                        "text": "- You can see your current position within a "
-                        " location by using the 'map' command."
-                    },
-                    {
-                        "text": "- To move around the map, use the directional"
-                        " commands: 'north', 'south', 'east', and 'west'."
-                    },
-                    {
-                        "text": "- You can search the area you are in using"
-                        " the 'search' command."
-                    },
-                    {
-                        "text": "- You can carry items in your inventory."
-                        " Check your inventory using the 'inventory' command."
-                    },
-                    {
-                        "text": "Good Luck, and have fun!"
-                    },
+                    # {
+                    #     "text": "Hello"
+                    # },
+                    # {
+                    #     "text": "Timekeeper: Ah, Clucky! Our Grand Clock has"
+                    #     " stopped. Its magic is fading. You must find the Time"
+                    #     " Crystal in the Crystal Hills to restore it."
+                    # },
+                    # {
+                    #     "text": "Clucky: I will find the crystal and save the"
+                    #     " clock, Timekeeper."
+                    # },
+                    # {
+                    #     "text": "Timekeeper: Hurry, for time is of the essence"
+                    #     " now."
+                    # },
+                    # {
+                    #     "continue": True
+                    # },
+                    # {
+                    #     "clear": True
+                    # },
+                    # {
+                    #     "text": "But before you go here is how to Play"
+                    #     " Yolkaris Odyssey:"
+                    # },
+                    # {
+                    #     "text": "- There is one location in this story, "
+                    #     " Yolkaris."
+                    # },
+                    # {
+                    #     "text": "- You can see your current position within a "
+                    #     " location by using the 'map' command."
+                    # },
+                    # {
+                    #     "text": "- To move around the map, use the directional"
+                    #     " commands: 'north', 'south', 'east', and 'west'."
+                    # },
+                    # {
+                    #     "text": "- You can search the area you are in using"
+                    #     " the 'search' command."
+                    # },
+                    # {
+                    #     "text": "- You can carry items in your inventory."
+                    #     " Check your inventory using the 'inventory' command."
+                    # },
+                    # {
+                    #     "text": "Good Luck, and have fun!"
+                    # },
                 ]
             ),
             position=(0, 0),
         ),
         Area(
+            name="Bounty Harbour",
+            storyLine=[],
+            position=(1, 0),
+        ),
+        Area(
+            name="Cluckington Valley",
+            storyLine=[],
+            position=(0, 1),
+        ),
+        Area(
             name="Crystal Hills",
             storyLine=[],
-            items=[],
+            enemy=False,
+            position=[1, 3],
+        ),
+        Area(
+            name="Yonder Forest",
+            storyLine=[],
+        ),
+        Area(
+            name="Clucker's Canyon",
+            storyLine=[],
+        ),
+        Area(
+            name="Bubble Beach",
+            storyLine=[],
+        ),
+        Area(
+            name="Peckers Peak",
+            storyLine=[],
         ),
     ]
 
