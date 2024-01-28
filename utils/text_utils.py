@@ -16,6 +16,7 @@ color_error = Style.NORMAL + Fore.RED
 
 color_ask_user = Fore.BLUE + Style.BRIGHT
 
+
 def text(
     text,
     delay=0.2,
@@ -75,10 +76,10 @@ def clear_terminal():
 
 
 def ask_user(
-        type: str,
-        
+        type: str = None,
         color=color_ask_user,
-        prompt: str = None
+        prompt: str = None,
+        space: int = 0,
 ):
     """
     Prompts the user for input with an optional color.
@@ -88,8 +89,11 @@ def ask_user(
     """
     if type == "continue":
         prompt = prompt if prompt else "Press enter to continue: "
+        line_space = '\n' * (space - 1) if space > 0 else ''
         print(color + prompt + Fore.RESET, end="")
         input().strip().lower()
+        if space > 0:
+            print(line_space)
     elif type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:

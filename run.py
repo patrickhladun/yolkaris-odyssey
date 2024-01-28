@@ -72,7 +72,7 @@ class Interaction:
             elif 'text' in line:
                 paragraph(line['text'], space=space,  color=color)
             elif 'continue' in line:
-                ask_user('continue')
+                ask_user('continue', space=space)
 
     def with_enemy(self, enemy, location):
         add_space()
