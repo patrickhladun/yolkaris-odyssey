@@ -1,0 +1,15 @@
+{
+  "editor.fontSize": 14,
+  "cSpell.words": [
+    "Clucker's",
+    "Cluckington",
+    "Clucky",
+    "Luminara",
+    "Mystara",
+    "Yolkaris"
+  ],
+  "editor.wordWrap": "off",
+  "editor.tabSize": 2,
+  "editor.rulers": [79],
+  "python.REPL.enableREPLSmartSend": false
+}
