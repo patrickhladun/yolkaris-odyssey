@@ -1,7 +1,7 @@
 from game.config import Config
 import random
 from art import *
-from utils import (text, paragraph, space, clear_terminal, ask_user,
+from utils import (text, paragraph, add_space, clear_terminal, ask_user,
                    color_light_gray, color_light_blue, color_player,
                    color_neutral, color_error)
 from pprint import pprint
@@ -75,7 +75,7 @@ class Interaction:
                 ask_user('continue')
 
     def with_enemy(self, enemy, location):
-        space()
+        add_space()
         text(f"{enemy.name} stands in your way, {self.player.name}", space=1)
         for line in enemy.storyLine:
             paragraph(line['text'], space=1)
@@ -95,14 +95,14 @@ class Interaction:
             text("Game Over!")
 
     def with_neutral(self, neutral):
-        space()
+        add_space()
         for line in neutral.storyLine:
+            space = line['space'] if 'space' in line else 0
+            color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
-                paragraph(line['text'], space=line['space'],
-                          color=line['color'] if 'color' in line else None)
-                paragraph(line['text'], space=1)
+                paragraph(line['text'], space=space,  color=color)
             elif 'continue' in line:
                 ask_user('continue')
 
@@ -307,7 +307,7 @@ class Location:
                     name = item.name
                     text(f"{index + 1}. {name} (Quantity: {quantity})")
 
-                space()
+                add_space()
                 choice = input(
                     "Select an item to interact with (enter the number), or type '0' to cancel: ")
                 try:
@@ -454,8 +454,6 @@ def game_title() -> None:
     odyssey = text2art("Odyssey", font="dos_rebel", chr_ignore=True)
     text(yolkaris)
     text(odyssey)
-    text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun.", delay=0.1)
 
 
 def show_help() -> None:
@@ -522,55 +520,55 @@ if game_level == 1:
             neutral=Neutral(
                 name="Timekeeper",
                 storyLine=[
-                    # {
-                    #     "text": "Hello"
-                    # },
-                    # {
-                    #     "text": "Timekeeper: Ah, Clucky! Our Grand Clock has"
-                    #     " stopped. Its magic is fading. You must find the Time"
-                    #     " Crystal in the Crystal Hills to restore it."
-                    # },
-                    # {
-                    #     "text": "Clucky: I will find the crystal and save the"
-                    #     " clock, Timekeeper."
-                    # },
-                    # {
-                    #     "text": "Timekeeper: Hurry, for time is of the essence"
-                    #     " now."
-                    # },
-                    # {
-                    #     "continue": True
-                    # },
-                    # {
-                    #     "clear": True
-                    # },
-                    # {
-                    #     "text": "But before you go here is how to Play"
-                    #     " Yolkaris Odyssey:"
-                    # },
-                    # {
-                    #     "text": "- There is one location in this story, "
-                    #     " Yolkaris."
-                    # },
-                    # {
-                    #     "text": "- You can see your current position within a "
-                    #     " location by using the 'map' command."
-                    # },
-                    # {
-                    #     "text": "- To move around the map, use the directional"
-                    #     " commands: 'north', 'south', 'east', and 'west'."
-                    # },
-                    # {
-                    #     "text": "- You can search the area you are in using"
-                    #     " the 'search' command."
-                    # },
-                    # {
-                    #     "text": "- You can carry items in your inventory."
-                    #     " Check your inventory using the 'inventory' command."
-                    # },
-                    # {
-                    #     "text": "Good Luck, and have fun!"
-                    # },
+                    {
+                        "text": "Hello"
+                    },
+                    {
+                        "text": "Timekeeper: Ah, Clucky! Our Grand Clock has"
+                        " stopped. Its magic is fading. You must find the Time"
+                        " Crystal in the Crystal Hills to restore it."
+                    },
+                    {
+                        "text": "Clucky: I will find the crystal and save the"
+                        " clock, Timekeeper."
+                    },
+                    {
+                        "text": "Timekeeper: Hurry, for time is of the essence"
+                        " now."
+                    },
+                    {
+                        "continue": True
+                    },
+                    {
+                        "clear": True
+                    },
+                    {
+                        "text": "But before you go here is how to Play"
+                        " Yolkaris Odyssey:"
+                    },
+                    {
+                        "text": "- There is one location in this story, "
+                        " Yolkaris."
+                    },
+                    {
+                        "text": "- You can see your current position within a "
+                        " location by using the 'map' command."
+                    },
+                    {
+                        "text": "- To move around the map, use the directional"
+                        " commands: 'north', 'south', 'east', and 'west'."
+                    },
+                    {
+                        "text": "- You can search the area you are in using"
+                        " the 'search' command."
+                    },
+                    {
+                        "text": "- You can carry items in your inventory."
+                        " Check your inventory using the 'inventory' command."
+                    },
+                    {
+                        "text": "Good Luck, and have fun!"
+                    },
                 ]
             ),
             position=(0, 0),
@@ -798,10 +796,9 @@ class Game:
         """
         This creates the player.
         """
-        # clear_terminal()
-        text("Welcome to the game! Great adventurer.")
         while True:
-            username = ask_user(type=None, prompt="Please enter your username: ")
+            username = ask_user(
+                type=None, prompt="Please enter your username: ")
             if 3 <= len(username) <= 24 and username.isalnum() and "_" not in username:
                 self.player = Player(
                     name=username,
@@ -834,7 +831,7 @@ class Game:
         current_location = self.get_current_location()
 
         # Display player's basic stats
-        space()
+        add_space()
         text(f"Player {player.name}:")
         text(
             f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}", color=color_light_gray)
@@ -900,8 +897,9 @@ class Game:
         """
         clear_terminal()
         game_title()
+        text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
+        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
         ask_user(type='continue', prompt='Press enter to start the game: ')
-
         self.create_player()
         self.assign_player_to_location()
         self.intro()

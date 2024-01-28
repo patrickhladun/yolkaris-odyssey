@@ -56,7 +56,7 @@ def paragraph(
             text(line, color=color)
 
 
-def space(space: int = 0, delay: float = 0.2):
+def add_space(space: int = 0, delay: float = 0.2):
     """
     This prints a new line to the terminal.
     - space: the number of new lines to print
