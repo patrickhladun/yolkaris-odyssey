@@ -2,7 +2,8 @@ from game.config import Config
 import random
 from art import *
 from utils import (text, paragraph, space, clear_terminal, ask_user,
-                   color_light_gray, color_light_blue)
+                   color_light_gray, color_light_blue, color_player,
+                   color_neutral, color_error)
 from pprint import pprint
 
 
@@ -64,12 +65,14 @@ class Interaction:
 
     def with_area(self, area):
         for line in area.storyLine:
+            space = line['space'] if 'space' in line else 0
+            color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
-                paragraph(line['text'], space=1)
+                paragraph(line['text'], space=space,  color=color)
             elif 'continue' in line:
-                ask_user('continue', color=color_light_blue)
+                ask_user('continue')
 
     def with_enemy(self, enemy, location):
         space()
@@ -97,9 +100,11 @@ class Interaction:
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
+                paragraph(line['text'], space=line['space'],
+                          color=line['color'] if 'color' in line else None)
                 paragraph(line['text'], space=1)
             elif 'continue' in line:
-                ask_user('continue', color=color_light_blue)
+                ask_user('continue')
 
 
 class Combat:
@@ -123,14 +128,14 @@ class Combat:
         return "retreat"
 
     def to_fight_or_not_to_fight(self):
-        if ask_user('combat', color=color_light_blue):
+        if ask_user('combat'):
             result = self.combat()
             return result
         else:
             return "retreat"
 
     def continue_or_flee(self):
-        return ask_user('retreat', color=color_light_blue)
+        return ask_user('retreat')
 
     def player_attack(self):
         player_attack_power = self.calculate_player_attack_power()
@@ -268,7 +273,7 @@ class Location:
 
                 enemy_defeated = False
                 if element.enemy:
-                    ask_user('continue', color=color_light_blue)
+                    ask_user(type='continue')
                     enemy_defeated = interaction.with_enemy(
                         element.enemy, self)
 
@@ -334,7 +339,7 @@ class Location:
 
         elif isinstance(item, Armour):
             name = item.name
-            if ask_user("confirm", f"You found a {name}. Do you want to equip it?"):
+            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to equip it?"):
                 if player.armour:
                     area.items.append({'item': player.armour, 'quantity': 1})
                 player.armour = item
@@ -343,7 +348,7 @@ class Location:
 
         elif isinstance(item, Potion):
             name = item.name
-            if ask_user("confirm", f"You found a {name}. Do you want to take it?"):
+            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
                 player.potions.append(item)
                 area.items.remove(the_item)
 
@@ -447,8 +452,8 @@ def game_title() -> None:
     """
     yolkaris = text2art("Yolkaris", font="dos_rebel", chr_ignore=True)
     odyssey = text2art("Odyssey", font="dos_rebel", chr_ignore=True)
-    print(yolkaris)
-    print(odyssey)
+    text(yolkaris)
+    text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
     text("Coded and designed by Patrick Hladun.", delay=0.1)
 
@@ -572,7 +577,76 @@ if game_level == 1:
         ),
         Area(
             name="Bounty Harbour",
-            storyLine=[],
+            storyLine=[
+                {
+                    "clear": True
+                },
+                {
+                    "text": "Bounty Harbour, a lively hub where sea and trade unite. It's a place where sailors"
+                    " and merchants from afar anchor their ships, bringing exotic wares and stories from"
+                    " distant planets. The harbour air is rich with a blend of spices and the fresh ocean breeze.",
+                    "space": 1
+                },
+                {
+                    "text": "Tony, a seasoned sailor, spots Clucky and "
+                    " approaches with a knowing smile.",
+                    "space": 0
+                },
+                {
+                    "text": "Hey Clucky, on a mission for the clock? You're"
+                    " our beacon of hope, you know.",
+                    "color": color_neutral
+                },
+                {
+                    "text": "Thanks, Tony. Good to see you. Your support means a lot to me.",
+                    "space": 1,
+                    "color": color_player
+                },
+                {
+                    "text": "Be careful out there, alright? We're counting on you, Clucky.",
+                    "space": 1
+                },
+                {
+                    "text": "Will do. See you in a few days, Tony!",
+                    "space": 1,
+                    "color": color_player
+                },
+                {
+                    "text": "Sara, a cheerful trader, greets Clucky with enthusiasm. Sara: Clucky, we're all"
+                    " rooting for you! You're our best chance to fix the clock.",
+                    "space": 1
+                },
+                {
+                    "text": "I appreciate it, Sara. I won't let Yolkaris down. The clock will tick again.",
+                    "space": 1,
+                    "color": color_player
+                },
+                {
+                    "text": "Bring back the magic, my friend. We believe in you, Clucky.",
+                    "space": 1
+                },
+                {
+                    "text": "Garry, a local rival, sneers at Clucky. Saving the clock, Clucky? That's a"
+                    " laugh. You? The hero? Guess we're really desperate.",
+                    "space": 1
+                },
+                {
+                    "text": "Clucky, unfazed, responds with a smile. Every bit counts, Garry. Even"
+                    " skepticism like yours.",
+                    "space": 1,
+                    "color": color_player
+                },
+                {
+                    "text": "Just don't get lost on your way, featherbrain! Not everyone's a believer.",
+                    "space": 1
+                },
+                {
+                    "text": "As Clucky walks away, he feels the mixed vibes of support and skepticism, steeling"
+                    " himself for the journey ahead. Determined, Clucky heads towards his next destination.",
+                    "space": 1
+                }
+
+            ],
             position=(1, 0),
         ),
         Area(
@@ -584,24 +658,83 @@ if game_level == 1:
             name="Crystal Hills",
             storyLine=[],
             enemy=False,
-            position=[1, 3],
+            position=(3, 1),
         ),
         Area(
             name="Yonder Forest",
             storyLine=[],
         ),
-        Area(
-            name="Clucker's Canyon",
-            storyLine=[],
-        ),
-        Area(
-            name="Bubble Beach",
-            storyLine=[],
-        ),
-        Area(
-            name="Peckers Peak",
-            storyLine=[],
-        ),
+        Area(name="Clucker's Canyon",
+             storyLine=[
+                 {
+                     "clear": True
+                 },
+                 {
+                     "text": "Clucker's Canyon, with its echoing walls and"
+                     " towering red cliffs, is a marvel of nature on Yolkaris."
+                     " The canyon has witnessed the rise and fall of many"
+                     " civilizations, holding secrets of the past within its"
+                     " rugged landscape. It's said that the echoes in the"
+                     " canyon are the voices of ancient Yolkarians."
+                 },
+                 {
+                     "text": "The canyon is not just a historical site but also"
+                     " a treasure trove of mystery. Explorers and treasure"
+                     " hunters often delve into its depths, seeking lost"
+                     " artifacts of the chicken civilizations that once"
+                     " flourished here."
+                 },
+                 {
+                     "break": True
+                 },
+                 {
+                     "text": "Clucky - Every echo in Clucker's Canyon tells a"
+                     " story. I can almost hear the clucks and caws of the"
+                     " ancients. It's like they're still here, sharing their"
+                     " tales with anyone who listens. I wonder what stories the"
+                     " canyon walls would tell if they could talk"
+                 }
+             ],
+             ),
+        Area(name="Bubble Beach",
+             storyLine=[
+                 {
+                     "clear": True
+                 },
+                 {
+                     "text": "Bubble Beach is famous for its iridescent bubbles"
+                     " that float up from the sea. The bubbles are said to"
+                     " contain tiny galaxies, a reminder of the vastness of"
+                     " the universe."
+                 },
+                 {
+                     "text": "These bubbles are mesmerizing. Each one holds a"
+                     " tiny galaxy. It's a reminder of how small we are in this"
+                     " vast universe. But even the smallest pebble can make"
+                     " ripples across the water."
+                 }
+             ],
+             ),
+        Area(name="Peckers Peak",
+             storyLine=[
+                 {
+                     "clear": True
+                 },
+                 {
+                     "text": "Peckers Peak is the highest point on Yolkaris,"
+                     " known for its breathtaking views. Legend says it's where"
+                     " the ancient chickens first learned to navigate the"
+                     " stars."
+                 },
+                 {
+                     "text": "Clucky - Wow, the view from here is incredible!"
+                     " I can see the whole of Yolkaris and Crystal Hills."
+                     " It's said that the ancient chickens gazed at the stars"
+                     " from here, plotting their courses across the skies. If"
+                     " only I had their knowledge now..."
+                 },
+             ],
+             ),
     ]
 
     mystara_areas = []
@@ -668,7 +801,7 @@ class Game:
         # clear_terminal()
         text("Welcome to the game! Great adventurer.")
         while True:
-            username = input("Please enter your username: ").strip()
+            username = ask_user(type=None, prompt="Please enter your username: ")
             if 3 <= len(username) <= 24 and username.isalnum() and "_" not in username:
                 self.player = Player(
                     name=username,
@@ -686,9 +819,10 @@ class Game:
                 )
                 break
             else:
-                print(
+                paragraph(
                     "Invalid username. It should be between 3 to 24 characters"
-                    ",contain only letters and numbers, and no underscores."
+                    ",contain only letters and numbers, and no underscores.",
+                    color=color_error,
                 )
 
     def show_player_stats(self) -> None:
@@ -729,7 +863,7 @@ class Game:
         choose an action. The method then calls the appropriate method based on 
         the player's choice.
         """
-        action = input(": ")
+        action = input(">> ")
         if action == "help":
             show_help()
         elif action == "map":
@@ -766,7 +900,7 @@ class Game:
         """
         clear_terminal()
         game_title()
-        ask_user('continue', 'Press enter to start the game: ')
+        ask_user(type='continue', prompt='Press enter to start the game: ')
 
         self.create_player()
         self.assign_player_to_location()
@@ -779,9 +913,9 @@ class Game:
         This is the introduction to the game.
         """
         clear_terminal()
-        text(f"Hello {self.player.name}!", delay=0.8, space=1)
-
-        ask_user('continue')
+        text(f"Hello {self.player.name}!", delay=0.5, space=1)
+        # Need the welcome story here game intro
+        ask_user(type='continue')
         starting_location = self.get_current_location()
         starting_location.check_for_interaction((0, 0), self.player)
         self.display_map()

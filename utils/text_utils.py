@@ -7,11 +7,21 @@ import textwrap
 init(autoreset=True)
 
 # Define custom colors
+default_color = Style.BRIGHT + Fore.WHITE  # Default color
 color_light_gray = Fore.LIGHTBLACK_EX  # Light gray color
 color_light_blue = Fore.LIGHTBLUE_EX  # Light blue color
+color_player = Style.DIM + Fore.LIGHTGREEN_EX  # Light green color
+color_neutral = Style.DIM + Fore.CYAN
+color_error = Style.NORMAL + Fore.RED
+default_blue_color = Fore.BLUE + Style.BRIGHT
 
 
-def text(text, delay=0.2, space=0, color=Fore.RESET):
+def text(
+    text,
+    delay=0.2,
+    space=0,
+    color=default_color
+):
     """
     Prints text to the terminal with optional color.
     - text: the text to print
@@ -20,11 +30,16 @@ def text(text, delay=0.2, space=0, color=Fore.RESET):
     - color: the color to apply to the text
     """
     line_space = '\n' * space
-    print(color + text + Fore.RESET + line_space)
+    colored_text = (color + text if color else text) + Fore.RESET + line_space
+    print(colored_text)
     time.sleep(delay)
 
 
-def paragraph(long_string, space=1, color=Fore.RESET):
+def paragraph(
+    long_string,
+    space=1,
+    color=default_color
+):
     """
     Prints a paragraph of text to the terminal with optional color.
     - long_string: the text to wrap and print as a paragraph
@@ -36,7 +51,7 @@ def paragraph(long_string, space=1, color=Fore.RESET):
 
     for i, line in enumerate(lines):
         if i == len(lines) - 1:
-            text(line, space=1, color=color)
+            text(line, space=space, color=color)
         else:
             text(line, color=color)
 
@@ -59,7 +74,11 @@ def clear_terminal():
     os.system('clear')
 
 
-def ask_user(type: str, color=Fore.RESET, prompt: str = None):
+def ask_user(
+        type: str,
+        color=default_blue_color,
+        prompt: str = None
+):
     """
     Prompts the user for input with an optional color.
     - type: the type of prompt ('continue' or 'confirm')
@@ -69,12 +88,12 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
     if type == "continue":
         prompt = prompt if prompt else "Press enter to continue: "
         print(color + prompt + Fore.RESET, end="")
-        input()
+        input().strip().lower()
     elif type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
             print(color + prompt + " (yes/no): " + Fore.RESET, end="")
-            choice = input().lower()
+            choice = input().lower().strip()
             if choice in ['yes', 'no']:
                 return True
             print("Invalid input. Please enter 'yes' or 'no'.")
@@ -82,7 +101,7 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
         prompt = "Do you want to 'fight' or 'retreat'? "
         while True:
             print(color + prompt + Fore.RESET, end="")
-            choice = input().lower()
+            choice = input().lower().strip()
             if choice == 'fight':
                 return True
             elif choice == 'retreat':
@@ -92,9 +111,12 @@ def ask_user(type: str, color=Fore.RESET, prompt: str = None):
         prompt = "To continue press enter or 'retreat': "
         while True:
             print(color + prompt + Fore.RESET, end="")
-            choice = input().lower()
+            choice = input().lower().strip()
             if choice == 'retreat':
                 return True
             elif choice == '':
                 return False
             print("Invalid input. Please enter 'retreat' or enter.")
+    else:
+        print(color + (prompt if prompt else "") + Fore.RESET, end="")
+        return input().strip().lower()

@@ -10,5 +10,6 @@
   ],
   "editor.wordWrap": "off",
   "editor.tabSize": 2,
-  "editor.rulers": [79]
+  "editor.rulers": [79],
+  "python.REPL.enableREPLSmartSend": false
 }
