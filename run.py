@@ -65,7 +65,7 @@ class Interaction:
 
     def with_area(self, area):
         for line in area.storyLine:
-            space = line['space'] if 'space' in line else 0
+            space = line['space'] if 'space' in line else 1
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
@@ -97,7 +97,7 @@ class Interaction:
     def with_neutral(self, neutral):
         add_space()
         for line in neutral.storyLine:
-            space = line['space'] if 'space' in line else 0
+            space = line['space'] if 'space' in line else 1
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
