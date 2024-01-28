@@ -10,8 +10,8 @@ init(autoreset=True)
 default_color = Style.BRIGHT + Fore.WHITE  # Default color
 color_light_gray = Fore.LIGHTBLACK_EX  # Light gray color
 color_light_blue = Fore.LIGHTBLUE_EX  # Light blue color
-color_player = Style.DIM + Fore.LIGHTGREEN_EX  # Light green color
-color_neutral = Style.DIM + Fore.CYAN
+color_player = Fore.LIGHTGREEN_EX  # Light green color
+color_neutral = Fore.CYAN
 color_error = Style.NORMAL + Fore.RED
 
 color_ask_user = Fore.BLUE + Style.BRIGHT
@@ -47,7 +47,7 @@ def paragraph(
     - space: the number of new lines to print after the paragraph
     - color: the color to apply to the text
     """
-    wrapped_text = textwrap.fill(long_string, width=75)
+    wrapped_text = textwrap.fill(long_string, width=95)
     lines = wrapped_text.split('\n')
 
     for i, line in enumerate(lines):

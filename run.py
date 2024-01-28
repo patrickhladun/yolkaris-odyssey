@@ -70,7 +70,13 @@ class Interaction:
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
-                paragraph(line['text'], space=space,  color=color)
+                paragraph(line['text'], space=space, color=color)
+            elif 'neutral' in line:
+                paragraph("- " + line['neutral'],
+                          space=space, color=color_neutral)
+            elif 'player' in line:
+                paragraph("- " + line['player'],
+                          space=space, color=color_player)
             elif 'continue' in line:
                 ask_user('continue', space=space)
 
@@ -103,6 +109,12 @@ class Interaction:
                 clear_terminal()
             elif 'text' in line:
                 paragraph(line['text'], space=space,  color=color)
+            elif 'neutral' in line:
+                paragraph("- " + line['neutral'],
+                          space=space,  color=color_neutral)
+            elif 'player' in line:
+                paragraph("- " + line['player'],
+                          space=space,  color=color_player)
             elif 'continue' in line:
                 ask_user('continue')
 
@@ -521,21 +533,18 @@ if game_level == 1:
                  name="Timekeeper",
                  storyLine=[
                      {
-                         "text": "Ah, Clucky! Our Grand Clock has stopped. Its"
+                         "neutral": "Ah, Clucky! Our Grand Clock has stopped. Its"
                          " magic is fading. You must find the Time Crystal in"
                          " the Crystal Hills to restore it.",
                          "space": 0,
-                         "color": color_neutral
                      },
                      {
-                         "text": "I will find the crystal and save the clock,"
+                         "player": "I will find the crystal and save the clock,"
                          " Timekeeper.",
                          "space": 0,
-                         "color": color_player
                      },
                      {
-                         "text": "Hurry, for time is of the essence now.",
-                         "color": color_neutral
+                         "neutral": "Hurry, for time is of the essence now.",
                      },
                      {
                          "continue": True
@@ -604,26 +613,22 @@ if game_level == 1:
                      " approaches with a knowing smile.",
                  },
                  {
-                     "text": "Hey Clucky, on a mission for the clock? You're"
+                     "neutral": "Hey Clucky, on a mission for the clock? You're"
                      " our beacon of hope, you know.",
                      "space": 0,
-                     "color": color_neutral
                  },
                  {
-                     "text": "Thanks, Tony. Good to see you. Your support means"
+                     "player": "Thanks, Tony. Good to see you. Your support means"
                      " a lot to me.",
                      "space": 0,
-                     "color": color_player
                  },
                  {
-                     "text": "Be careful out there, alright? We're counting on"
+                     "neutral": "Be careful out there, alright? We're counting on"
                      " you, Clucky.",
                      "space": 0,
-                     "color": color_neutral
                  },
                  {
-                     "text": "Will do. See you in a few days, Tony!",
-                     "color": color_player
+                     "player": "Will do. See you in a few days, Tony!",
                  },
                  {
                      "continue": True
@@ -633,47 +638,41 @@ if game_level == 1:
                      " enthusiasm.",
                  },
                  {
-                     "text": "Clucky, we're all rooting for you! You're our"
+                     "neutral": "Clucky, we're all rooting for you! You're our"
                      " best chance to fix the clock.",
                      "space": 0,
-                     "color": color_neutral
                  },
                  {
-                     "text": "I appreciate it, Sara. I won't let Yolkaris down."
+                     "player": "I appreciate it, Sara. I won't let Yolkaris down."
                      " The clock will tick again.",
                      "space": 0,
-                     "color": color_player
                  },
                  {
-                     "text": "Bring back the magic, my friend. We believe in"
+                     "neutral": "Bring back the magic, my friend. We believe in"
                      " you, Clucky.",
-                     "color": color_neutral
                  },
                  {
                      "text": "Garry, a local rival, sneers at Clucky.",
                      "space": 1
                  },
                  {
-                     "text": "Saving the clock, Clucky? That's a laugh. You?"
+                     "neutral": "Saving the clock, Clucky? That's a laugh. You?"
                      " The hero? Guess we're really desperate.",
                      "space": 1,
-                     "color": color_neutral
                  },
                  {
                      "text": "Clucky, unfazed, responds with a smile.",
                      "space": 1
                  },
                  {
-                     "text": "Every bit counts, Garry. Even skepticism like "
+                     "player": "Every bit counts, Garry. Even skepticism like "
                      " yours.",
                      "space": 0,
-                     "color": color_player
                  },
                  {
-                     "text": "Just don't get lost on your way, featherbrain!"
+                     "neutral": "Just don't get lost on your way, featherbrain!"
                      " Not everyone's a believer.",
                      "space": 1,
-                     "color": color_neutral
                  },
                  {
                      "text": "As Clucky walks away, he feels the mixed vibes of"
