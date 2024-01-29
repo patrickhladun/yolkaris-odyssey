@@ -1,8 +1,10 @@
 import random
+import time
 from art import *
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
-                   color_light_gray, color_light_blue, color_player,
-                   color_neutral, color_error)
+                   loading, color_light_gray, color_light_blue,
+                   color_player, color_neutral, color_error)
+
 
 class Character:
     def __init__(self, name: str) -> None:
@@ -515,9 +517,10 @@ class Game:
         text(f"Welcome in the game, {self.player.name}!", delay=0.1, space=1)
         game_level = self.select_game_level()
         self.setup_areas(game_level)
-        text("Generating game...", delay=1.4, space=1)
-        text("Game generated.", delay=0.1, space=1)
-        text("Starting game...", delay=1.4, space=1)
+        add_space()
+        loading(['Generating game', '.', '.', '.',
+                '.', '.', '.', '.'], 'Game generated')
+        loading(['Starting game', '.', '.', '.', '.'])
         self.assign_player_to_location()
         self.current_location = 0
         starting_location = self.get_current_location()
@@ -976,8 +979,16 @@ class Game:
             self.search_current_area()
         elif action == "inventory" or action == "i":
             self.show_inventory()
+        elif action == "reset":
+            self.reset_game()
         elif action == "quit":
             self.game_over = True
+
+    def reset_game(self) -> None:
+        """
+        This method resets the game.
+        """
+        self.setup_game()
 
     def search_current_area(self):
         """

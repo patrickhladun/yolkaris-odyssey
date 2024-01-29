@@ -125,3 +125,11 @@ def ask_user(
     else:
         print(color + (prompt if prompt else "") + Fore.RESET, end="")
         return input().strip().lower()
+
+
+def loading(content: list = ["Loading", ".", ".", "."], ending: str = None):
+    for i in content:
+        print(default_color + i + Fore.RESET, end='', flush=True)
+        time.sleep(0.5)
+    print('\n' + default_color + ending + Fore.RESET) if ending else None
+    time.sleep(0.5) if ending else None
