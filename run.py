@@ -1,4 +1,3 @@
-from game.config import Config
 import random
 from art import *
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
