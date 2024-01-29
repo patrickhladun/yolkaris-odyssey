@@ -79,7 +79,9 @@ def ask_user(
         type: str = None,
         color=color_ask_user,
         prompt: str = None,
+        error: str = None,
         space: int = 0,
+        numbers: list = ['1', '2']
 ):
     """
     Prompts the user for input with an optional color.
@@ -94,6 +96,16 @@ def ask_user(
         input().strip().lower()
         if space > 0:
             print(line_space)
+    elif type == "number":
+        while True:
+            prompt = prompt if prompt else ">>"
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().strip()
+            if choice in numbers:
+                return int(choice)
+            else:
+                error = error if error else "Invalid choice. Please select a correct number."
+                text(color_error + error + Fore.RESET, space=1)
     elif type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
@@ -101,7 +113,8 @@ def ask_user(
             choice = input().lower().strip()
             if choice in ['yes', 'no']:
                 return True
-            print("Invalid input. Please enter 'yes' or 'no'.")
+            error = error if error else "Invalid input. Please enter 'yes' or 'no'."
+            text(color_error + error + Fore.RESET, space=1)
     elif type == "combat":
         prompt = "Do you want to 'fight' or 'retreat'? "
         while True:
@@ -111,7 +124,8 @@ def ask_user(
                 return True
             elif choice == 'retreat':
                 return False
-            print("Invalid input. Please enter 'fight' or 'retreat'.")
+            error = error if error else "Invalid input. Please enter 'fight' or 'retreat'."
+            text(color_error + error + Fore.RESET, space=1)
     elif type == "retreat":
         prompt = "To continue press enter or 'retreat': "
         while True:
@@ -121,7 +135,8 @@ def ask_user(
                 return True
             elif choice == '':
                 return False
-            print("Invalid input. Please enter 'retreat' or enter.")
+            error = error if error else "Invalid input. Please enter 'retreat' or enter."
+            text(color_error + error + Fore.RESET, space=1)
     else:
         print(color + (prompt if prompt else "") + Fore.RESET, end="")
         return input().strip().lower()
