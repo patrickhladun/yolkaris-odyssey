@@ -185,7 +185,13 @@ class Combat:
 
 
 class Location:
-    def __init__(self, name: str, description: str, size: tuple, areas: dict) -> None:
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        size: tuple,
+        areas: dict
+    ) -> None:
         self.name = name
         self.description = description
         self.size = size
@@ -484,333 +490,6 @@ def show_help() -> None:
     text("  quit       - Quit the game", delay=0.1)
     text(" ")
 
-# select game level
-# lvl 1 - A quick game
-# lvl 2 - Not to short not to long
-# lvl 3 - I understand there is no save game implemented
-
-
-game_level = 1
-
-if game_level == 1:
-
-    yolkaris_size = (4, 2)
-    mystara_size = (2, 1)
-    luminara_size = (2, 1)
-
-    yolkaris_areas = [
-        Area(name="Capital City",
-             storyLine=[
-                 {
-                     "clear": True
-                 },
-                 {
-                     "text": "As you embark on 'The Broken Clock' adventure in"
-                     " 'Yolkaris Odyssey', the vibrant energy of The Capital"
-                     " surrounds you. The sun bathes the cobblestone streets"
-                     " in a warm glow, and the citizens of Yolkaris go about"
-                     " their daily routines.",
-                 },
-                 {
-                     "text": "However, an unusual silence draws your attention"
-                     " to the Grand Clock standing majestically at the city's"
-                     " center. To your surprise, its hands have stopped moving,"
-                     " causing a sense of unease among the townsfolk. ",
-                 },
-                 {
-                     "text": "As Clucky, the brave and curious chicken, you"
-                     " approach the Grand Clock to investigate the matter."
-                     " There, you meet Timekeeper Ticktock, an elderly bird"
-                     " with keen eyes behind a shiny monocle."
-                 },
-                 {
-                     "continue": True,
-                     "space": 0
-                 }
-             ],
-             items=[],
-             neutral=Neutral(
-                 name="Timekeeper",
-                 storyLine=[
-                     {
-                         "neutral": "Ah, Clucky! Our Grand Clock has stopped. Its"
-                         " magic is fading. You must find the Time Crystal in"
-                         " the Crystal Hills to restore it.",
-                         "space": 0,
-                     },
-                     {
-                         "player": "I will find the crystal and save the clock,"
-                         " Timekeeper.",
-                         "space": 0,
-                     },
-                     {
-                         "neutral": "Hurry, for time is of the essence now.",
-                     },
-                     {
-                         "continue": True
-                     },
-                     {
-                         "clear": True
-                     },
-                     {
-                         "text": "Before you go here is how to Play"
-                         " Yolkaris Odyssey:"
-                     },
-                     {
-                         "text": "- There is one location in this story, "
-                         " Yolkaris.",
-                         "space": 0
-                     },
-                     {
-                         "text": "- You can see your current position within a "
-                         " location by using the 'map' command.",
-                         "space": 0
-                     },
-                     {
-                         "text": "- To move around the map, use the directional"
-                         " commands: 'north', 'south', 'east', and 'west'.",
-                         "space": 0
-                     },
-                     {
-                         "text": "- You can search the area you are in using"
-                         " the 'search' command.",
-                         "space": 0
-                     },
-                     {
-                         "text": "- You can carry items in your inventory."
-                         " Check your inventory using the 'inventory' command."
-                     },
-                     {
-                         "text": "Good Luck, and have fun!",
-                         "space": 0
-                     },
-                 ]
-             ),
-             position=(0, 0),
-             ),
-        Area(name="Bounty Harbour",
-             storyLine=[
-                 {
-                     "clear": True
-                 },
-                 {
-                     "text": "Bounty Harbour bustles with life, a hub for "
-                     " seafaring souls and wandering traders. The aroma of the"
-                     " ocean mingles with exotic spices, weaving a tapestry of"
-                     " adventure and mystery in the air."
-                 },
-                 {
-                     "text": "Clucky, amidst the vibrant chatter of the"
-                     " marketplace and rhythmic creaking of ships, takes in the"
-                     " colorful tapestry of sails and flags, each narrating"
-                     " tales of distant lands and mysterious seas."
-                 },
-                 {
-                     "continue": True
-                 },
-                 {
-                     "text": "Tony, a seasoned sailor, spots Clucky and"
-                     " approaches with a knowing smile.",
-                 },
-                 {
-                     "neutral": "Hey Clucky, on a mission for the clock? You're"
-                     " our beacon of hope, you know.",
-                     "space": 0,
-                 },
-                 {
-                     "player": "Thanks, Tony. Good to see you. Your support means"
-                     " a lot to me.",
-                     "space": 0,
-                 },
-                 {
-                     "neutral": "Be careful out there, alright? We're counting on"
-                     " you, Clucky.",
-                     "space": 0,
-                 },
-                 {
-                     "player": "Will do. See you in a few days, Tony!",
-                 },
-                 {
-                     "continue": True
-                 },
-                 {
-                     "text": "Sara, a cheerful trader, greets Clucky with "
-                     " enthusiasm.",
-                 },
-                 {
-                     "neutral": "Clucky, we're all rooting for you! You're our"
-                     " best chance to fix the clock.",
-                     "space": 0,
-                 },
-                 {
-                     "player": "I appreciate it, Sara. I won't let Yolkaris down."
-                     " The clock will tick again.",
-                     "space": 0,
-                 },
-                 {
-                     "neutral": "Bring back the magic, my friend. We believe in"
-                     " you, Clucky.",
-                 },
-                 {
-                     "text": "Garry, a local rival, sneers at Clucky.",
-                     "space": 1
-                 },
-                 {
-                     "neutral": "Saving the clock, Clucky? That's a laugh. You?"
-                     " The hero? Guess we're really desperate.",
-                     "space": 1,
-                 },
-                 {
-                     "text": "Clucky, unfazed, responds with a smile.",
-                     "space": 1
-                 },
-                 {
-                     "player": "Every bit counts, Garry. Even skepticism like "
-                     " yours.",
-                     "space": 0,
-                 },
-                 {
-                     "neutral": "Just don't get lost on your way, featherbrain!"
-                     " Not everyone's a believer.",
-                     "space": 1,
-                 },
-                 {
-                     "text": "As Clucky walks away, he feels the mixed vibes of"
-                     " support and skepticism, steeling himself for the journey"
-                     " ahead. Determined, Clucky heads towards his next"
-                     " destination.",
-                     "space": 1
-                 }
-
-             ],
-             position=(1, 0),
-             ),
-        Area(name="Cluckington Valley",
-             storyLine=[],
-             position=(0, 1),
-             ),
-        Area(name="Crystal Hills",
-             storyLine=[],
-             enemy=False,
-             position=(3, 1),
-             ),
-        Area(name="Yonder Forest",
-             storyLine=[],
-             ),
-        Area(name="Clucker's Canyon",
-             storyLine=[
-                 {
-                     "clear": True
-                 },
-                 {
-                     "text": "Clucker's Canyon, with its echoing walls and"
-                     " towering red cliffs, is a marvel of nature on Yolkaris."
-                     " The canyon has witnessed the rise and fall of many"
-                     " civilizations, holding secrets of the past within its"
-                     " rugged landscape. It's said that the echoes in the"
-                     " canyon are the voices of ancient Yolkarians."
-                 },
-                 {
-                     "text": "The canyon is not just a historical site but also"
-                     " a treasure trove of mystery. Explorers and treasure"
-                     " hunters often delve into its depths, seeking lost"
-                     " artifacts of the chicken civilizations that once"
-                     " flourished here."
-                 },
-                 {
-                     "break": True
-                 },
-                 {
-                     "text": "Clucky - Every echo in Clucker's Canyon tells a"
-                     " story. I can almost hear the clucks and caws of the"
-                     " ancients. It's like they're still here, sharing their"
-                     " tales with anyone who listens. I wonder what stories the"
-                     " canyon walls would tell if they could talk"
-                 }
-             ],
-             ),
-        Area(name="Bubble Beach",
-             storyLine=[
-                 {
-                     "clear": True
-                 },
-                 {
-                     "text": "Bubble Beach is famous for its iridescent bubbles"
-                     " that float up from the sea. The bubbles are said to"
-                     " contain tiny galaxies, a reminder of the vastness of"
-                     " the universe."
-                 },
-                 {
-                     "text": "These bubbles are mesmerizing. Each one holds a"
-                     " tiny galaxy. It's a reminder of how small we are in this"
-                     " vast universe. But even the smallest pebble can make"
-                     " ripples across the water."
-                 }
-             ],
-             ),
-        Area(name="Peckers Peak",
-             storyLine=[
-                 {
-                     "clear": True
-                 },
-                 {
-                     "text": "Peckers Peak is the highest point on Yolkaris,"
-                     " known for its breathtaking views. Legend says it's where"
-                     " the ancient chickens first learned to navigate the"
-                     " stars."
-                 },
-                 {
-                     "text": "Wow, the view from here is incredible!"
-                     " I can see the whole of Yolkaris and Crystal Hills."
-                     " It's said that the ancient chickens gazed at the stars"
-                     " from here, plotting their courses across the skies. If"
-                     " only I had their knowledge now...",
-                     "color": color_player
-                 },
-             ],
-             ),
-    ]
-
-    mystara_areas = []
-
-    luminara_areas = []
-
-elif game_level == 2:
-    yolkaris_size = (1, 0)
-    mystara_size = (1, 1)
-    luminara_size = (1, 1)
-
-    yolkaris_areas = [
-        Area(
-            name="Capital City",
-            storyLine=[],
-            items=[],
-            position=(0, 0),
-        ),
-    ]
-
-    mystara_areas = []
-
-    luminara_areas = []
-
-elif game_level == 3:
-    yolkaris_size = (1, 0)
-    mystara_size = (1, 1)
-    luminara_size = (1, 1)
-
-    yolkaris_areas = [
-        Area(
-            name="Capital City",
-            storyLine=[],
-            items=[],
-            position=(0, 0),
-        ),
-    ]
-
-    mystara_areas = []
-
-    luminara_areas = []
-
 
 class Game:
     """
@@ -818,15 +497,398 @@ class Game:
     """
 
     def __init__(self) -> None:
+        self.location_objects = {}
+        self.current_location = 0
+        self.game_over = False
+        self.player = None
+
+    def setup_game(self):
+        """
+        This method sets up the game.
+        """
+        clear_terminal()
+        game_title()
+        text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
+        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+        ask_user(type='continue',
+                 prompt='Press enter to start the game: ', space=0)
+        clear_terminal()
+        self.create_player()
+        clear_terminal()
+        text(f"Welcome in the game, {self.player.name}!", delay=0.1, space=1)
+        game_level = self.select_game_level()
+        self.setup_areas(game_level)
+        text("Generating game...", delay=1.4, space=1)
+        text("Game generated.", delay=0.1, space=1)
+        text("Starting game...", delay=1.4, space=1)
+        self.assign_player_to_location()
+        self.current_location = 0
+        starting_location = self.get_current_location()
+        starting_location.check_for_interaction((0, 0), self.player)
+        self.display_map()
+
+    def select_game_level(self):
+        """
+        This method allows the player to select the game level.
+        """
+        text("Select Game Level:", space=1)
+        text("  1. A quick game", delay=0.1)
+        text("  2. Not to short not to long", delay=0.1)
+        text("  3. I understand there is no save game implemented", delay=0.1, space=1)
+        while True:
+            choice = input("Select a game level: ")
+            if choice in ["1", "2", "3"]:
+                return int(choice)
+            else:
+                text("Invalid choice. Please select a game level from the list.")
+
+    def start_game(self) -> None:
+        """
+        This is the main game loop.
+        """
+        while not self.game_over:
+            self.choose_action()
+
+    def setup_areas(self, level) -> None:
+
+        if level == 1:
+
+            yolkaris_size = (4, 2)
+            mystara_size = (2, 1)
+            luminara_size = (2, 1)
+
+            yolkaris_areas = [
+                Area(name="Capital City",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "As you embark on 'The Broken Clock' adventure in"
+                             " 'Yolkaris Odyssey', the vibrant energy of The Capital"
+                             " surrounds you. The sun bathes the cobblestone streets"
+                             " in a warm glow, and the citizens of Yolkaris go about"
+                             " their daily routines.",
+                         },
+                         {
+                             "text": "However, an unusual silence draws your attention"
+                             " to the Grand Clock standing majestically at the city's"
+                             " center. To your surprise, its hands have stopped moving,"
+                             " causing a sense of unease among the townsfolk. ",
+                         },
+                         {
+                             "text": "As Clucky, the brave and curious chicken, you"
+                             " approach the Grand Clock to investigate the matter."
+                             " There, you meet Timekeeper Ticktock, an elderly bird"
+                             " with keen eyes behind a shiny monocle."
+                         },
+                         {
+                             "continue": True,
+                             "space": 0
+                         }
+                     ],
+                     items=[],
+                     neutral=Neutral(
+                         name="Timekeeper",
+                         storyLine=[
+                             {
+                                 "neutral": "Ah, Clucky! Our Grand Clock has stopped. Its"
+                                 " magic is fading. You must find the Time Crystal in"
+                                 " the Crystal Hills to restore it.",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "I will find the crystal and save the clock,"
+                                 " Timekeeper.",
+                                 "space": 0,
+                             },
+                             {
+                                 "neutral": "Hurry, for time is of the essence now.",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "clear": True
+                             },
+                             {
+                                 "text": "Before you go here is how to Play"
+                                 " Yolkaris Odyssey:"
+                             },
+                             {
+                                 "text": "- There is one location in this story, "
+                                 " Yolkaris.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- You can see your current position within a "
+                                 " location by using the 'map' command.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- To move around the map, use the directional"
+                                 " commands: 'north', 'south', 'east', and 'west'.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- You can search the area you are in using"
+                                 " the 'search' command.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- You can carry items in your inventory."
+                                 " Check your inventory using the 'inventory' command."
+                             },
+                             {
+                                 "text": "Good Luck, and have fun!",
+                                 "space": 0
+                             },
+                         ]
+                     ),
+                     position=(0, 0),
+                     ),
+                Area(name="Bounty Harbour",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bounty Harbour bustles with life, a hub for "
+                             " seafaring souls and wandering traders. The aroma of the"
+                             " ocean mingles with exotic spices, weaving a tapestry of"
+                             " adventure and mystery in the air."
+                         },
+                         {
+                             "text": "Clucky, amidst the vibrant chatter of the"
+                             " marketplace and rhythmic creaking of ships, takes in the"
+                             " colorful tapestry of sails and flags, each narrating"
+                             " tales of distant lands and mysterious seas."
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "Tony, a seasoned sailor, spots Clucky and"
+                             " approaches with a knowing smile.",
+                         },
+                         {
+                             "neutral": "Hey Clucky, on a mission for the clock? You're"
+                             " our beacon of hope, you know.",
+                             "space": 0,
+                         },
+                         {
+                             "player": "Thanks, Tony. Good to see you. Your support means"
+                             " a lot to me.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "Be careful out there, alright? We're counting on"
+                             " you, Clucky.",
+                             "space": 0,
+                         },
+                         {
+                             "player": "Will do. See you in a few days, Tony!",
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "Sara, a cheerful trader, greets Clucky with "
+                             " enthusiasm.",
+                         },
+                         {
+                             "neutral": "Clucky, we're all rooting for you! You're our"
+                             " best chance to fix the clock.",
+                             "space": 0,
+                         },
+                         {
+                             "player": "I appreciate it, Sara. I won't let Yolkaris down."
+                             " The clock will tick again.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "Bring back the magic, my friend. We believe in"
+                             " you, Clucky.",
+                         },
+                         {
+                             "text": "Garry, a local rival, sneers at Clucky.",
+                             "space": 1
+                         },
+                         {
+                             "neutral": "Saving the clock, Clucky? That's a laugh. You?"
+                             " The hero? Guess we're really desperate.",
+                             "space": 1,
+                         },
+                         {
+                             "text": "Clucky, unfazed, responds with a smile.",
+                             "space": 1
+                         },
+                         {
+                             "player": "Every bit counts, Garry. Even skepticism like "
+                             " yours.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "Just don't get lost on your way, featherbrain!"
+                             " Not everyone's a believer.",
+                             "space": 1,
+                         },
+                         {
+                             "text": "As Clucky walks away, he feels the mixed vibes of"
+                             " support and skepticism, steeling himself for the journey"
+                             " ahead. Determined, Clucky heads towards his next"
+                             " destination.",
+                             "space": 1
+                         }
+
+                     ],
+                     position=(1, 0),
+                     ),
+                Area(name="Cluckington Valley",
+                     storyLine=[],
+                     position=(0, 1),
+                     ),
+                Area(name="Crystal Hills",
+                     storyLine=[],
+                     enemy=False,
+                     position=(3, 1),
+                     ),
+                Area(name="Yonder Forest",
+                     storyLine=[],
+                     ),
+                Area(name="Clucker's Canyon",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Clucker's Canyon, with its echoing walls and"
+                             " towering red cliffs, is a marvel of nature on Yolkaris."
+                             " The canyon has witnessed the rise and fall of many"
+                             " civilizations, holding secrets of the past within its"
+                             " rugged landscape. It's said that the echoes in the"
+                             " canyon are the voices of ancient Yolkarians."
+                         },
+                         {
+                             "text": "The canyon is not just a historical site but also"
+                             " a treasure trove of mystery. Explorers and treasure"
+                             " hunters often delve into its depths, seeking lost"
+                             " artifacts of the chicken civilizations that once"
+                             " flourished here."
+                         },
+                         {
+                             "break": True
+                         },
+                         {
+                             "text": "Clucky - Every echo in Clucker's Canyon tells a"
+                             " story. I can almost hear the clucks and caws of the"
+                             " ancients. It's like they're still here, sharing their"
+                             " tales with anyone who listens. I wonder what stories the"
+                             " canyon walls would tell if they could talk"
+                         }
+                     ],
+                     ),
+                Area(name="Bubble Beach",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bubble Beach is famous for its iridescent bubbles"
+                             " that float up from the sea. The bubbles are said to"
+                             " contain tiny galaxies, a reminder of the vastness of"
+                             " the universe."
+                         },
+                         {
+                             "text": "These bubbles are mesmerizing. Each one holds a"
+                             " tiny galaxy. It's a reminder of how small we are in this"
+                             " vast universe. But even the smallest pebble can make"
+                             " ripples across the water."
+                         }
+                     ],
+                     ),
+                Area(name="Peckers Peak",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Peckers Peak is the highest point on Yolkaris,"
+                             " known for its breathtaking views. Legend says it's where"
+                             " the ancient chickens first learned to navigate the"
+                             " stars."
+                         },
+                         {
+                             "text": "Wow, the view from here is incredible!"
+                             " I can see the whole of Yolkaris and Crystal Hills."
+                             " It's said that the ancient chickens gazed at the stars"
+                             " from here, plotting their courses across the skies. If"
+                             " only I had their knowledge now...",
+                             "color": color_player
+                         },
+                     ],
+                     ),
+            ]
+
+            mystara_areas = []
+
+            luminara_areas = []
+
+        elif level == 2:
+
+            yolkaris_size = (2, 2)
+            mystara_size = (1, 1)
+            luminara_size = (1, 1)
+
+            yolkaris_areas = [
+                Area(name="Capital City",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Welcome to level 2!",
+                         },
+                     ],
+                     items=[],
+                     position=(0, 0),
+                     ),
+            ]
+
+            mystara_areas = []
+
+            luminara_areas = []
+
+        elif level == 3:
+
+            yolkaris_size = (2, 2)
+            mystara_size = (1, 1)
+            luminara_size = (1, 1)
+
+            yolkaris_areas = [
+                Area(name="Capital City",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Welcome to level 3!",
+                         },
+                     ],
+                     items=[],
+                     position=(0, 0),
+                     ),
+            ]
+
+            mystara_areas = []
+
+            luminara_areas = []
+
         self.location_objects = {
             "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas),
             "Mystara": Mystara(mystara_size, mystara_areas),
             "Luminara": Luminara(luminara_size, luminara_areas),
         }
-        self.current_location = 0
-        self.game_over = False
-        self.player = None
-        self.config = Config()
 
     def create_player(self) -> None:
         """
@@ -926,34 +988,6 @@ class Game:
         """
         current_location = self.get_current_location()
         current_location.search_area(self.player)
-
-    def start_game(self) -> None:
-        """
-        This is the main game loop.
-        """
-        clear_terminal()
-        game_title()
-        text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
-        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
-        ask_user(type='continue',
-                 prompt='Press enter to start the game: ', space=0)
-        self.create_player()
-        self.assign_player_to_location()
-        self.intro()
-        while not self.game_over:
-            self.choose_action()
-
-    def intro(self) -> None:
-        """
-        This is the introduction to the game.
-        """
-        clear_terminal()
-        text(f"Hello {self.player.name}!", delay=0.5, space=1)
-        # Need the welcome story here game intro
-        ask_user(type='continue')
-        starting_location = self.get_current_location()
-        starting_location.check_for_interaction((0, 0), self.player)
-        self.display_map()
 
     def get_current_location(self) -> Location:
         """
@@ -1095,4 +1129,5 @@ class Game:
 
 if __name__ == "__main__":
     game = Game()
+    game.setup_game()
     game.start_game()
