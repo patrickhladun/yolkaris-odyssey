@@ -507,7 +507,8 @@ class Game:
         """
         clear_terminal()
         game_title()
-        text("Welcome to Yolkaris Odyssey, a text-based adventure game.", delay=0.1)
+        text("Welcome to Yolkaris Odyssey, a text-base"
+             " adventure game.", delay=0.1)
         text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
         ask_user(type='continue',
                  prompt='Press enter to start the game: ', space=0)
@@ -532,15 +533,11 @@ class Game:
         This method allows the player to select the game level.
         """
         text("Select Game Level:", space=1)
-        text("  1. A quick game", delay=0.1)
+        text("  1. Just a quick game", delay=0.1)
         text("  2. Not to short not to long", delay=0.1)
-        text("  3. I understand there is no save game implemented", delay=0.1, space=1)
-        while True:
-            choice = input("Select a game level: ")
-            if choice in ["1", "2", "3"]:
-                return int(choice)
-            else:
-                text("Invalid choice. Please select a game level from the list.")
+        text("  3. No save points - a true test of endurance", delay=0.1, space=1)
+        return ask_user(type="number", numbers=['1', '2', '3'])
+            
 
     def start_game(self) -> None:
         """
