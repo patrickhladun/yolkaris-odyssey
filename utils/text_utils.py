@@ -39,6 +39,7 @@ def text(
 def paragraph(
     long_string,
     space=1,
+    delay=0.1,
     color=default_color
 ):
     """
@@ -55,6 +56,7 @@ def paragraph(
             text(line, space=space, color=color)
         else:
             text(line, color=color)
+    time.sleep(delay)
 
 
 def add_space(space: int = 0, delay: float = 0.2):

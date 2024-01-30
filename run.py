@@ -1,5 +1,4 @@
 import random
-import time
 from art import *
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
                    loading, color_light_gray, color_light_blue,
@@ -65,17 +64,18 @@ class Interaction:
     def with_area(self, area):
         for line in area.storyLine:
             space = line['space'] if 'space' in line else 1
+            delay = line['delay'] if 'delay' in line else 0.1
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
-                paragraph(line['text'], space=space, color=color)
+                paragraph(line['text'], space=space, color=color, delay=delay)
             elif 'neutral' in line:
                 paragraph("- " + line['neutral'],
-                          space=space, color=color_neutral)
+                          space=space, color=color_neutral, delay=delay)
             elif 'player' in line:
                 paragraph("- " + line['player'],
-                          space=space, color=color_player)
+                          space=space, color=color_player, delay=delay)
             elif 'continue' in line:
                 ask_user('continue', space=space)
 
@@ -103,17 +103,18 @@ class Interaction:
         add_space()
         for line in neutral.storyLine:
             space = line['space'] if 'space' in line else 1
+            delay = line['delay'] if 'delay' in line else 0.1
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
             elif 'text' in line:
-                paragraph(line['text'], space=space,  color=color)
+                paragraph(line['text'], space=space,  color=color, delay=delay)
             elif 'neutral' in line:
                 paragraph("- " + line['neutral'],
-                          space=space,  color=color_neutral)
+                          space=space,  color=color_neutral, delay=delay)
             elif 'player' in line:
                 paragraph("- " + line['player'],
-                          space=space,  color=color_player)
+                          space=space,  color=color_player, delay=delay)
             elif 'continue' in line:
                 ask_user('continue')
 
@@ -515,10 +516,22 @@ class Game:
         clear_terminal()
         self.create_player()
         clear_terminal()
-        text(f"Welcome in the game, {self.player.name}!", delay=0.1, space=1)
+        text(f"Hey {self.player.name}!", delay=0.6, space=1)
+        paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
+                  " thrilling adventure as Clucky, a courageous chicken with a"
+                  " spirit of exploration. This game takes you to the"
+                  " beautiful planet of Yolkaris, where every corner is filled"
+                  " with wonder and mystery.")
+        paragraph("Yolkaris Odyssey presents three enthralling tales, each"
+                  " unfolding in its own unique way. Discover the mysteries"
+                  " hidden within the dense forests of Mystara, experience the"
+                  " ethereal beauty of Luminara's radiant fields, and delve"
+                  " into the ancient, forgotten lore that pervades every inch"
+                  " of Yolkaris. Each path you choose leads to new discoveries"
+                  " and adventures.")
         game_level = self.select_game_level()
         self.setup_areas(game_level)
-        add_space()
+        clear_terminal()
         loading(['Generating game', '.', '.', '.',
                 '.', '.', '.', '.'], 'Game generated')
         loading(['Starting game', '.', '.', '.', '.'])
@@ -532,12 +545,11 @@ class Game:
         """
         This method allows the player to select the game level.
         """
-        text("Select Game Level:", space=1)
-        text("  1. Just a quick game", delay=0.1)
-        text("  2. Not to short not to long", delay=0.1)
-        text("  3. No save points - a true test of endurance", delay=0.1, space=1)
+        text("Select your Game:", delay=0.2, space=1)
+        text("  1. Just a quick game", delay=0.2)
+        text("  2. Not to short not to long", delay=0.2)
+        text("  3. No save points - a true test of endurance", delay=0.2, space=1)
         return ask_user(type="number", numbers=['1', '2', '3'])
-            
 
     def start_game(self) -> None:
         """
@@ -561,46 +573,58 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "As you embark on 'The Broken Clock' adventure in"
-                             " 'Yolkaris Odyssey', the vibrant energy of The Capital"
-                             " surrounds you. The sun bathes the cobblestone streets"
-                             " in a warm glow, and the citizens of Yolkaris go about"
-                             " their daily routines.",
+                             "text": "Capital City, where ancient whispers meet the"
+                             " present's breath, lies beneath the Grand Clock's"
+                             " timeless gaze. Its cobbled paths, etched by"
+                             " countless souls, converge at Yolkaris' beating heart."
                          },
                          {
-                             "text": "However, an unusual silence draws your attention"
-                             " to the Grand Clock standing majestically at the city's"
-                             " center. To your surprise, its hands have stopped moving,"
-                             " causing a sense of unease among the townsfolk. ",
+                             "text": "Here stands the Grand Clock, silent sentinel of time,"
+                             " now frozen in an eerie stillness. Amidst this hush,"
+                             " Clucky, a beacon of hope, steps forward with valor"
+                             " and inquisitiveness in his heart."
                          },
                          {
-                             "text": "As Clucky, the brave and curious chicken, you"
-                             " approach the Grand Clock to investigate the matter."
-                             " There, you meet Timekeeper Ticktock, an elderly bird"
-                             " with keen eyes behind a shiny monocle."
+                             "text": "Summoned by the echoes of old tales and the"
+                             " allure of the unknown, he weaves through the city's"
+                             " veiled streets to the Timekeeper. At the foot of the"
+                             " slumbering clock, a vestige of arcane power, a quest"
+                             " of fate unfolds for Clucky."
+                         },
+                         {
+                             "text": "Embarking on an odyssey through time's woven"
+                             " fabric, he seeks to stir ancient echoes, awakening"
+                             " the chronicles lost to the ages."
+                         },
+                         {
+                             "text": "The Broken Clock Adventure",
+                             "delay": 0.6,
+                             "space": 1
                          },
                          {
                              "continue": True,
                              "space": 0
                          }
                      ],
+
                      items=[],
                      neutral=Neutral(
                          name="Timekeeper",
                          storyLine=[
                              {
-                                 "neutral": "Ah, Clucky! Our Grand Clock has stopped. Its"
-                                 " magic is fading. You must find the Time Crystal in"
-                                 " the Crystal Hills to restore it.",
+                                 "neutral": "Ah, Clucky! The Grand Clock, our timeless guardian,"
+                                 " has ceased its rhythmic heartbeat. Its magic wanes."
+                                 " The Time Crystal in Crystal Hills is the key to its revival.",
                                  "space": 0,
                              },
                              {
-                                 "player": "I will find the crystal and save the clock,"
-                                 " Timekeeper.",
+                                 "player": "Fear not, Timekeeper. I shall reclaim the crystal"
+                                 " and rekindle the clock's ancient magic.",
                                  "space": 0,
                              },
                              {
-                                 "neutral": "Hurry, for time is of the essence now.",
+                                 "neutral": "Be swift, for the sands of time wait for no one."
+                                 " Our fate rests in your wings.",
                              },
                              {
                                  "continue": True
@@ -609,38 +633,40 @@ class Game:
                                  "clear": True
                              },
                              {
-                                 "text": "Before you go here is how to Play"
-                                 " Yolkaris Odyssey:"
+                                 "text": "Embark on the Yolkaris Odyssey with these words"
+                                 " of guidance:"
                              },
                              {
-                                 "text": "- There is one location in this story, "
-                                 " Yolkaris.",
+                                 "text": "- In this tale, your journey begins in Yolkaris, a"
+                                 " realm of myths and mysteries.",
                                  "space": 0
                              },
                              {
-                                 "text": "- You can see your current position within a "
-                                 " location by using the 'map' command.",
+                                 "text": "- Use the 'map' command to find your path"
+                                 " within this enchanted land.",
                                  "space": 0
                              },
                              {
-                                 "text": "- To move around the map, use the directional"
-                                 " commands: 'north', 'south', 'east', and 'west'.",
+                                 "text": "- Traverse the land through 'north', 'south',"
+                                 " 'east', and 'west'. Discover your destiny.",
                                  "space": 0
                              },
                              {
-                                 "text": "- You can search the area you are in using"
-                                 " the 'search' command.",
+                                 "text": "- In your quest, 'search' the areas for hidden"
+                                 " treasures and secrets.",
                                  "space": 0
                              },
                              {
-                                 "text": "- You can carry items in your inventory."
-                                 " Check your inventory using the 'inventory' command."
+                                 "text": "- Keep your inventory filled with artifacts"
+                                 " and tools. Check it with the 'inventory' command."
                              },
                              {
-                                 "text": "Good Luck, and have fun!",
+                                 "text": "Good fortune on your quest. May your journey"
+                                 " be filled with wonder.",
                                  "space": 0
                              },
                          ]
+
                      ),
                      position=(0, 0),
                      ),
@@ -810,13 +836,39 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Peckers Peak is the highest point on Yolkaris,"
-                             " known for its breathtaking views. Legend says it's where"
-                             " the ancient chickens first learned to navigate the"
-                             " stars."
+                             "text": "Peckers Peak, the crowning glory of Yolkaris,"
+                             " stands tall, its heights veiled in the whispers"
+                             " of ancient tales. This revered summit, where the"
+                             " skies kiss the earth, was once the sacred"
+                             " observatory of the elder chickens."
                          },
                          {
-                             "text": "Wow, the view from here is incredible!"
+                             "text": "Here, under the canvas of the cosmos, they"
+                             " unraveled the mysteries of the stars, leaving a"
+                             " legacy etched in the winds. As Clucky's path"
+                             " ascends, each step is a journey through time."
+                         },
+                         {
+                             "text": "The winds carry legends, and the stones are"
+                             " etched with the wisdom of ages. Reaching the"
+                             " peak, Clucky is enveloped in a world of awe,"
+                             " the horizon stretching infinitely."
+                         },
+                         {
+                             "text": "The air is thick with the essence of bygone eras,"
+                             " and the silence speaks of hidden truths. Atop"
+                             " this celestial altar, where the ancient chickens"
+                             " once gazed upon the heavens."
+                         },
+                         {
+                             "text": "Clucky feels an overwhelming connection to the"
+                             " stars. Their ancient wisdom, like a forgotten"
+                             " song, resonates within him, guiding his heart."
+                             " The whispers of Peckers Peak instill in him a"
+                             " sense of purpose."
+                         },
+                         {
+                             "player": "Wow, the view from here is incredible!"
                              " I can see the whole of Yolkaris and Crystal Hills."
                              " It's said that the ancient chickens gazed at the stars"
                              " from here, plotting their courses across the skies. If"
