@@ -64,11 +64,15 @@ class Neutral(Character):
         self,
         name,
         storyLine,
-        storyLineVisited
+        storyLineVisited,
+        storyLineCompleted,
+        questItem=None
     ) -> None:
         super().__init__(name)
         self.storyLine = storyLine
         self.storyLineVisited = storyLineVisited
+        self.storyLineCompleted = storyLineCompleted
+        self.questItem = questItem
 
 
 class Interaction:
@@ -107,6 +111,16 @@ class Interaction:
         add_space()
         if not visited:
             self.print_story_line(neutral.storyLine)
+        elif visited and neutral.questItem:
+            has_quest_item = any(
+                item_dict['item'].name == neutral.questItem.name for item_dict in self.player.inventory
+            )
+            if has_quest_item and neutral.questItem:
+                # Player has the quest item, proceed with the special storyline
+                self.print_story_line(neutral.storyLineCompleted)
+            else:
+                # Player does not have the quest item or no quest item specified, proceed with the visited storyline
+                self.print_story_line(neutral.storyLineVisited)
         else:
             self.print_story_line(neutral.storyLineVisited)
 
@@ -118,6 +132,7 @@ class Interaction:
         else:
             if enemy.health <= 0:
                 self.print_story_line(enemy.storyLineDefeated)
+                return
             elif enemy.fought:
                 self.print_story_line(enemy.storyLineFought)
                 text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
@@ -369,7 +384,7 @@ class Location:
                 except ValueError:
                     text("Invalid input. Please enter a number.")
             else:
-                print("You searched the area but found nothing.")
+                text("You searched the area but found nothing.")
 
     def interact_with_area_items(self, the_item, area, player):
         item = the_item['item']
@@ -399,6 +414,12 @@ class Location:
                 area.items.remove(the_item)
 
         elif isinstance(item, Book):
+            name = item.name
+            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
+                player.inventory.append({'item': item, 'quantity': 1})
+                area.items.remove(the_item)
+
+        elif isinstance(item, Item):
             name = item.name
             if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
                 player.inventory.append({'item': item, 'quantity': 1})
@@ -610,77 +631,107 @@ class Game:
             yolkaris_areas = [
                 Area(name="Capital City",
                      storyLine=[
-                         #  {
-                         #      "clear": True
-                         #  },
+                          {
+                              "clear": True
+                          },
                          {
                              "text": "The Broken Clock Adventure",
                              "delay": 0.6,
                              "space": 1
-                         },
+                          },
                          {
                              "text": "Capital City, where ancient whispers"
                              " meet the present's breath, lies beneath the"
                              " Grand Clock's timeless gaze. Its cobbled paths,"
                              " etched by countless souls, converge at"
                              " Yolkaris' beating heart."
-                         },
-                         #  {
-                         #      "text": "Here stands the Grand Clock, silent"
-                         #      " sentinel of time, now frozen in an eerie"
-                         #      " stillness. Amidst this hush, Clucky, a beacon"
-                         #      " of hope, steps forward with valor and"
-                         #      " inquisitiveness in his heart."
-                         #  },
-                         #  {
-                         #      "text": "Summoned by the echoes of old tales and"
-                         #      " the allure of the unknown, he weaves through"
-                         #      " the city's veiled streets to the Timekeeper. At"
-                         #      " the foot of the slumbering clock, a vestige of"
-                         #      " arcane power, a quest of fate unfolds for"
-                         #      " Clucky."
-                         #  },
-                         #  {
-                         #      "text": "Embarking on a quest through time's"
-                         #      " woven fabric, he seeks to stir ancient echoes,"
-                         #      " awakening the chronicles lost to the ages."
-                         #  }
+                          },
+                         {
+                              "text": "Here stands the Grand Clock, silent"
+                              " sentinel of time, now frozen in an eerie"
+                              " stillness. Amidst this hush, Clucky, a beacon"
+                              " of hope, steps forward with valor and"
+                              " inquisitiveness in his heart."
+                          },
+                         {
+                              "text": "Summoned by the echoes of old tales and"
+                              " the allure of the unknown, he weaves through"
+                              " the city's veiled streets to the Timekeeper. At"
+                              " the foot of the slumbering clock, a vestige of"
+                              " arcane power, a quest of fate unfolds for"
+                              " Clucky."
+                          },
+                         {
+                              "text": "Embarking on a quest through time's"
+                              " woven fabric, he seeks to stir ancient echoes,"
+                              " awakening the chronicles lost to the ages."
+                          }
                      ],
                      storyLineVisited=[
-                         #  {
-                         #      "clear": True
-                         #  },
-                         #  {
-                         #      "text": "You are in Capital City"
-                         #  }
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Back in Capital City, the stillness of"
+                             " the Grand Clock looms, casting a silent shadow"
+                             " over the timeless streets.",
+                             "space": 1
+                         },
+                         {
+                             "player": "What am I doing here? I should be on"
+                             " the quest",
+                             "space": 1
+                         }
                      ],
                      items=[
                          {
                              "item": Book(
-                                 name="The Broken Clock Book",
-                                 description="A book about the broken clock.",
-                                 storyLine=[
-                                     {
-                                         "clear": True
-                                     },
-                                     {
-                                         "text": "The Broken Clock",
-                                         "delay": 0.6,
-                                         "space": 1
-                                     },
-                                     {
-                                         "text": "The Grand Clock, a timeless"
-                                         " guardian, has ceased its rhythmic"
-                                         " heartbeat. Its magic wanes. The Time"
-                                         " Crystal in Crystal Hills is the key to its"
-                                         " revival.",
-                                         "space": 1
-                                     },
-                                 ]
+                                name="The Broken Clock Book",
+                                description="A tome chronicling the saga of"
+                                " Yolkaris' Grand Clock, whose ticking has"
+                                " ceased.",
+                                storyLine=[
+                                    {
+                                        "clear": True
+                                    },
+                                    {
+                                        "text": "The Broken Clock: A Tale of"
+                                        " Time's Standstill",
+                                        "delay": 0.6,
+                                        "space": 1
+                                    },
+                                    {
+                                        "text": "In the heart of Yolkaris"
+                                        " stands the Grand Clock, once the" 
+                                        " pulsing chronometer of the realm."
+                                        " Legends say its hands moved in"
+                                        " harmony with the cosmic dance, until"
+                                        " silence befell. The clock's halt has"
+                                        " shrouded Yolkaris in a temporal"
+                                        " anomaly, threatening the very fabric"
+                                        " of time itself.",
+                                        "space": 1
+                                    },
+                                    {
+                                        "text": "The Time Crystal, hidden"
+                                        " within the enigmatic Crystal Hills,"
+                                        " holds the secret to awakening the"
+                                        " clock. This book, penned by the last"
+                                        " Timekeeper, serves as a guide for"
+                                        " the brave soul daring enough to"
+                                        " embark on this perilous quest. To"
+                                        " restore the clock's magic and revive"
+                                        " the rhythm of Yolkaris, the Time"
+                                        " Crystal must be retrieved before the"
+                                        " threads of time unravel completely.",
+                                        "space": 1
+                                    },
+                                ]
                              ), "quantity": 1}
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
+                         questItem=Item(name="The Time Crystal"),
                          storyLine=[
                               {
                                   "neutral": "Ah, Clucky! The Grand Clock, our"
@@ -690,63 +741,91 @@ class Game:
                                   " revival.",
                                   "space": 0,
                               },
-                             #  {
-                             #      "player": "Fear not, Timekeeper. I shall"
-                             #      " reclaim the crystal and rekindle the"
-                             #      " clock's ancient magic.",
-                             #      "space": 0,
-                             #  },
-                             #  {
-                             #      "neutral": "Be swift, for the sands of time"
-                             #      " wait for no one. Our fate rests in your"
-                             #      " wings.",
-                             #  },
-                             #  {
-                             #      "continue": True
-                             #  },
-                             #  {
-                             #      "clear": True
-                             #  },
-                             #  {
-                             #      "text": "Embark on the Yolkaris Odyssey with"
-                             #      " these words of guidance:"
-                             #  },
-                             #  {
-                             #      "text": "- In this tale, your journey begins"
-                             #      " in Yolkaris, a realm of myths and"
-                             #      " mysteries.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Use the 'map' command to find your"
-                             #      " path within this enchanted land.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Traverse the land through 'north',"
-                             #      " 'south', 'east', and 'west'. Discover your"
-                             #      " destiny.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- In your quest, 'search' the areas"
-                             #      " for hidden treasures and secrets.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Keep your inventory filled with"
-                             #      " artifacts and tools. Check it with the"
-                             #      " 'inventory' command."
-                             #  },
-                             #  {
-                             #      "text": "Good fortune on your quest. May your"
-                             #      " journey be filled with wonder.",
-                             #      "space": 0
-                             #  },
+                             {
+                                  "player": "Fear not, Timekeeper. I shall"
+                                  " reclaim the crystal and rekindle the"
+                                  " clock's ancient magic.",
+                                  "space": 0,
+                              },
+                             {
+                                  "neutral": "Be swift, for the sands of time"
+                                  " wait for no one. Our fate rests in your"
+                                  " wings.",
+                              },
+                             {
+                                  "continue": True
+                              },
+                             {
+                                  "clear": True
+                              },
+                             {
+                                  "text": "Embark on the Yolkaris Odyssey with"
+                                  " these words of guidance:"
+                              },
+                             {
+                                  "text": "- In this tale, your journey begins"
+                                  " in Yolkaris, a realm of myths and"
+                                  " mysteries.",
+                                  "space": 0
+                              },
+                             {
+                                  "text": "- Use the 'map' command to find your"
+                                  " path within this enchanted land.",
+                                  "space": 0
+                              },
+                             {
+                                  "text": "- Traverse the land through 'north',"
+                                  " 'south', 'east', and 'west'. Discover your"
+                                  " destiny.",
+                                  "space": 0
+                              },
+                             {
+                                  "text": "- In your quest, 'search' the areas"
+                                  " for hidden treasures and secrets.",
+                                  "space": 0
+                              },
+                             {
+                                  "text": "- Keep your inventory filled with"
+                                  " artifacts and tools. Check it with the"
+                                  " 'inventory' command."
+                              },
+                             {
+                                  "text": "Good fortune on your quest. May your"
+                                  " journey be filled with wonder.",
+                                  "space": 0
+                              },
                          ],
                          storyLineVisited=[
                              {
                                  "neutral": "Hey Clucky, do you have the crystal?",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "No I do not.",
+                                 "space": 0,
+                             },
+                             {
+                                 "neutral": "Without the key I can't fix the."
+                                 " clock.",
+                                 "space": 0,
+                             },
+                         ],
+                         storyLineCompleted=[
+                             {
+                                 "neutral": "Hey Clucky, you have the key, do"
+                                 " you?",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "I do Timekeeper. Here it is.",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "Amazing, now I can fish the clock.",
+                                 "space": 0,
+                             },
+                             {
+                                 "text": "The clock is fixed.",
                                  "space": 0,
                              },
                          ]
@@ -886,7 +965,6 @@ class Game:
                          health=10,
                          attack=5,
                          defense=2
-
                      ),
                      position=(1, 0),
                      ),
@@ -898,6 +976,9 @@ class Game:
                 Area(name="Crystal Hills",
                      storyLine=[],
                      storyLineVisited=[],
+                     items=[
+                         {"item": Item(name="The Time Crystal"), "quantity": 1}
+                     ],
                      enemy=False,
                      position=(3, 1),
                      ),
