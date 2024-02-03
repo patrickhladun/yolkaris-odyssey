@@ -40,15 +40,23 @@ class Enemy(Character):
         self,
         name: str,
         storyLine: list,
+        storyLineVisited: list,
+        storyLineFought: list,
+        storyLineDefeated: list,
         health: int,
         attack: int,
         defense: int,
+        fought: bool = False
     ) -> None:
         super().__init__(name)
         self.storyLine = storyLine
+        self.storyLineVisited = storyLineVisited
+        self.storyLineFought = storyLineFought
+        self.storyLineDefeated = storyLineDefeated
         self.health = health
         self.attack = attack
         self.defense = defense
+        self.fought = fought
 
 
 class Neutral(Character):
@@ -79,6 +87,9 @@ class Interaction:
             elif 'neutral' in line:
                 paragraph("- " + line['neutral'],
                           space=space, color=color_neutral, delay=delay)
+            elif 'enemy' in line:
+                paragraph("X " + line['enemy'],
+                          space=space, color=color_neutral, delay=delay)
             elif 'player' in line:
                 paragraph("- " + line['player'],
                           space=space, color=color_player, delay=delay)
@@ -86,20 +97,36 @@ class Interaction:
                 ask_user('continue', space=space)
 
     def with_area(self, area, visited):
-        print(f"visited {visited}")
-        self.print_story_line(area.storyLine)
+        add_space()
+        if not visited:
+            self.print_story_line(area.storyLine)
+        else:
+            self.print_story_line(area.storyLineVisited)
 
     def with_neutral(self, neutral, visited):
         add_space()
-        self.print_story_line(neutral.storyLine, )
+        if not visited:
+            self.print_story_line(neutral.storyLine)
+        else:
+            self.print_story_line(neutral.storyLineVisited)
 
-    def with_enemy(self, enemy, visited):
-        add_space()
-        text(f"{enemy.name} stands in your way, {self.player.name}", space=1)
-        for line in enemy.storyLine:
-            paragraph(line['text'], space=1)
-        text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
-             f"defense: {enemy.defense}", space=1)
+    def with_enemy(self, enemy, location, visited):
+        if not visited:
+            self.print_story_line(enemy.storyLine)
+            text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
+                 f"defense: {enemy.defense}", space=1)
+        else:
+            if enemy.health <= 0:
+                self.print_story_line(enemy.storyLineDefeated)
+            elif enemy.fought:
+                self.print_story_line(enemy.storyLineFought)
+                text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
+                     f"defense: {enemy.defense}", space=1)
+            else:
+                self.print_story_line(enemy.storyLineVisited)
+                text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
+                     f"defense: {enemy.defense}", space=1)
+
         combat = Combat(self.player, enemy)
         results = combat.to_fight_or_not_to_fight()
         if results == "retreat":
@@ -120,6 +147,9 @@ class Combat:
         self.enemy = enemy
 
     def combat(self):
+        # Set the fought attribute to True
+        self.enemy.fought = True
+
         while self.player.health > 0 and self.enemy.health > 0:
             self.player_attack()
             if self.enemy.health <= 0:
@@ -287,16 +317,15 @@ class Location:
                 interaction = Interaction(player)
                 interaction.with_area(element, visited)
 
-                enemy_defeated = False
+                # Mark the position as visited
+                self.mark_visited(self.player_position)
+
                 if element.enemy:
-                    ask_user(type='continue')
-                    enemy_defeated = interaction.with_enemy(
-                        element.enemy, visited)
+                    interaction.with_enemy(element.enemy, self, visited)
 
                 # Start interaction with neutral if no enemy or enemy defeated
-                if (not element.enemy or enemy_defeated) and element.neutral:
+                if (not element.enemy or element.enemy.health <= 0) and element.neutral:
                     interaction.with_neutral(element.neutral, visited)
-        self.mark_visited(self.player_position)
 
     def print_contents(self):
         if not self.contents:
@@ -589,13 +618,13 @@ class Game:
                              "delay": 0.6,
                              "space": 1
                          },
-                         #  {
-                         #      "text": "Capital City, where ancient whispers"
-                         #      " meet the present's breath, lies beneath the"
-                         #      " Grand Clock's timeless gaze. Its cobbled paths,"
-                         #      " etched by countless souls, converge at"
-                         #      " Yolkaris' beating heart."
-                         #  },
+                         {
+                             "text": "Capital City, where ancient whispers"
+                             " meet the present's breath, lies beneath the"
+                             " Grand Clock's timeless gaze. Its cobbled paths,"
+                             " etched by countless souls, converge at"
+                             " Yolkaris' beating heart."
+                         },
                          #  {
                          #      "text": "Here stands the Grand Clock, silent"
                          #      " sentinel of time, now frozen in an eerie"
@@ -621,9 +650,9 @@ class Game:
                          #  {
                          #      "clear": True
                          #  },
-                         {
-                             "text": "You are in Capital City"
-                         }
+                         #  {
+                         #      "text": "You are in Capital City"
+                         #  }
                      ],
                      items=[
                          {
@@ -653,14 +682,14 @@ class Game:
                      neutral=Neutral(
                          name="Timekeeper",
                          storyLine=[
-                             #  {
-                             #      "neutral": "Ah, Clucky! The Grand Clock, our"
-                             #      " timeless guardian, has ceased its rhythmic"
-                             #      " heartbeat. Its magic wanes. The Time"
-                             #      " Crystal in Crystal Hills is the key to its"
-                             #      " revival.",
-                             #      "space": 0,
-                             #  },
+                              {
+                                  "neutral": "Ah, Clucky! The Grand Clock, our"
+                                  " timeless guardian, has ceased its rhythmic"
+                                  " heartbeat. Its magic wanes. The Time"
+                                  " Crystal in Crystal Hills is the key to its"
+                                  " revival.",
+                                  "space": 0,
+                              },
                              #  {
                              #      "player": "Fear not, Timekeeper. I shall"
                              #      " reclaim the crystal and rekindle the"
@@ -715,7 +744,12 @@ class Game:
                              #      "space": 0
                              #  },
                          ],
-                         storyLineVisited=[]
+                         storyLineVisited=[
+                             {
+                                 "neutral": "Hey Clucky, do you have the crystal?",
+                                 "space": 0,
+                             },
+                         ]
                      ),
                      position=(0, 0),
                      ),
@@ -724,13 +758,13 @@ class Game:
                          #  {
                          #      "clear": True
                          #  },
-                         #  {
-                         #      "text": " Bounty Harbour bustles with life, a hub "
-                         #      " for seafaring souls and wandering traders. The"
-                         #      " aroma of the ocean mingles with exotic spices,"
-                         #      " weaving a tapestry of adventure and mystery in"
-                         #      " the air."
-                         #  },
+                          {
+                              "text": "Bounty Harbour bustles with life, a hub "
+                              " for seafaring souls and wandering traders. The"
+                              " aroma of the ocean mingles with exotic spices,"
+                              " weaving a tapestry of adventure and mystery in"
+                              " the air."
+                          },
                          #  {
                          #      "text": "Clucky, amidst the vibrant chatter of"
                          #      " the marketplace and rhythmic creaking of ships,"
@@ -815,10 +849,45 @@ class Game:
 
                      ],
                      storyLineVisited=[
+                         #  {
+                         #      "clear": True
+                         #  },
                          {
-                             "clear": True
+                             "text": "You are back in Bounty Harbour",
                          }
+
                      ],
+                     enemy=Enemy(
+                         name="Garry",
+                         storyLine=[
+                             {
+                                 "enemy": "Hello little one.",
+                                 "space": 1,
+                             },
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "Do we fight or not?",
+                                 "space": 1,
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "He is back for more.",
+                                 "space": 1,
+                             },
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "Here lies Garry, defeated by Clucky.",
+                                 "space": 1,
+                             },
+                         ],
+                         health=10,
+                         attack=5,
+                         defense=2
+
+                     ),
                      position=(1, 0),
                      ),
                 Area(name="Cluckington Valley",
