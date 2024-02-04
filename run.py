@@ -118,6 +118,7 @@ class Interaction:
             if has_quest_item and neutral.questItem:
                 # Player has the quest item, proceed with the special storyline
                 self.print_story_line(neutral.storyLineCompleted)
+                reset_game()
             else:
                 # Player does not have the quest item or no quest item specified, proceed with the visited storyline
                 self.print_story_line(neutral.storyLineVisited)
@@ -154,6 +155,9 @@ class Interaction:
         elif results == "lost":
             text(f"You have been defeated by {enemy.name}!")
             text("Game Over!")
+
+    def game_over(self):
+        text("Game Over!")
 
 
 class Combat:
@@ -552,6 +556,14 @@ def show_help() -> None:
     text(" ")
 
 
+def reset_game(game_instance=None):
+    # If a game instance is provided, use it; otherwise, create a new one
+    if game_instance is None:
+        game_instance = Game()
+    game_instance.reset_game()
+    return game_instance
+
+
 class Game:
     """
     This is the main class for the game.
@@ -567,16 +579,16 @@ class Game:
         """
         This method sets up the game.
         """
-        # clear_terminal()
+        clear_terminal()
         # game_title()
         # text("Welcome to Yolkaris Odyssey, a text-base"
         #      " adventure game.", delay=0.1)
         # text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
         # ask_user(type='continue',
         #          prompt='Press enter to start the game: ', space=0)
-        clear_terminal()
+        # clear_terminal()
         self.create_player()
-        clear_terminal()
+        # clear_terminal()
         # text(f"Hey {self.player.name}!", delay=0.6, space=1)
         # paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
         #           " thrilling adventure as Clucky, a courageous chicken with a"
@@ -676,57 +688,52 @@ class Game:
                              " the Grand Clock looms, casting a silent shadow"
                              " over the timeless streets.",
                              "space": 1
-                         },
-                         {
-                             "player": "What am I doing here? I should be on"
-                             " the quest",
-                             "space": 1
                          }
                      ],
                      items=[
                          {
                              "item": Book(
-                                name="The Broken Clock Book",
-                                description="A tome chronicling the saga of"
-                                " Yolkaris' Grand Clock, whose ticking has"
-                                " ceased.",
-                                storyLine=[
-                                    {
-                                        "clear": True
-                                    },
-                                    {
-                                        "text": "The Broken Clock: A Tale of"
-                                        " Time's Standstill",
-                                        "delay": 0.6,
-                                        "space": 1
-                                    },
-                                    {
-                                        "text": "In the heart of Yolkaris"
-                                        " stands the Grand Clock, once the" 
-                                        " pulsing chronometer of the realm."
-                                        " Legends say its hands moved in"
-                                        " harmony with the cosmic dance, until"
-                                        " silence befell. The clock's halt has"
-                                        " shrouded Yolkaris in a temporal"
-                                        " anomaly, threatening the very fabric"
-                                        " of time itself.",
-                                        "space": 1
-                                    },
-                                    {
-                                        "text": "The Time Crystal, hidden"
-                                        " within the enigmatic Crystal Hills,"
-                                        " holds the secret to awakening the"
-                                        " clock. This book, penned by the last"
-                                        " Timekeeper, serves as a guide for"
-                                        " the brave soul daring enough to"
-                                        " embark on this perilous quest. To"
-                                        " restore the clock's magic and revive"
-                                        " the rhythm of Yolkaris, the Time"
-                                        " Crystal must be retrieved before the"
-                                        " threads of time unravel completely.",
-                                        "space": 1
-                                    },
-                                ]
+                                 name="The Broken Clock Book",
+                                 description="A tome chronicling the saga of"
+                                 " Yolkaris' Grand Clock, whose ticking has"
+                                 " ceased.",
+                                 storyLine=[
+                                     {
+                                         "clear": True
+                                     },
+                                     {
+                                         "text": "The Broken Clock: A Tale of"
+                                         " Time's Standstill",
+                                         "delay": 0.6,
+                                         "space": 1
+                                     },
+                                     {
+                                         "text": "In the heart of Yolkaris"
+                                         " stands the Grand Clock, once the"
+                                         " pulsing chronometer of the realm."
+                                         " Legends say its hands moved in"
+                                         " harmony with the cosmic dance, until"
+                                         " silence befell. The clock's halt has"
+                                         " shrouded Yolkaris in a temporal"
+                                         " anomaly, threatening the very fabric"
+                                         " of time itself.",
+                                         "space": 1
+                                     },
+                                     {
+                                         "text": "The Time Crystal, hidden"
+                                         " within the enigmatic Crystal Hills,"
+                                         " holds the secret to awakening the"
+                                         " clock. This book, penned by the last"
+                                         " Timekeeper, serves as a guide for"
+                                         " the brave soul daring enough to"
+                                         " embark on this perilous quest. To"
+                                         " restore the clock's magic and revive"
+                                         " the rhythm of Yolkaris, the Time"
+                                         " Crystal must be retrieved before the"
+                                         " threads of time unravel completely.",
+                                         "space": 1
+                                     },
+                                 ]
                              ), "quantity": 1}
                      ],
                      neutral=Neutral(
@@ -797,7 +804,8 @@ class Game:
                          ],
                          storyLineVisited=[
                              {
-                                 "neutral": "Hey Clucky, do you have the crystal?",
+                                 "neutral": "Hey Clucky, do you have the"
+                                 " crystal?",
                                  "space": 0,
                              },
                              {
@@ -805,29 +813,63 @@ class Game:
                                  "space": 0,
                              },
                              {
-                                 "neutral": "Without the key I can't fix the."
-                                 " clock.",
+                                 "neutral": "Without the crystal I can't fix the."
+                                 " clock. You need to find the crystal.",
                                  "space": 0,
                              },
                          ],
                          storyLineCompleted=[
                              {
-                                 "neutral": "Hey Clucky, you have the key, do"
-                                 " you?",
+                                 "neutral": "Ah, Clucky, you've returned! And"
+                                 " with the Time Crystal, no less?",
                                  "space": 0,
                              },
                              {
-                                 "player": "I do Timekeeper. Here it is.",
+                                 "player": "Yes, Timekeeper. The journey was"
+                                 " perilous, but the crystal is here.",
                                  "space": 0,
                              },
                              {
-                                 "player": "Amazing, now I can fish the clock.",
+                                 "neutral": "Splendid! Let's not waste another"
+                                 " moment. Hand it over, and let's witness"
+                                 " history reborn.",
                                  "space": 0,
                              },
                              {
-                                 "text": "The clock is fixed.",
-                                 "space": 0,
+                                 "continue": True
                              },
+                             {
+                                 "text": "With a careful hand, the Timekeeper"
+                                 " places the crystal into the heart of the"
+                                 " Grand Clock. Ancient gears begin to turn, a"
+                                 " soft ticking fills the air, growing louder,"
+                                 " until the whole town is enveloped in the"
+                                 " familiar sound of time's steady march.",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "The townsfolk gather, eyes wide with"
+                                 " wonder as the Grand Clock's hands resume"
+                                 " their eternal dance. Cheers erupt, and"
+                                 " Clucky, standing beside the Timekeeper,"
+                                 " watches as the shadow of stagnation lifts,"
+                                 " giving way to a renewed flow of time.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "You've done it, Clucky! The heart"
+                                 " of Yolkaris beats once more, thanks to you."
+                                 " This day will be remembered as the moment"
+                                 " when time itself was mended by the courage"
+                                 " of a single soul.",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             }
                          ]
                      ),
                      position=(0, 0),
@@ -936,6 +978,19 @@ class Game:
                          }
 
                      ],
+                     items=[
+                         {"item": Item(name="The Time Crystal"), "quantity": 1}
+                     ],
+                     position=(1, 0),
+                     ),
+                Area(name="Cluckington Valley",
+                     storyLine=[],
+                     storyLineVisited=[],
+                     position=(0, 1),
+                     ),
+                Area(name="Crystal Hills",
+                     storyLine=[],
+                     storyLineVisited=[],
                      enemy=Enemy(
                          name="Garry",
                          storyLine=[
@@ -966,20 +1021,9 @@ class Game:
                          attack=5,
                          defense=2
                      ),
-                     position=(1, 0),
-                     ),
-                Area(name="Cluckington Valley",
-                     storyLine=[],
-                     storyLineVisited=[],
-                     position=(0, 1),
-                     ),
-                Area(name="Crystal Hills",
-                     storyLine=[],
-                     storyLineVisited=[],
                      items=[
                          {"item": Item(name="The Time Crystal"), "quantity": 1}
                      ],
-                     enemy=False,
                      position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
@@ -1249,6 +1293,7 @@ class Game:
         This method resets the game.
         """
         self.setup_game()
+        self.start_game()
 
     def search_current_area(self):
         """
