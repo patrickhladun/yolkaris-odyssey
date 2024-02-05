@@ -8,7 +8,6 @@ init(autoreset=True)
 
 # Define custom colors
 default_color = Style.BRIGHT + Fore.WHITE  # Default color
-color_light_gray = Fore.LIGHTBLACK_EX  # Light gray color
 color_light_blue = Fore.LIGHTBLUE_EX  # Light blue color
 color_player = Fore.LIGHTGREEN_EX  # Light green color
 color_neutral = Fore.CYAN
