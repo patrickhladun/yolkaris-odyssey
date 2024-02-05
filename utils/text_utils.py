@@ -112,10 +112,12 @@ def ask_user(
     elif type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
-            print(color + prompt + " (yes/no): " + Fore.RESET, end="")
+            print(color + prompt + " (y/n): " + Fore.RESET, end="")
             choice = input().lower().strip()
-            if choice in ['yes', 'no']:
+            if choice in ['yes', 'y']:
                 return True
+            elif choice in ['no', 'n']:
+                return False
             error = error if error else "Invalid input. Please enter 'yes' or 'no'."
             text(color_error + error + Fore.RESET, space=1)
     elif type == "combat":
