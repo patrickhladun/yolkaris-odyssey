@@ -1465,6 +1465,13 @@ class Game:
             text(f"You have read the {name}.")
             Interaction.print_story_line(self, item.storyLine)
 
+    def inspect_inventory_item(self, the_item):
+        item = the_item['item']
+        name = item.name
+        description = item.description
+        add_space()
+        paragraph(f"{name}: {description}")
+
 
 if __name__ == "__main__":
     game = Game()
