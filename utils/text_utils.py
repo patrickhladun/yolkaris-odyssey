@@ -47,7 +47,7 @@ def paragraph(
     - space: the number of new lines to print after the paragraph
     - color: the color to apply to the text
     """
-    wrapped_text = textwrap.fill(long_string, width=95)
+    wrapped_text = textwrap.fill(long_string, width=74)
     lines = wrapped_text.split('\n')
 
     for i, line in enumerate(lines):
