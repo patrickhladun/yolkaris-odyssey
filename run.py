@@ -1245,8 +1245,8 @@ class Game:
         # Display player's basic stats
         add_space()
         text(f"Player {player.name}:")
-        text(f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}",
-             color=color_light_gray)
+        text(
+            f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}")
         text(f"Armour: {player.armour.name if player.armour else 'None'}")
         text(f"Weapon: {player.weapon.name if player.weapon else 'None'}")
 
