@@ -111,7 +111,7 @@ class Interaction:
             self.print_story_line(neutral.storyLine)
         elif visited and neutral.questItem:
             has_quest_item = any(
-                item_dict['item'].name == neutral.questItem.name for item_dict in self.player.inventory
+                item.name == neutral.questItem.name for item in self.player.inventory
             )
             if has_quest_item and neutral.questItem:
                 # Player has the quest item, proceed with the special storyline
@@ -363,12 +363,9 @@ class Location:
             area = self.contents[position]
             if hasattr(area, "items") and area.items:
                 text("You found the following items:", space=1)
-                for index, the_item in enumerate(area.items):
-                    # Ensure that item_dict has 'item' and 'quantity' keys
-                    item = the_item['item']
-                    quantity = the_item['quantity']
+                for index, item in enumerate(area.items):
                     name = item.name
-                    text(f"{index + 1}. {name} (Quantity: {quantity})")
+                    text(f"{index + 1}. {name}")
 
                 add_space()
                 prompt = "Select an item number to interact with, or type '0' to cancel: "
@@ -378,9 +375,9 @@ class Location:
                 try:
                     choice_index = int(choice) - 1
                     if 0 <= choice_index < len(area.items):
-                        selected_item_dict = area.items[choice_index]
+                        item = area.items[choice_index]
                         self.interact_with_area_items(
-                            selected_item_dict, area, player)
+                            item, area, player)
                     elif choice_index == -1:
                         text("You decided not to pick up any items.")
                     else:
@@ -390,19 +387,17 @@ class Location:
             else:
                 text("You searched the area but found nothing.")
 
-    def interact_with_area_items(self, the_item, area, player):
-        item = the_item['item']
-
+    def interact_with_area_items(self, item, area, player):
         if isinstance(item, Weapon):
             name = item.name
             add_space()
             text(f"You found a {name}.")
             if ask_user("confirm", prompt="Do you want to equip it? "):
                 if player.weapon:
-                    area.items.append({'item': player.weapon, 'quantity': 1})
+                    area.items.append({'item': player.weapon})
                 player.weapon = item
                 text(f"You have equipped the {name}.", space=1)
-                area.items.remove(the_item)
+                area.items.remove(item)
 
         elif isinstance(item, Armour):
             name = item.name
@@ -410,10 +405,10 @@ class Location:
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to equip it?"):
                 if player.armour:
-                    area.items.append({'item': player.armour, 'quantity': 1})
+                    area.items.append({'item': player.armour})
                 player.armour = item
                 text(f"You have equipped the {name}.", space=1)
-                area.items.remove(the_item)
+                area.items.remove(item)
 
         elif isinstance(item, Potion):
             name = item.name
@@ -421,7 +416,7 @@ class Location:
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to take it?"):
                 player.potions.append(item)
-                area.items.remove(the_item)
+                area.items.remove(item)
                 text(f"You have added the {name} to your inventory.", space=1)
 
         elif isinstance(item, Book):
@@ -429,8 +424,8 @@ class Location:
             add_space()
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to take it?"):
-                player.inventory.append({'item': item, 'quantity': 1})
-                area.items.remove(the_item)
+                player.inventory.append({'item': item})
+                area.items.remove(item)
                 text("You have added the book to your inventory.", space=1)
 
         elif isinstance(item, Item):
@@ -438,8 +433,8 @@ class Location:
             add_space()
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to take it?"):
-                player.inventory.append({'item': item, 'quantity': 1})
-                area.items.remove(the_item)
+                player.inventory.append({'item': item})
+                area.items.remove(item)
 
 
 class Yolkaris(Location):
@@ -655,41 +650,42 @@ class Game:
             yolkaris_areas = [
                 Area(name="Capital City",
                      storyLine=[
-                          {
-                              "clear": True
-                          },
-                         {
-                             "text": "The Broken Clock Adventure",
-                             "delay": 0.6,
-                             "space": 1
-                          },
-                         {
-                             "text": "Capital City, where ancient whispers"
-                             " meet the present's breath, lies beneath the"
-                             " Grand Clock's timeless gaze. Its cobbled paths,"
-                             " etched by countless souls, converge at"
-                             " Yolkaris' beating heart."
-                          },
-                         {
-                              "text": "Here stands the Grand Clock, silent"
-                              " sentinel of time, now frozen in an eerie"
-                              " stillness. Amidst this hush, Clucky, a beacon"
-                              " of hope, steps forward with valor and"
-                              " inquisitiveness in his heart."
-                          },
-                         {
-                              "text": "Summoned by the echoes of old tales and"
-                              " the allure of the unknown, he weaves through"
-                              " the city's veiled streets to the Timekeeper. At"
-                              " the foot of the slumbering clock, a vestige of"
-                              " arcane power, a quest of fate unfolds for"
-                              " Clucky."
-                          },
-                         {
-                              "text": "Embarking on a quest through time's"
-                              " woven fabric, he seeks to stir ancient echoes,"
-                              " awakening the chronicles lost to the ages."
-                          }
+                         #   {
+                         #       "clear": True
+                         #   },
+                         #  {
+                         #      "text": "The Broken Clock Adventure",
+                         #      "delay": 0.6,
+                         #      "space": 1
+                         #   },
+                         #  {
+                         #      "text": "Capital City, where ancient whispers"
+                         #      " meet the present's breath, lies beneath the"
+                         #      " Grand Clock's timeless gaze. Its cobbled paths,"
+                         #      " etched by countless souls, converge at"
+                         #      " Yolkaris' beating heart."
+                         #   },
+                         #  {
+                         #       "text": "Here stands the Grand Clock, silent"
+                         #       " sentinel of time, now frozen in an eerie"
+                         #       " stillness. Amidst this hush, Clucky, a beacon"
+                         #       " of hope, steps forward with valor and"
+                         #       " inquisitiveness in his heart."
+                         #   },
+                         #  {
+                         #       "text": "Summoned by the echoes of old tales and"
+                         #       " the allure of the unknown, he weaves through"
+                         #       " the city's veiled streets to the Timekeeper. At"
+                         #       " the foot of the slumbering clock, a vestige of"
+                         #       " arcane power, a quest of fate unfolds for"
+                         #       " Clucky."
+                         #   },
+                         #  {
+                         #       "text": "Embarking on a quest through time's"
+                         #       " woven fabric, he seeks to stir ancient echoes,"
+                         #       " awakening the chronicles lost to the ages.",
+                         #       "space": 0
+                         #   }
                      ],
                      storyLineVisited=[
                          {
@@ -703,116 +699,158 @@ class Game:
                          }
                      ],
                      items=[
-                         {
-                             "item": Book(
-                                 name="The Broken Clock Book",
-                                 description="A tome chronicling the saga of"
-                                 " Yolkaris' Grand Clock, whose ticking has"
-                                 " ceased.",
-                                 storyLine=[
-                                     {
+                         Book(
+                             name="The Broken Clock Book",
+                             description="A tome chronicling the saga of"
+                             " Yolkaris' Grand Clock, whose ticking has"
+                             " ceased.",
+                             storyLine=[
+                                 {
                                          "clear": True
-                                     },
-                                     {
-                                         "text": "The Broken Clock: A Tale of"
-                                         " Time's Standstill",
-                                         "delay": 0.6,
-                                         "space": 1
-                                     },
-                                     {
-                                         "text": "In the heart of Yolkaris"
-                                         " stands the Grand Clock, once the"
-                                         " pulsing chronometer of the realm."
-                                         " Legends say its hands moved in"
-                                         " harmony with the cosmic dance, until"
-                                         " silence befell. The clock's halt has"
-                                         " shrouded Yolkaris in a temporal"
-                                         " anomaly, threatening the very fabric"
-                                         " of time itself.",
-                                         "space": 1
-                                     },
-                                     {
-                                         "text": "The Time Crystal, hidden"
-                                         " within the enigmatic Crystal Hills,"
-                                         " holds the secret to awakening the"
-                                         " clock. This book, penned by the last"
-                                         " Timekeeper, serves as a guide for"
-                                         " the brave soul daring enough to"
-                                         " embark on this perilous quest. To"
-                                         " restore the clock's magic and revive"
-                                         " the rhythm of Yolkaris, the Time"
-                                         " Crystal must be retrieved before the"
-                                         " threads of time unravel completely.",
-                                         "space": 1
-                                     },
-                                 ]
-                             ), "quantity": 1}
+                                 },
+                                 {
+                                     "text": "The Broken Clock: A Tale of"
+                                     " Time's Standstill",
+                                     "delay": 0.6,
+                                     "space": 1
+                                 },
+                                 {
+                                     "text": "In the heart of Yolkaris"
+                                     " stands the Grand Clock, once the"
+                                     " pulsing chronometer of the realm."
+                                     " Legends say its hands moved in"
+                                     " harmony with the cosmic dance, until"
+                                     " silence befell. The clock's halt has"
+                                     " shrouded Yolkaris in a temporal"
+                                     " anomaly, threatening the very fabric"
+                                     " of time itself.",
+                                     "space": 1
+                                 },
+                                 {
+                                     "text": "The Time Crystal, hidden"
+                                     " within the enigmatic Crystal Hills,"
+                                     " holds the secret to awakening the"
+                                     " clock. This book, penned by the last"
+                                     " Timekeeper, serves as a guide for"
+                                     " the brave soul daring enough to"
+                                     " embark on this perilous quest. To"
+                                     " restore the clock's magic and revive"
+                                     " the rhythm of Yolkaris, the Time"
+                                     " Crystal must be retrieved before the"
+                                     " threads of time unravel completely.",
+                                     "space": 1
+                                 },
+                             ]
+                         ),
+                         Armour(
+                             name="Feathered Armour",
+                             description="A set of armour made from"
+                             " enchanted feathers, offering protection"
+                             " and agility. (defense=8)",
+                             defense=8
+                         ),
+                         Potion(
+                             name="Medium Potion",
+                             health=50
+                         ),
+                         Potion(
+                             name="Small Potion",
+                             health=10
+                         ),
+                         Weapon(
+                             name="Beak Blade",
+                             description="A blade forged from the"
+                             " beak of a legendary phoenix, imbued with"
+                             " the essence of fire.",
+                             attack=12,
+                             actions=[
+                                 "Slash",
+                                 "Fireball"
+                             ]
+                         ),
+                         Armour(
+                             name="3D printed Armour",
+                             description="Home made armour. This armour"
+                             " was printed on a 3D printer wit PLA. "
+                             " (defense=0)",
+                             defense=0
+                         ),
+                         Weapon(
+                             name="Wooden Sword",
+                             description="A sword made from wood.",
+                             attack=1,
+                             actions=[
+                                 "Slash",
+                                 "Stab",
+                                 "Crack"
+                             ]
+                         )
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
                          questItem=Item(name="The Time Crystal"),
                          storyLine=[
-                              {
-                                  "neutral": "Ah, Clucky! The Grand Clock, our"
-                                  " timeless guardian, has ceased its rhythmic"
-                                  " heartbeat. Its magic wanes. The Time"
-                                  " Crystal in Crystal Hills is the key to its"
-                                  " revival.",
-                                  "space": 0,
-                              },
-                             {
-                                  "player": "Fear not, Timekeeper. I shall"
-                                  " reclaim the crystal and rekindle the"
-                                  " clock's ancient magic.",
-                                  "space": 0,
-                              },
-                             {
-                                  "neutral": "Be swift, for the sands of time"
-                                  " wait for no one. Our fate rests in your"
-                                  " wings.",
-                              },
-                             {
-                                  "continue": True
-                              },
-                             {
-                                  "clear": True
-                              },
-                             {
-                                  "text": "Embark on the Yolkaris Odyssey with"
-                                  " these words of guidance:"
-                              },
-                             {
-                                  "text": "- In this tale, your journey begins"
-                                  " in Yolkaris, a realm of myths and"
-                                  " mysteries.",
-                                  "space": 0
-                              },
-                             {
-                                  "text": "- Use the 'map' command to find your"
-                                  " path within this enchanted land.",
-                                  "space": 0
-                              },
-                             {
-                                  "text": "- Traverse the land through 'north',"
-                                  " 'south', 'east', and 'west'. Discover your"
-                                  " destiny.",
-                                  "space": 0
-                              },
-                             {
-                                  "text": "- In your quest, 'search' the areas"
-                                  " for hidden treasures and secrets.",
-                                  "space": 0
-                              },
-                             {
-                                  "text": "- Keep your inventory filled with"
-                                  " artifacts and tools. Check it with the"
-                                  " 'inventory' command."
-                              },
-                             {
-                                  "text": "Good fortune on your quest. May your"
-                                  " journey be filled with wonder.",
-                                  "space": 0
-                              },
+                             #   {
+                             #       "neutral": "Ah, Clucky! The Grand Clock, our"
+                             #       " timeless guardian, has ceased its rhythmic"
+                             #       " heartbeat. Its magic wanes. The Time"
+                             #       " Crystal in Crystal Hills is the key to its"
+                             #       " revival.",
+                             #       "space": 0,
+                             #   },
+                             #  {
+                             #       "player": "Fear not, Timekeeper. I shall"
+                             #       " reclaim the crystal and rekindle the"
+                             #       " clock's ancient magic.",
+                             #       "space": 0,
+                             #   },
+                             #  {
+                             #       "neutral": "Be swift, for the sands of time"
+                             #       " wait for no one. Our fate rests in your"
+                             #       " wings.",
+                             #   },
+                             #  {
+                             #       "continue": True
+                             #   },
+                             #  {
+                             #       "clear": True
+                             #   },
+                             #  {
+                             #       "text": "Embark on the Yolkaris Odyssey with"
+                             #       " these words of guidance:"
+                             #   },
+                             #  {
+                             #       "text": "- In this tale, your journey begins"
+                             #       " in Yolkaris, a realm of myths and"
+                             #       " mysteries.",
+                             #       "space": 0
+                             #   },
+                             #  {
+                             #       "text": "- Use the 'map' command to find your"
+                             #       " path within this enchanted land.",
+                             #       "space": 0
+                             #   },
+                             #  {
+                             #       "text": "- Traverse the land through 'north',"
+                             #       " 'south', 'east', and 'west'. Discover your"
+                             #       " destiny.",
+                             #       "space": 0
+                             #   },
+                             #  {
+                             #       "text": "- In your quest, 'search' the areas"
+                             #       " for hidden treasures and secrets.",
+                             #       "space": 0
+                             #   },
+                             #  {
+                             #       "text": "- Keep your inventory filled with"
+                             #       " artifacts and tools. Check it with the"
+                             #       " 'inventory' command."
+                             #   },
+                             #  {
+                             #       "text": "Good fortune on your quest. May your"
+                             #       " journey be filled with wonder.",
+                             #       "space": 0
+                             #   },
                          ],
                          storyLineVisited=[
                              {
@@ -888,116 +926,264 @@ class Game:
                      ),
                 Area(name="Bounty Harbour",
                      storyLine=[
-                         #  {
-                         #      "clear": True
-                         #  },
                           {
+                              "clear": True
+                          },
+                         {
                               "text": "Bounty Harbour bustles with life, a hub "
                               " for seafaring souls and wandering traders. The"
                               " aroma of the ocean mingles with exotic spices,"
                               " weaving a tapestry of adventure and mystery in"
                               " the air."
                           },
-                         #  {
-                         #      "text": "Clucky, amidst the vibrant chatter of"
-                         #      " the marketplace and rhythmic creaking of ships,"
-                         #      " takes in the colorful tapestry of sails and"
-                         #      " flags, each narrating tales of distant lands"
-                         #      " and mysterious seas."
-                         #  },
-                         #  {
-                         #      "text": "Tony, a seasoned sailor, spots Clucky"
-                         #      " and approaches with a knowing smile.",
-                         #  },
-                         #  {
-                         #      "neutral": "Hey Clucky, on a mission for the"
-                         #      " clock? You're our beacon of hope, you know.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "player": "Thanks, Tony. Good to see you. Your"
-                         #      " support means a lot to me.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "neutral": "Be careful out there, alright? We're"
-                         #      " counting on you, Clucky.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "player": "Will do. See you in a few days, Tony!",
-                         #  },
-                         #  {
-                         #      "continue": True
-                         #  },
-                         #  {
-                         #      "text": "Sara, a cheerful trader, greets Clucky"
-                         #      " with enthusiasm.",
-                         #  },
-                         #  {
-                         #      "neutral": "Clucky, we're all rooting for you!"
-                         #      " You're our best chance to fix the clock.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "player": "I appreciate it, Sara. I won't let"
-                         #      " Yolkaris down. The clock will tick again.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "neutral": "Bring back the magic, my friend. We"
-                         #      " believe in you, Clucky.",
-                         #  },
-                         #  {
-                         #      "text": "Garry, a local rival, sneers at Clucky.",
-                         #      "space": 1
-                         #  },
-                         #  {
-                         #      "neutral": "Saving the clock, Clucky? That's a"
-                         #      " laugh. You? The hero? Guess we're really"
-                         #      " desperate.",
-                         #      "space": 1,
-                         #  },
-                         #  {
-                         #      "text": "Clucky, unfazed, responds with a smile.",
-                         #      "space": 1
-                         #  },
-                         #  {
-                         #      "player": "Every bit counts, Garry. Even"
-                         #      " skepticism like yours.",
-                         #      "space": 0,
-                         #  },
-                         #  {
-                         #      "neutral": "Just don't get lost on your way,"
-                         #      " featherbrain! Not everyone's a believer.",
-                         #      "space": 1,
-                         #  },
-                         #  {
-                         #      "text": "As Clucky walks away, he feels the mixed"
-                         #      " vibes of support and skepticism, steeling"
-                         #      " himself for the journey ahead. Determined,"
-                         #      " Clucky heads towards his next destination.",
-                         #      "space": 1
-                         #  }
+                         {
+                              "text": "Clucky, amidst the vibrant chatter of"
+                              " the marketplace and rhythmic creaking of ships,"
+                              " takes in the colorful tapestry of sails and"
+                              " flags, each narrating tales of distant lands"
+                              " and mysterious seas."
+                          },
+                         {
+                              "text": "Tony, a seasoned sailor, spots Clucky"
+                              " and approaches with a knowing smile.",
+                          },
+                         {
+                              "neutral": "Hey Clucky, on a mission for the"
+                              " clock? You're our beacon of hope, you know.",
+                              "space": 0,
+                          },
+                         {
+                              "player": "Thanks, Tony. Good to see you. Your"
+                              " support means a lot to me.",
+                              "space": 0,
+                          },
+                         {
+                              "neutral": "Be careful out there, alright? We're"
+                              " counting on you, Clucky.",
+                              "space": 0,
+                          },
+                         {
+                              "player": "Will do. See you in a few days, Tony!",
+                          },
+                         {
+                              "continue": True
+                          },
+                         {
+                              "text": "Sara, a cheerful trader, greets Clucky"
+                              " with enthusiasm.",
+                          },
+                         {
+                              "neutral": "Clucky, we're all rooting for you!"
+                              " You're our best chance to fix the clock.",
+                              "space": 0,
+                          },
+                         {
+                              "player": "I appreciate it, Sara. I won't let"
+                              " Yolkaris down. The clock will tick again.",
+                              "space": 0,
+                          },
+                         {
+                              "neutral": "Bring back the magic, my friend. We"
+                              " believe in you, Clucky.",
+                          },
+                         {
+                              "text": "Garry, a local rival, sneers at Clucky.",
+                              "space": 1
+                          },
+                         {
+                              "neutral": "Saving the clock, Clucky? That's a"
+                              " laugh. You? The hero? Guess we're really"
+                              " desperate.",
+                              "space": 1,
+                          },
+                         {
+                              "text": "Clucky, unfazed, responds with a smile.",
+                              "space": 1
+                          },
+                         {
+                              "player": "Every bit counts, Garry. Even"
+                              " skepticism like yours.",
+                              "space": 0,
+                          },
+                         {
+                              "neutral": "Just don't get lost on your way,"
+                              " featherbrain! Not everyone's a believer.",
+                              "space": 1,
+                          },
+                         {
+                              "text": "As Clucky walks away, he feels the mixed"
+                              " vibes of support and skepticism, steeling"
+                              " himself for the journey ahead. Determined,"
+                              " Clucky heads towards his next destination.",
+                              "space": 1
+                          }
 
                      ],
                      storyLineVisited=[
-                         #  {
-                         #      "clear": True
-                         #  },
+                         {
+                             "clear": True
+                         },
                          {
                              "text": "You are back in Bounty Harbour",
                          }
-
-                     ],
-                     items=[
-                         {"item": Item(name="The Time Crystal"), "quantity": 1}
                      ],
                      position=(1, 0),
                      ),
                 Area(name="Cluckington Valley",
-                     storyLine=[],
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Cluckington Valley stretches beneath the"
+                             " gaze of ancient, watchful peaks, a tapestry of"
+                             " verdure and life woven across the land's broad"
+                             " back. Its fields, a green so vibrant they seem"
+                             " to pulse with the heartbeats of the earth"
+                             " itself, are dotted with wildflowers that perform"
+                             " silent operas to an audience of bees.",
+                             "space": 1
+                         },
+                         {
+                             "text": "A peculiar fact about the valley is its"
+                             " infamous 'Laughing Tree,' a gnarled oak whose"
+                             " branches creak in patterns that sound eerily"
+                             " like chicken laughter, especially on windy"
+                             " nights. Locals say it's the valley's way of"
+                             " reminding everyone that nature has its own"
+                             " sense of humor.",
+                             "delay": 0.6
+                         },
+                         {
+                             "text": "Just then, a familiar voice called out,"
+                         },
+                         {
+                             "neutral": "Lucky! Thought I'd find you here,"
+                             " admiring the valley's charms."
+                         },
+                         {
+                             "text": "It was Marigold, his childhood friend."
+                             " Her beak stained with berry juice."
+                         },
+                         {
+                             "space": 1
+                         },
+                         {
+                             "player": "I was just listening to the tree's"
+                             " latest joke. It appears even nature has its"
+                             " doubts about my grand quest.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "Clucky, if anyone can find The Time"
+                             " Crystal, it's definitely you. You have a knack"
+                             " for turning the impossible into the possible.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "Let me come with you! I can help, and"
+                             " two beaks are better than one, right?",
+                             "space": 0,
+                         },
+                         {
+                             "player": "Your spirit is as brave as ever,"
+                             " Marigold, but this journey is riddled with"
+                             " dangers unknown. You're still young, and the"
+                             " paths I must tread are too perilous.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "But I've read all about the ancient"
+                             " paths and practiced the art of stealth! I can"
+                             " be very useful!",
+                             "space": 0,
+                         },
+                         {
+                             "player": "I have no doubt about your courage and"
+                             " skills, Marigold. But it's a responsibility I"
+                             " must bear alone. This quest requires not just"
+                             " bravery but also sacrifices I cannot ask you to"
+                             " make.",
+                             "space": 0,
+                         },
+                         {
+                             "neutral": "I understand, Clucky. Just... promise"
+                             " me you'll return safe. The village won't be the"
+                             " same without your adventurous tales.",
+                             "space": 0,
+                         },
+                         {
+                             "player": "I promise, Marigold. And I'll bring"
+                             " back stories that will light up your eyes."
+                             " Until then, keep the village laughing for me."
+                             " Take care of everyone while I'm gone. I'll see"
+                             " you soon, with The Time Crystal in claw."
+                         }
+                     ],
                      storyLineVisited=[],
+                     items=[Book(
+                         name="The Laughing Tree's Joke Book",
+                         description="A collection of the most"
+                         "whimsical and hearty chuckles sourced"
+                         "directly from the Laughing Tree of"
+                         "Cluckington Valley. This book promises to"
+                         "lift the spirits of anyone brave enough to"
+                         "open its pages, offering a light-hearted"
+                         " escape into the world of feathered humor.",
+                         storyLine=[
+                                     {
+                                         "clear": True
+                                     },
+                             {
+                                         "text": "Giggles from the Canopy:"
+                                         " The Laughing Tree's Joke Book",
+                                         "delay": 0.6,
+                                         "space": 1
+                                     },
+                             {
+                                         "text": "1. Why did the chicken join"
+                                         " a band? Because it had the"
+                                         " drumsticks ready!",
+                                         "space": 1
+                                     },
+                             {
+                                         "text": "2. What do you call a"
+                                         " chicken that haunts the barn? A"
+                                         " poultry-geist!",
+                                         "space": 0
+                                     },
+                             {
+                                         "text": "3. Why did the rooster go to"
+                                         " the comedy show? To"
+                                         " cockle-doodle-DOO its best"
+                                         " impression!",
+                                         "space": 0
+                                     },
+                             {
+                                         "text": "4. What does a chicken need"
+                                         " to lay an egg every day?"
+                                         " Hen-durance!",
+                                         "space": 0
+                                     },
+                             {
+                                         "text": "5. How do chickens stay fit?"
+                                         " Egg-ercise!",
+                                         "space": 0
+                                     },
+                             {
+                                         "text": "6. What do you call a crazy"
+                                         " chicken? A cuckoo cluck!",
+                                         "space": 0
+                                     },
+                             {
+                                         "text": "7. Why did the chicken stop"
+                                         " in the middle of the road? It saw"
+                                         " the sign: 'Egg Xing'!",
+                                         "space": 1
+                                     }
+                         ]
+                     )
+                     ],
                      position=(0, 1),
                      ),
                 Area(name="Crystal Hills",
@@ -1033,9 +1219,8 @@ class Game:
                          attack=5,
                          defense=2
                      ),
-                     items=[
-                         {"item": Item(name="The Time Crystal"), "quantity": 1}
-                     ],
+                     items=[Item(name="The Time Crystal")
+                            ],
                      position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
@@ -1217,7 +1402,7 @@ class Game:
                     not in username:
                 self.player = Player(
                     name=username,
-                    health=100,
+                    health=50,
                     attack=10,
                     defense=10,
                     potions=[
@@ -1226,8 +1411,66 @@ class Game:
                             health=10,
                         )
                     ],
-                    inventory=[{
-                    inventory=[]
+                    inventory=[Book(
+                        name="The Laughing Tree's Joke Book",
+                        description="A collection of the most"
+                        "whimsical and hearty chuckles sourced"
+                        "directly from the Laughing Tree of"
+                        "Cluckington Valley. This book promises to"
+                        "lift the spirits of anyone brave enough to"
+                        "open its pages, offering a light-hearted"
+                        " escape into the world of feathered humor.",
+                        storyLine=[
+                            {
+                                "text": "Giggles from the Canopy:"
+                                " The Laughing Tree's Joke Book",
+                                "delay": 0.6,
+                                "space": 1
+                            },
+                            {
+                                "text": "1. Why did the chicken join"
+                                " a band? Because it had the"
+                                " drumsticks ready!",
+                                "space": 0
+                            },
+                            {
+                                "text": "2. What do you call a"
+                                " chicken that haunts the barn? A"
+                                " poultry-geist!",
+                                "space": 0
+                            },
+                            {
+                                "text": "3. Why did the rooster go to"
+                                " the comedy show? To"
+                                " cockle-doodle-DOO its best"
+                                " impression!",
+                                "space": 0
+                            },
+                            {
+                                "text": "4. What does a chicken need"
+                                " to lay an egg every day?"
+                                " Hen-durance!",
+                                "space": 0
+                            },
+                            {
+                                "text": "5. How do chickens stay fit?"
+                                " Egg-ercise!",
+                                "space": 0
+                            },
+                            {
+                                "text": "6. What do you call a crazy"
+                                " chicken? A cuckoo cluck!",
+                                "space": 0
+                            },
+                            {
+                                "text": "7. Why did the chicken stop"
+                                " in the middle of the road? It saw"
+                                " the sign: 'Egg Xing'!",
+                                "space": 1
+                            }
+                        ]
+                    )
+                    ]
                 )
                 break
             else:
@@ -1255,16 +1498,9 @@ class Game:
         # potions count
         potions_count = len(player.potions)
         text(f"Potions: {potions_count}")
-        # Generating inventory list
-        inventory_list = []
-        for inventory_item in player.inventory:
-            # This is an instance of Weapon, Armour, or Item
-            item = inventory_item['item']
-            quantity = inventory_item['quantity']
-            item_display = f"{item.name} (Quantity: {quantity})" if quantity > 1 else item.name
-            inventory_list.append(item_display)
-        inventory = ", ".join(inventory_list)
-        text(f"Inventory: {inventory}")
+
+        items_count = len(player.inventory)
+        text(f"Inventory: {items_count}")
         self.location_and_position()
 
     def choose_action(self) -> None:
@@ -1294,6 +1530,8 @@ class Game:
             self.search_current_area()
         elif action == "inventory" or action == "i":
             self.show_inventory()
+        elif action == "potion":
+            self.select_potion()
         elif action == "reset":
             self.reset_game()
         elif action == "quit":
@@ -1413,12 +1651,9 @@ class Game:
 
         add_space()
         text("Your inventory contains:", space=1)
-        for index, inventory_item in enumerate(self.player.inventory, start=1):
-            item = inventory_item['item']
-            quantity = inventory_item['quantity']
+        for index, item in enumerate(self.player.inventory, start=1):
             name = item.name
-            display_text = f"{index}. {name} (Quantity: {quantity})" if quantity > 1 else f"{index}. {name}"
-            text(display_text)
+            text(f"{index}. {name}")
         add_space()
         prompt = "Select an item number to interact with, or type '0' to cancel: "
         choices = [str(i) for i in range(1, len(self.player.inventory) + 1)]
@@ -1435,41 +1670,69 @@ class Game:
             text("Invalid input. Please enter a number.")
 
     def interact_with_inventory_item(self, index):
-        the_item = self.player.inventory[index]
-        item = the_item['item']
-        quantity = the_item['quantity']
+        item = self.player.inventory[index]
         name = item.name
         add_space()
         text(f"You selected {name}.", space=1)
 
         action = ask_user("item")
         if action.lower() in ['use', 'u']:
-            self.use_inventory_item(the_item)
+            self.use_inventory_item(item)
         elif action.lower() in ['inspect', 'i']:
-            self.inspect_inventory_item(the_item)
+            self.inspect_inventory_item(item)
         else:
             text("Invalid action.")
 
-    def use_inventory_item(self, the_item):
-        item = the_item['item']
-        quantity = the_item['quantity']
+    def use_inventory_item(self, item):
         name = item.name
 
-        if isinstance(item, Potion):
-            if self.player.health == 100:
-                text("Your health is already full.")
-            else:
-                self.player.health += item.health
-                if self.player.health > 100:
-                    self.player.health = 100
-                text(f"You have used the {name}.")
-                self.player.inventory.remove(the_item)
-        elif isinstance(item, Book):
+        if isinstance(item, Book):
             text(f"You have read the {name}.")
             Interaction.print_story_line(self, item.storyLine)
 
-    def inspect_inventory_item(self, the_item):
-        item = the_item['item']
+    def select_potion(self):
+        if not self.player.potions:
+            text("Your inventory is empty.")
+            return
+
+        add_space()
+        text("Use Potions:", space=1)
+        add_space()
+        for index, potion in enumerate(self.player.potions, start=1):
+            name = potion.name
+            health = potion.health
+            display_text = f"{index}. {name} (Health: {health})"
+            text(display_text)
+        add_space()
+        prompt = "Select a potion number to use it, or type '0' to cancel: "
+        choices = [str(i) for i in range(1, len(self.player.potions) + 1)]
+        choice = ask_user("number", numbers=choices, prompt=prompt)
+        try:
+            choice_index = int(choice) - 1
+            if 0 <= choice_index < len(self.player.potions):
+                potion = self.player.potions[choice_index]
+                self.use_potion(potion)
+            elif choice_index == -1:
+                text("Exiting potions.")
+            else:
+                text("Invalid choice.")
+        except ValueError:
+            text("Invalid input. Please enter a number.")
+
+    def use_potion(self, potion):
+        player = self.player
+        max_health = 100
+        if player.health == max_health:
+            text("You are already at full health.")
+        else:
+            player.health += potion.health
+            if player.health > max_health:
+                player.health = max_health
+            player.potions.remove(potion)
+            text(
+                f"You used a {potion.name}. Your health is now {player.health}.")
+
+    def inspect_inventory_item(self, item):
         name = item.name
         description = item.description
         add_space()
