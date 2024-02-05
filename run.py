@@ -18,7 +18,6 @@ class Player(Character):
             attack: int,
             inventory: list,
             potions: list,
-            coins: int,
             defense: int) -> None:
         super().__init__(name)
         self.health = health
@@ -26,7 +25,6 @@ class Player(Character):
         self.defense = defense
         self.inventory = inventory
         self.potions = potions
-        self.coins = coins
         self.weapon = None
         self.armour = None
 
@@ -1214,7 +1212,7 @@ class Game:
                             health=10,
                         )
                     ],
-                    coins=0,
+                    inventory=[{
                     inventory=[]
                 )
                 break
@@ -1253,7 +1251,6 @@ class Game:
             inventory_list.append(item_display)
         inventory = ", ".join(inventory_list)
         text(f"Inventory: {inventory}")
-        text(f"Coins: {player.coins}")
         self.location_and_position()
 
     def choose_action(self) -> None:
