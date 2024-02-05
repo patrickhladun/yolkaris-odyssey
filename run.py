@@ -393,37 +393,49 @@ class Location:
 
         if isinstance(item, Weapon):
             name = item.name
-            if ask_user("confirm", f"You found a {name}. Do you want to equip it?"):
+            add_space()
+            text(f"You found a {name}.")
+            if ask_user("confirm", prompt="Do you want to equip it? "):
                 if player.weapon:
                     area.items.append({'item': player.weapon, 'quantity': 1})
                 player.weapon = item
-                text(f"You have equipped the {name}.")
+                text(f"You have equipped the {name}.", space=1)
                 area.items.remove(the_item)
 
         elif isinstance(item, Armour):
             name = item.name
-            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to equip it?"):
+            add_space()
+            text(f"You found a {name}.")
+            if ask_user(type="confirm", prompt="Do you want to equip it?"):
                 if player.armour:
                     area.items.append({'item': player.armour, 'quantity': 1})
                 player.armour = item
-                text(f"You have equipped the {name}.")
+                text(f"You have equipped the {name}.", space=1)
                 area.items.remove(the_item)
 
         elif isinstance(item, Potion):
             name = item.name
-            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
+            add_space()
+            text(f"You found a {name}.")
+            if ask_user(type="confirm", prompt="Do you want to take it?"):
                 player.potions.append(item)
                 area.items.remove(the_item)
+                text(f"You have added the {name} to your inventory.", space=1)
 
         elif isinstance(item, Book):
             name = item.name
-            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
+            add_space()
+            text(f"You found a {name}.")
+            if ask_user(type="confirm", prompt="Do you want to take it?"):
                 player.inventory.append({'item': item, 'quantity': 1})
                 area.items.remove(the_item)
+                text("You have added the book to your inventory.", space=1)
 
         elif isinstance(item, Item):
             name = item.name
-            if ask_user(type="confirm", prompt=f"You found a {name}. Do you want to take it?"):
+            add_space()
+            text(f"You found a {name}.")
+            if ask_user(type="confirm", prompt="Do you want to take it?"):
                 player.inventory.append({'item': item, 'quantity': 1})
                 area.items.remove(the_item)
 
