@@ -1441,11 +1441,10 @@ class Game:
         add_space()
         text(f"You selected {name}.", space=1)
 
-        action = input(
-            "Do you want to 'use' or 'inspect' the item? (use/inspect): ")
-        if action.lower() == 'use':
+        action = ask_user("item")
+        if action.lower() in ['use', 'u']:
             self.use_inventory_item(the_item)
-        elif action.lower() == 'inspect':
+        elif action.lower() in ['inspect', 'i']:
             self.inspect_inventory_item(the_item)
         else:
             text("Invalid action.")
