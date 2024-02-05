@@ -210,12 +210,12 @@ class Combat:
 
     def calculate_player_attack_power(self):
         base_attack = self.player.attack
-        weapon_bonus = self.player.weapon["attack"] if self.player.weapon else 0
+        weapon_bonus = self.player.weapon.attack if self.player.weapon else 0
         return base_attack + weapon_bonus
 
     def calculate_player_defense(self):
         base_defense = self.player.defense
-        armor_bonus = self.player.armour["defense"] if self.player.armour else 0
+        armor_bonus = self.player.armour.defense if self.player.armour else 0
         return base_defense + armor_bonus
 
     def calculate_damage(self, attack, defense):
@@ -398,7 +398,7 @@ class Location:
             text(f"You found a {name}.")
             if ask_user("confirm", prompt="Do you want to equip it? "):
                 if player.weapon:
-                    area.items.append({'item': player.weapon})
+                    area.items.append(player.weapon)
                 player.weapon = item
                 text(f"You have equipped the {name}.", space=1)
                 area.items.remove(item)
@@ -409,7 +409,7 @@ class Location:
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to equip it?"):
                 if player.armour:
-                    area.items.append({'item': player.armour})
+                    area.items.append(player.armour)
                 player.armour = item
                 text(f"You have equipped the {name}.", space=1)
                 area.items.remove(item)
@@ -428,7 +428,7 @@ class Location:
             add_space()
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to take it?"):
-                player.inventory.append({'item': item})
+                player.inventory.append(item)
                 area.items.remove(item)
                 text("You have added the book to your inventory.", space=1)
 
@@ -437,7 +437,7 @@ class Location:
             add_space()
             text(f"You found a {name}.")
             if ask_user(type="confirm", prompt="Do you want to take it?"):
-                player.inventory.append({'item': item})
+                player.inventory.append(item)
                 area.items.remove(item)
 
 
@@ -562,7 +562,12 @@ def show_help() -> None:
     text("  west       - Move West (up)", delay=0.1, space=1)
 
     text("  map        - Show the map", delay=0.1)
+    text("  search     - Search the area for items", delay=0.1)
     text("  help       - Show this help message", delay=0.1)
+    text("  inventory  - Show your inventory", delay=0.1)
+    text("  potion     - Use a potion", delay=0.1)
+    text("  stats      - Show your stats", delay=0.1)
+    text("  reset      - Reset the game", delay=0.1)
     text("  quit       - Quit the game", delay=0.1)
     text(" ")
 
@@ -591,35 +596,34 @@ class Game:
         This method sets up the game.
         """
         clear_terminal()
-        # game_title()
-        # text("Welcome to Yolkaris Odyssey, a text-base"
-        #      " adventure game.", delay=0.1)
-        # text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
-        # ask_user(type='continue',
-        #          prompt='Press enter to start the game: ', space=0)
-        # clear_terminal()
+        game_title()
+        text("Welcome to Yolkaris Odyssey, a text-base"
+             " adventure game.", delay=0.1)
+        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+        ask_user(type='continue',
+                 prompt='Press enter to start the game: ', space=0)
+        clear_terminal()
         self.create_player()
-        # clear_terminal()
-        # text(f"Hey {self.player.name}!", delay=0.6, space=1)
-        # paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
-        #           " thrilling adventure as Charlie, a courageous chicken with a"
-        #           " spirit of exploration. This game takes you to the"
-        #           " beautiful planet of Yolkaris, where every corner is filled"
-        #           " with wonder and mystery.")
-        # paragraph("Yolkaris Odyssey presents three enthralling tales, each"
-        #           " unfolding in its own unique way. Discover the mysteries"
-        #           " hidden within the dense forests of Mystara, experience the"
-        #           " ethereal beauty of Luminara's radiant fields, and delve"
-        #           " into the ancient, forgotten lore that pervades every inch"
-        #           " of Yolkaris. Each path you choose leads to new discoveries"
-        #           " and adventures.")
-        # game_level = self.select_game_level()
-        game_level = 1
+        clear_terminal()
+        text(f"Hey {self.player.name}!", delay=0.6, space=1)
+        paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
+                  " thrilling adventure as Charlie, a courageous chicken with a"
+                  " spirit of exploration. This game takes you to the"
+                  " beautiful planet of Yolkaris, where every corner is filled"
+                  " with wonder and mystery.")
+        paragraph("Yolkaris Odyssey presents three enthralling tales, each"
+                  " unfolding in its own unique way. Discover the mysteries"
+                  " hidden within the dense forests of Mystara, experience the"
+                  " ethereal beauty of Luminara's radiant fields, and delve"
+                  " into the ancient, forgotten lore that pervades every inch"
+                  " of Yolkaris. Each path you choose leads to new discoveries"
+                  " and adventures.")
+        game_level = self.select_game_level()
         self.setup_areas(game_level)
-        # clear_terminal()
-        # loading(['Generating game', '.', '.', '.',
-        #         '.', '.', '.', '.'], 'Game generated')
-        # loading(['Starting game', '.', '.', '.', '.'])
+        clear_terminal()
+        loading(['Generating game', '.', '.', '.',
+                '.', '.', '.', '.'], 'Game generated')
+        loading(['Starting game', '.', '.', '.', '.'])
         self.assign_player_to_location()
         self.current_location = 0
         starting_location = self.get_current_location()
@@ -654,42 +658,42 @@ class Game:
             yolkaris_areas = [
                 Area(name="Capital City",
                      storyLine=[
-                         #   {
-                         #       "clear": True
-                         #   },
-                         #  {
-                         #      "text": "The Broken Clock Adventure",
-                         #      "delay": 0.6,
-                         #      "space": 1
-                         #   },
-                         #  {
-                         #      "text": "Capital City, where ancient whispers"
-                         #      " meet the present's breath, lies beneath the"
-                         #      " Grand Clock's timeless gaze. Its cobbled paths,"
-                         #      " etched by countless souls, converge at"
-                         #      " Yolkaris' beating heart."
-                         #   },
-                         #  {
-                         #       "text": "Here stands the Grand Clock, silent"
-                         #       " sentinel of time, now frozen in an eerie"
-                         #       " stillness. Amidst this hush, Charlie, a beacon"
-                         #       " of hope, steps forward with valor and"
-                         #       " inquisitiveness in his heart."
-                         #   },
-                         #  {
-                         #       "text": "Summoned by the echoes of old tales and"
-                         #       " the allure of the unknown, he weaves through"
-                         #       " the city's veiled streets to the Timekeeper. At"
-                         #       " the foot of the slumbering clock, a vestige of"
-                         #       " arcane power, a quest of fate unfolds for"
-                         #       " Charlie."
-                         #   },
-                         #  {
-                         #       "text": "Embarking on a quest through time's"
-                         #       " woven fabric, he seeks to stir ancient echoes,"
-                         #       " awakening the chronicles lost to the ages.",
-                         #       "space": 0
-                         #   }
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "The Broken Clock Adventure",
+                             "delay": 0.6,
+                             "space": 1
+                         },
+                         {
+                             "text": "Capital City, where ancient whispers"
+                             " meet the present's breath, lies beneath the"
+                             " Grand Clock's timeless gaze. Its cobbled paths,"
+                             " etched by countless souls, converge at"
+                             " Yolkaris' beating heart."
+                         },
+                         {
+                             "text": "Here stands the Grand Clock, silent"
+                             " sentinel of time, now frozen in an eerie"
+                             " stillness. Amidst this hush, Charlie, a beacon"
+                             " of hope, steps forward with valor and"
+                             " inquisitiveness in his heart."
+                         },
+                         {
+                             "text": "Summoned by the echoes of old tales and"
+                             " the allure of the unknown, he weaves through"
+                             " the city's veiled streets to the Timekeeper. At"
+                             " the foot of the slumbering clock, a vestige of"
+                             " arcane power, a quest of fate unfolds for"
+                             " Charlie."
+                         },
+                         {
+                             "text": "Embarking on a quest through time's"
+                             " woven fabric, he seeks to stir ancient echoes,"
+                             " awakening the chronicles lost to the ages.",
+                             "space": 0
+                         }
                      ],
                      storyLineVisited=[
                          {
@@ -745,73 +749,93 @@ class Game:
                                      "space": 1
                                  },
                              ]
-                         ),
+                         )
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
                          questItem=Item(name="The Time Crystal"),
                          storyLine=[
-                             #   {
-                             #       "neutral": "Ah, Charlie! The Grand Clock, our"
-                             #       " timeless guardian, has ceased its rhythmic"
-                             #       " heartbeat. Its magic wanes. The Time"
-                             #       " Crystal in Crystal Hills is the key to its"
-                             #       " revival.",
-                             #       "space": 0,
-                             #   },
-                             #  {
-                             #       "player": "Fear not, Timekeeper. I shall"
-                             #       " reclaim the crystal and rekindle the"
-                             #       " clock's ancient magic.",
-                             #       "space": 0,
-                             #   },
-                             #  {
-                             #       "neutral": "Be swift, for the sands of time"
-                             #       " wait for no one. Our fate rests in your"
-                             #       " wings.",
-                             #   },
-                             #  {
-                             #       "continue": True
-                             #   },
-                             #  {
-                             #       "clear": True
-                             #   },
-                             #  {
-                             #       "text": "Embark on the Yolkaris Odyssey with"
-                             #       " these words of guidance:"
-                             #   },
-                             #  {
-                             #       "text": "- In this tale, your journey begins"
-                             #       " in Yolkaris, a realm of myths and"
-                             #       " mysteries.",
-                             #       "space": 0
-                             #   },
-                             #  {
-                             #       "text": "- Use the 'map' command to find your"
-                             #       " path within this enchanted land.",
-                             #       "space": 0
-                             #   },
-                             #  {
-                             #       "text": "- Traverse the land through 'north',"
-                             #       " 'south', 'east', and 'west'. Discover your"
-                             #       " destiny.",
-                             #       "space": 0
-                             #   },
-                             #  {
-                             #       "text": "- In your quest, 'search' the areas"
-                             #       " for hidden treasures and secrets.",
-                             #       "space": 0
-                             #   },
-                             #  {
-                             #       "text": "- Keep your inventory filled with"
-                             #       " artifacts and tools. Check it with the"
-                             #       " 'inventory' command."
-                             #   },
-                             #  {
-                             #       "text": "Good fortune on your quest. May your"
-                             #       " journey be filled with wonder.",
-                             #       "space": 0
-                             #   },
+                             {
+                                 "neutral": "Ah, Charlie! The Grand Clock, our"
+                                 " timeless guardian, has ceased its rhythmic"
+                                 " heartbeat. Its magic wanes. The Time"
+                                 " Crystal in Crystal Hills is the key to its"
+                                 " revival.",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "Fear not, Timekeeper. I shall"
+                                 " reclaim the crystal and rekindle the"
+                                 " clock's ancient magic.",
+                                 "space": 0,
+                             },
+                             {
+                                 "neutral": "Be swift, for the sands of time"
+                                 " wait for no one. Our fate rests in your"
+                                 " wings.",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "clear": True
+                             },
+                             {
+                                 "text": "Embark on the Yolkaris Odyssey with"
+                                 " these words of guidance:"
+                             },
+                             {
+                                 "text": "In this tale, your journey begins"
+                                 " in Yolkaris, a realm of myths and"
+                                 " mysteries."
+                             },
+                             {
+                                 "text": "- Use the 'map' command to find your"
+                                 " path within this enchanted land.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Traverse the land through 'north',"
+                                 " 'south', 'east', and 'west'. Discover your"
+                                 " destiny.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- In your quest, 'search' the areas"
+                                 " for hidden treasures and secrets.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep your inventory filled with"
+                                 " artifacts and tools. Check it with the"
+                                 " 'inventory' command.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- When your health is low, 'potion'"
+                                 " can be used to restore your vitality.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep an eye on your 'stats' to"
+                                 " track your progress.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- If you require guidance, simply"
+                                 " type 'help' to view a list of available"
+                                 " commands.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- To begin anew or end your"
+                                 " adventure, use 'reset' or 'quit' anytime."
+                             },
+                             {
+                                 "text": "Good fortune on your quest. May your"
+                                 " journey be filled with wonder.",
+                                 "space": 0
+                             },
                          ],
                          storyLineVisited=[
                              {
@@ -890,98 +914,97 @@ class Game:
                      ),
                 Area(name="Bounty Harbour",
                      storyLine=[
-                          {
-                              "clear": True
-                          },
                          {
-                              "text": "Bounty Harbour bustles with life, a hub "
-                              " for seafaring souls and wandering traders. The"
-                              " aroma of the ocean mingles with exotic spices,"
-                              " weaving a tapestry of adventure and mystery in"
-                              " the air."
-                          },
+                             "clear": True
+                         },
                          {
-                              "text": "Charlie, amidst the vibrant chatter of"
-                              " the marketplace and rhythmic creaking of ships,"
-                              " takes in the colorful tapestry of sails and"
-                              " flags, each narrating tales of distant lands"
-                              " and mysterious seas."
-                          },
+                             "text": "Bounty Harbour bustles with life, a hub "
+                             " for seafaring souls and wandering traders. The"
+                             " aroma of the ocean mingles with exotic spices,"
+                             " weaving a tapestry of adventure and mystery in"
+                             " the air."
+                         },
                          {
-                              "text": "Tony, a seasoned sailor, spots Charlie"
-                              " and approaches with a knowing smile.",
-                          },
+                             "text": "Charlie, amidst the vibrant chatter of"
+                             " the marketplace and rhythmic creaking of ships,"
+                             " takes in the colorful tapestry of sails and"
+                             " flags, each narrating tales of distant lands"
+                             " and mysterious seas."
+                         },
                          {
-                              "neutral": "Hey Charlie, on a mission for the"
-                              " clock? You're our beacon of hope, you know.",
-                              "space": 0,
-                          },
+                             "text": "Tony, a seasoned sailor, spots Charlie"
+                             " and approaches with a knowing smile.",
+                         },
                          {
-                              "player": "Thanks, Tony. Good to see you. Your"
-                              " support means a lot to me.",
-                              "space": 0,
-                          },
+                             "neutral": "Hey Charlie, on a mission for the"
+                             " clock? You're our beacon of hope, you know.",
+                             "space": 0,
+                         },
                          {
-                              "neutral": "Be careful out there, alright? We're"
-                              " counting on you, Charlie.",
-                              "space": 0,
-                          },
+                             "player": "Thanks, Tony. Good to see you. Your"
+                             " support means a lot to me.",
+                             "space": 0,
+                         },
                          {
-                              "player": "Will do. See you in a few days, Tony!",
-                          },
+                             "neutral": "Be careful out there, alright? We're"
+                             " counting on you, Charlie.",
+                             "space": 0,
+                         },
                          {
-                              "continue": True
-                          },
+                             "player": "Will do. See you in a few days, Tony!",
+                         },
                          {
-                              "text": "Sara, a cheerful trader, greets Charlie"
-                              " with enthusiasm.",
-                          },
+                             "continue": True
+                         },
                          {
-                              "neutral": "Charlie, we're all rooting for you!"
-                              " You're our best chance to fix the clock.",
-                              "space": 0,
-                          },
+                             "text": "Sara, a cheerful trader, greets Charlie"
+                             " with enthusiasm.",
+                         },
                          {
-                              "player": "I appreciate it, Sara. I won't let"
-                              " Yolkaris down. The clock will tick again.",
-                              "space": 0,
-                          },
+                             "neutral": "Charlie, we're all rooting for you!"
+                             " You're our best chance to fix the clock.",
+                             "space": 0,
+                         },
                          {
-                              "neutral": "Bring back the magic, my friend. We"
-                              " believe in you, Charlie.",
-                          },
+                             "player": "I appreciate it, Sara. I won't let"
+                             " Yolkaris down. The clock will tick again.",
+                             "space": 0,
+                         },
                          {
-                              "text": "Garry, a local rival, sneers at Charlie.",
-                              "space": 1
-                          },
+                             "neutral": "Bring back the magic, my friend. We"
+                             " believe in you, Charlie.",
+                         },
                          {
-                              "neutral": "Saving the clock, Charlie? That's a"
-                              " laugh. You? The hero? Guess we're really"
-                              " desperate.",
-                              "space": 1,
-                          },
+                             "text": "Garry, a local rival, sneers at Charlie.",
+                             "space": 1
+                         },
                          {
-                              "text": "Charlie, unfazed, responds with a smile.",
-                              "space": 1
-                          },
+                             "neutral": "Saving the clock, Charlie? That's a"
+                             " laugh. You? The hero? Guess we're really"
+                             " desperate.",
+                             "space": 1,
+                         },
                          {
-                              "player": "Every bit counts, Garry. Even"
-                              " skepticism like yours.",
-                              "space": 0,
-                          },
+                             "text": "Charlie, unfazed, responds with a smile.",
+                             "space": 1
+                         },
                          {
-                              "neutral": "Just don't get lost on your way,"
-                              " featherbrain! Not everyone's a believer.",
-                              "space": 1,
-                          },
+                             "player": "Every bit counts, Garry. Even"
+                             " skepticism like yours.",
+                             "space": 0,
+                         },
                          {
-                              "text": "As Charlie walks away, he feels the mixed"
-                              " vibes of support and skepticism, steeling"
-                              " himself for the journey ahead. Determined,"
-                              " Charlie heads towards his next destination.",
-                              "space": 1
-                          }
-
+                             "neutral": "Just don't get lost on your way,"
+                             " featherbrain! Not everyone's a believer.",
+                             "space": 1,
+                         },
+                         {
+                             "text": "As Charlie walks away, he feels the mixed"
+                             " vibes of support and skepticism, steeling"
+                             " himself for the journey ahead. Determined,"
+                             " Charlie heads towards his next destination.",
+                             "space": 1
+                         }
                      ],
                      storyLineVisited=[
                          {
@@ -991,7 +1014,8 @@ class Game:
                              "text": "You are back in Bounty Harbour",
                          }
                      ],
-                     #  position=(1, 0),
+                     items=[],
+                     position=(1, 0),
                      ),
                 Area(name="Cluckington Valley",
                      storyLine=[
@@ -1028,6 +1052,9 @@ class Game:
                          {
                              "text": "It was Marigold, his childhood friend."
                              " Her beak stained with berry juice."
+                         },
+                         {
+                             "continue": True
                          },
                          {
                              "space": 1
@@ -1092,65 +1119,70 @@ class Game:
                              "text": "You are back in Cluckington Valley",
                          }
                      ],
-                     items=[Book(
-                         name="The Laughing Tree's Joke Book",
-                         description="A collection of the most"
-                         "whimsical and hearty chuckles sourced"
-                         "directly from the Laughing Tree of"
-                         "Cluckington Valley. This book promises to"
-                         "lift the spirits of anyone brave enough to"
-                         "open its pages, offering a light-hearted"
-                         " escape into the world of feathered humor.",
-                         storyLine=[
-                             {
-                                 "text": "Giggles from the Canopy:"
+                     items=[
+                         Book(
+                             name="The Laughing Tree's Joke Book",
+                             description="A collection of the most"
+                             "whimsical and hearty chuckles sourced"
+                             "directly from the Laughing Tree of"
+                             "Cluckington Valley. This book promises to"
+                             "lift the spirits of anyone brave enough to"
+                             "open its pages, offering a light-hearted"
+                             " escape into the world of feathered humor.",
+                             storyLine=[
+                                 {
+                                     "text": "Giggles from the Canopy:"
                                          " The Laughing Tree's Joke Book",
                                          "delay": 0.6,
                                          "space": 1
-                             },
-                             {
-                                 "text": "1. Why did the chicken join"
-                                         " a band? Because it had the"
-                                         " drumsticks ready!",
-                                         "space": 1
-                             },
-                             {
-                                 "text": "2. What do you call a"
-                                         " chicken that haunts the barn? A"
-                                         " poultry-geist!",
-                                         "space": 0
-                             },
-                             {
-                                 "text": "3. Why did the rooster go to"
-                                         " the comedy show? To"
-                                         " cockle-doodle-DOO its best"
-                                         " impression!",
-                                         "space": 0
-                             },
-                             {
-                                 "text": "4. What does a chicken need"
-                                         " to lay an egg every day?"
-                                         " Hen-durance!",
-                                         "space": 0
-                             },
-                             {
-                                 "text": "5. How do chickens stay fit?"
-                                         " Egg-ercise!",
-                                         "space": 0
-                             },
-                             {
-                                 "text": "6. What do you call a crazy"
-                                         " chicken? A cuckoo cluck!",
-                                         "space": 0
-                             },
-                             {
-                                 "text": "7. Why did the chicken stop"
-                                         " in the middle of the road? It saw"
-                                         " the sign: 'Egg Xing'!",
-                                         "space": 1
-                             }
-                         ]
-                     )
+                                 },
+                                 {
+                                     "text": "1. Why did the chicken join"
+                                     " a band? Because it had the"
+                                     " drumsticks ready!",
+                                     "space": 1
+                                 },
+                                 {
+                                     "text": "2. What do you call a"
+                                     " chicken that haunts the barn? A"
+                                     " poultry-geist!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "3. Why did the rooster go to"
+                                     " the comedy show? To"
+                                     " cockle-doodle-DOO its best"
+                                     " impression!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "4. What does a chicken need"
+                                     " to lay an egg every day?"
+                                     " Hen-durance!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "5. How do chickens stay fit?"
+                                     " Egg-ercise!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "6. What do you call a crazy"
+                                     " chicken? A cuckoo cluck!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "7. Why did the chicken stop"
+                                     " in the middle of the road? It saw"
+                                     " the sign: 'Egg Xing'!",
+                                     "space": 1
+                                 }
+                             ]
+                         ),
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         ),
                      ],
                      position=(0, 1),
                      ),
@@ -1215,7 +1247,12 @@ class Game:
                              " coat, gazed at Charlie with a wry smile."
                          },
                      ],
-                     storyLineVisited=[],
+                     storyLineVisited=[
+                         {
+                             "clear": True},
+                         {
+                             "text": "You are back in Crystal Hills",
+                         }],
                      enemy=Enemy(
                          name="Phineas Blackthorn",
                          storyLine=[
@@ -1318,7 +1355,7 @@ class Game:
                      ),
                      items=[Item(name="The Time Crystal")
                             ],
-                     position=(1, 0),
+                     position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
                      storyLine=[
@@ -1348,6 +1385,9 @@ class Game:
                              "text": "Taking a deep breath, Charlie stepped"
                              " forward. The forest floor felt soft underfoot,"
                              " inviting him deeper into the green shadows."
+                         },
+                         {
+                             "continue": True
                          }
                      ],
                      storyLineVisited=[
@@ -1357,6 +1397,116 @@ class Game:
                          {
                              "text": "You are back in Yonder Forest",
                          }
+                     ],
+                     enemy=Enemy(
+                         name="Shadow Stalker",
+                         storyLine=[
+                             {
+                                 "enemy": "You've entered my domain, little"
+                                 " chicken. But know this, none shall cross"
+                                 " these woods without challenging me. It is"
+                                 " the law of the shadows."
+                             },
+                             {
+                                 "text": "The Shadow Stalker's voice was"
+                                 " chilling, echoing through the darkened"
+                                 " forest, causing the leaves to shiver and the"
+                                 " air to grow heavy with tension. Charlie"
+                                 " stood firm, ready to face the impending"
+                                 " challenge."
+                             },
+                             {
+                                 "player": "Why do you enforce such a law,"
+                                 " Shadow Stalker? What drives you to demand"
+                                 " challenges from those who enter?"
+                             },
+
+                             {
+                                 "enemy": "I seek to prove my dominance,"
+                                 " Charlie. I crave the thrill of battle and"
+                                 " the taste of victory. The law of the shadows"
+                                 " is my way, and you, by entering, have"
+                                 " accepted the challenge."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "You're back, Charlie. I hope you"
+                                 " brought your feather duster this time!"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                 " to face me again?"
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "You have defeated the Shadow"
+                                 " Stalker."
+                             },
+                             {
+                                 "text": "The creature vanished into the"
+                                 " shadows, defeated. As the darkness receded,"
+                                 " a faint whisper reached Charlie's ears."
+                             },
+                             {
+                                 "enemy": "You may have bested me, but your"
+                                 " quest is far from over, Charlie. Seek the"
+                                 " mighty Feathered Blade that once belonged"
+                                 " to the legendary warrior, Sir Cluckington."
+                                 " The elusive Feathered Blade can be found"
+                                 " concealed within the depths of the Yonder"
+                                 " Forest, waiting for a worthy owner."
+                             },
+                             {
+                                 "text": "The creature vanished into the"
+                                 " shadows, defeated. As the darkness receded,"
+                                 " a faint whisper reached Charlie's ears."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "The Shadow Stalker's eyes gleamed"
+                                 " with malice as it spoke."
+                             },
+                             {
+                                 "enemy": "You're no match for me, little"
+                                 " chicken. You'll never leave this forest."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "enemy": "You've defeated me, Charlie. I have"
+                                 " no more fight left in me."
+                             },
+                         ],
+                         health=30,
+                         attack=5,
+                         defense=30
+                     ),
+                     items=[
+                         Weapon(
+                             name="Feathered Blade",
+                             description="A blade made from the"
+                             " finest feathers, light and sharp.",
+                             attack=18,
+                             actions=[
+                                 "Slice",
+                                 "Stab",
+                                 "Thrust"
+                             ]
+                         ),
                      ],
                      ),
                 Area(name="Clucker's Canyon",
@@ -1398,6 +1548,12 @@ class Game:
                              "text": "You are back in Clucker's Canyon",
                          }
                      ],
+                     items=[
+                         Potion(
+                             name="Medium Potion",
+                             health=50
+                         )
+                     ],
                      ),
                 Area(name="Bubble Beach",
                      storyLine=[
@@ -1417,7 +1573,20 @@ class Game:
                              " ripples across the water."
                          }
                      ],
-                     storyLineVisited=[],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Bubble Beach",
+                         }
+                     ],
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ],
                      ),
                 Area(name="Peckers Peak",
                      storyLine=[
@@ -1450,6 +1619,9 @@ class Game:
                               " once gazed upon the heavens."
                           },
                          {
+                             "continue": True
+                          },
+                         {
                               "text": "Charlie feels an overwhelming connection to the"
                               " stars. Their ancient wisdom, like a forgotten"
                               " song, resonates within him, guiding his heart."
@@ -1461,12 +1633,118 @@ class Game:
                               " I can see the whole of Yolkaris and Crystal Hills."
                               " It's said that the ancient chickens gazed at the stars"
                               " from here, plotting their courses across the skies. If"
-                              " only I had their knowledge now...",
-                              "color": color_player
+                              " only I had their knowledge now..."
                           },
+                         {
+                             "continue": True
+                          }
                      ],
-                     storyLineVisited=[],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Peckers Peak",
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="Viktor Thornhart",
+                         storyLine=[
+                             {
+                                 "enemy": "You've ventured into my territory,"
+                                 " stranger. Prepare to face the consequences."
+                             },
+                             {
+                                 "player": "Who are you, and why do you guard"
+                                 " this place?"
+                             },
+                             {
+                                 "enemy": "I am Viktor Thornhart, protector of"
+                                 " these hallowed grounds. The secrets hidden"
+                                 " here are not for the untested. If you wish"
+                                 " to proceed, you must prove your worth."
+                             },
+                             {
+                                 "text": "The tension in the air thickens as"
+                                 " you prepare to face Viktor, the enigmatic"
+                                 " guardian of these sacred grounds."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                 " to face me again?"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                 " to face me again?"
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With a final, determined effort, you"
+                                 " overcome Viktor Thornhart's defenses."
+                             },
+                             {
+                                 "enemy": "You've proven your mettle, Charlie."
+                                 "I yield."
+                             },
+                             {
+                                 "text": "Viktor's stern demeanorc softens,"
+                                 " acknowledging your strength."
+                             },
+                             {
+                                 "enemy": "I'll share a secret with you,"
+                                 " Charlie. In the heart of these peaks,"
+                                 " you'll find the Feathered Armor."
+                             },
+                             {
+                                 "text": "Viktor's words pique your curiosity"
+                                 " as he reveals the existence of the finest"
+                                 " armor, crafted from the lightest and"
+                                 " strongest feathers known."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Viktor Thornhart's eyes gleamed"
+                                 " with malice as he spoke."
+                             },
+                             {
+                                 "enemy": "You're no match for me, little"
+                                 " chicken. You'll never leave this place."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "enemy": "You've defeated me, Charlie. I have"
+                                 " no more fight left in me."
+                             },
+                         ],
+                         health=30,
+                         attack=5,
+                         defense=30
                      ),
+                     items=[
+                         Armour(
+                             name="Feathered Armor",
+                             description="Armor made from the finest"
+                             " feathers, light and strong.",
+                             defense=20
+                         ),
+                     ]
+                     )
             ]
 
             mystara_areas = []
@@ -1486,7 +1764,22 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Welcome to level 2!",
+                             "text": "Welcome to level 2! The level 2 is not"
+                             " ready yet. Please come back later.",
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "gameover": True
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are in Capital City",
                          },
                      ],
                      items=[],
@@ -1511,7 +1804,22 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Welcome to level 3!",
+                             "text": "Welcome to level 3! The level 3 is not"
+                             " ready yet. Please come back later.",
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "gameover": True
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are in Capital City",
                          },
                      ],
                      items=[],
@@ -1541,74 +1849,10 @@ class Game:
                 self.player = Player(
                     name=username,
                     health=100,
-                    attack=10,
+                    attack=15,
                     defense=10,
-                    potions=[
-                        Potion(
-                            name="Small Potion",
-                            health=25,
-                        )
-                    ],
-                    inventory=[Book(
-                        name="The Laughing Tree's Joke Book",
-                        description="A collection of the most"
-                        "whimsical and hearty chuckles sourced"
-                        "directly from the Laughing Tree of"
-                        "Cluckington Valley. This book promises to"
-                        "lift the spirits of anyone brave enough to"
-                        "open its pages, offering a light-hearted"
-                        " escape into the world of feathered humor.",
-                        storyLine=[
-                            {
-                                "text": "Giggles from the Canopy:"
-                                " The Laughing Tree's Joke Book",
-                                "delay": 0.6,
-                                "space": 1
-                            },
-                            {
-                                "text": "1. Why did the chicken join"
-                                " a band? Because it had the"
-                                " drumsticks ready!",
-                                "space": 0
-                            },
-                            {
-                                "text": "2. What do you call a"
-                                " chicken that haunts the barn? A"
-                                " poultry-geist!",
-                                "space": 0
-                            },
-                            {
-                                "text": "3. Why did the rooster go to"
-                                " the comedy show? To"
-                                " cockle-doodle-DOO its best"
-                                " impression!",
-                                "space": 0
-                            },
-                            {
-                                "text": "4. What does a chicken need"
-                                " to lay an egg every day?"
-                                " Hen-durance!",
-                                "space": 0
-                            },
-                            {
-                                "text": "5. How do chickens stay fit?"
-                                " Egg-ercise!",
-                                "space": 0
-                            },
-                            {
-                                "text": "6. What do you call a crazy"
-                                " chicken? A cuckoo cluck!",
-                                "space": 0
-                            },
-                            {
-                                "text": "7. Why did the chicken stop"
-                                " in the middle of the road? It saw"
-                                " the sign: 'Egg Xing'!",
-                                "space": 1
-                            }
-                        ]
-                    )
-                    ]
+                    potions=[],
+                    inventory=[]
                 )
                 break
             else:
@@ -1664,11 +1908,11 @@ class Game:
             self.show_player_stats()
         elif action == "contents":
             self.show_location_contents()
-        elif action == "search" or action == "s":
+        elif action in ["search", "s"]:
             self.search_current_area()
-        elif action == "inventory" or action == "i":
+        elif action in ["inventory", "i"]:
             self.show_inventory()
-        elif action == "potion":
+        elif action in ["potion", "potions", "p"]:
             self.select_potion()
         elif action == "reset":
             self.reset_game()
