@@ -1438,8 +1438,8 @@ class Game:
         item = the_item['item']
         quantity = the_item['quantity']
         name = item.name
-        print(f"You selected {name}.")
-        print(f"Quantity: {quantity}")
+        add_space()
+        text(f"You selected {name}.", space=1)
 
         action = input(
             "Do you want to 'use' or 'inspect' the item? (use/inspect): ")
