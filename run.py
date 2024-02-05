@@ -1344,13 +1344,13 @@ class Game:
         current_location = self.get_current_location()
         area_name = current_location.get_area_name_by_position(
             current_location.player_position)
-        text(f"\nCurrent Location: {current_location.name}")
-        text(f"Current Position: {area_name}", space=1)
+        text(f"{current_location.name} - {area_name}", space=1)
 
     def display_map(self) -> None:
         """
         This method displays the map of the current location.
         """
+        add_space()
         self.location_and_position()
         current_location = self.get_current_location()
         current_location.display_map()
@@ -1411,7 +1411,8 @@ class Game:
             text("Your inventory is empty.")
             return
 
-        text("Your inventory contains:")
+        add_space()
+        text("Your inventory contains:", space=1)
         for index, inventory_item in enumerate(self.player.inventory, start=1):
             item = inventory_item['item']
             quantity = inventory_item['quantity']
