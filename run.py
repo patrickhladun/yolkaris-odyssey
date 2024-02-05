@@ -40,6 +40,8 @@ class Enemy(Character):
         storyLine: list,
         storyLineVisited: list,
         storyLineFought: list,
+        storyLineWonFight: list,
+        storyLineLostFight: list,
         storyLineDefeated: list,
         health: int,
         attack: int,
@@ -50,6 +52,8 @@ class Enemy(Character):
         self.storyLine = storyLine
         self.storyLineVisited = storyLineVisited
         self.storyLineFought = storyLineFought
+        self.storyLineWonFight = storyLineWonFight
+        self.storyLineLostFight = storyLineLostFight
         self.storyLineDefeated = storyLineDefeated
         self.health = health
         self.attack = attack
@@ -90,13 +94,15 @@ class Interaction:
                 paragraph("- " + line['neutral'],
                           space=space, color=color_neutral, delay=delay)
             elif 'enemy' in line:
-                paragraph("X " + line['enemy'],
+                paragraph("- " + line['enemy'],
                           space=space, color=color_neutral, delay=delay)
             elif 'player' in line:
                 paragraph("- " + line['player'],
                           space=space, color=color_player, delay=delay)
             elif 'continue' in line:
                 ask_user('continue', space=space)
+            elif 'gameover' in line:
+                reset_game(game)
 
     def with_area(self, area, visited):
         add_space()
@@ -148,14 +154,12 @@ class Interaction:
             location.return_to_previous_position()
             return False
         elif results == "won":
-            text(f"You have defeated {enemy.name}!")
+            text(f"You have defeated {enemy.name}!", space=1)
+            self.print_story_line(enemy.storyLineWonFight)
             return True
         elif results == "lost":
-            text(f"You have been defeated by {enemy.name}!")
-            text("Game Over!")
-
-    def game_over(self):
-        text("Game Over!")
+            text(f"You have been defeated by {enemy.name}!", space=1)
+            self.print_story_line(enemy.storyLineLostFight)
 
 
 class Combat:
@@ -876,6 +880,9 @@ class Game:
                              },
                              {
                                  "continue": True
+                             },
+                             {
+                                 "gameover": True
                              }
                          ]
                      ),
@@ -984,7 +991,7 @@ class Game:
                              "text": "You are back in Bounty Harbour",
                          }
                      ],
-                     position=(1, 0),
+                     #  position=(1, 0),
                      ),
                 Area(name="Cluckington Valley",
                      storyLine=[
@@ -1148,78 +1155,249 @@ class Game:
                      position=(0, 1),
                      ),
                 Area(name="Crystal Hills",
-                     storyLine=[],
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "After his long and arduous journey,"
+                             " Charlie, the brave chicken from Yolkaris, finally"
+                             " stood at the threshold of Crystal Hills. The"
+                             " path he had traversed had been fraught with"
+                             " challenges and perils, but he had endured,"
+                             " driven by the unwavering purpose of obtaining"
+                             " the Time Crystal."
+                         },
+                         {
+                             "text": "Before him lay the Crystal Hills, a"
+                             " place of legend and wonder. The hills shimmered"
+                             " with the radiant glow of Time Crystals, each one"
+                             " a fragment of the past and the future. It had"
+                             " taken him many moons to reach this sacred place,"
+                             " and the weight of his quest rested heavily on"
+                             " his wings."
+                         },
+                         {
+                             "text": "The air was thick with an aura of"
+                             " ancient magic, and the very ground beneath his"
+                             " feet seemed to vibrate with the essence of time"
+                             " itself. Charlie could feel the watchful eyes of"
+                             " the guardian, Phineas Blackthorn, as he neared"
+                             " the heart of the Crystal Hills."
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "As Charlie continued his journey through"
+                             " the surreal and disorienting landscape of"
+                             " crystals, he couldn't help but reflect on the"
+                             " trials that had brought him here. The Time"
+                             " Crystal, the key to saving Yolkaris from"
+                             " impending darkness, was within his grasp, but"
+                             " first, he had to face the formidable guardian"
+                             " and prove himself."
+                         },
+                         {
+                             "text": "Phineas emerged from the shimmering"
+                             " crystals as if he were a part of the very fabric"
+                             " of time itself. His presence commanded the"
+                             " attention of the crystals that surrounded him,"
+                             " their luminous glow accentuating his enigmatic"
+                             " presence."
+                         },
+                         {
+                             "text": "As Charlie stood before Phineas"
+                             " Blackthorn, the guardian of the Time"
+                             " Crystals, a tense atmosphere hung in the"
+                             " air. The guardian, an enigmatic figure with"
+                             " a monocle and an impeccably groomed feather"
+                             " coat, gazed at Charlie with a wry smile."
+                         },
+                     ],
                      storyLineVisited=[],
                      enemy=Enemy(
-                         name="Garry",
+                         name="Phineas Blackthorn",
                          storyLine=[
                              {
-                                 "enemy": "Hello little one.",
-                                 "space": 1,
+                                 "continue": True
                              },
+                             {
+                                 "enemy": "Ah, young traveler, You've reached"
+                                 " the heart of the Crystal Hills, but before"
+                                 " you can claim the Time Crystal, there's a"
+                                 " challenge you must face."
+                             },
+                             {
+                                 "text": "Charlie furrowed his brow, awaiting"
+                                 " Phineas's instructions."
+                             },
+                             {
+                                 "enemy": "We shall have a test of your"
+                                 " skills and intelligence. If you succeed,"
+                                 " the Time Crystal will be yours. Fail, let's"
+                                 " just say you'll be the butt of some"
+                                 " egg-cellent jokes! Oh, ho ho! Ha ha ha! Hee"
+                                 " hee! Ah, ha ha! Hohoho! Ha ha ha! Heeheehe!"
+                                 " Ahahaha! Ho ho ho! Ha ha ha! Hee hee! Ah,"
+                                 " ha ha! Hilarious! Ho ho ho! Ha ha ha! Hee"
+                                 " hee! Ah, ha ha! Tremendous! Oh, ho ho! Ha"
+                                 " Marvelous! Ho ho ho! Ha ha! Uncontrollable!"
+                                 " Oh, ho ho! Ha ha! Hee hee! Oh, I am sorry,"
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "text": "Phineas finally said, his laughter"
+                                 " subsiding."
+                             },
+                             {
+                                 "enemy": "Do you accept the challenge?"
+                                 " Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
+                             }
                          ],
                          storyLineVisited=[
                              {
-                                 "enemy": "Do we fight or not?",
-                                 "space": 1,
+                                 "enemy": "Hey, welcome back, Charlie! Are you"
+                                 " ready this time to take on the challenge?"
+                                 " Can we fight? Ha ha ha! Sorry.",
                              },
                          ],
                          storyLineFought=[
                              {
-                                 "enemy": "He is back for more.",
-                                 "space": 1,
+                                 "enemy": "Ah, Charlie, back for another"
+                                 " round, I see. Ready to continue where we"
+                                 " left off, or have you come to reconsider?"
+                                 " The challenge awaits.",
                              },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "You have defeated Phineas Blackthorn."
+                                 " With a gracious nod and a smile, Phineas"
+                                 " Blackthorn conceded."
+                             },
+                             {
+                                 "enemy": "Well done, Charlie. You've proven"
+                                 " yourself worthy. You can now go and take"
+                                 " the Time Crystal; you have earned it."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Phineas Blackthorn couldn't help"
+                                 " but raise an eyebrow and quip"
+                             },
+                             {
+                                 "enemy": "Well, Charlie, I suppose you'll"
+                                 " have to stick to egg-citing adventures for"
+                                 " now. The Time Crystal remains elusive, like"
+                                 " a chicken chasing its tail!"
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
                          ],
                          storyLineDefeated=[
                              {
-                                 "text": "Here lies Garry, defeated by Charlie.",
-                                 "space": 1,
+                                 "text": "What else do you need, Charlie?"
+                                 " You've already bested me in our challenge,"
+                                 " and I have no more tests to offer.",
                              },
                          ],
-                         health=10,
-                         attack=5,
-                         defense=2
+                         health=50,
+                         attack=40,
+                         defense=20
                      ),
                      items=[Item(name="The Time Crystal")
                             ],
-                     position=(3, 1),
+                     position=(1, 0),
                      ),
                 Area(name="Yonder Forest",
-                     storyLine=[],
-                     storyLineVisited=[],
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Yonder Forest loomed ahead, a dense"
+                             " canopy of ancient trees whispering secrets from"
+                             " centuries past. Its shadowy depths, untouched by"
+                             " time, held both allure and mystery."
+                         },
+                         {
+                             "text": "Charlie paused at the forest's edge, the"
+                             " cool shade brushing against his feathers like a"
+                             " promise of the unknown. 'This forest has seen"
+                             " more seasons than we can fathom,' he thought,"
+                             " 'each tree a silent guardian of history.'"
+                         },
+                         {
+                             "player": "I better keep moving and make it"
+                             " through this forest before night falls. It's"
+                             " wise not to linger here when the shadows grow"
+                             " long. There's no telling what lurks in the dark."
+                         },
+                         {
+                             "text": "Taking a deep breath, Charlie stepped"
+                             " forward. The forest floor felt soft underfoot,"
+                             " inviting him deeper into the green shadows."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Yonder Forest",
+                         }
+                     ],
                      ),
                 Area(name="Clucker's Canyon",
                      storyLine=[
-                         #  {
-                         #      "clear": True
-                         #  },
-                         #  {
-                         #      "text": "Clucker's Canyon, with its echoing walls and"
-                         #      " towering red cliffs, is a marvel of nature on Yolkaris."
-                         #      " The canyon has witnessed the rise and fall of many"
-                         #      " civilizations, holding secrets of the past within its"
-                         #      " rugged landscape. It's said that the echoes in the"
-                         #      " canyon are the voices of ancient Yolkarians."
-                         #  },
-                         #  {
-                         #      "text": "The canyon is not just a historical site but also"
-                         #      " a treasure trove of mystery. Explorers and treasure"
-                         #      " hunters often delve into its depths, seeking lost"
-                         #      " artifacts of the chicken civilizations that once"
-                         #      " flourished here."
-                         #  },
-                         #  {
-                         #      "break": True
-                         #  },
-                         #  {
-                         #      "text": "Charlie - Every echo in Clucker's Canyon tells a"
-                         #      " story. I can almost hear the clucks and caws of the"
-                         #      " ancients. It's like they're still here, sharing their"
-                         #      " tales with anyone who listens. I wonder what stories the"
-                         #      " canyon walls would tell if they could talk"
-                         #  }
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Clucker's Canyon, with its echoing"
+                             " walls and towering red cliffs, is a marvel of"
+                             " nature on Yolkaris. The canyon has witnessed"
+                             " the rise and fall of many civilizations,"
+                             " holding secrets of the past within its rugged"
+                             " landscape. It's said that the echoes in the"
+                             " canyon are the voices of ancient Yolkarians."
+                         },
+                         {
+                             "text": "The canyon is not just a historical"
+                             " site but also a treasure trove of mystery."
+                             " Explorers and treasure hunters often delve"
+                             " into its depths, seeking lost artifacts of the"
+                             " chicken civilizations that once flourished"
+                             " here."
+                         },
+                         {
+                             "player": "I wonder what stories these cliffs"
+                             " could tell if they could talk. Ancient voices..."
+                             " I hope they can guide me on my quest. Mystery"
+                             " and treasure... sounds like an adventure waiting"
+                             " to happen. Lost artifacts... maybe they hold"
+                             " clues about The Time Crystal."
+                         }
                      ],
-                     storyLineVisited=[],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Clucker's Canyon",
+                         }
+                     ],
                      ),
                 Area(name="Bubble Beach",
                      storyLine=[
@@ -1362,13 +1540,13 @@ class Game:
                     not in username:
                 self.player = Player(
                     name=username,
-                    health=50,
+                    health=100,
                     attack=10,
                     defense=10,
                     potions=[
                         Potion(
                             name="Small Potion",
-                            health=10,
+                            health=25,
                         )
                     ],
                     inventory=[Book(
