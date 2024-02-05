@@ -120,6 +120,15 @@ def ask_user(
                 return False
             error = error if error else "Invalid input. Please enter 'yes' or 'no'."
             text(color_error + error + Fore.RESET, space=1)
+    elif type == "item":
+        prompt = prompt if prompt else "Do you want to 'use' or 'inspect' the item? (u/i): "
+        while True:
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().lower().strip()
+            if choice in ['use', 'u', 'inspect', 'i']:
+                return choice
+            error = error if error else "Invalid input. Please enter 'u' or 'i'."
+            text(color_error + error + Fore.RESET, space=1)
     elif type == "combat":
         prompt = "Do you want to 'fight' or 'retreat'? "
         while True:
