@@ -371,8 +371,10 @@ class Location:
                     text(f"{index + 1}. {name} (Quantity: {quantity})")
 
                 add_space()
-                choice = input(
-                    "Select an item to interact with (enter the number), or type '0' to cancel: ")
+                prompt = "Select an item number to interact with, or type '0' to cancel: "
+                choices = [str(i) for i in range(1, len(area.items) + 1)]
+                choice = ask_user("number", numbers=choices, prompt=prompt)
+
                 try:
                     choice_index = int(choice) - 1
                     if 0 <= choice_index < len(area.items):
@@ -1416,9 +1418,10 @@ class Game:
             name = item.name
             display_text = f"{index}. {name} (Quantity: {quantity})" if quantity > 1 else f"{index}. {name}"
             text(display_text)
-
-        choice = input(
-            "Choose an item to interact with (number), or type '0' to cancel: ")
+        add_space()
+        prompt = "Select an item number to interact with, or type '0' to cancel: "
+        choices = [str(i) for i in range(1, len(self.player.inventory) + 1)]
+        choice = ask_user("number", numbers=choices, prompt=prompt)
         try:
             choice_index = int(choice) - 1
             if 0 <= choice_index < len(self.player.inventory):
