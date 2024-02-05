@@ -742,49 +742,6 @@ class Game:
                                  },
                              ]
                          ),
-                         Armour(
-                             name="Feathered Armour",
-                             description="A set of armour made from"
-                             " enchanted feathers, offering protection"
-                             " and agility. (defense=8)",
-                             defense=8
-                         ),
-                         Potion(
-                             name="Medium Potion",
-                             health=50
-                         ),
-                         Potion(
-                             name="Small Potion",
-                             health=10
-                         ),
-                         Weapon(
-                             name="Beak Blade",
-                             description="A blade forged from the"
-                             " beak of a legendary phoenix, imbued with"
-                             " the essence of fire.",
-                             attack=12,
-                             actions=[
-                                 "Slash",
-                                 "Fireball"
-                             ]
-                         ),
-                         Armour(
-                             name="3D printed Armour",
-                             description="Home made armour. This armour"
-                             " was printed on a 3D printer wit PLA. "
-                             " (defense=0)",
-                             defense=0
-                         ),
-                         Weapon(
-                             name="Wooden Sword",
-                             description="A sword made from wood.",
-                             attack=1,
-                             actions=[
-                                 "Slash",
-                                 "Stab",
-                                 "Crack"
-                             ]
-                         )
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
@@ -1120,7 +1077,14 @@ class Game:
                              " you soon, with The Time Crystal in claw."
                          }
                      ],
-                     storyLineVisited=[],
+                     storyLineVisited=[
+                        {
+                            "clear": True
+                        },
+                        {
+                            "text": "You are back in Cluckington Valley",
+                        }
+                    ],
                      items=[Book(
                          name="The Laughing Tree's Joke Book",
                          description="A collection of the most"
@@ -1131,56 +1095,53 @@ class Game:
                          "open its pages, offering a light-hearted"
                          " escape into the world of feathered humor.",
                          storyLine=[
-                                     {
-                                         "clear": True
-                                     },
                              {
-                                         "text": "Giggles from the Canopy:"
+                                 "text": "Giggles from the Canopy:"
                                          " The Laughing Tree's Joke Book",
                                          "delay": 0.6,
                                          "space": 1
-                                     },
+                             },
                              {
-                                         "text": "1. Why did the chicken join"
+                                 "text": "1. Why did the chicken join"
                                          " a band? Because it had the"
                                          " drumsticks ready!",
                                          "space": 1
-                                     },
+                             },
                              {
-                                         "text": "2. What do you call a"
+                                 "text": "2. What do you call a"
                                          " chicken that haunts the barn? A"
                                          " poultry-geist!",
                                          "space": 0
-                                     },
+                             },
                              {
-                                         "text": "3. Why did the rooster go to"
+                                 "text": "3. Why did the rooster go to"
                                          " the comedy show? To"
                                          " cockle-doodle-DOO its best"
                                          " impression!",
                                          "space": 0
-                                     },
+                             },
                              {
-                                         "text": "4. What does a chicken need"
+                                 "text": "4. What does a chicken need"
                                          " to lay an egg every day?"
                                          " Hen-durance!",
                                          "space": 0
-                                     },
+                             },
                              {
-                                         "text": "5. How do chickens stay fit?"
+                                 "text": "5. How do chickens stay fit?"
                                          " Egg-ercise!",
                                          "space": 0
-                                     },
+                             },
                              {
-                                         "text": "6. What do you call a crazy"
+                                 "text": "6. What do you call a crazy"
                                          " chicken? A cuckoo cluck!",
                                          "space": 0
-                                     },
+                             },
                              {
-                                         "text": "7. Why did the chicken stop"
+                                 "text": "7. Why did the chicken stop"
                                          " in the middle of the road? It saw"
                                          " the sign: 'Egg Xing'!",
                                          "space": 1
-                                     }
+                             }
                          ]
                      )
                      ],
@@ -1262,73 +1223,72 @@ class Game:
                      ),
                 Area(name="Bubble Beach",
                      storyLine=[
-                         #  {
-                         #      "clear": True
-                         #  },
-                         #  {
-                         #      "text": "Bubble Beach is famous for its iridescent bubbles"
-                         #      " that float up from the sea. The bubbles are said to"
-                         #      " contain tiny galaxies, a reminder of the vastness of"
-                         #      " the universe."
-                         #  },
-                         #  {
-                         #      "text": "These bubbles are mesmerizing. Each one holds a"
-                         #      " tiny galaxy. It's a reminder of how small we are in this"
-                         #      " vast universe. But even the smallest pebble can make"
-                         #      " ripples across the water."
-                         #  }
+                        {
+                            "clear": True
+                        },
+                        {
+                            "text": "Bubble Beach is famous for its iridescent bubbles"
+                            " that float up from the sea. The bubbles are said to"
+                            " contain tiny galaxies, a reminder of the vastness of"
+                            " the universe."
+                        },
+                        {
+                            "text": "These bubbles are mesmerizing. Each one holds a"
+                            " tiny galaxy. It's a reminder of how small we are in this"
+                            " vast universe. But even the smallest pebble can make"
+                            " ripples across the water."
+                        }
                      ],
                      storyLineVisited=[],
                      ),
                 Area(name="Peckers Peak",
-                     storyLine=[
-                         #  {
-                         #      "clear": True
-                         #  },
-                         #  {
-                         #      "text": "Peckers Peak, the crowning glory of Yolkaris,"
-                         #      " stands tall, its heights veiled in the whispers"
-                         #      " of ancient tales. This revered summit, where the"
-                         #      " skies kiss the earth, was once the sacred"
-                         #      " observatory of the elder chickens."
-                         #  },
-                         #  {
-                         #      "text": "Here, under the canvas of the cosmos, they"
-                         #      " unraveled the mysteries of the stars, leaving a"
-                         #      " legacy etched in the winds. As Clucky's path"
-                         #      " ascends, each step is a journey through time."
-                         #  },
-                         #  {
-                         #      "text": "The winds carry legends, and the stones are"
-                         #      " etched with the wisdom of ages. Reaching the"
-                         #      " peak, Clucky is enveloped in a world of awe,"
-                         #      " the horizon stretching infinitely."
-                         #  },
-                         #  {
-                         #      "text": "The air is thick with the essence of bygone eras,"
-                         #      " and the silence speaks of hidden truths. Atop"
-                         #      " this celestial altar, where the ancient chickens"
-                         #      " once gazed upon the heavens."
-                         #  },
-                         #  {
-                         #      "text": "Clucky feels an overwhelming connection to the"
-                         #      " stars. Their ancient wisdom, like a forgotten"
-                         #      " song, resonates within him, guiding his heart."
-                         #      " The whispers of Peckers Peak instill in him a"
-                         #      " sense of purpose."
-                         #  },
-                         #  {
-                         #      "player": "Wow, the view from here is incredible!"
-                         #      " I can see the whole of Yolkaris and Crystal Hills."
-                         #      " It's said that the ancient chickens gazed at the stars"
-                         #      " from here, plotting their courses across the skies. If"
-                         #      " only I had their knowledge now...",
-                         #      "color": color_player
-                         #  },
+                    storyLine=[
+                          {
+                              "clear": True
+                          },
+                          {
+                              "text": "Peckers Peak, the crowning glory of Yolkaris,"
+                              " stands tall, its heights veiled in the whispers"
+                              " of ancient tales. This revered summit, where the"
+                              " skies kiss the earth, was once the sacred"
+                              " observatory of the elder chickens."
+                          },
+                          {
+                              "text": "Here, under the canvas of the cosmos, they"
+                              " unraveled the mysteries of the stars, leaving a"
+                              " legacy etched in the winds. As Clucky's path"
+                              " ascends, each step is a journey through time."
+                          },
+                          {
+                              "text": "The winds carry legends, and the stones are"
+                              " etched with the wisdom of ages. Reaching the"
+                              " peak, Clucky is enveloped in a world of awe,"
+                              " the horizon stretching infinitely."
+                          },
+                          {
+                              "text": "The air is thick with the essence of bygone eras,"
+                              " and the silence speaks of hidden truths. Atop"
+                              " this celestial altar, where the ancient chickens"
+                              " once gazed upon the heavens."
+                          },
+                          {
+                              "text": "Clucky feels an overwhelming connection to the"
+                              " stars. Their ancient wisdom, like a forgotten"
+                              " song, resonates within him, guiding his heart."
+                              " The whispers of Peckers Peak instill in him a"
+                              " sense of purpose."
+                          },
+                          {
+                              "player": "Wow, the view from here is incredible!"
+                              " I can see the whole of Yolkaris and Crystal Hills."
+                              " It's said that the ancient chickens gazed at the stars"
+                              " from here, plotting their courses across the skies. If"
+                              " only I had their knowledge now...",
+                              "color": color_player
+                          },
                      ],
-                     storyLineVisited=[],
-                     ),
-
+                    storyLineVisited=[],
+                ),
             ]
 
             mystara_areas = []
