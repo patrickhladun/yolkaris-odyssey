@@ -99,11 +99,13 @@ def ask_user(
             print(line_space)
     elif type == "number":
         while True:
-            prompt = prompt if prompt else ">>"
+            prompt = prompt if prompt else "Select a number: "
             print(color + prompt + Fore.RESET, end="")
             choice = input().strip()
             if choice in numbers:
                 return int(choice)
+            elif choice == '0':
+                return 0
             else:
                 error = error if error else "Invalid choice. Please select a correct number."
                 text(color_error + error + Fore.RESET, space=1)
