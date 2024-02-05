@@ -598,7 +598,7 @@ class Game:
         # clear_terminal()
         # text(f"Hey {self.player.name}!", delay=0.6, space=1)
         # paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
-        #           " thrilling adventure as Clucky, a courageous chicken with a"
+        #           " thrilling adventure as Charlie, a courageous chicken with a"
         #           " spirit of exploration. This game takes you to the"
         #           " beautiful planet of Yolkaris, where every corner is filled"
         #           " with wonder and mystery.")
@@ -668,7 +668,7 @@ class Game:
                          #  {
                          #       "text": "Here stands the Grand Clock, silent"
                          #       " sentinel of time, now frozen in an eerie"
-                         #       " stillness. Amidst this hush, Clucky, a beacon"
+                         #       " stillness. Amidst this hush, Charlie, a beacon"
                          #       " of hope, steps forward with valor and"
                          #       " inquisitiveness in his heart."
                          #   },
@@ -678,7 +678,7 @@ class Game:
                          #       " the city's veiled streets to the Timekeeper. At"
                          #       " the foot of the slumbering clock, a vestige of"
                          #       " arcane power, a quest of fate unfolds for"
-                         #       " Clucky."
+                         #       " Charlie."
                          #   },
                          #  {
                          #       "text": "Embarking on a quest through time's"
@@ -748,7 +748,7 @@ class Game:
                          questItem=Item(name="The Time Crystal"),
                          storyLine=[
                              #   {
-                             #       "neutral": "Ah, Clucky! The Grand Clock, our"
+                             #       "neutral": "Ah, Charlie! The Grand Clock, our"
                              #       " timeless guardian, has ceased its rhythmic"
                              #       " heartbeat. Its magic wanes. The Time"
                              #       " Crystal in Crystal Hills is the key to its"
@@ -811,7 +811,7 @@ class Game:
                          ],
                          storyLineVisited=[
                              {
-                                 "neutral": "Hey Clucky, do you have the"
+                                 "neutral": "Hey Charlie, do you have the"
                                  " crystal?",
                                  "space": 0,
                              },
@@ -827,7 +827,7 @@ class Game:
                          ],
                          storyLineCompleted=[
                              {
-                                 "neutral": "Ah, Clucky, you've returned! And"
+                                 "neutral": "Ah, Charlie, you've returned! And"
                                  " with the Time Crystal, no less?",
                                  "space": 0,
                              },
@@ -858,13 +858,13 @@ class Game:
                                  "text": "The townsfolk gather, eyes wide with"
                                  " wonder as the Grand Clock's hands resume"
                                  " their eternal dance. Cheers erupt, and"
-                                 " Clucky, standing beside the Timekeeper,"
+                                 " Charlie, standing beside the Timekeeper,"
                                  " watches as the shadow of stagnation lifts,"
                                  " giving way to a renewed flow of time.",
                                  "space": 1,
                              },
                              {
-                                 "neutral": "You've done it, Clucky! The heart"
+                                 "neutral": "You've done it, Charlie! The heart"
                                  " of Yolkaris beats once more, thanks to you."
                                  " This day will be remembered as the moment"
                                  " when time itself was mended by the courage"
@@ -894,18 +894,18 @@ class Game:
                               " the air."
                           },
                          {
-                              "text": "Clucky, amidst the vibrant chatter of"
+                              "text": "Charlie, amidst the vibrant chatter of"
                               " the marketplace and rhythmic creaking of ships,"
                               " takes in the colorful tapestry of sails and"
                               " flags, each narrating tales of distant lands"
                               " and mysterious seas."
                           },
                          {
-                              "text": "Tony, a seasoned sailor, spots Clucky"
+                              "text": "Tony, a seasoned sailor, spots Charlie"
                               " and approaches with a knowing smile.",
                           },
                          {
-                              "neutral": "Hey Clucky, on a mission for the"
+                              "neutral": "Hey Charlie, on a mission for the"
                               " clock? You're our beacon of hope, you know.",
                               "space": 0,
                           },
@@ -916,7 +916,7 @@ class Game:
                           },
                          {
                               "neutral": "Be careful out there, alright? We're"
-                              " counting on you, Clucky.",
+                              " counting on you, Charlie.",
                               "space": 0,
                           },
                          {
@@ -926,11 +926,11 @@ class Game:
                               "continue": True
                           },
                          {
-                              "text": "Sara, a cheerful trader, greets Clucky"
+                              "text": "Sara, a cheerful trader, greets Charlie"
                               " with enthusiasm.",
                           },
                          {
-                              "neutral": "Clucky, we're all rooting for you!"
+                              "neutral": "Charlie, we're all rooting for you!"
                               " You're our best chance to fix the clock.",
                               "space": 0,
                           },
@@ -941,20 +941,20 @@ class Game:
                           },
                          {
                               "neutral": "Bring back the magic, my friend. We"
-                              " believe in you, Clucky.",
+                              " believe in you, Charlie.",
                           },
                          {
-                              "text": "Garry, a local rival, sneers at Clucky.",
+                              "text": "Garry, a local rival, sneers at Charlie.",
                               "space": 1
                           },
                          {
-                              "neutral": "Saving the clock, Clucky? That's a"
+                              "neutral": "Saving the clock, Charlie? That's a"
                               " laugh. You? The hero? Guess we're really"
                               " desperate.",
                               "space": 1,
                           },
                          {
-                              "text": "Clucky, unfazed, responds with a smile.",
+                              "text": "Charlie, unfazed, responds with a smile.",
                               "space": 1
                           },
                          {
@@ -968,10 +968,10 @@ class Game:
                               "space": 1,
                           },
                          {
-                              "text": "As Clucky walks away, he feels the mixed"
+                              "text": "As Charlie walks away, he feels the mixed"
                               " vibes of support and skepticism, steeling"
                               " himself for the journey ahead. Determined,"
-                              " Clucky heads towards his next destination.",
+                              " Charlie heads towards his next destination.",
                               "space": 1
                           }
 
@@ -1032,7 +1032,7 @@ class Game:
                              "space": 0,
                          },
                          {
-                             "neutral": "Clucky, if anyone can find The Time"
+                             "neutral": "Charlie, if anyone can find The Time"
                              " Crystal, it's definitely you. You have a knack"
                              " for turning the impossible into the possible.",
                              "space": 0,
@@ -1064,7 +1064,7 @@ class Game:
                              "space": 0,
                          },
                          {
-                             "neutral": "I understand, Clucky. Just... promise"
+                             "neutral": "I understand, Charlie. Just... promise"
                              " me you'll return safe. The village won't be the"
                              " same without your adventurous tales.",
                              "space": 0,
@@ -1078,13 +1078,13 @@ class Game:
                          }
                      ],
                      storyLineVisited=[
-                        {
-                            "clear": True
-                        },
-                        {
-                            "text": "You are back in Cluckington Valley",
-                        }
-                    ],
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Cluckington Valley",
+                         }
+                     ],
                      items=[Book(
                          name="The Laughing Tree's Joke Book",
                          description="A collection of the most"
@@ -1172,7 +1172,7 @@ class Game:
                          ],
                          storyLineDefeated=[
                              {
-                                 "text": "Here lies Garry, defeated by Clucky.",
+                                 "text": "Here lies Garry, defeated by Charlie.",
                                  "space": 1,
                              },
                          ],
@@ -1212,7 +1212,7 @@ class Game:
                          #      "break": True
                          #  },
                          #  {
-                         #      "text": "Clucky - Every echo in Clucker's Canyon tells a"
+                         #      "text": "Charlie - Every echo in Clucker's Canyon tells a"
                          #      " story. I can almost hear the clucks and caws of the"
                          #      " ancients. It's like they're still here, sharing their"
                          #      " tales with anyone who listens. I wonder what stories the"
@@ -1223,62 +1223,62 @@ class Game:
                      ),
                 Area(name="Bubble Beach",
                      storyLine=[
-                        {
-                            "clear": True
-                        },
-                        {
-                            "text": "Bubble Beach is famous for its iridescent bubbles"
-                            " that float up from the sea. The bubbles are said to"
-                            " contain tiny galaxies, a reminder of the vastness of"
-                            " the universe."
-                        },
-                        {
-                            "text": "These bubbles are mesmerizing. Each one holds a"
-                            " tiny galaxy. It's a reminder of how small we are in this"
-                            " vast universe. But even the smallest pebble can make"
-                            " ripples across the water."
-                        }
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bubble Beach is famous for its iridescent bubbles"
+                             " that float up from the sea. The bubbles are said to"
+                             " contain tiny galaxies, a reminder of the vastness of"
+                             " the universe."
+                         },
+                         {
+                             "text": "These bubbles are mesmerizing. Each one holds a"
+                             " tiny galaxy. It's a reminder of how small we are in this"
+                             " vast universe. But even the smallest pebble can make"
+                             " ripples across the water."
+                         }
                      ],
                      storyLineVisited=[],
                      ),
                 Area(name="Peckers Peak",
-                    storyLine=[
+                     storyLine=[
                           {
                               "clear": True
                           },
-                          {
+                         {
                               "text": "Peckers Peak, the crowning glory of Yolkaris,"
                               " stands tall, its heights veiled in the whispers"
                               " of ancient tales. This revered summit, where the"
                               " skies kiss the earth, was once the sacred"
                               " observatory of the elder chickens."
                           },
-                          {
+                         {
                               "text": "Here, under the canvas of the cosmos, they"
                               " unraveled the mysteries of the stars, leaving a"
-                              " legacy etched in the winds. As Clucky's path"
+                              " legacy etched in the winds. As Charlie's path"
                               " ascends, each step is a journey through time."
                           },
-                          {
+                         {
                               "text": "The winds carry legends, and the stones are"
                               " etched with the wisdom of ages. Reaching the"
-                              " peak, Clucky is enveloped in a world of awe,"
+                              " peak, Charlie is enveloped in a world of awe,"
                               " the horizon stretching infinitely."
                           },
-                          {
+                         {
                               "text": "The air is thick with the essence of bygone eras,"
                               " and the silence speaks of hidden truths. Atop"
                               " this celestial altar, where the ancient chickens"
                               " once gazed upon the heavens."
                           },
-                          {
-                              "text": "Clucky feels an overwhelming connection to the"
+                         {
+                              "text": "Charlie feels an overwhelming connection to the"
                               " stars. Their ancient wisdom, like a forgotten"
                               " song, resonates within him, guiding his heart."
                               " The whispers of Peckers Peak instill in him a"
                               " sense of purpose."
                           },
-                          {
+                         {
                               "player": "Wow, the view from here is incredible!"
                               " I can see the whole of Yolkaris and Crystal Hills."
                               " It's said that the ancient chickens gazed at the stars"
@@ -1287,8 +1287,8 @@ class Game:
                               "color": color_player
                           },
                      ],
-                    storyLineVisited=[],
-                ),
+                     storyLineVisited=[],
+                     ),
             ]
 
             mystara_areas = []
