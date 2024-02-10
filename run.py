@@ -599,35 +599,36 @@ class Game:
         """
         This method sets up the game.
         """
-        clear_terminal()
-        game_title()
-        text("Welcome to Yolkaris Odyssey, a text-base"
-             " adventure game.", delay=0.1)
-        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+        # clear_terminal()
+        # game_title()
+        # text("Welcome to Yolkaris Odyssey, a text-base"
+        #      " adventure game.", delay=0.1)
+        # text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
         ask_user(type='continue',
                  prompt='Press enter to start the game: ', space=0)
         clear_terminal()
         self.create_player()
-        clear_terminal()
-        text(f"Hey {self.player.name}!", delay=0.6, space=1)
-        paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
-                  " thrilling adventure as Charlie, a courageous chicken with a"
-                  " spirit of exploration. This game takes you to the"
-                  " beautiful planet of Yolkaris, where every corner is filled"
-                  " with wonder and mystery.")
-        paragraph("Yolkaris Odyssey presents three enthralling tales, each"
-                  " unfolding in its own unique way. Discover the mysteries"
-                  " hidden within the dense forests of Mystara, experience the"
-                  " ethereal beauty of Luminara's radiant fields, and delve"
-                  " into the ancient, forgotten lore that pervades every inch"
-                  " of Yolkaris. Each path you choose leads to new discoveries"
-                  " and adventures.")
-        game_level = self.select_game_level()
+        # clear_terminal()
+        # text(f"Hey {self.player.name}!", delay=0.6, space=1)
+        # paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
+        #           " thrilling adventure as Charlie, a courageous chicken with a"
+        #           " spirit of exploration. This game takes you to the"
+        #           " beautiful planet of Yolkaris, where every corner is filled"
+        #           " with wonder and mystery.")
+        # paragraph("Yolkaris Odyssey presents three enthralling tales, each"
+        #           " unfolding in its own unique way. Discover the mysteries"
+        #           " hidden within the dense forests of Mystara, experience the"
+        #           " ethereal beauty of Luminara's radiant fields, and delve"
+        #           " into the ancient, forgotten lore that pervades every inch"
+        #           " of Yolkaris. Each path you choose leads to new discoveries"
+        #           " and adventures.")
+        # game_level = self.select_game_level()
+        game_level = 2
         self.setup_areas(game_level)
         clear_terminal()
-        loading(['Generating game', '.', '.', '.',
-                '.', '.', '.', '.'], 'Game generated')
-        loading(['Starting game', '.', '.', '.', '.'])
+        # loading(['Generating game', '.', '.', '.',
+        #         '.', '.', '.', '.'], 'Game generated')
+        # loading(['Starting game', '.', '.', '.', '.'])
         self.assign_player_to_location()
         self.current_location = 0
         starting_location = self.get_current_location()
@@ -1629,6 +1630,27 @@ class Game:
                              "delay": 0.6,
                              "space": 1
                          },
+                         {
+                             "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
+                             " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
+                             " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
+                             " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
+                             " the inhabitants as their vibrant home edges toward oblivion."
+                         },
+                         {
+                             "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
+                             " of legend. Crafted in the forge of time by beings whose existence predates the stars"
+                             " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
+                             " scatter the Dark Dust and restore balance to the cosmos."
+                         },
+                         {
+                             "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
+                             " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
+                             " ancient beings, showcases the bravery that dwells within the most unexpected champions."
+                         },
+                         {
+                           "continue": True
+                         }
                      ],
                      storyLineVisited=[
                          {
@@ -1637,8 +1659,7 @@ class Game:
                          {
                              "text": "Back in Capital City, the stillness of"
                              " the Grand Clock looms, casting a silent shadow"
-                             " over the timeless streets.",
-                             "space": 1
+                             " over the timeless streets."
                          }
                      ],
                      items=[],
@@ -1647,11 +1668,40 @@ class Game:
                          questItem=Item(name="Aurora Orb"),
                          storyLine=[
                              {
-                                 "neutral": "Hey Charlie",
-                                 "space": 0,
+                                 "text": "Archibald Thorne, a seasoned navigator of the cosmos, leaned closer, his"
+                                 " voice a blend of wisdom and urgency. ",
+
                              },
                              {
-                                 "text": "Story here"
+                                 "neutral": "Charlie, the fate of our world hangs in the balance. The Dark Dust"
+                                 " threatens to consume all that is vibrant and alive. But you, my friend, have a"
+                                 " destiny that extends beyond the stars."
+                             },
+                             {
+                                 "text": "He paused, ensuring Charlie's full attention.",
+                             },
+                             {
+                                 "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
+                                 " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
+                                 " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
+                                 " courage, will be your chariot among the stars.",
+                                 "space": 0
+                             },
+                             {
+                                 "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
+                                 " secrets. There, you will find the clues necessary to guide you on your quest for the"
+                                 " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
+                                 " to navigating the challenges that lie between the realms of known and unknown.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
+                                 " indecipherable to the uninitiated."
+                             },
+                             {
+                                 "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
+                                 " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
+                                 " braving the infinite night."
                              },
                              {
                                  "continue": True
