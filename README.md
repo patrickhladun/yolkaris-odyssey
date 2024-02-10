@@ -18,7 +18,7 @@ Yolkaris Odyssey is a text-based adventure game where you explore the vibrant pl
 ### Starting the Game
 Launch the Game: After installing, run the game using Python in your terminal or command prompt:
 
-```python yolkaris_odyssey.py```
+```python run.py```
 
 Enter Your Name: You'll be prompted to enter a name for your character. This name will be used throughout your adventure.
 
@@ -35,7 +35,6 @@ Enter Your Name: You'll be prompted to enter a name for your character. This nam
 - `search`: Investigate your current location for hidden items or secrets.
 - `reset`: Resets the game, allowing you to start over from the main screen.
 - `quit`: Exits the game.
-
 
 ## Features
 

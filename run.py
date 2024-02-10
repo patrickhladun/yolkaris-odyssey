@@ -540,6 +540,10 @@ class Book(Item):
         self.storyLine = storyLine
 
 
+class Spaceship(Item):
+    def __init__(self, name: str, description: str) -> None:
+        super().__init__(name, description)
+
 def game_title() -> None:
     """
     This is the main menu.
@@ -635,9 +639,8 @@ class Game:
         This method allows the player to select the game level.
         """
         text("Select your Game:", delay=0.2, space=1)
-        text("  1. Just a quick game", delay=0.2)
-        text("  2. Not to short not to long", delay=0.2)
-        text("  3. No save points - a true test of endurance", delay=0.2, space=1)
+        text("  1. The Broken Clock", delay=0.2)
+        text("  2. The Dark Dust", delay=0.2, space=1)
         return ask_user(type="number", numbers=['1', '2', '3'])
 
     def start_game(self) -> None:
@@ -1736,45 +1739,6 @@ class Game:
 
             luminara_areas = []
 
-        elif level == 3:
-
-            yolkaris_size = (2, 1)
-            mystara_size = (2, 2)
-            luminara_size = (4, 3)
-
-            yolkaris_areas = [
-                Area(name="Capital City",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Welcome to level 3! The level 3 is not"
-                             " ready yet. Please come back later.",
-                         },
-                         {
-                             "continue": True
-                         },
-                         {
-                             "gameover": True
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are in Capital City",
-                         },
-                     ],
-                     items=[],
-                     position=(0, 0),
-                     ),
-            ]
-
-            mystara_areas = []
-
-            luminara_areas = []
 
         self.location_objects = {
             "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas),
