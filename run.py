@@ -81,6 +81,9 @@ class Interaction:
     def __init__(self, player):
         self.player = player
 
+    def add_new_item(self, item):
+        self.player.inventory.append(item)
+
     def print_story_line(self, storyLine):
         for line in storyLine:
             space = line['space'] if 'space' in line else 1
@@ -101,6 +104,8 @@ class Interaction:
                           space=space, color=color_player, delay=delay)
             elif 'continue' in line:
                 ask_user('continue', space=space)
+            elif 'item' in line:
+                self.add_new_item(line['item'])
             elif 'gameover' in line:
                 reset_game(game)
 
@@ -1615,7 +1620,7 @@ class Game:
 
         elif level == 2:
 
-            yolkaris_size = (1, 2)
+            yolkaris_size = (2, 2)
             mystara_size = (2, 3)
             luminara_size = (3, 3)
 
@@ -1782,6 +1787,142 @@ class Game:
                          ]
                      ),
                      position=(0, 0),
+                     ),
+                Area(name="Bounty Harbour",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bounty Harbour bustles with life, a hub "
+                                     " for seafaring souls and wandering traders. The"
+                                     " aroma of the ocean mingles with exotic spices,"
+                                     " weaving a tapestry of adventure and mystery in"
+                                     " the air."
+                         },
+                         {
+                             "text": "Charlie, amidst the vibrant chatter of"
+                                     " the marketplace and rhythmic creaking of ships,"
+                                     " takes in the colorful tapestry of sails and"
+                                     " flags, each narrating tales of distant lands"
+                                     " and mysterious seas."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Bounty Harbour",
+                         }
+                     ],
+                     items=[],
+                     position=(1, 0),
+                     ),
+                Area(name="Gearhaven District",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Charlie's journey led him to the heart of Gearhaven District, a place where the"
+                             " past and future collided amidst gears and gizmos. Nestled within this industrial bastion"
+                             " was Eudora Quasar's workshop, a veritable cavern of wonders where metal met magic under"
+                             " her skilled hands."
+                         },
+                         {
+                             "neutral": "Ah, Charlie,",
+                         },
+                         {
+                             "text": "she exclaimed, her voice echoing slightly in the vast space."
+                         },
+                         {
+                                "neutral": "I've been expecting you. Archibald sent word of your quest. It's not"
+                                " every day we get to send someone off to the stars."
+                         },
+                         {
+                             "text": "She led Charlie to a peculiar object covered by a tarp. With a dramatic flourish,"
+                             " she unveiled the Nebula Voyager II. The small, egg-shaped vessel sat innocuously on the"
+                             " workbench, its surface smooth and enigmatic."
+                         },
+                         {
+                             "neutral": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
+                             " It can carry you across the galaxies, transforming from this compact egg to a fully"
+                             " equipped starship at your command."
+                         },
+                         {
+                             "item": Spaceship(
+                                 name="Nebula Voyager II",
+                                 description="The Nebula Voyager II stands as a marvel of cosmic engineering,"
+                            "seamlessly blending elegance with functionality. This compact vessel transforms from the"
+                             " size of an egg into a sleek, two-to-three-seater starship, designed for ease of"
+                             " transport and rapid interstellar travel. Its hull, reflecting the myriad colors of deep"
+                             " space, houses a hyperdrive capable of swift journeys across galaxies, while its"
+                             " transparent cockpit offers breathtaking views of the cosmos. Inside, the Voyager's"
+                             " efficient layout includes life-support systems, advanced navigation controls, and ample"
+                             " storage, all within a space that maximizes comfort for its adventurers. It's more than"
+                             " a ship; it's a gateway to the unknown, crafted for those brave enough to explore the"
+                             " mysteries of the universe. The Nebula Voyager II is a testament to the spirit of"
+                             " exploration, inviting its passengers to embark on journeys beyond the stars."
+                             )
+                         },
+                         {
+                             "text": "You have received an item: Nebula Voyager II"
+                         },
+                         {
+                             "text": "Charlie examined the Nebula Voyager II, a mix of awe and curiosity in his eyes."
+                             " Eudora explained its operation, how a twist and a press could unfold the universe's"
+                             " mysteries before him."
+                         },
+                         {
+                             "neutral": "As you embark on your journey to Mystara and beyond, remember, the path will"
+                             " not be easy, but the Nebula is more than a vessel. It's a companion, one that will"
+                             " guide you through the darkest reaches and bring you home."
+                         },
+                         {
+                             "text": "Charlie nodded, his heart swelling with gratitude and determination."
+                         },
+                         {
+                             "player": "Thank you, Eudora. I won't let you down."
+                         },
+                         {
+                             "text": "As he left the workshop, the Nebula Voyager II in hand, Charlie felt the weight"
+                             " of his mission anew. But with the support of friends like Eudora and the ingenuity of"
+                             " Gearhaven District behind him, he knew he was ready to face whatever the cosmos held."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Cluckington Valley",
+                         }
+                     ],
+                     items=[],
+                     neutral=Neutral("Eudora Quasar",
+                         storyLine=[
+                         ],
+                                 storyLineVisited=[
+                                        {
+                                            "neutral": "Welcome back, Charlie. The Nebula Voyager II is ready for your next"
+                                            " adventure."
+                                        },
+
+                         ],
+                         storyLineCompleted=[
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ]
+                     ),
+                     position=(0, 1),
                      ),
             ]
 
