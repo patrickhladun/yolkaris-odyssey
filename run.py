@@ -1611,9 +1611,9 @@ class Game:
 
         elif level == 2:
 
-            yolkaris_size = (2, 2)
-            mystara_size = (1, 1)
-            luminara_size = (1, 1)
+            yolkaris_size = (1, 2)
+            mystara_size = (2, 3)
+            luminara_size = (3, 3)
 
             yolkaris_areas = [
                 Area(name="Capital City",
@@ -1622,25 +1622,112 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Welcome to level 2! The level 2 is not"
-                             " ready yet. Please come back later.",
+                             "text": "The Dark Dust",
+                             "delay": 0.6,
+                             "space": 1
                          },
-                         {
-                             "continue": True
-                         },
-                         {
-                             "gameover": True
-                         }
                      ],
                      storyLineVisited=[
                          {
                              "clear": True
                          },
                          {
-                             "text": "You are in Capital City",
-                         },
+                             "text": "Back in Capital City, the stillness of"
+                             " the Grand Clock looms, casting a silent shadow"
+                             " over the timeless streets.",
+                             "space": 1
+                         }
                      ],
                      items=[],
+                     neutral=Neutral(
+                         name="Archibald Thorne",
+                         questItem=Item(name="Aurora Orb"),
+                         storyLine=[
+                             {
+                                 "neutral": "Hey Charlie",
+                                 "space": 0,
+                             },
+                             {
+                                 "text": "Story here"
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "clear": True
+                             },
+                             {
+                                 "text": "Embark on the Yolkaris Odyssey with"
+                                 " these words of guidance:"
+                             },
+                             {
+                                 "text": "In this tale, your journey begins"
+                                 " in Yolkaris, a realm of myths and"
+                                 " mysteries."
+                             },
+                             {
+                                 "text": "- Use the 'map' command to find your"
+                                 " path within this enchanted land.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Traverse the land through 'north',"
+                                 " 'south', 'east', and 'west'. Discover your"
+                                 " destiny.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- In your quest, 'search' the areas"
+                                 " for hidden treasures and secrets.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep your inventory filled with"
+                                 " artifacts and tools. Check it with the"
+                                 " 'inventory' command.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- When your health is low, 'potion'"
+                                 " can be used to restore your vitality.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep an eye on your 'stats' to"
+                                 " track your progress.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- If you require guidance, simply"
+                                 " type 'help' to view a list of available"
+                                 " commands.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- To begin anew or end your"
+                                 " adventure, use 'reset' or 'quit' anytime."
+                             },
+                             {
+                                 "text": "Good fortune on your quest. May your"
+                                 " journey be filled with wonder.",
+                                 "space": 0
+                             },
+                         ],
+                         storyLineVisited=[
+
+                         ],
+                         storyLineCompleted=[
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ]
+                     ),
                      position=(0, 0),
                      ),
             ]
@@ -1651,9 +1738,9 @@ class Game:
 
         elif level == 3:
 
-            yolkaris_size = (2, 2)
-            mystara_size = (1, 1)
-            luminara_size = (1, 1)
+            yolkaris_size = (2, 1)
+            mystara_size = (2, 2)
+            luminara_size = (4, 3)
 
             yolkaris_areas = [
                 Area(name="Capital City",
