@@ -448,6 +448,12 @@ class Location:
                 player.inventory.append(item)
                 area.items.remove(item)
 
+    def print_travel_story_line(self, direction):
+       if direction in self.travel:
+           for line in self.travel[direction]:
+                paragraph(line, space=1, delay=0.6)
+
+
 
 class Yolkaris(Location):
     def __init__(self, size, areas, travel) -> None:
@@ -1936,11 +1942,37 @@ class Game:
 
             luminara_areas = []
 
+            yolkaris_travel = {
+                "to":  [
+                    "The Nebula Voyager II approached Yolkaris, its engines humming softly. As it landed, the ship retracted into its compact egg form, leaving Charlie gazing at the familiar vistas of his home planet. 'Back to where it all began,' he thought, pocketing the egg and stepping onto the verdant fields of Yolkaris."
+                ],
+                "from": [
+                    "Charlie held the egg-sized Nebula Voyager II, giving it a precise twist and press. He placed it gently on the ground, stepping back as it whirred and expanded into the sleek spaceship within seconds. With a determined glance at Yolkaris' fading skyline, he boarded, ready for the stars to guide his next adventure."
+                ]
+            }
+
+            mystara_travel = {
+                "to": [
+                    "Mystara's rugged terrain came into view as Charlie descended. Once landed, the Nebula Voyager II collapsed back into its egg form with a series of mechanical whispers. Charlie picked up the compact egg, the mysteries of Mystara awaiting his exploration under its ancient skies."
+                ],
+                "from": [
+                    "As the mystic hues of Mystara's atmosphere enveloped him, Charlie prepared the Nebula Voyager II for departure. With a twist and a press, the egg transformed, its form unfolding into the starship that gleamed under the alien sun. Charlie entered the cockpit, his heart set on the cosmic paths that lay ahead."
+                ]
+            }
+
+            luminara_travel = {
+                "to": [
+                    "Luminara's brilliance welcomed Charlie as he landed. The Nebula Voyager II transformed back into its egg state, compact and enigmatic. Holding the egg, Charlie stepped out into the gleaming world, its luminescent beauty spreading out before him, a canvas of light and shadow."
+                ],
+                "from": [
+                    "In the radiant glow of Luminara, Charlie activated the Nebula Voyager II. The small egg expanded into his interstellar vessel in mere moments, its panels locking into place with a satisfying click. He looked back at the shimmering landscapes one last time before embarking on his journey through the velvet cosmos."
+                ]
+            }
 
         self.location_objects = {
-            "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas),
-            "Mystara": Mystara(mystara_size, mystara_areas),
-            "Luminara": Luminara(luminara_size, luminara_areas),
+            "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas, yolkaris_travel),
+            "Mystara": Mystara(mystara_size, mystara_areas, mystara_travel),
+            "Luminara": Luminara(luminara_size, luminara_areas, luminara_travel)
         }
 
     def create_player(self) -> None:
@@ -2181,19 +2213,35 @@ class Game:
             self.travel_to_new_location()
 
     def travel_to_new_location(self):
-        current_location = self.get_current_location()
-        new_location = ask_user("number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
-        new_location_index = int(new_location) - 1
         locations = ['Yolkaris', 'Mystara', 'Luminara']
-        new_location_name = locations[new_location_index]
-        self.current_location = new_location_index
         current_location = self.get_current_location()
-        current_location.player_position = (0, 0)
-        current_location.player_prev_position = (0, 0)
-        current_location.mark_visited((0, 0))
+        add_space()
+        text("Select a location to travel to:", space=1)
 
+        # List available locations to travel to
+        for index, location in enumerate(locations, start=1):
+            if location != current_location.name:
+                text(f"{index}. {location}")
+            else:
+                text(f"{index}. {location} (Current Location)")
+        add_space()
 
+        # Get the user's choice
+        choice = ask_user("number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
+        selected_location_index = int(choice) - 1
+        self.current_location = selected_location_index
 
+        new_location = self.get_current_location()
+        new_location.player_position = (0, 0)
+        new_location.player_prev_position = (0, 0)
+        new_location.mark_visited((0, 0))
+
+        add_space()
+        current_location.print_travel_story_line('from')
+        loading([f'{current_location.name} ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', f'{new_location.name}'])
+        add_space()
+        add_space()
+        new_location.print_travel_story_line('to')
 
     def select_potion(self):
         if not self.player.potions:
