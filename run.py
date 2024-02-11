@@ -237,15 +237,17 @@ class Combat:
 
 class Location:
     def __init__(
-        self,
-        name: str,
-        description: str,
-        size: tuple,
-        areas: dict
+            self,
+            name: str,
+            description: str,
+            size: tuple,
+            areas: dict,
+            travel: dict
     ) -> None:
         self.name = name
         self.description = description
         self.size = size
+        self.travel = travel
         self.areas = areas if areas else []
         self.player_position = (0, 0)
         self.player_prev_position = (0, 0)
@@ -437,6 +439,7 @@ class Location:
                 area.items.remove(item)
                 text("You have added the book to your inventory.", space=1)
 
+
         elif isinstance(item, Item):
             name = item.name
             add_space()
@@ -447,46 +450,49 @@ class Location:
 
 
 class Yolkaris(Location):
-    def __init__(self, size, areas) -> None:
+    def __init__(self, size, areas, travel) -> None:
         super().__init__(
             name="Yolkaris",
             description="A vibrant planet with diverse ecosystems.",
             size=size,
-            areas=areas
+            areas=areas,
+            travel=travel
         )
 
 
 class Mystara(Location):
-    def __init__(self, size, areas) -> None:
+    def __init__(self, size, areas, travel) -> None:
         super().__init__(
             name="Mystara",
             description="A mysterious planet covered in thick jungles.",
             size=size,
-            areas=areas
+            areas=areas,
+            travel=travel
         )
 
 
 class Luminara(Location):
-    def __init__(self, size, areas) -> None:
+    def __init__(self, size, areas, travel) -> None:
         super().__init__(
             name="Luminara",
             description="A radiant planet with a luminous landscape.",
             size=size,
-            areas=areas
+            areas=areas,
+            travel=travel
         )
 
 
 class Area:
     def __init__(
-        self,
-        name: str,
-        storyLine: list,
-        storyLineVisited: list,
-        visited: bool = False,
-        enemy=None,
-        neutral=None,
-        position=None,
-        items=None,
+            self,
+            name: str,
+            storyLine: list,
+            storyLineVisited: list,
+            visited: bool = False,
+            enemy=None,
+            neutral=None,
+            position=None,
+            items=None,
     ) -> None:
         self.name = name
         self.storyLine = storyLine
@@ -2171,6 +2177,23 @@ class Game:
         if isinstance(item, Book):
             text(f"You have read the {name}.")
             Interaction.print_story_line(self, item.storyLine)
+        elif isinstance(item, Spaceship):
+            self.travel_to_new_location()
+
+    def travel_to_new_location(self):
+        current_location = self.get_current_location()
+        new_location = ask_user("number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
+        new_location_index = int(new_location) - 1
+        locations = ['Yolkaris', 'Mystara', 'Luminara']
+        new_location_name = locations[new_location_index]
+        self.current_location = new_location_index
+        current_location = self.get_current_location()
+        current_location.player_position = (0, 0)
+        current_location.player_prev_position = (0, 0)
+        current_location.mark_visited((0, 0))
+
+
+
 
     def select_potion(self):
         if not self.player.potions:
