@@ -2088,7 +2088,63 @@ class Game:
                          {
                              "text": "Returning to Moonlight Market"
                          }
-                     ]),
+                     ],
+                     enemy=Enemy(
+                         name="Nomo Gerhad",
+                         storyLine=[
+                             {
+                                 "text": "Ambling through the Moonlight Market's labyrinth of stalls, Charlie immerses himself in the vibrant tapestry of cosmic commerce. His senses are alive with the exotic scents of alien spices and the colorful displays of interstellar artifacts. It's a place where the universe converges, offering treasures from every corner of the galaxy."
+                             },
+                             {
+                                 "text": "His wanderlust momentarily sated by small purchases, Charlie's attention is suddenly snatched by a familiar figure darting through the throng. 'Caesar!' he calls out, recognizing the silhouette of an old friend. With a mix of excitement and curiosity, he weaves through the crowd, his calls drowned by the cacophony of the market."
+                             },
+                             {
+                                 "text": "The figure leads him into a shadow-clad alley, away from the luminous glow of the stalls. The bustling sounds of the market fade into an eerie silence, replaced by the muted echoes of their footsteps. 'Caesar, wait!' Charlie urges, but as the figure turns, a chilling transformation unfolds."
+                             },
+                             {
+                                 "text": "Before Charlie stands not Caesar, but a creature with a pale, featureless face, its form shifting unsettlingly. This is Nomo Gerhad, known amongst the market's shadows as a shapeshifting thief. Unlike his kin, who often use their gifts for benign purposes, Nomo preys on the unsuspecting, luring them with the guise of familiar faces."
+                             },
+                             {
+                                 "text": 'With a sinister grace, Nomo produces a knife, its blades gleaming ominously in the dim light. "Empty your pockets, little one," he hisses, a threat veiled in quiet menace.'
+                             },
+                             {
+                                 "player": "You've picked the wrong target. I won't be parting with my belongings today."
+                             },
+                             {
+                                 "text": "Faced with a dire choice, Charlie must quickly decide: confront Nomo Gerhad in a desperate bid for self-defense or attempt to outpace the thief's malevolence in a sprint for safety."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "'Fancy seeing you here again,' Nomo taunts, a smirk playing on his lips. 'Ready for another lesson, or will you surprise me this time?'"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "Bruised from their last encounter, Charlie faces Nomo with a newfound resolve. 'You won't best me again,' he declares, the market's ambient light glinting off his determination."
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With a decisive blow, Charlie bests Nomo Gerhad, watching as the creature's guise fades, leaving behind only the truth of his deceit. 'Your tricks end here,' Charlie proclaims, victorious."
+                             },
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Overwhelmed by Nomo's guile, Charlie stumbles, the market's din fading as darkness claims him. 'Better luck next time,' Nomo's voice echoes mockingly in the void."
+                             },
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "Ambling through the market once more, Charlie's eyes meet Nomo's. There's no malice this time, only a nod of respect. 'You've earned your peace,' Nomo concedes, disappearing into the crowd."
+                             },
+                         ],
+                         health=60,
+                         attack=20,
+                         defense=10,
+                         fought=False
+                     ),
+                     ),
                 Area(name="Observatory",
                      storyLine=[
                          {
