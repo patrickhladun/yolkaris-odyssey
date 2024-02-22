@@ -66,7 +66,7 @@ class Neutral(Character):
             self,
             name,
             storyLine,
-            storyLineVisited,
+            storyLineVisited=None,
             storyLineCompleted=None,
             questItem=None
     ) -> None:
@@ -2157,7 +2157,40 @@ class Game:
                          {
                              "text": "Returning to Observatory"
                          }
-                     ]),
+                     ],
+                     neutral=Neutral(
+                         name="SpaceWalker Jones",
+                         storyLine=[
+                             {
+                                 "text": "In the heart of Astral Port, amidst the hum of intergalactic commerce and the kaleidoscope of alien diversity, Charlie spots a familiar face. Spacewalker Jones, his old friend from the distant and peculiar planet Earth, approaches with a wide grin.",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "Jones, whose tales of adventure span the cosmos, greets Charlie with the warmth of a thousand suns. 'Charlie, my friend! It's been too long,' he exclaims, clapping Charlie on the back. 'How's the quest going?'",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "Over cups of steaming galactic brew, Jones listens intently to Charlie's tale of Yolkaris and the encroaching Dark Dust. With each word, his eyes twinkle with the promise of adventure and knowledge.",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "'Ah, the Aurora Orb, you say? Fascinating!' Jones muses, leaning back. 'I've heard whispers of such artifacts during my travels. Powers beyond imagination... But it's the Old Citadel that you should seek out. Within its walls lie secrets ancient and profound.'",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "Charlie, heartened by Jones's guidance, feels a renewed vigor. 'Thank you, Jones. I knew you'd have some wisdom to share,' he says, a smile breaking across his face.",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "'Remember, Charlie,' Jones replies, his gaze piercing the starlit void outside, 'the universe is vast, filled with mysteries waiting to be unraveled. Keep your curiosity alive; it's the most powerful tool you have.'",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "With a final hearty laugh, Jones melds back into the tapestry of the port, leaving Charlie to ponder the journey ahead. The brief reunion, a reminder of the bonds forged across the stars, propels Charlie forward, the Old Citadel and its secrets calling to him.",
+                                 "space": 1
+                             }
+                         ]
+                     )),
                 Area(name="Sanctuary",
                      storyLine=[
                          {
@@ -2170,20 +2203,114 @@ class Game:
                          {
                              "text": "Returning to Sanctuary"
                          }
-                     ]),
+                     ],
+                     enemy=Enemy(
+                         name="Viktor Draven",
+                         storyLine=[
+                             {
+                                 "text": "In the serene silence of Sanctuary, a shadow looms large, casting an ominous pall over the hallowed grounds. Standing at its heart is Viktor Draven, once a revered guardian of the Sanctuary, now turned rogue. His betrayal is shrouded in mystery, a tale of power corrupting absolutely."
+                             },
+                             {
+                                 "text": "Viktor's eyes, once bright with the light of protection, now glint with malevolence. 'So, you seek the Aurora Orb,' he muses, a cold smile playing upon his lips. 'A noble quest, but one that ends here, with me.'"
+                             },
+                             {
+                                 "enemy": "'Prepare yourself, for I will not let you pass. The secrets of the Sanctuary are mine to guard, even from the likes of you,' Viktor declares, his voice echoing ominously."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "Charlie's return to the Sanctuary brings him face-to-face once more with Viktor Draven. The air crackles with tension, the unresolved conflict between them palpable."
+                             },
+                             {
+                                 "enemy": "'You show great tenacity to return here, but it will not be enough. I stand firm, unwavering. Leave now, or face defeat,' Viktor warns, his stance unyielding."
+                             }
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "'Our last encounter was merely a preview. Now, witness the true extent of my power,' Viktor boasts, readying himself for the impending clash."
+                             }
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With Viktor Draven bested, the Sanctuary's oppressive atmosphere lifts, replaced by a hopeful clarity. Charlie stands victorious, a beacon of resolve in the face of darkness."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "'You have fought valiantly but in vain,' Viktor sneers, looming over Charlie. 'The Sanctuary remains under my watch, its secrets sealed away.'"
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "As Charlie revisits the now peaceful Sanctuary, he reflects on his victory over Viktor Draven. The guardian's fall from grace serves as a somber reminder of the fine line between protector and tyrant."
+                             }
+                         ],
+                         health=60,
+                         attack=20,
+                         defense=10,
+                         fought=False
+                     ),
+                     ),
                 Area(name="Old Citadel",
                      storyLine=[
                          {
-                             "text": "The Old Citadel stands as a testament to the planet's ancient past. Its walls,"
-                                     " steeped in history, hold secrets of ancient civilizations, their rise and fall"
-                                     " echoing in the silent halls."
-                         }
+                             "text": "The Old Citadel, a monument to epochs past, whispers tales of glory and ruin. As Charlie steps into its shadowed halls, he is met not by silence, but by a voice as clear as crystal."
+                         },
                      ],
                      storyLineVisited=[
                          {
                              "text": "Returning to the Old Citadel"
                          }
-                     ]),
+                     ],
+                     enemy=Enemy(
+                         name="Calista Starcross",
+                         storyLine=[
+
+                             {
+                                 "text": "Before him stands Calista Starcross, guardian of the Citadel's deepest secrets. Her eyes, glowing with an ethereal light, fix upon Charlie. 'You tread on sacred ground, seeker. What brings you to the heart of history?' she inquires, her tone a blend of curiosity and caution."
+                             },
+                             {
+                                 "text": "Charlie, taken aback by her sudden appearance, senses the weight of the moment. Here stands a being tied to the Citadel's ancient legacy, offering not just confrontation but a test of worth."
+                             },
+                             {
+                                 "player": "'I seek the truths buried within these walls,' Charlie responds, his resolve firm. 'And I will face whatever trials you deem necessary.'"
+                             },
+                             {
+                                 "enemy": "'Very well,' Calista nods, stepping back as the air around her crackles with arcane energy. 'Show me that your purpose is true, and perhaps the Citadel will reveal its secrets to you.'"
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "'You return, still seeking the Citadel's secrets,' Calista observes as Charlie reenters the ancient halls. 'Have you discovered the courage to face what lies ahead?'"
+                             }
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "'Our last encounter was but a prelude,' Calista declares, her voice echoing off the stone. 'Let us see if you've grown in wisdom and strength.'"
+                             }
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "As the battle fades, Calista Starcross acknowledges Charlie's victory with a nod of respect. 'You have proven yourself, seeker. The Citadel's secrets await those who are truly ready to understand them.'"
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Defeated, Charlie feels the weight of his shortcomings. 'You lack the readiness to uncover what lies within,' Calista's voice softens, not in mockery but as a mentor's counsel. 'Return when time has honed your resolve.'"
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "In the quiet aftermath, the Citadel seems to stand a bit lighter, as if acknowledging Charlie's growth. Calista Starcross, now an ally, offers silent guidance through the echoing corridors."
+                             }
+                         ],
+                         health=70,
+                         attack=25,
+                         defense=15,
+                         fought=False
+                     )
+
+                     ),
             ]
 
             luminara_areas = [
