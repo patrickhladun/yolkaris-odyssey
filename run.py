@@ -561,8 +561,9 @@ class Spaceship(Item):
 
 
 class Special(Item):
-    def __init__(self, name: str, description: str) -> None:
-            super().__init__(name, description)
+    def __init__(self, name: str, description: str, storyLine: list = None) -> None:
+        super().__init__(name, description)
+        self.storyLine = storyLine
 
 
 def game_title() -> None:
@@ -2237,7 +2238,7 @@ class Game:
                          ],
                          storyLineWonFight=[
                              {
-                                 "text": "With Viktor Draven bested, the Sanctuary's oppressive atmosphere lifts, replaced by a hopeful clarity. Charlie stands victorious, a beacon of resolve in the face of darkness."
+                                 "text": "With Viktor Draven bested, the Sanctuary's oppressive atmosphere lifts, replaced by a hopeful clarity. Charlie stands victorious, a beacon of resolve in the face of darkness.",
                              }
                          ],
                          storyLineLostFight=[
@@ -2297,7 +2298,26 @@ class Game:
                          storyLineWonFight=[
                              {
                                  "text": "As the battle fades, Calista Starcross acknowledges Charlie's victory with a nod of respect. 'You have proven yourself, seeker. The Citadel's secrets await those who are truly ready to understand them.'"
-                             }
+                             },
+                             {
+                                 "text": "Amidst the silence of the Old Citadel, where whispers of the past linger like ghosts, Charlie stumbles upon an object unlike any other. Nestled in an alcove, hidden from the untrained eye, lies the Holographic Cosmos Codex. This ancient artifact, bound by time yet untouched by it, exudes a faint glow, inviting the curious and the brave. Its surface is adorned with intricate etchings that seem to dance in the dim light, telling tales of cosmic journeys and celestial secrets.",
+                             },
+                             {
+                                 "text": "Charlie reaches out, his fingers brushing against the Codex, feeling the pulse of history within.",
+                             },
+                             {
+                                 "item": Special(
+                                     name="Holographic Cosmos Codex",
+                                     description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance."
+                                 )
+                             },
+                             {
+                                 "text": "You have found an item: Holographic Cosmos Codex"
+                             },
+                             {
+                                 "player": "What mysteries do you hold? he wonders aloud, his voice a mere whisper in the vast chamber.",
+                             },
+
                          ],
                          storyLineLostFight=[
                              {
@@ -2313,7 +2333,13 @@ class Game:
                          attack=25,
                          defense=15,
                          fought=False
-                     )
+                     ),
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ]
                      ),
             ]
 
@@ -2563,7 +2589,34 @@ class Game:
                     defense=10,
                     potions=[],
                     inventory=[
-                        Spaceship(name="Nebula Voyager II", description="")]
+                        Special(
+                            name="Holographic Cosmos Codex",
+                            description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance.",
+                            storyLine=[
+                                {
+                                    "text": "Charlie carefully takes the Holographic Cosmos Codex from his inventory. With a sense of reverence and anticipation, he activates the device. Immediately, the room is transformed into a miniature universe, with stars, planets, and nebulae swirling around in a breathtaking display of light and color."
+                                },
+                                {
+                                    "player": "This is magnificent."
+                                },
+                                {
+                                    "text": "The Codex, responsive to his touch, zooms in on a particular sector marked by a radiant glow. It's Luminara, highlighted among countless star systems, its significance underscored by ancient symbols that orbit it like satellites."
+                                },
+                                {
+                                    "text": "As he interacts with the holographic map, Charlie realizes the Codex is more than a mere tool; it's a key to unlocking the next phase of his journey."
+                                },
+                                {
+                                    "player": "The Orb is on Luminara. This Codex has shown me the way. Luminara holds the answers I've been seeking."
+                                },
+                                {
+                                    "text": "He watches as the Codex folds back into its original form, the galaxy it displayed now etched in his mind's eye."
+                                },
+                                {
+                                    "player": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
+                                }
+                            ]
+
+                        )]
                 )
                 break
             else:
@@ -2784,6 +2837,8 @@ class Game:
             Interaction.print_story_line(self, item.storyLine)
         elif isinstance(item, Spaceship):
             self.travel_to_new_location()
+        elif isinstance(item, Special):
+            Interaction.print_story_line(self, item.storyLine)
 
     def travel_to_new_location(self):
         locations = ['Yolkaris', 'Mystara', 'Luminara']
