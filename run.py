@@ -2314,7 +2314,7 @@ class Game:
             ]
 
             luminara_areas = [
-                Area(name="Area 1",
+                Area(name="Neon Nexus of Luminara",
                      storyLine=[
                          {
                              "clear": True
@@ -2332,7 +2332,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 2",
+                Area(name="The Cloud City",
                      storyLine=[
                          {
                              "clear": True
@@ -2350,7 +2350,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 3",
+                Area(name="Galactic Grove",
                      storyLine=[
                          {
                              "clear": True
@@ -2368,7 +2368,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 4",
+                Area(name="The Labyrinth of Lost Souls",
                      storyLine=[
                          {
                              "clear": True
@@ -2386,7 +2386,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 5",
+                Area(name="Lightwave Lake",
                      storyLine=[
                          {
                              "clear": True
@@ -2404,7 +2404,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 6",
+                Area(name="Penumbral Plains",
                      storyLine=[
                          {
                              "clear": True
@@ -2422,7 +2422,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 7",
+                Area(name="The Crystal Labyrinth",
                      storyLine=[
                          {
                              "clear": True
@@ -2440,7 +2440,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 8",
+                Area(name="The Temple of the Ancients",
                      storyLine=[
                          {
                              "clear": True
@@ -2458,7 +2458,7 @@ class Game:
                          }
                      ],
                      ),
-                Area(name="Area 9",
+                Area(name="The Garden of Glass Stars",
                      storyLine=[
                          {
                              "clear": True
