@@ -1,5 +1,5 @@
 {
-  "editor.fontSize": 14,
+  "editor.fontSize": 16,
   "cSpell.words": [
     "Clucker's",
     "Cluckington",
@@ -10,7 +10,12 @@
     "Yolkaris"
   ],
   "editor.wordWrap": "off",
-  "editor.tabSize": 2,
+  "editor.tabSize": 1,
   "editor.rulers": [79],
-  "python.REPL.enableREPLSmartSend": false
+  "python.REPL.enableREPLSmartSend": false,
+  "python.terminal.launchArgs": [
+
+  ],
+  "editor.defaultFormatter": "ms-python.autopep8",
+  "editor.formatOnSave": true
 }

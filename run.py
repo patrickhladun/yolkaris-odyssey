@@ -1,7 +1,7 @@
 import random
 from art import *
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
-                   loading, default_color, color_player, color_neutral,
+                   loading, color_player, color_neutral,
                    color_error)
 
 
@@ -35,18 +35,18 @@ class Enemy(Character):
     """
 
     def __init__(
-        self,
-        name: str,
-        storyLine: list,
-        storyLineVisited: list,
-        storyLineFought: list,
-        storyLineWonFight: list,
-        storyLineLostFight: list,
-        storyLineDefeated: list,
-        health: int,
-        attack: int,
-        defense: int,
-        fought: bool = False
+            self,
+            name: str,
+            storyLine: list,
+            storyLineVisited: list,
+            storyLineFought: list,
+            storyLineWonFight: list,
+            storyLineLostFight: list,
+            storyLineDefeated: list,
+            health: int,
+            attack: int,
+            defense: int,
+            fought: bool = False
     ) -> None:
         super().__init__(name)
         self.storyLine = storyLine
@@ -63,12 +63,12 @@ class Enemy(Character):
 
 class Neutral(Character):
     def __init__(
-        self,
-        name,
-        storyLine,
-        storyLineVisited,
-        storyLineCompleted,
-        questItem=None
+            self,
+            name,
+            storyLine,
+            storyLineVisited,
+            storyLineCompleted=None,
+            questItem=None
     ) -> None:
         super().__init__(name)
         self.storyLine = storyLine
@@ -274,9 +274,9 @@ class Location:
         """
         for area in self.areas:
             if (
-                hasattr(area, "position")
-                and area.position is not None
-                and self.is_valid_position(area.position)
+                    hasattr(area, "position")
+                    and area.position is not None
+                    and self.is_valid_position(area.position)
             ):
                 if area.position not in self.contents:
                     self.place_on_map(area, area.position)
@@ -301,7 +301,7 @@ class Location:
                 elif self.visited[y][x]:
                     char = "\033[90m \uff4f\033[0m"
                 elif (x, y) in self.contents and isinstance(
-                    self.contents[(x, y)], Area
+                        self.contents[(x, y)], Area
                 ):
                     char = "\033[92m \uff0a\033[0m"
                 else:
@@ -439,7 +439,6 @@ class Location:
                 area.items.remove(item)
                 text("You have added the book to your inventory.", space=1)
 
-
         elif isinstance(item, Item):
             name = item.name
             add_space()
@@ -449,10 +448,9 @@ class Location:
                 area.items.remove(item)
 
     def print_travel_story_line(self, direction):
-       if direction in self.travel:
-           for line in self.travel[direction]:
+        if direction in self.travel:
+            for line in self.travel[direction]:
                 paragraph(line, space=1, delay=0.6)
-
 
 
 class Yolkaris(Location):
@@ -560,6 +558,7 @@ class Book(Item):
 class Spaceship(Item):
     def __init__(self, name: str, description: str) -> None:
         super().__init__(name, description)
+
 
 def game_title() -> None:
     """
@@ -703,16 +702,16 @@ class Game:
                          },
                          {
                              "text": "Summoned by the echoes of old tales and"
-                             " the allure of the unknown, he weaves through"
-                             " the city's veiled streets to the Timekeeper. At"
-                             " the foot of the slumbering clock, a vestige of"
-                             " arcane power, a quest of fate unfolds for"
-                             " Charlie."
+                                     " the allure of the unknown, he weaves through"
+                                     " the city's veiled streets to the Timekeeper. At"
+                                     " the foot of the slumbering clock, a vestige of"
+                                     " arcane power, a quest of fate unfolds for"
+                                     " Charlie."
                          },
                          {
                              "text": "Embarking on a quest through time's"
-                             " woven fabric, he seeks to stir ancient echoes,"
-                             " awakening the chronicles lost to the ages.",
+                                     " woven fabric, he seeks to stir ancient echoes,"
+                                     " awakening the chronicles lost to the ages.",
                              "space": 0
                          }
                      ],
@@ -722,8 +721,8 @@ class Game:
                          },
                          {
                              "text": "Back in Capital City, the stillness of"
-                             " the Grand Clock looms, casting a silent shadow"
-                             " over the timeless streets.",
+                                     " the Grand Clock looms, casting a silent shadow"
+                                     " over the timeless streets.",
                              "space": 1
                          }
                      ],
@@ -731,42 +730,42 @@ class Game:
                          Book(
                              name="The Broken Clock Book",
                              description="A tome chronicling the saga of"
-                             " Yolkaris' Grand Clock, whose ticking has"
-                             " ceased.",
+                                         " Yolkaris' Grand Clock, whose ticking has"
+                                         " ceased.",
                              storyLine=[
                                  {
-                                         "clear": True
+                                     "clear": True
                                  },
                                  {
                                      "text": "The Broken Clock: A Tale of"
-                                     " Time's Standstill",
+                                             " Time's Standstill",
                                      "delay": 0.6,
                                      "space": 1
                                  },
                                  {
                                      "text": "In the heart of Yolkaris"
-                                     " stands the Grand Clock, once the"
-                                     " pulsing chronometer of the realm."
-                                     " Legends say its hands moved in"
-                                     " harmony with the cosmic dance, until"
-                                     " silence befell. The clock's halt has"
-                                     " shrouded Yolkaris in a temporal"
-                                     " anomaly, threatening the very fabric"
-                                     " of time itself.",
+                                             " stands the Grand Clock, once the"
+                                             " pulsing chronometer of the realm."
+                                             " Legends say its hands moved in"
+                                             " harmony with the cosmic dance, until"
+                                             " silence befell. The clock's halt has"
+                                             " shrouded Yolkaris in a temporal"
+                                             " anomaly, threatening the very fabric"
+                                             " of time itself.",
                                      "space": 1
                                  },
                                  {
                                      "text": "The Time Crystal, hidden"
-                                     " within the enigmatic Crystal Hills,"
-                                     " holds the secret to awakening the"
-                                     " clock. This book, penned by the last"
-                                     " Timekeeper, serves as a guide for"
-                                     " the brave soul daring enough to"
-                                     " embark on this perilous quest. To"
-                                     " restore the clock's magic and revive"
-                                     " the rhythm of Yolkaris, the Time"
-                                     " Crystal must be retrieved before the"
-                                     " threads of time unravel completely.",
+                                             " within the enigmatic Crystal Hills,"
+                                             " holds the secret to awakening the"
+                                             " clock. This book, penned by the last"
+                                             " Timekeeper, serves as a guide for"
+                                             " the brave soul daring enough to"
+                                             " embark on this perilous quest. To"
+                                             " restore the clock's magic and revive"
+                                             " the rhythm of Yolkaris, the Time"
+                                             " Crystal must be retrieved before the"
+                                             " threads of time unravel completely.",
                                      "space": 1
                                  },
                              ]
@@ -778,22 +777,22 @@ class Game:
                          storyLine=[
                              {
                                  "neutral": "Ah, Charlie! The Grand Clock, our"
-                                 " timeless guardian, has ceased its rhythmic"
-                                 " heartbeat. Its magic wanes. The Time"
-                                 " Crystal in Crystal Hills is the key to its"
-                                 " revival.",
+                                            " timeless guardian, has ceased its rhythmic"
+                                            " heartbeat. Its magic wanes. The Time"
+                                            " Crystal in Crystal Hills is the key to its"
+                                            " revival.",
                                  "space": 0,
                              },
                              {
                                  "player": "Fear not, Timekeeper. I shall"
-                                 " reclaim the crystal and rekindle the"
-                                 " clock's ancient magic.",
+                                           " reclaim the crystal and rekindle the"
+                                           " clock's ancient magic.",
                                  "space": 0,
                              },
                              {
                                  "neutral": "Be swift, for the sands of time"
-                                 " wait for no one. Our fate rests in your"
-                                 " wings.",
+                                            " wait for no one. Our fate rests in your"
+                                            " wings.",
                              },
                              {
                                  "continue": True
@@ -803,65 +802,65 @@ class Game:
                              },
                              {
                                  "text": "Embark on the Yolkaris Odyssey with"
-                                 " these words of guidance:"
+                                         " these words of guidance:"
                              },
                              {
                                  "text": "In this tale, your journey begins"
-                                 " in Yolkaris, a realm of myths and"
-                                 " mysteries."
+                                         " in Yolkaris, a realm of myths and"
+                                         " mysteries."
                              },
                              {
                                  "text": "- Use the 'map' command to find your"
-                                 " path within this enchanted land.",
+                                         " path within this enchanted land.",
                                  "space": 0
                              },
                              {
                                  "text": "- Traverse the land through 'north',"
-                                 " 'south', 'east', and 'west'. Discover your"
-                                 " destiny.",
+                                         " 'south', 'east', and 'west'. Discover your"
+                                         " destiny.",
                                  "space": 0
                              },
                              {
                                  "text": "- In your quest, 'search' the areas"
-                                 " for hidden treasures and secrets.",
+                                         " for hidden treasures and secrets.",
                                  "space": 0
                              },
                              {
                                  "text": "- Keep your inventory filled with"
-                                 " artifacts and tools. Check it with the"
-                                 " 'inventory' command.",
+                                         " artifacts and tools. Check it with the"
+                                         " 'inventory' command.",
                                  "space": 0
                              },
                              {
                                  "text": "- When your health is low, 'potion'"
-                                 " can be used to restore your vitality.",
+                                         " can be used to restore your vitality.",
                                  "space": 0
                              },
                              {
                                  "text": "- Keep an eye on your 'stats' to"
-                                 " track your progress.",
+                                         " track your progress.",
                                  "space": 0
                              },
                              {
                                  "text": "- If you require guidance, simply"
-                                 " type 'help' to view a list of available"
-                                 " commands.",
+                                         " type 'help' to view a list of available"
+                                         " commands.",
                                  "space": 0
                              },
                              {
                                  "text": "- To begin anew or end your"
-                                 " adventure, use 'reset' or 'quit' anytime."
+                                         " adventure, use 'reset' or 'quit' anytime."
                              },
                              {
                                  "text": "Good fortune on your quest. May your"
-                                 " journey be filled with wonder.",
+                                         " journey be filled with wonder.",
                                  "space": 0
                              },
                          ],
                          storyLineVisited=[
                              {
                                  "neutral": "Hey Charlie, do you have the"
-                                 " crystal?",
+                                            " crystal?",
                                  "space": 0,
                              },
                              {
@@ -870,25 +869,25 @@ class Game:
                              },
                              {
                                  "neutral": "Without the crystal I can't fix the."
-                                 " clock. You need to find the crystal.",
+                                            " clock. You need to find the crystal.",
                                  "space": 0,
                              },
                          ],
                          storyLineCompleted=[
                              {
                                  "neutral": "Ah, Charlie, you've returned! And"
-                                 " with the Time Crystal, no less?",
+                                            " with the Time Crystal, no less?",
                                  "space": 0,
                              },
                              {
                                  "player": "Yes, Timekeeper. The journey was"
-                                 " perilous, but the crystal is here.",
+                                           " perilous, but the crystal is here.",
                                  "space": 0,
                              },
                              {
                                  "neutral": "Splendid! Let's not waste another"
-                                 " moment. Hand it over, and let's witness"
-                                 " history reborn.",
+                                            " moment. Hand it over, and let's witness"
+                                            " history reborn.",
                                  "space": 0,
                              },
                              {
@@ -896,897 +895,30 @@ class Game:
                              },
                              {
                                  "text": "With a careful hand, the Timekeeper"
-                                 " places the crystal into the heart of the"
-                                 " Grand Clock. Ancient gears begin to turn, a"
-                                 " soft ticking fills the air, growing louder,"
-                                 " until the whole town is enveloped in the"
-                                 " familiar sound of time's steady march.",
+                                         " places the crystal into the heart of the"
+                                         " Grand Clock. Ancient gears begin to turn, a"
+                                         " soft ticking fills the air, growing louder,"
+                                         " until the whole town is enveloped in the"
+                                         " familiar sound of time's steady march.",
                                  "space": 1,
                              },
                              {
                                  "text": "The townsfolk gather, eyes wide with"
-                                 " wonder as the Grand Clock's hands resume"
-                                 " their eternal dance. Cheers erupt, and"
-                                 " Charlie, standing beside the Timekeeper,"
-                                 " watches as the shadow of stagnation lifts,"
-                                 " giving way to a renewed flow of time.",
+                                         " wonder as the Grand Clock's hands resume"
+                                         " their eternal dance. Cheers erupt, and"
+                                         " Charlie, standing beside the Timekeeper,"
+                                         " watches as the shadow of stagnation lifts,"
+                                         " giving way to a renewed flow of time.",
                                  "space": 1,
                              },
                              {
                                  "neutral": "You've done it, Charlie! The heart"
-                                 " of Yolkaris beats once more, thanks to you."
-                                 " This day will be remembered as the moment"
-                                 " when time itself was mended by the courage"
-                                 " of a single soul.",
+                                            " of Yolkaris beats once more, thanks to you."
+                                            " This day will be remembered as the moment"
+                                            " when time itself was mended by the courage"
+                                            " of a single soul.",
                                  "space": 1,
                              },
-                             {
-                                 "text": "Game Over!",
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "gameover": True
-                             }
-                         ]
-                     ),
-                     position=(0, 0),
-                     ),
-                Area(name="Bounty Harbour",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Bounty Harbour bustles with life, a hub "
-                             " for seafaring souls and wandering traders. The"
-                             " aroma of the ocean mingles with exotic spices,"
-                             " weaving a tapestry of adventure and mystery in"
-                             " the air."
-                         },
-                         {
-                             "text": "Charlie, amidst the vibrant chatter of"
-                             " the marketplace and rhythmic creaking of ships,"
-                             " takes in the colorful tapestry of sails and"
-                             " flags, each narrating tales of distant lands"
-                             " and mysterious seas."
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Bounty Harbour",
-                         }
-                     ],
-                     items=[],
-                     position=(1, 0),
-                     ),
-                Area(name="Cluckington Valley",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Cluckington Valley stretches beneath the"
-                             " gaze of ancient, watchful peaks, a tapestry of"
-                             " verdure and life woven across the land's broad"
-                             " back. Its fields, a green so vibrant they seem"
-                             " to pulse with the heartbeats of the earth"
-                             " itself, are dotted with wildflowers that perform"
-                             " silent operas to an audience of bees.",
-                             "space": 1
-                         },
-                         {
-                             "text": "A peculiar fact about the valley is its"
-                             " infamous 'Laughing Tree,' a gnarled oak whose"
-                             " branches creak in patterns that sound eerily"
-                             " like chicken laughter, especially on windy"
-                             " nights. Locals say it's the valley's way of"
-                             " reminding everyone that nature has its own"
-                             " sense of humor.",
-                             "delay": 0.6
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Cluckington Valley",
-                         }
-                     ],
-                     items=[
-                         Book(
-                             name="The Laughing Tree's Joke Book",
-                             description="A collection of the most"
-                             "whimsical and hearty chuckles sourced"
-                             "directly from the Laughing Tree of"
-                             "Cluckington Valley. This book promises to"
-                             "lift the spirits of anyone brave enough to"
-                             "open its pages, offering a light-hearted"
-                             " escape into the world of feathered humor.",
-                             storyLine=[
-                                 {
-                                     "text": "Giggles from the Canopy:"
-                                         " The Laughing Tree's Joke Book",
-                                         "delay": 0.6,
-                                         "space": 1
-                                 },
-                                 {
-                                     "text": "1. Why did the chicken join"
-                                     " a band? Because it had the"
-                                     " drumsticks ready!",
-                                     "space": 1
-                                 },
-                                 {
-                                     "text": "2. What do you call a"
-                                     " chicken that haunts the barn? A"
-                                     " poultry-geist!",
-                                     "space": 0
-                                 },
-                                 {
-                                     "text": "3. Why did the rooster go to"
-                                     " the comedy show? To"
-                                     " cockle-doodle-DOO its best"
-                                     " impression!",
-                                     "space": 0
-                                 },
-                                 {
-                                     "text": "4. What does a chicken need"
-                                     " to lay an egg every day?"
-                                     " Hen-durance!",
-                                     "space": 0
-                                 },
-                                 {
-                                     "text": "5. How do chickens stay fit?"
-                                     " Egg-ercise!",
-                                     "space": 0
-                                 },
-                                 {
-                                     "text": "6. What do you call a crazy"
-                                     " chicken? A cuckoo cluck!",
-                                     "space": 0
-                                 },
-                                 {
-                                     "text": "7. Why did the chicken stop"
-                                     " in the middle of the road? It saw"
-                                     " the sign: 'Egg Xing'!",
-                                     "space": 1
-                                 }
-                             ]
-                         ),
-                         Potion(
-                             name="Small Potion",
-                             health=25
-                         ),
-                     ],
-                     position=(0, 1),
-                     ),
-                Area(name="Crystal Hills",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "After his long and arduous journey,"
-                             " Charlie, the brave chicken from Yolkaris, finally"
-                             " stood at the threshold of Crystal Hills. The"
-                             " path he had traversed had been fraught with"
-                             " challenges and perils, but he had endured,"
-                             " driven by the unwavering purpose of obtaining"
-                             " the Time Crystal."
-                         },
-                         {
-                             "text": "Before him lay the Crystal Hills, a"
-                             " place of legend and wonder. The hills shimmered"
-                             " with the radiant glow of Time Crystals, each one"
-                             " a fragment of the past and the future. It had"
-                             " taken him many moons to reach this sacred place,"
-                             " and the weight of his quest rested heavily on"
-                             " his wings."
-                         },
-                         {
-                             "text": "The air was thick with an aura of"
-                             " ancient magic, and the very ground beneath his"
-                             " feet seemed to vibrate with the essence of time"
-                             " itself. Charlie could feel the watchful eyes of"
-                             " the guardian, Phineas Blackthorn, as he neared"
-                             " the heart of the Crystal Hills."
-                         },
-                         {
-                             "continue": True
-                         },
-                         {
-                             "text": "As Charlie continued his journey through"
-                             " the surreal and disorienting landscape of"
-                             " crystals, he couldn't help but reflect on the"
-                             " trials that had brought him here. The Time"
-                             " Crystal, the key to saving Yolkaris from"
-                             " impending darkness, was within his grasp, but"
-                             " first, he had to face the formidable guardian"
-                             " and prove himself."
-                         },
-                         {
-                             "text": "Phineas emerged from the shimmering"
-                             " crystals as if he were a part of the very fabric"
-                             " of time itself. His presence commanded the"
-                             " attention of the crystals that surrounded him,"
-                             " their luminous glow accentuating his enigmatic"
-                             " presence."
-                         },
-                         {
-                             "text": "As Charlie stood before Phineas"
-                             " Blackthorn, the guardian of the Time"
-                             " Crystals, a tense atmosphere hung in the"
-                             " air. The guardian, an enigmatic figure with"
-                             " a monocle and an impeccably groomed feather"
-                             " coat, gazed at Charlie with a wry smile."
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True},
-                         {
-                             "text": "You are back in Crystal Hills",
-                         }],
-                     enemy=Enemy(
-                         name="Phineas Blackthorn",
-                         storyLine=[
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "enemy": "Ah, young traveler, You've reached"
-                                 " the heart of the Crystal Hills, but before"
-                                 " you can claim the Time Crystal, there's a"
-                                 " challenge you must face."
-                             },
-                             {
-                                 "text": "Charlie furrowed his brow, awaiting"
-                                 " Phineas's instructions."
-                             },
-                             {
-                                 "enemy": "We shall have a test of your"
-                                 " skills and intelligence. If you succeed,"
-                                 " the Time Crystal will be yours. Fail, let's"
-                                 " just say you'll be the butt of some"
-                                 " egg-cellent jokes! Oh, ho ho! Ha ha ha! Hee"
-                                 " hee! Ah, ha ha! Hohoho! Ha ha ha! Heeheehe!"
-                                 " Ahahaha! Ho ho ho! Ha ha ha! Hee hee! Ah,"
-                                 " ha ha! Hilarious! Ho ho ho! Ha ha ha! Hee"
-                                 " hee! Ah, ha ha! Tremendous! Oh, ho ho! Ha"
-                                 " Marvelous! Ho ho ho! Ha ha! Uncontrollable!"
-                                 " Oh, ho ho! Ha ha! Hee hee! Oh, I am sorry,"
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "text": "Phineas finally said, his laughter"
-                                 " subsiding."
-                             },
-                             {
-                                 "enemy": "Do you accept the challenge?"
-                                 " Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "enemy": "Hey, welcome back, Charlie! Are you"
-                                 " ready this time to take on the challenge?"
-                                 " Can we fight? Ha ha ha! Sorry.",
-                             },
-                         ],
-                         storyLineFought=[
-                             {
-                                 "enemy": "Ah, Charlie, back for another"
-                                 " round, I see. Ready to continue where we"
-                                 " left off, or have you come to reconsider?"
-                                 " The challenge awaits.",
-                             },
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "You have defeated Phineas Blackthorn."
-                                 " With a gracious nod and a smile, Phineas"
-                                 " Blackthorn conceded."
-                             },
-                             {
-                                 "enemy": "Well done, Charlie. You've proven"
-                                 " yourself worthy. You can now go and take"
-                                 " the Time Crystal; you have earned it."
-                             }
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "Phineas Blackthorn couldn't help"
-                                 " but raise an eyebrow and quip"
-                             },
-                             {
-                                 "enemy": "Well, Charlie, I suppose you'll"
-                                 " have to stick to egg-citing adventures for"
-                                 " now. The Time Crystal remains elusive, like"
-                                 " a chicken chasing its tail!"
-                             },
-                             {
-                                 "text": "Game Over!",
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "gameover": True
-                             }
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "text": "What else do you need, Charlie?"
-                                 " You've already bested me in our challenge,"
-                                 " and I have no more tests to offer.",
-                             },
-                         ],
-                         health=50,
-                         attack=40,
-                         defense=20
-                     ),
-                     items=[Item(name="The Time Crystal")
-                            ],
-                     position=(3, 1),
-                     ),
-                Area(name="Yonder Forest",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Yonder Forest loomed ahead, a dense"
-                             " canopy of ancient trees whispering secrets from"
-                             " centuries past. Its shadowy depths, untouched by"
-                             " time, held both allure and mystery."
-                         },
-                         {
-                             "text": "Charlie paused at the forest's edge, the"
-                             " cool shade brushing against his feathers like a"
-                             " promise of the unknown. 'This forest has seen"
-                             " more seasons than we can fathom,' he thought,"
-                             " 'each tree a silent guardian of history.'"
-                         },
-                         {
-                             "player": "I better keep moving and make it"
-                             " through this forest before night falls. It's"
-                             " wise not to linger here when the shadows grow"
-                             " long. There's no telling what lurks in the dark."
-                         },
-                         {
-                             "text": "Taking a deep breath, Charlie stepped"
-                             " forward. The forest floor felt soft underfoot,"
-                             " inviting him deeper into the green shadows."
-                         },
-                         {
-                             "continue": True
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Yonder Forest",
-                         }
-                     ],
-                     enemy=Enemy(
-                         name="Shadow Stalker",
-                         storyLine=[
-                             {
-                                 "enemy": "You've entered my domain, little"
-                                 " chicken. But know this, none shall cross"
-                                 " these woods without challenging me. It is"
-                                 " the law of the shadows."
-                             },
-                             {
-                                 "text": "The Shadow Stalker's voice was"
-                                 " chilling, echoing through the darkened"
-                                 " forest, causing the leaves to shiver and the"
-                                 " air to grow heavy with tension. Charlie"
-                                 " stood firm, ready to face the impending"
-                                 " challenge."
-                             },
-                             {
-                                 "player": "Why do you enforce such a law,"
-                                 " Shadow Stalker? What drives you to demand"
-                                 " challenges from those who enter?"
-                             },
-
-                             {
-                                 "enemy": "I seek to prove my dominance,"
-                                 " Charlie. I crave the thrill of battle and"
-                                 " the taste of victory. The law of the shadows"
-                                 " is my way, and you, by entering, have"
-                                 " accepted the challenge."
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "enemy": "You're back, Charlie. I hope you"
-                                 " brought your feather duster this time!"
-                             },
-                         ],
-                         storyLineFought=[
-                             {
-                                 "enemy": "You've returned, Charlie. Ready"
-                                 " to face me again?"
-                             },
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "You have defeated the Shadow"
-                                 " Stalker."
-                             },
-                             {
-                                 "text": "The creature vanished into the"
-                                 " shadows, defeated. As the darkness receded,"
-                                 " a faint whisper reached Charlie's ears."
-                             },
-                             {
-                                 "enemy": "You may have bested me, but your"
-                                 " quest is far from over, Charlie. Seek the"
-                                 " mighty Feathered Blade that once belonged"
-                                 " to the legendary warrior, Sir Cluckington."
-                                 " The elusive Feathered Blade can be found"
-                                 " concealed within the depths of the Yonder"
-                                 " Forest, waiting for a worthy owner."
-                             },
-                             {
-                                 "text": "The creature vanished into the"
-                                 " shadows, defeated. As the darkness receded,"
-                                 " a faint whisper reached Charlie's ears."
-                             }
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "The Shadow Stalker's eyes gleamed"
-                                 " with malice as it spoke."
-                             },
-                             {
-                                 "enemy": "You're no match for me, little"
-                                 " chicken. You'll never leave this forest."
-                             },
-                             {
-                                 "text": "Game Over!",
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "gameover": True
-                             }
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "enemy": "You've defeated me, Charlie. I have"
-                                 " no more fight left in me."
-                             },
-                         ],
-                         health=30,
-                         attack=5,
-                         defense=30
-                     ),
-                     items=[
-                         Weapon(
-                             name="Feathered Blade",
-                             description="A blade made from the"
-                             " finest feathers, light and sharp.",
-                             attack=18,
-                             actions=[
-                                 "Slice",
-                                 "Stab",
-                                 "Thrust"
-                             ]
-                         ),
-                     ],
-                     ),
-                Area(name="Clucker's Canyon",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Clucker's Canyon, with its echoing"
-                             " walls and towering red cliffs, is a marvel of"
-                             " nature on Yolkaris. The canyon has witnessed"
-                             " the rise and fall of many civilizations,"
-                             " holding secrets of the past within its rugged"
-                             " landscape. It's said that the echoes in the"
-                             " canyon are the voices of ancient Yolkarians."
-                         },
-                         {
-                             "text": "The canyon is not just a historical"
-                             " site but also a treasure trove of mystery."
-                             " Explorers and treasure hunters often delve"
-                             " into its depths, seeking lost artifacts of the"
-                             " chicken civilizations that once flourished"
-                             " here."
-                         },
-                         {
-                             "player": "I wonder what stories these cliffs"
-                             " could tell if they could talk. Ancient voices..."
-                             " I hope they can guide me on my quest. Mystery"
-                             " and treasure... sounds like an adventure waiting"
-                             " to happen. Lost artifacts... maybe they hold"
-                             " clues about The Time Crystal."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Clucker's Canyon",
-                         }
-                     ],
-                     items=[
-                         Potion(
-                             name="Medium Potion",
-                             health=50
-                         )
-                     ],
-                     ),
-                Area(name="Bubble Beach",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Bubble Beach is famous for its iridescent bubbles"
-                             " that float up from the sea. The bubbles are said to"
-                             " contain tiny galaxies, a reminder of the vastness of"
-                             " the universe."
-                         },
-                         {
-                             "text": "These bubbles are mesmerizing. Each one holds a"
-                             " tiny galaxy. It's a reminder of how small we are in this"
-                             " vast universe. But even the smallest pebble can make"
-                             " ripples across the water."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Bubble Beach",
-                         }
-                     ],
-                     items=[
-                         Potion(
-                             name="Small Potion",
-                             health=25
-                         )
-                     ],
-                     ),
-                Area(name="Peckers Peak",
-                     storyLine=[
-                          {
-                              "clear": True
-                          },
-                         {
-                              "text": "Peckers Peak, the crowning glory of Yolkaris,"
-                              " stands tall, its heights veiled in the whispers"
-                              " of ancient tales. This revered summit, where the"
-                              " skies kiss the earth, was once the sacred"
-                              " observatory of the elder chickens."
-                          },
-                         {
-                              "text": "Here, under the canvas of the cosmos, they"
-                              " unraveled the mysteries of the stars, leaving a"
-                              " legacy etched in the winds. As Charlie's path"
-                              " ascends, each step is a journey through time."
-                          },
-                         {
-                              "text": "The winds carry legends, and the stones are"
-                              " etched with the wisdom of ages. Reaching the"
-                              " peak, Charlie is enveloped in a world of awe,"
-                              " the horizon stretching infinitely."
-                          },
-                         {
-                              "text": "The air is thick with the essence of bygone eras,"
-                              " and the silence speaks of hidden truths. Atop"
-                              " this celestial altar, where the ancient chickens"
-                              " once gazed upon the heavens."
-                          },
-                         {
-                             "continue": True
-                          },
-                         {
-                              "text": "Charlie feels an overwhelming connection to the"
-                              " stars. Their ancient wisdom, like a forgotten"
-                              " song, resonates within him, guiding his heart."
-                              " The whispers of Peckers Peak instill in him a"
-                              " sense of purpose."
-                          },
-                         {
-                              "player": "Wow, the view from here is incredible!"
-                              " I can see the whole of Yolkaris and Crystal Hills."
-                              " It's said that the ancient chickens gazed at the stars"
-                              " from here, plotting their courses across the skies. If"
-                              " only I had their knowledge now..."
-                          },
-                         {
-                             "continue": True
-                          }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "You are back in Peckers Peak",
-                         }
-                     ],
-                     enemy=Enemy(
-                         name="Viktor Thornhart",
-                         storyLine=[
-                             {
-                                 "enemy": "You've ventured into my territory,"
-                                 " stranger. Prepare to face the consequences."
-                             },
-                             {
-                                 "player": "Who are you, and why do you guard"
-                                 " this place?"
-                             },
-                             {
-                                 "enemy": "I am Viktor Thornhart, protector of"
-                                 " these hallowed grounds. The secrets hidden"
-                                 " here are not for the untested. If you wish"
-                                 " to proceed, you must prove your worth."
-                             },
-                             {
-                                 "text": "The tension in the air thickens as"
-                                 " you prepare to face Viktor, the enigmatic"
-                                 " guardian of these sacred grounds."
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "enemy": "You've returned, Charlie. Ready"
-                                 " to face me again?"
-                             },
-                         ],
-                         storyLineFought=[
-                             {
-                                 "enemy": "You've returned, Charlie. Ready"
-                                 " to face me again?"
-                             },
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "With a final, determined effort, you"
-                                 " overcome Viktor Thornhart's defenses."
-                             },
-                             {
-                                 "enemy": "You've proven your mettle, Charlie."
-                                 "I yield."
-                             },
-                             {
-                                 "text": "Viktor's stern demeanorc softens,"
-                                 " acknowledging your strength."
-                             },
-                             {
-                                 "enemy": "I'll share a secret with you,"
-                                 " Charlie. In the heart of these peaks,"
-                                 " you'll find the Feathered Armor."
-                             },
-                             {
-                                 "text": "Viktor's words pique your curiosity"
-                                 " as he reveals the existence of the finest"
-                                 " armor, crafted from the lightest and"
-                                 " strongest feathers known."
-                             }
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "Viktor Thornhart's eyes gleamed"
-                                 " with malice as he spoke."
-                             },
-                             {
-                                 "enemy": "You're no match for me, little"
-                                 " chicken. You'll never leave this place."
-                             },
-                             {
-                                 "text": "Game Over!",
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "gameover": True
-                             }
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "enemy": "You've defeated me, Charlie. I have"
-                                 " no more fight left in me."
-                             },
-                         ],
-                         health=30,
-                         attack=5,
-                         defense=30
-                     ),
-                     items=[
-                         Armour(
-                             name="Feathered Armor",
-                             description="Armor made from the finest"
-                             " feathers, light and strong.",
-                             defense=20
-                         ),
-                     ]
-                     )
-            ]
-
-            mystara_areas = []
-
-            luminara_areas = []
-
-        elif level == 2:
-
-            yolkaris_size = (2, 2)
-            mystara_size = (2, 3)
-            luminara_size = (3, 3)
-
-            yolkaris_areas = [
-                Area(name="Capital City",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "The Dark Dust",
-                             "delay": 0.6,
-                             "space": 1
-                         },
-                         {
-                             "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
-                             " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
-                             " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
-                             " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
-                             " the inhabitants as their vibrant home edges toward oblivion."
-                         },
-                         {
-                             "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
-                             " of legend. Crafted in the forge of time by beings whose existence predates the stars"
-                             " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
-                             " scatter the Dark Dust and restore balance to the cosmos."
-                         },
-                         {
-                             "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
-                             " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
-                             " ancient beings, showcases the bravery that dwells within the most unexpected champions."
-                         },
-                         {
-                           "continue": True
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Back in Capital City, the stillness of"
-                             " the Grand Clock looms, casting a silent shadow"
-                             " over the timeless streets."
-                         }
-                     ],
-                     items=[],
-                     neutral=Neutral(
-                         name="Archibald Thorne",
-                         questItem=Item(name="Aurora Orb"),
-                         storyLine=[
-                             {
-                                 "text": "Archibald Thorne, a seasoned navigator of the cosmos, leaned closer, his"
-                                 " voice a blend of wisdom and urgency. ",
-
-                             },
-                             {
-                                 "neutral": "Charlie, the fate of our world hangs in the balance. The Dark Dust"
-                                 " threatens to consume all that is vibrant and alive. But you, my friend, have a"
-                                 " destiny that extends beyond the stars."
-                             },
-                             {
-                                 "text": "He paused, ensuring Charlie's full attention.",
-                             },
-                             {
-                                 "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
-                                 " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
-                                 " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
-                                 " courage, will be your chariot among the stars.",
-                                 "space": 0
-                             },
-                             {
-                                 "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
-                                 " secrets. There, you will find the clues necessary to guide you on your quest for the"
-                                 " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
-                                 " to navigating the challenges that lie between the realms of known and unknown.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
-                                 " indecipherable to the uninitiated."
-                             },
-                             {
-                                 "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
-                                 " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
-                                 " braving the infinite night."
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "clear": True
-                             },
-                             {
-                                 "text": "Embark on the Yolkaris Odyssey with"
-                                 " these words of guidance:"
-                             },
-                             {
-                                 "text": "In this tale, your journey begins"
-                                 " in Yolkaris, a realm of myths and"
-                                 " mysteries."
-                             },
-                             {
-                                 "text": "- Use the 'map' command to find your"
-                                 " path within this enchanted land.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Traverse the land through 'north',"
-                                 " 'south', 'east', and 'west'. Discover your"
-                                 " destiny.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- In your quest, 'search' the areas"
-                                 " for hidden treasures and secrets.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Keep your inventory filled with"
-                                 " artifacts and tools. Check it with the"
-                                 " 'inventory' command.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- When your health is low, 'potion'"
-                                 " can be used to restore your vitality.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Keep an eye on your 'stats' to"
-                                 " track your progress.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- If you require guidance, simply"
-                                 " type 'help' to view a list of available"
-                                 " commands.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- To begin anew or end your"
-                                 " adventure, use 'reset' or 'quit' anytime."
-                             },
-                             {
-                                 "text": "Good fortune on your quest. May your"
-                                 " journey be filled with wonder.",
-                                 "space": 0
-                             },
-                         ],
-                         storyLineVisited=[
-
-                         ],
-                         storyLineCompleted=[
                              {
                                  "text": "Game Over!",
                              },
@@ -1831,76 +963,30 @@ class Game:
                      items=[],
                      position=(1, 0),
                      ),
-                Area(name="Gearhaven District",
+                Area(name="Cluckington Valley",
                      storyLine=[
                          {
                              "clear": True
                          },
                          {
-                             "text": "Charlie's journey led him to the heart of Gearhaven District, a place where the"
-                             " past and future collided amidst gears and gizmos. Nestled within this industrial bastion"
-                             " was Eudora Quasar's workshop, a veritable cavern of wonders where metal met magic under"
-                             " her skilled hands."
+                             "text": "Cluckington Valley stretches beneath the"
+                                     " gaze of ancient, watchful peaks, a tapestry of"
+                                     " verdure and life woven across the land's broad"
+                                     " back. Its fields, a green so vibrant they seem"
+                                     " to pulse with the heartbeats of the earth"
+                                     " itself, are dotted with wildflowers that perform"
+                                     " silent operas to an audience of bees.",
+                             "space": 1
                          },
                          {
-                             "neutral": "Ah, Charlie,",
-                         },
-                         {
-                             "text": "she exclaimed, her voice echoing slightly in the vast space."
-                         },
-                         {
-                                "neutral": "I've been expecting you. Archibald sent word of your quest. It's not"
-                                " every day we get to send someone off to the stars."
-                         },
-                         {
-                             "text": "She led Charlie to a peculiar object covered by a tarp. With a dramatic flourish,"
-                             " she unveiled the Nebula Voyager II. The small, egg-shaped vessel sat innocuously on the"
-                             " workbench, its surface smooth and enigmatic."
-                         },
-                         {
-                             "neutral": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
-                             " It can carry you across the galaxies, transforming from this compact egg to a fully"
-                             " equipped starship at your command."
-                         },
-                         {
-                             "item": Spaceship(
-                                 name="Nebula Voyager II",
-                                 description="The Nebula Voyager II stands as a marvel of cosmic engineering,"
-                            "seamlessly blending elegance with functionality. This compact vessel transforms from the"
-                             " size of an egg into a sleek, two-to-three-seater starship, designed for ease of"
-                             " transport and rapid interstellar travel. Its hull, reflecting the myriad colors of deep"
-                             " space, houses a hyperdrive capable of swift journeys across galaxies, while its"
-                             " transparent cockpit offers breathtaking views of the cosmos. Inside, the Voyager's"
-                             " efficient layout includes life-support systems, advanced navigation controls, and ample"
-                             " storage, all within a space that maximizes comfort for its adventurers. It's more than"
-                             " a ship; it's a gateway to the unknown, crafted for those brave enough to explore the"
-                             " mysteries of the universe. The Nebula Voyager II is a testament to the spirit of"
-                             " exploration, inviting its passengers to embark on journeys beyond the stars."
-                             )
-                         },
-                         {
-                             "text": "You have received an item: Nebula Voyager II"
-                         },
-                         {
-                             "text": "Charlie examined the Nebula Voyager II, a mix of awe and curiosity in his eyes."
-                             " Eudora explained its operation, how a twist and a press could unfold the universe's"
-                             " mysteries before him."
-                         },
-                         {
-                             "neutral": "As you embark on your journey to Mystara and beyond, remember, the path will"
-                             " not be easy, but the Nebula is more than a vessel. It's a companion, one that will"
-                             " guide you through the darkest reaches and bring you home."
-                         },
-                         {
-                             "text": "Charlie nodded, his heart swelling with gratitude and determination."
-                         },
-                         {
-                             "player": "Thank you, Eudora. I won't let you down."
-                         },
-                         {
-                             "text": "As he left the workshop, the Nebula Voyager II in hand, Charlie felt the weight"
-                             " of his mission anew. But with the support of friends like Eudora and the ingenuity of"
-                             " Gearhaven District behind him, he knew he was ready to face whatever the cosmos held."
+                             "text": "A peculiar fact about the valley is its"
+                                     " infamous 'Laughing Tree,' a gnarled oak whose"
+                                     " branches creak in patterns that sound eerily"
+                                     " like chicken laughter, especially on windy"
+                                     " nights. Locals say it's the valley's way of"
+                                     " reminding everyone that nature has its own"
+                                     " sense of humor.",
+                             "delay": 0.6
                          }
                      ],
                      storyLineVisited=[
@@ -1911,18 +997,875 @@ class Game:
                              "text": "You are back in Cluckington Valley",
                          }
                      ],
-                     items=[],
-                     neutral=Neutral("Eudora Quasar",
+                     items=[
+                         Book(
+                             name="The Laughing Tree's Joke Book",
+                             description="A collection of the most"
+                                         "whimsical and hearty chuckles sourced"
+                                         "directly from the Laughing Tree of"
+                                         "Cluckington Valley. This book promises to"
+                                         "lift the spirits of anyone brave enough to"
+                                         "open its pages, offering a light-hearted"
+                                         " escape into the world of feathered humor.",
+                             storyLine=[
+                                 {
+                                     "text": "Giggles from the Canopy:"
+                                             " The Laughing Tree's Joke Book",
+                                     "delay": 0.6,
+                                     "space": 1
+                                 },
+                                 {
+                                     "text": "1. Why did the chicken join"
+                                             " a band? Because it had the"
+                                             " drumsticks ready!",
+                                     "space": 1
+                                 },
+                                 {
+                                     "text": "2. What do you call a"
+                                             " chicken that haunts the barn? A"
+                                             " poultry-geist!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "3. Why did the rooster go to"
+                                             " the comedy show? To"
+                                             " cockle-doodle-DOO its best"
+                                             " impression!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "4. What does a chicken need"
+                                             " to lay an egg every day?"
+                                             " Hen-durance!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "5. How do chickens stay fit?"
+                                             " Egg-ercise!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "6. What do you call a crazy"
+                                             " chicken? A cuckoo cluck!",
+                                     "space": 0
+                                 },
+                                 {
+                                     "text": "7. Why did the chicken stop"
+                                             " in the middle of the road? It saw"
+                                             " the sign: 'Egg Xing'!",
+                                     "space": 1
+                                 }
+                             ]
+                         ),
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         ),
+                     ],
+                     position=(0, 1),
+                     ),
+                Area(name="Crystal Hills",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "After his long and arduous journey,"
+                                     " Charlie, the brave chicken from Yolkaris, finally"
+                                     " stood at the threshold of Crystal Hills. The"
+                                     " path he had traversed had been fraught with"
+                                     " challenges and perils, but he had endured,"
+                                     " driven by the unwavering purpose of obtaining"
+                                     " the Time Crystal."
+                         },
+                         {
+                             "text": "Before him lay the Crystal Hills, a"
+                                     " place of legend and wonder. The hills shimmered"
+                                     " with the radiant glow of Time Crystals, each one"
+                                     " a fragment of the past and the future. It had"
+                                     " taken him many moons to reach this sacred place,"
+                                     " and the weight of his quest rested heavily on"
+                                     " his wings."
+                         },
+                         {
+                             "text": "The air was thick with an aura of"
+                                     " ancient magic, and the very ground beneath his"
+                                     " feet seemed to vibrate with the essence of time"
+                                     " itself. Charlie could feel the watchful eyes of"
+                                     " the guardian, Phineas Blackthorn, as he neared"
+                                     " the heart of the Crystal Hills."
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "As Charlie continued his journey through"
+                                     " the surreal and disorienting landscape of"
+                                     " crystals, he couldn't help but reflect on the"
+                                     " trials that had brought him here. The Time"
+                                     " Crystal, the key to saving Yolkaris from"
+                                     " impending darkness, was within his grasp, but"
+                                     " first, he had to face the formidable guardian"
+                                     " and prove himself."
+                         },
+                         {
+                             "text": "Phineas emerged from the shimmering"
+                                     " crystals as if he were a part of the very fabric"
+                                     " of time itself. His presence commanded the"
+                                     " attention of the crystals that surrounded him,"
+                                     " their luminous glow accentuating his enigmatic"
+                                     " presence."
+                         },
+                         {
+                             "text": "As Charlie stood before Phineas"
+                                     " Blackthorn, the guardian of the Time"
+                                     " Crystals, a tense atmosphere hung in the"
+                                     " air. The guardian, an enigmatic figure with"
+                                     " a monocle and an impeccably groomed feather"
+                                     " coat, gazed at Charlie with a wry smile."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True},
+                         {
+                             "text": "You are back in Crystal Hills",
+                         }],
+                     enemy=Enemy(
+                         name="Phineas Blackthorn",
                          storyLine=[
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "enemy": "Ah, young traveler, You've reached"
+                                          " the heart of the Crystal Hills, but before"
+                                          " you can claim the Time Crystal, there's a"
+                                          " challenge you must face."
+                             },
+                             {
+                                 "text": "Charlie furrowed his brow, awaiting"
+                                         " Phineas's instructions."
+                             },
+                             {
+                                 "enemy": "We shall have a test of your"
+                                          " skills and intelligence. If you succeed,"
+                                          " the Time Crystal will be yours. Fail, let's"
+                                          " just say you'll be the butt of some"
+                                          " egg-cellent jokes! Oh, ho ho! Ha ha ha! Hee"
+                                          " hee! Ah, ha ha! Hohoho! Ha ha ha! Heeheehe!"
+                                          " Ahahaha! Ho ho ho! Ha ha ha! Hee hee! Ah,"
+                                          " ha ha! Hilarious! Ho ho ho! Ha ha ha! Hee"
+                                          " hee! Ah, ha ha! Tremendous! Oh, ho ho! Ha"
+                                          " Marvelous! Ho ho ho! Ha ha! Uncontrollable!"
+                                          " Oh, ho ho! Ha ha! Hee hee! Oh, I am sorry,"
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "text": "Phineas finally said, his laughter"
+                                         " subsiding."
+                             },
+                             {
+                                 "enemy": "Do you accept the challenge?"
+                                          " Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
+                             }
                          ],
-                                 storyLineVisited=[
-                                        {
-                                            "neutral": "Welcome back, Charlie. The Nebula Voyager II is ready for your next"
-                                            " adventure."
-                                        },
+                         storyLineVisited=[
+                             {
+                                 "enemy": "Hey, welcome back, Charlie! Are you"
+                                          " ready this time to take on the challenge?"
+                                          " Can we fight? Ha ha ha! Sorry.",
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "Ah, Charlie, back for another"
+                                          " round, I see. Ready to continue where we"
+                                          " left off, or have you come to reconsider?"
+                                          " The challenge awaits.",
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "You have defeated Phineas Blackthorn."
+                                         " With a gracious nod and a smile, Phineas"
+                                         " Blackthorn conceded."
+                             },
+                             {
+                                 "enemy": "Well done, Charlie. You've proven"
+                                          " yourself worthy. You can now go and take"
+                                          " the Time Crystal; you have earned it."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Phineas Blackthorn couldn't help"
+                                         " but raise an eyebrow and quip"
+                             },
+                             {
+                                 "enemy": "Well, Charlie, I suppose you'll"
+                                          " have to stick to egg-citing adventures for"
+                                          " now. The Time Crystal remains elusive, like"
+                                          " a chicken chasing its tail!"
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "What else do you need, Charlie?"
+                                         " You've already bested me in our challenge,"
+                                         " and I have no more tests to offer.",
+                             },
+                         ],
+                         health=50,
+                         attack=40,
+                         defense=20
+                     ),
+                     items=[Item(name="The Time Crystal")
+                            ],
+                     position=(3, 1),
+                     ),
+                Area(name="Yonder Forest",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Yonder Forest loomed ahead, a dense"
+                                     " canopy of ancient trees whispering secrets from"
+                                     " centuries past. Its shadowy depths, untouched by"
+                                     " time, held both allure and mystery."
+                         },
+                         {
+                             "text": "Charlie paused at the forest's edge, the"
+                                     " cool shade brushing against his feathers like a"
+                                     " promise of the unknown. 'This forest has seen"
+                                     " more seasons than we can fathom,' he thought,"
+                                     " 'each tree a silent guardian of history.'"
+                         },
+                         {
+                             "player": "I better keep moving and make it"
+                                       " through this forest before night falls. It's"
+                                       " wise not to linger here when the shadows grow"
+                                       " long. There's no telling what lurks in the dark."
+                         },
+                         {
+                             "text": "Taking a deep breath, Charlie stepped"
+                                     " forward. The forest floor felt soft underfoot,"
+                                     " inviting him deeper into the green shadows."
+                         },
+                         {
+                             "continue": True
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Yonder Forest",
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="Shadow Stalker",
+                         storyLine=[
+                             {
+                                 "enemy": "You've entered my domain, little"
+                                          " chicken. But know this, none shall cross"
+                                          " these woods without challenging me. It is"
+                                          " the law of the shadows."
+                             },
+                             {
+                                 "text": "The Shadow Stalker's voice was"
+                                         " chilling, echoing through the darkened"
+                                         " forest, causing the leaves to shiver and the"
+                                         " air to grow heavy with tension. Charlie"
+                                         " stood firm, ready to face the impending"
+                                         " challenge."
+                             },
+                             {
+                                 "player": "Why do you enforce such a law,"
+                                           " Shadow Stalker? What drives you to demand"
+                                           " challenges from those who enter?"
+                             },
 
+                             {
+                                 "enemy": "I seek to prove my dominance,"
+                                          " Charlie. I crave the thrill of battle and"
+                                          " the taste of victory. The law of the shadows"
+                                          " is my way, and you, by entering, have"
+                                          " accepted the challenge."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "You're back, Charlie. I hope you"
+                                          " brought your feather duster this time!"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                          " to face me again?"
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "You have defeated the Shadow"
+                                         " Stalker."
+                             },
+                             {
+                                 "text": "The creature vanished into the"
+                                         " shadows, defeated. As the darkness receded,"
+                                         " a faint whisper reached Charlie's ears."
+                             },
+                             {
+                                 "enemy": "You may have bested me, but your"
+                                          " quest is far from over, Charlie. Seek the"
+                                          " mighty Feathered Blade that once belonged"
+                                          " to the legendary warrior, Sir Cluckington."
+                                          " The elusive Feathered Blade can be found"
+                                          " concealed within the depths of the Yonder"
+                                          " Forest, waiting for a worthy owner."
+                             },
+                             {
+                                 "text": "The creature vanished into the"
+                                         " shadows, defeated. As the darkness receded,"
+                                         " a faint whisper reached Charlie's ears."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "The Shadow Stalker's eyes gleamed"
+                                         " with malice as it spoke."
+                             },
+                             {
+                                 "enemy": "You're no match for me, little"
+                                          " chicken. You'll never leave this forest."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "enemy": "You've defeated me, Charlie. I have"
+                                          " no more fight left in me."
+                             },
+                         ],
+                         health=30,
+                         attack=5,
+                         defense=30
+                     ),
+                     items=[
+                         Weapon(
+                             name="Feathered Blade",
+                             description="A blade made from the"
+                                         " finest feathers, light and sharp.",
+                             attack=18,
+                             actions=[
+                                 "Slice",
+                                 "Stab",
+                                 "Thrust"
+                             ]
+                         ),
+                     ],
+                     ),
+                Area(name="Clucker's Canyon",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Clucker's Canyon, with its echoing"
+                                     " walls and towering red cliffs, is a marvel of"
+                                     " nature on Yolkaris. The canyon has witnessed"
+                                     " the rise and fall of many civilizations,"
+                                     " holding secrets of the past within its rugged"
+                                     " landscape. It's said that the echoes in the"
+                                     " canyon are the voices of ancient Yolkarians."
+                         },
+                         {
+                             "text": "The canyon is not just a historical"
+                                     " site but also a treasure trove of mystery."
+                                     " Explorers and treasure hunters often delve"
+                                     " into its depths, seeking lost artifacts of the"
+                                     " chicken civilizations that once flourished"
+                                     " here."
+                         },
+                         {
+                             "player": "I wonder what stories these cliffs"
+                                       " could tell if they could talk. Ancient voices..."
+                                       " I hope they can guide me on my quest. Mystery"
+                                       " and treasure... sounds like an adventure waiting"
+                                       " to happen. Lost artifacts... maybe they hold"
+                                       " clues about The Time Crystal."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Clucker's Canyon",
+                         }
+                     ],
+                     items=[
+                         Potion(
+                             name="Medium Potion",
+                             health=50
+                         )
+                     ],
+                     ),
+                Area(name="Bubble Beach",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bubble Beach is famous for its iridescent bubbles"
+                                     " that float up from the sea. The bubbles are said to"
+                                     " contain tiny galaxies, a reminder of the vastness of"
+                                     " the universe."
+                         },
+                         {
+                             "text": "These bubbles are mesmerizing. Each one holds a"
+                                     " tiny galaxy. It's a reminder of how small we are in this"
+                                     " vast universe. But even the smallest pebble can make"
+                                     " ripples across the water."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Bubble Beach",
+                         }
+                     ],
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ],
+                     ),
+                Area(name="Peckers Peak",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Peckers Peak, the crowning glory of Yolkaris,"
+                                     " stands tall, its heights veiled in the whispers"
+                                     " of ancient tales. This revered summit, where the"
+                                     " skies kiss the earth, was once the sacred"
+                                     " observatory of the elder chickens."
+                         },
+                         {
+                             "text": "Here, under the canvas of the cosmos, they"
+                                     " unraveled the mysteries of the stars, leaving a"
+                                     " legacy etched in the winds. As Charlie's path"
+                                     " ascends, each step is a journey through time."
+                         },
+                         {
+                             "text": "The winds carry legends, and the stones are"
+                                     " etched with the wisdom of ages. Reaching the"
+                                     " peak, Charlie is enveloped in a world of awe,"
+                                     " the horizon stretching infinitely."
+                         },
+                         {
+                             "text": "The air is thick with the essence of bygone eras,"
+                                     " and the silence speaks of hidden truths. Atop"
+                                     " this celestial altar, where the ancient chickens"
+                                     " once gazed upon the heavens."
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "Charlie feels an overwhelming connection to the"
+                                     " stars. Their ancient wisdom, like a forgotten"
+                                     " song, resonates within him, guiding his heart."
+                                     " The whispers of Peckers Peak instill in him a"
+                                     " sense of purpose."
+                         },
+                         {
+                             "player": "Wow, the view from here is incredible!"
+                                       " I can see the whole of Yolkaris and Crystal Hills."
+                                       " It's said that the ancient chickens gazed at the stars"
+                                       " from here, plotting their courses across the skies. If"
+                                       " only I had their knowledge now..."
+                         },
+                         {
+                             "continue": True
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Peckers Peak",
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="Viktor Thornhart",
+                         storyLine=[
+                             {
+                                 "enemy": "You've ventured into my territory,"
+                                          " stranger. Prepare to face the consequences."
+                             },
+                             {
+                                 "player": "Who are you, and why do you guard"
+                                           " this place?"
+                             },
+                             {
+                                 "enemy": "I am Viktor Thornhart, protector of"
+                                          " these hallowed grounds. The secrets hidden"
+                                          " here are not for the untested. If you wish"
+                                          " to proceed, you must prove your worth."
+                             },
+                             {
+                                 "text": "The tension in the air thickens as"
+                                         " you prepare to face Viktor, the enigmatic"
+                                         " guardian of these sacred grounds."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                          " to face me again?"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "enemy": "You've returned, Charlie. Ready"
+                                          " to face me again?"
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With a final, determined effort, you"
+                                         " overcome Viktor Thornhart's defenses."
+                             },
+                             {
+                                 "enemy": "You've proven your mettle, Charlie."
+                                          "I yield."
+                             },
+                             {
+                                 "text": "Viktor's stern demeanorc softens,"
+                                         " acknowledging your strength."
+                             },
+                             {
+                                 "enemy": "I'll share a secret with you,"
+                                          " Charlie. In the heart of these peaks,"
+                                          " you'll find the Feathered Armor."
+                             },
+                             {
+                                 "text": "Viktor's words pique your curiosity"
+                                         " as he reveals the existence of the finest"
+                                         " armor, crafted from the lightest and"
+                                         " strongest feathers known."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Viktor Thornhart's eyes gleamed"
+                                         " with malice as he spoke."
+                             },
+                             {
+                                 "enemy": "You're no match for me, little"
+                                          " chicken. You'll never leave this place."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "enemy": "You've defeated me, Charlie. I have"
+                                          " no more fight left in me."
+                             },
+                         ],
+                         health=30,
+                         attack=5,
+                         defense=30
+                     ),
+                     items=[
+                         Armour(
+                             name="Feathered Armor",
+                             description="Armor made from the finest"
+                                         " feathers, light and strong.",
+                             defense=20
+                         ),
+                     ]
+                     )
+            ]
+
+            mystara_areas = []
+
+            luminara_areas = []
+
+        elif level == 2:
+
+            yolkaris_size = (2, 2)
+            mystara_size = (2, 3)
+            luminara_size = (3, 3)
+
+            yolkaris_areas = [
+                Area(name="Capital City",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "The Dark Dust",
+                             "delay": 0.6,
+                             "space": 1
+                         },
+                         {
+                             "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
+                                     " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
+                                     " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
+                                     " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
+                                     " the inhabitants as their vibrant home edges toward oblivion."
+                         },
+                         {
+                             "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
+                                     " of legend. Crafted in the forge of time by beings whose existence predates the stars"
+                                     " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
+                                     " scatter the Dark Dust and restore balance to the cosmos."
+                         },
+                         {
+                             "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
+                                     " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
+                                     " ancient beings, showcases the bravery that dwells within the most unexpected champions."
+                         },
+                         {
+                             "continue": True
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Capital City"
+                         },
+                     ],
+                     items=[],
+                     neutral=Neutral(
+                         name="Archibald Thorne",
+                         questItem=Item(name="Aurora Orb"),
+                         storyLine=[
+                             {
+                                 "text": "Archibald Thorne, a seasoned "
+                                         "navigator of the cosmos, leaned "
+                                         "closer, his voice a blend of "
+                                         "wisdom and urgency. ",
+
+                             },
+                             {
+                                 "neutral": "Charlie, the fate of our world "
+                                            "hangs in the balance. The Dark "
+                                            "Dust threatens to consume all "
+                                            "that is vibrant and alive. But "
+                                            "you, my friend, have a destiny "
+                                            "that extends beyond the stars."
+                             },
+                             {
+                                 "neutral": "Your journey will take you beyond "
+                                            "the known, through the tapestry of stars, "
+                                            "to worlds that have only existed in the "
+                                            "whispers of the old. You must find the "
+                                            "Aurora Orb and bring its light back to "
+                                            "Yolkaris."
+                             },
+                             {
+                                 "text": "He paused, ensuring Charlie's full "
+                                         "attention.",
+                             },
+                             {
+                                 "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
+                                            " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
+                                            " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
+                                            " courage, will be your chariot among the stars.",
+                                 "space": 0
+                             },
+                             {
+                                 "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
+                                            " secrets. There, you will find the clues necessary to guide you on your quest for the"
+                                            " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
+                                            " to navigating the challenges that lie between the realms of known and unknown.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
+                                         " indecipherable to the uninitiated."
+                             },
+                             {
+                                 "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
+                                            " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
+                                            " braving the infinite night."
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "clear": True
+                             },
+                             {
+                                 "text": "Embark on the Yolkaris Odyssey with"
+                                         " these words of guidance:"
+                             },
+                             {
+                                 "text": "In this tale, your journey begins"
+                                         " in Yolkaris, a realm of myths and"
+                                         " mysteries."
+                             },
+                             {
+                                 "text": "- Use the 'map' command to find your"
+                                         " path within this enchanted land.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Traverse the land through 'north',"
+                                         " 'south', 'east', and 'west'. Discover your"
+                                         " destiny.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- In your quest, 'search' the areas"
+                                         " for hidden treasures and secrets.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep your inventory filled with"
+                                         " artifacts and tools. Check it with the"
+                                         " 'inventory' command.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- When your health is low, 'potion'"
+                                         " can be used to restore your vitality.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- Keep an eye on your 'stats' to"
+                                         " track your progress.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- If you require guidance, simply"
+                                         " type 'help' to view a list of available"
+                                         " commands.",
+                                 "space": 0
+                             },
+                             {
+                                 "text": "- To begin anew or end your"
+                                         " adventure, use 'reset' or 'quit' anytime."
+                             },
+                             {
+                                 "text": "Good fortune on your quest. May your"
+                                         " journey be filled with wonder.",
+                                 "space": 0
+                             },
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "The hallowed halls of the observatory felt heavier as Charlie stepped in, the weight of unmet expectations pressing down."
+                             },
+                             {
+                                 "neutral": "Archibald Thorne, peering through his grand telescope, turned, his gaze filled with a mix of anticipation and concern.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "Charlie, my boy, what news do you bring from the stars?",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "I've journeyed far and wide, Archibald, yet the Aurora Orb remains beyond my grasp.",
+                                 "space": 0,
+                             },
+                             {
+                                 "neutral": "Ah, the cosmos is vast and its secrets well-guarded. Do not despair, Charlie. This is but a setback on a path filled with many. The Orb is out there, waiting for one worthy and persistent enough to uncover it.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "Return to the stars, Charlie. Your quest is far from over, and Yolkaris' hope still shines bright within you. Remember, the journey itself forges the hero, not merely the triumph.",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "With a renewed sense of purpose, Charlie nodded, the determination to succeed reigniting within him. The quest for the Aurora Orb was far from over, and his journey through the cosmos awaited.",
+                                 "space": 1,
+                             },
+                             {
+                                 "continue": True
+                             }
                          ],
                          storyLineCompleted=[
+                             {
+                                 "text": "As Charlie stepped into the observatory, a hush fell over the gathered crowd, anticipation hanging thick in the air."
+                             },
+                             {
+                                 "neutral": "Archibald Thorne, his eyes gleaming with hope, turned from his telescope to face Charlie, the room's silence pregnant with expectation.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "Is it true, Charlie? Have you brought back the light to Yolkaris?",
+                                 "space": 0,
+                             },
+                             {
+                                 "player": "Yes, Archibald. The Aurora Orb is with me. We can now cleanse the dark dust from our skies.",
+                                 "space": 0,
+                             },
+                             {
+                                 "text": "A collective gasp filled the observatory as Charlie held up the Orb. Its glow, soft yet potent, seemed to pulse with the heartbeat of the planet itself.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "Incredible! Charlie, you've done more than just retrieve an ancient relic; you've given us all a future. Let's waste no time. To the activation chamber!",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "The assembly moved to the chamber, where the Orb was carefully set into its ancient cradle. Archibald initiated the activation sequence, and the Orb's light intensified, beams shooting skywards.",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "Outside, the dark dust began to dissipate like shadows at dawn, revealing the azure skies of Yolkaris. The sunlight, warm and life-giving, touched the planet once more, coaxing life back into the world.",
+                                 "space": 1,
+                             },
+                             {
+                                 "neutral": "You've done it, Charlie! Yolkaris is saved!",
+                                 "space": 1,
+                             },
+                             {
+                                 "text": "Cheers erupted, echoing through the observatory and beyond, as people everywhere rejoiced. Charlie, amidst the celebration, knew that this moment marked not just the end of a journey, but the dawn of a new era for Yolkaris.",
+                                 "space": 1,
+                             },
                              {
                                  "text": "Game Over!",
                              },
@@ -1934,38 +1877,479 @@ class Game:
                              }
                          ]
                      ),
-                     position=(0, 1),
+                     position=(0, 0),
+                     ),
+                Area(name="Bounty Harbour",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Bounty Harbour bustles with life, a hub "
+                                     " for seafaring souls and wandering traders. The"
+                                     " aroma of the ocean mingles with exotic spices,"
+                                     " weaving a tapestry of adventure and mystery in"
+                                     " the air."
+                         },
+                         {
+                             "text": "Charlie, amidst the vibrant chatter of"
+                                     " the marketplace and rhythmic creaking of ships,"
+                                     " takes in the colorful tapestry of sails and"
+                                     " flags, each narrating tales of distant lands"
+                                     " and mysterious seas."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Bounty Harbour",
+                         }
+                     ],
+                     items=[],
+                     ),
+                Area(name="Gearhaven District",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Charlie's journey led him to the heart of Gearhaven District, a place where the"
+                                     " past and future collided amidst gears and gizmos. Nestled within this industrial bastion"
+                                     " was Eudora Quasar's workshop, a veritable cavern of wonders where metal met magic under"
+                                     " her skilled hands."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "You are back in Gearhaven District",
+                         }
+                     ],
+                     items=[],
+                     neutral=Neutral("Eudora Quasar",
+                                     storyLine=[
+                                         {
+                                             "neutral": "Ah, Charlie,",
+                                         },
+                                         {
+                                             "text": "she exclaimed, her voice echoing slightly in the vast space."
+                                         },
+                                         {
+                                             "neutral": "I've been expecting you. Archibald sent word of your quest. It's not"
+                                             " every day we get to send someone off to the stars."
+                                         },
+                                         {
+                                             "text": "She led Charlie to a peculiar object covered by a tarp. With a dramatic flourish,"
+                                             " she unveiled the Nebula Voyager II. The small, egg-shaped vessel sat innocuously on the"
+                                             " workbench, its surface smooth and enigmatic."
+                                         },
+                                         {
+                                             "neutral": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
+                                             " It can carry you across the galaxies, transforming from this compact egg to a fully"
+                                             " equipped starship at your command."
+                                         },
+                                         {
+                                             "item": Spaceship(
+                                                 name="Nebula Voyager II",
+                                                 description="The Nebula Voyager II stands as a marvel of cosmic engineering,"
+                                                 "seamlessly blending elegance with functionality. This compact vessel transforms from the"
+                                                 " size of an egg into a sleek, two-to-three-seater starship, designed for ease of"
+                                                 " transport and rapid interstellar travel. Its hull, reflecting the myriad colors of deep"
+                                                 " space, houses a hyperdrive capable of swift journeys across galaxies, while its"
+                                                 " transparent cockpit offers breathtaking views of the cosmos. Inside, the Voyager's"
+                                                 " efficient layout includes life-support systems, advanced navigation controls, and ample"
+                                                 " storage, all within a space that maximizes comfort for its adventurers. It's more than"
+                                                 " a ship; it's a gateway to the unknown, crafted for those brave enough to explore the"
+                                                 " mysteries of the universe. The Nebula Voyager II is a testament to the spirit of"
+                                                 " exploration, inviting its passengers to embark on journeys beyond the stars."
+                                             )
+                                         },
+                                         {
+                                             "text": "You have received an item: Nebula Voyager II"
+                                         },
+                                         {
+                                             "text": "Charlie examined the Nebula Voyager II, a mix of awe and curiosity in his eyes."
+                                             " Eudora explained its operation, how a twist and a press could unfold the universe's"
+                                             " mysteries before him."
+                                         },
+                                         {
+                                             "neutral": "As you embark on your journey to Mystara and beyond, remember, the path will"
+                                             " not be easy, but the Nebula is more than a vessel. It's a companion, one that will"
+                                             " guide you through the darkest reaches and bring you home."
+                                         },
+                                         {
+                                             "text": "Charlie nodded, his heart swelling with gratitude and determination."
+                                         },
+                                         {
+                                             "player": "Thank you, Eudora. I won't let you down."
+                                         },
+                                         {
+                                             "text": "As he left the workshop, the Nebula Voyager II in hand, Charlie felt the weight"
+                                             " of his mission anew. But with the support of friends like Eudora and the ingenuity of"
+                                             " Gearhaven District behind him, he knew he was ready to face whatever the cosmos held."
+                                         }
+                                     ],
+                                     storyLineVisited=[
+                                         {
+                                             "neutral": "Charlie, back so soon? How's the Nebula Voyager II treating you?",
+                                             "space": 0,
+                                         },
+                                         {
+                                             "player": "It's been fantastic, Eudora. Couldn't have gotten far without it.",
+                                             "space": 0,
+                                         },
+                                         {
+                                             "neutral": "Great to hear. Remember, every adventure is a chance to learn something new. Safe travels, Charlie.",
+                                             "space": 1,
+                                         },
+                                         {
+                                             "continue": True
+                                         }
+                                     ]
+                                     ),
+                     ),
+                Area(name="Cluckington Valley",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Cluckington Valley unfolds beneath the watchful gaze of ancient peaks, a lush expanse teeming with life. Its fields, radiant with a green vibrancy, pulse with the earth's own rhythms, while wildflowers perform silent symphonies for a buzzing audience of bees.",
+                             "space": 1
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to Cluckington Valley",
+                             "space": 1
+                         }
+                     ],
+                     items=[
+                         {
+                             "item": Potion(name="Small Potion", health=25),
+                             "quantity": 1
+                         }
+                     ],
+                     )
+            ]
+
+            mystara_areas = [
+                Area(name="Astral Port",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Astral Port, where the pulse of intergalactic trade beats strong. Ships from"
+                                     " across the universe dock here, their hulls brimming with goods from distant worlds. The"
+                                     " air hums with the languages of a thousand planets, a testament to the port's role as a"
+                                     " crossroads of the cosmos."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to Astral Port"
+                         }
+                     ],
+                     ),
+                Area(name="Quantum Quarters",
+                     storyLine=[
+                         {
+                             "text": "Quantum Quarters, a district where the future is now. The architecture defies"
+                                     " gravity, and technology unseen on any other planet makes daily life a constant marvel."
+                                     " Here, the impossible is just another part of the day."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "text": "Returning to Quantum Quarters"
+                         }
+                     ],
+                     ),
+                Area(name="Moonlight Market",
+                     storyLine=[
+                         {
+                             "text": "Moonlight Market, illuminated by the soft glow of the twin moons. Stalls"
+                                     " overflow with exotic spices, rare artifacts, and treasures untold. It's a treasure"
+                                     " hunter's dream, a place where fortunes can be found or lost with a single deal."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "text": "Returning to Moonlight Market"
+                         }
+                     ]),
+                Area(name="Observatory",
+                     storyLine=[
+                         {
+                             "text": "The Observatory, a temple to the stars where ancient and modern knowledge"
+                                     " converge. Astronomers and seers alike peer into the depths of space, seeking answers"
+                                     " to questions as old as time itself"
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "text": "Returning to Observatory"
+                         }
+                     ]),
+                Area(name="Sanctuary",
+                     storyLine=[
+                         {
+                             "text": "Sanctuary, a haven of peace in a universe of chaos. Here, weary travelers find"
+                                     " solace among verdant gardens and tranquil waters, a place to rest and rejuvenate"
+                                     " before continuing on their cosmic journeys."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "text": "Returning to Sanctuary"
+                         }
+                     ]),
+                Area(name="Old Citadel",
+                     storyLine=[
+                         {
+                             "text": "The Old Citadel stands as a testament to the planet's ancient past. Its walls,"
+                                     " steeped in history, hold secrets of ancient civilizations, their rise and fall"
+                                     " echoing in the silent halls."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "text": "Returning to the Old Citadel"
+                         }
+                     ]),
+            ]
+
+            luminara_areas = [
+                Area(name="Area 1",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 2",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 3",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 4",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 5",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 6",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 7",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 8",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
+                     ),
+                Area(name="Area 9",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": ""
+                         }
+                     ],
                      ),
             ]
 
-            mystara_areas = []
-
-            luminara_areas = []
-
             yolkaris_travel = {
-                "to":  [
-                    "The Nebula Voyager II approached Yolkaris, its engines humming softly. As it landed, the ship retracted into its compact egg form, leaving Charlie gazing at the familiar vistas of his home planet. 'Back to where it all began,' he thought, pocketing the egg and stepping onto the verdant fields of Yolkaris."
+                "to": [
+                    "The Nebula Voyager II approached Yolkaris, its engines "
+                    "humming softly. As it landed, the ship retracted into "
+                    "its compact egg form, leaving Charlie gazing at the "
+                    "familiar vistas of his home planet. 'Back to where it "
+                    "all began,' he thought, pocketing the egg and stepping "
+                    "onto the verdant fields of Yolkaris."
                 ],
                 "from": [
-                    "Charlie held the egg-sized Nebula Voyager II, giving it a precise twist and press. He placed it gently on the ground, stepping back as it whirred and expanded into the sleek spaceship within seconds. With a determined glance at Yolkaris' fading skyline, he boarded, ready for the stars to guide his next adventure."
+                    "Charlie held the egg-sized Nebula Voyager II, giving it "
+                    "a precise twist and press. He placed it gently on the "
+                    "ground, stepping back as it whirred and expanded into "
+                    "the sleek spaceship within seconds. With a determined "
+                    "glance at Yolkaris' fading skyline, he boarded, "
+                    "ready for the stars to guide his next adventure."
                 ]
             }
 
             mystara_travel = {
                 "to": [
-                    "Mystara's rugged terrain came into view as Charlie descended. Once landed, the Nebula Voyager II collapsed back into its egg form with a series of mechanical whispers. Charlie picked up the compact egg, the mysteries of Mystara awaiting his exploration under its ancient skies."
+                    "Mystara's rugged terrain came into view as Charlie "
+                    "descended. Once landed, the Nebula Voyager II collapsed "
+                    "back into its egg form with a series of mechanical "
+                    "whispers. Charlie picked up the compact egg, "
+                    "the mysteries of Mystara awaiting his exploration under "
+                    "its ancient skies."
                 ],
                 "from": [
-                    "As the mystic hues of Mystara's atmosphere enveloped him, Charlie prepared the Nebula Voyager II for departure. With a twist and a press, the egg transformed, its form unfolding into the starship that gleamed under the alien sun. Charlie entered the cockpit, his heart set on the cosmic paths that lay ahead."
+                    "As the mystic hues of Mystara's atmosphere enveloped "
+                    "him, Charlie prepared the Nebula Voyager II for "
+                    "departure. With a twist and a press, the egg "
+                    "transformed, its form unfolding into the starship that "
+                    "gleamed under the alien sun. Charlie entered the "
+                    "cockpit, his heart set on the cosmic paths that lay "
+                    "ahead."
                 ]
             }
 
             luminara_travel = {
                 "to": [
-                    "Luminara's brilliance welcomed Charlie as he landed. The Nebula Voyager II transformed back into its egg state, compact and enigmatic. Holding the egg, Charlie stepped out into the gleaming world, its luminescent beauty spreading out before him, a canvas of light and shadow."
+                    "Luminara's brilliance welcomed Charlie as he landed. "
+                    "The Nebula Voyager II transformed back into its egg "
+                    "state, compact and enigmatic. Holding the egg, Charlie "
+                    "stepped out into the gleaming world, its luminescent "
+                    "beauty spreading out before him, a canvas of light and "
+                    "shadow."
                 ],
                 "from": [
-                    "In the radiant glow of Luminara, Charlie activated the Nebula Voyager II. The small egg expanded into his interstellar vessel in mere moments, its panels locking into place with a satisfying click. He looked back at the shimmering landscapes one last time before embarking on his journey through the velvet cosmos."
+                    "In the radiant glow of Luminara, Charlie activated the "
+                    "Nebula Voyager II. The small egg expanded into his "
+                    "interstellar vessel in mere moments, its panels locking "
+                    "into place with a satisfying click. He looked back at "
+                    "the shimmering landscapes one last time before "
+                    "embarking on his journey through the velvet cosmos."
                 ]
             }
 
@@ -1990,7 +2374,8 @@ class Game:
                     attack=15,
                     defense=10,
                     potions=[],
-                    inventory=[]
+                    inventory=[
+                        Spaceship(name="Nebula Voyager II", description="")]
                 )
                 break
             else:
@@ -2227,7 +2612,8 @@ class Game:
         add_space()
 
         # Get the user's choice
-        choice = ask_user("number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
+        choice = ask_user(
+            "number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
         selected_location_index = int(choice) - 1
         self.current_location = selected_location_index
 
@@ -2238,7 +2624,8 @@ class Game:
 
         add_space()
         current_location.print_travel_story_line('from')
-        loading([f'{current_location.name} ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', f'{new_location.name}'])
+        loading([f'{current_location.name} ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ',
+                 f'{new_location.name}'])
         add_space()
         add_space()
         new_location.print_travel_story_line('to')
