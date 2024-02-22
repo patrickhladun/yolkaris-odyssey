@@ -1647,32 +1647,32 @@ class Game:
                          {
                              "clear": True
                          },
-                         {
-                             "text": "The Dark Dust",
-                             "delay": 0.6,
-                             "space": 1
-                         },
-                         {
-                             "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
-                                     " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
-                                     " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
-                                     " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
-                                     " the inhabitants as their vibrant home edges toward oblivion."
-                         },
-                         {
-                             "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
-                                     " of legend. Crafted in the forge of time by beings whose existence predates the stars"
-                                     " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
-                                     " scatter the Dark Dust and restore balance to the cosmos."
-                         },
-                         {
-                             "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
-                                     " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
-                                     " ancient beings, showcases the bravery that dwells within the most unexpected champions."
-                         },
-                         {
-                             "continue": True
-                         }
+                         #  {
+                         #      "text": "The Dark Dust",
+                         #      "delay": 0.6,
+                         #      "space": 1
+                         #  },
+                         #  {
+                         #      "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
+                         #              " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
+                         #              " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
+                         #              " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
+                         #              " the inhabitants as their vibrant home edges toward oblivion."
+                         #  },
+                         #  {
+                         #      "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
+                         #              " of legend. Crafted in the forge of time by beings whose existence predates the stars"
+                         #              " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
+                         #              " scatter the Dark Dust and restore balance to the cosmos."
+                         #  },
+                         #  {
+                         #      "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
+                         #              " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
+                         #              " ancient beings, showcases the bravery that dwells within the most unexpected champions."
+                         #  },
+                         #  {
+                         #      "continue": True
+                         #  }
                      ],
                      storyLineVisited=[
                          {
@@ -1687,118 +1687,118 @@ class Game:
                          name="Archibald Thorne",
                          questItem=Item(name="Aurora Orb"),
                          storyLine=[
-                             {
-                                 "text": "Archibald Thorne, a seasoned "
-                                         "navigator of the cosmos, leaned "
-                                         "closer, his voice a blend of "
-                                         "wisdom and urgency. ",
+                             #  {
+                             #      "text": "Archibald Thorne, a seasoned "
+                             #              "navigator of the cosmos, leaned "
+                             #              "closer, his voice a blend of "
+                             #              "wisdom and urgency. ",
 
-                             },
-                             {
-                                 "neutral": "Charlie, the fate of our world "
-                                            "hangs in the balance. The Dark "
-                                            "Dust threatens to consume all "
-                                            "that is vibrant and alive. But "
-                                            "you, my friend, have a destiny "
-                                            "that extends beyond the stars."
-                             },
-                             {
-                                 "neutral": "Your journey will take you beyond "
-                                            "the known, through the tapestry of stars, "
-                                            "to worlds that have only existed in the "
-                                            "whispers of the old. You must find the "
-                                            "Aurora Orb and bring its light back to "
-                                            "Yolkaris."
-                             },
-                             {
-                                 "text": "He paused, ensuring Charlie's full "
-                                         "attention.",
-                             },
-                             {
-                                 "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
-                                            " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
-                                            " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
-                                            " courage, will be your chariot among the stars.",
-                                 "space": 0
-                             },
-                             {
-                                 "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
-                                            " secrets. There, you will find the clues necessary to guide you on your quest for the"
-                                            " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
-                                            " to navigating the challenges that lie between the realms of known and unknown.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
-                                         " indecipherable to the uninitiated."
-                             },
-                             {
-                                 "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
-                                            " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
-                                            " braving the infinite night."
-                             },
-                             {
-                                 "continue": True
-                             },
-                             {
-                                 "clear": True
-                             },
-                             {
-                                 "text": "Embark on the Yolkaris Odyssey with"
-                                         " these words of guidance:"
-                             },
-                             {
-                                 "text": "In this tale, your journey begins"
-                                         " in Yolkaris, a realm of myths and"
-                                         " mysteries."
-                             },
-                             {
-                                 "text": "- Use the 'map' command to find your"
-                                         " path within this enchanted land.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Traverse the land through 'north',"
-                                         " 'south', 'east', and 'west'. Discover your"
-                                         " destiny.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- In your quest, 'search' the areas"
-                                         " for hidden treasures and secrets.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Keep your inventory filled with"
-                                         " artifacts and tools. Check it with the"
-                                         " 'inventory' command.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- When your health is low, 'potion'"
-                                         " can be used to restore your vitality.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- Keep an eye on your 'stats' to"
-                                         " track your progress.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- If you require guidance, simply"
-                                         " type 'help' to view a list of available"
-                                         " commands.",
-                                 "space": 0
-                             },
-                             {
-                                 "text": "- To begin anew or end your"
-                                         " adventure, use 'reset' or 'quit' anytime."
-                             },
-                             {
-                                 "text": "Good fortune on your quest. May your"
-                                         " journey be filled with wonder.",
-                                 "space": 0
-                             },
+                             #  },
+                             #  {
+                             #      "neutral": "Charlie, the fate of our world "
+                             #                 "hangs in the balance. The Dark "
+                             #                 "Dust threatens to consume all "
+                             #                 "that is vibrant and alive. But "
+                             #                 "you, my friend, have a destiny "
+                             #                 "that extends beyond the stars."
+                             #  },
+                             #  {
+                             #      "neutral": "Your journey will take you beyond "
+                             #                 "the known, through the tapestry of stars, "
+                             #                 "to worlds that have only existed in the "
+                             #                 "whispers of the old. You must find the "
+                             #                 "Aurora Orb and bring its light back to "
+                             #                 "Yolkaris."
+                             #  },
+                             #  {
+                             #      "text": "He paused, ensuring Charlie's full "
+                             #              "attention.",
+                             #  },
+                             #  {
+                             #      "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
+                             #                 " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
+                             #                 " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
+                             #                 " courage, will be your chariot among the stars.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
+                             #                 " secrets. There, you will find the clues necessary to guide you on your quest for the"
+                             #                 " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
+                             #                 " to navigating the challenges that lie between the realms of known and unknown.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
+                             #              " indecipherable to the uninitiated."
+                             #  },
+                             #  {
+                             #      "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
+                             #                 " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
+                             #                 " braving the infinite night."
+                             #  },
+                             #  {
+                             #      "continue": True
+                             #  },
+                             #  {
+                             #      "clear": True
+                             #  },
+                             #  {
+                             #      "text": "Embark on the Yolkaris Odyssey with"
+                             #              " these words of guidance:"
+                             #  },
+                             #  {
+                             #      "text": "In this tale, your journey begins"
+                             #              " in Yolkaris, a realm of myths and"
+                             #              " mysteries."
+                             #  },
+                             #  {
+                             #      "text": "- Use the 'map' command to find your"
+                             #              " path within this enchanted land.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- Traverse the land through 'north',"
+                             #              " 'south', 'east', and 'west'. Discover your"
+                             #              " destiny.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- In your quest, 'search' the areas"
+                             #              " for hidden treasures and secrets.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- Keep your inventory filled with"
+                             #              " artifacts and tools. Check it with the"
+                             #              " 'inventory' command.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- When your health is low, 'potion'"
+                             #              " can be used to restore your vitality.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- Keep an eye on your 'stats' to"
+                             #              " track your progress.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- If you require guidance, simply"
+                             #              " type 'help' to view a list of available"
+                             #              " commands.",
+                             #      "space": 0
+                             #  },
+                             #  {
+                             #      "text": "- To begin anew or end your"
+                             #              " adventure, use 'reset' or 'quit' anytime."
+                             #  },
+                             #  {
+                             #      "text": "Good fortune on your quest. May your"
+                             #              " journey be filled with wonder.",
+                             #      "space": 0
+                             #  },
                          ],
                          storyLineVisited=[
                              {
@@ -2615,8 +2615,12 @@ class Game:
                                     "player": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
                                 }
                             ]
-
-                        )]
+                        ),
+                        Spaceship(
+                            name="Spaceship",
+                            description="Testing Spaceship"
+                        )
+                    ]
                 )
                 break
             else:
@@ -2841,24 +2845,40 @@ class Game:
             Interaction.print_story_line(self, item.storyLine)
 
     def travel_to_new_location(self):
-        locations = ['Yolkaris', 'Mystara', 'Luminara']
+        # Initial locations
+        base_destinations = {'Yolkaris': ['Mystara'], 'Mystara': [
+            'Yolkaris'], 'Luminara': ['Yolkaris', 'Mystara']}
+        special_item_name = "Holographic Cosmos Codex"
+
         current_location = self.get_current_location()
         add_space()
         text("Select a location to travel to:", space=1)
 
+        # Check if the player has the special item and adjust available locations accordingly
+        has_special_item = any(
+            item.name == special_item_name for item in self.player.inventory
+        ) if self.player.inventory else False
+
+        if has_special_item and current_location.name == 'Mystara':
+            available_destinations = base_destinations[current_location.name] + [
+                'Luminara']
+        else:
+            available_destinations = base_destinations[current_location.name]
+
         # List available locations to travel to
-        for index, location in enumerate(locations, start=1):
-            if location != current_location.name:
-                text(f"{index}. {location}")
-            else:
-                text(f"{index}. {location} (Current Location)")
+        for index, location in enumerate(available_destinations, start=1):
+            text(f"{index}. {location}")
+
         add_space()
 
         # Get the user's choice
         choice = ask_user(
-            "number", prompt="Where do you want to go? ", numbers=['1', '2', '3'])
-        selected_location_index = int(choice) - 1
-        self.current_location = selected_location_index
+            "number", prompt="Where do you want to go? ", numbers=[str(i) for i in range(1, len(available_destinations) + 1)])
+        selected_location_name = available_destinations[int(choice) - 1]
+
+        # Find the index of the selected location in the original locations list
+        self.current_location = ['Yolkaris', 'Mystara',
+                                 'Luminara'].index(selected_location_name)
 
         new_location = self.get_current_location()
         new_location.player_position = (0, 0)
@@ -2867,8 +2887,8 @@ class Game:
 
         add_space()
         current_location.print_travel_story_line('from')
-        loading([f'{current_location.name} ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ', '* ',
-                 f'{new_location.name}'])
+        loading([f'{current_location.name} ', '* ', '* ', '* ', '* ',
+                '* ', '* ', '* ', '* ', '* ', '* ', f'{new_location.name}'])
         add_space()
         add_space()
         new_location.print_travel_story_line('to')
