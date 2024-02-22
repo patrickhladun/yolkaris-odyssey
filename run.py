@@ -560,6 +560,11 @@ class Spaceship(Item):
         super().__init__(name, description)
 
 
+class Special(Item):
+    def __init__(self, name: str, description: str) -> None:
+            super().__init__(name, description)
+
+
 def game_title() -> None:
     """
     This is the main menu.
@@ -2309,7 +2314,6 @@ class Game:
                          defense=15,
                          fought=False
                      )
-
                      ),
             ]
 
@@ -2331,6 +2335,7 @@ class Game:
                              "text": ""
                          }
                      ],
+                     position=(0, 0)
                      ),
                 Area(name="The Cloud City",
                      storyLine=[
