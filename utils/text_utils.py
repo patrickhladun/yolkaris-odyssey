@@ -62,10 +62,10 @@ def paragraph(
     add_space(space=space, delay=delay)
 
 
-def add_space(space: int = 0, delay: float = 0.2):
+def add_space(space: int = 1, delay: float = 0.2):
     """
     This prints a new line to the terminal.
-    - space: the number of new lines to print
+    - space: the number of new lines to print (default is 1)
     - delay: the delay between each new line
     """
     if space > 1:
