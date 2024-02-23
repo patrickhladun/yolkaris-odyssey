@@ -82,7 +82,28 @@ class Interaction:
         self.player = player
 
     def add_new_item(self, item):
-        self.player.inventory.append(item)
+
+        if isinstance(item, Weapon):
+            text(f"You have received the '{item.name}'.", space=1)
+            paragraph(item.description, space=1)
+            self.player.weapon = item
+
+        elif isinstance(item, Armour):
+            text(f"You have received the '{item.name}'.", space=1)
+            paragraph(item.description, space=1)
+            self.player.armour = item
+
+        elif isinstance(item, Potion):
+            text(f"You have received {item.name}.", space=1)
+            self.player.potions.append(item)
+
+        elif isinstance(item, Book):
+            text(f"You have received a book '{item.name}'.", space=1)
+            self.player.inventory.append(item)
+
+        elif isinstance(item, Item):
+            text(f"You have received an item '{item.name}'.", space=1)
+            self.player.inventory.append(item)
 
     def print_story_line(self, storyLine):
         for line in storyLine:
