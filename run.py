@@ -465,7 +465,7 @@ class Location:
 
 
 class Yolkaris(Location):
-    def __init__(self, size, areas, travel) -> None:
+    def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Yolkaris",
             description="A vibrant planet with diverse ecosystems.",
@@ -476,7 +476,7 @@ class Yolkaris(Location):
 
 
 class Mystara(Location):
-    def __init__(self, size, areas, travel) -> None:
+    def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Mystara",
             description="A mysterious planet covered in thick jungles.",
@@ -487,7 +487,7 @@ class Mystara(Location):
 
 
 class Luminara(Location):
-    def __init__(self, size, areas, travel) -> None:
+    def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Luminara",
             description="A radiant planet with a luminous landscape.",
