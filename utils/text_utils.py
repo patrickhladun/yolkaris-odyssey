@@ -52,12 +52,13 @@ def paragraph(
 
     text(' ' * 3 + lines[0], color=color)
 
-    for i, line in enumerate(lines):
+    for i in range(1, len(lines)):
+        line = lines[i]
         if i == len(lines) - 1:
             text(line, space=space, color=color)
         else:
             text(line, color=color)
-    time.sleep(delay)
+        time.sleep(delay)
 
 
 def add_space(space: int = 0, delay: float = 0.2):
