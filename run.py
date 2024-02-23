@@ -570,7 +570,7 @@ class Spaceship(Item):
 
 
 class Special(Item):
-    def __init__(self, name: str, description: str, storyLine: list = None) -> None:
+    def __init__(self, name: str, description: str = None, storyLine: list = None) -> None:
         super().__init__(name, description)
         self.storyLine = storyLine
 
@@ -661,7 +661,7 @@ class Game:
         #         '.', '.', '.', '.'], 'Game generated')
         # loading(['Starting game', '.', '.', '.', '.'])
         self.assign_player_to_location()
-        self.current_location = 2
+        self.current_location = 0
         starting_location = self.get_current_location()
         starting_location.check_for_interaction((0, 0), self.player)
         self.display_map()
@@ -696,7 +696,7 @@ class Game:
                          },
                          {
                              "text": "The Broken Clock Adventure",
-                             "delay": 0.6,
+                             "delay": 1.6,
                              "space": 1
                          },
                          {
@@ -786,7 +786,7 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
-                         questItem=Item(name="The Time Crystal"),
+                         questItem=Special(name="The Time Crystal"),
                          storyLine=[
                              {
                                  "text": "'Ah, Charlie! The Grand Clock, our"
@@ -913,11 +913,11 @@ class Game:
                                  "space": 1,
                              },
                              {
-                                 "neutral": "You've done it, Charlie! The heart"
-                                            " of Yolkaris beats once more, thanks to you."
-                                            " This day will be remembered as the moment"
-                                            " when time itself was mended by the courage"
-                                            " of a single soul.",
+                                 "text": "You've done it, Charlie! The heart"
+                                 " of Yolkaris beats once more, thanks to you."
+                                 " This day will be remembered as the moment"
+                                 " when time itself was mended by the courage"
+                                 " of a single soul.",
                                  "space": 1,
                              },
                              {
@@ -1227,8 +1227,9 @@ class Game:
                          attack=40,
                          defense=20
                      ),
-                     items=[Item(name="The Time Crystal")
-                            ],
+                     items=[
+                         Special(name="The Time Crystal")
+                     ],
                      position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
@@ -1554,26 +1555,21 @@ class Game:
                          storyLineWonFight=[
                              {
                                  "text": "With a final, determined effort, you"
-                                         " overcome Viktor Thornhart's defenses."
+                                 " overcome Viktor Thornhart's defenses."
+                                 " 'You've proven your mettle, Charlie. I"
+                                 " yield.' Viktor's stern demeanorc softens,"
+                                 " acknowledging your strength."
                              },
                              {
-                                 "text": "You've proven your mettle, Charlie."
-                                 "I yield."
-                             },
-                             {
-                                 "text": "Viktor's stern demeanorc softens,"
-                                         " acknowledging your strength."
-                             },
-                             {
-                                 "text": "I'll share a secret with you,"
+                                 "text": "`I'll share a secret with you,"
                                  " Charlie. In the heart of these peaks,"
-                                 " you'll find the Feathered Armor."
+                                 " you'll find the Feathered Armor.`"
                              },
                              {
                                  "text": "Viktor's words pique your curiosity"
-                                         " as he reveals the existence of the finest"
-                                         " armor, crafted from the lightest and"
-                                         " strongest feathers known."
+                                 " as he reveals the existence of the finest"
+                                 " armor, crafted from the lightest and"
+                                 " strongest feathers known."
                              }
                          ],
                          storyLineLostFight=[
@@ -1632,32 +1628,25 @@ class Game:
                          {
                              "clear": True
                          },
-                         #  {
-                         #      "text": "The Dark Dust",
-                         #      "delay": 0.6,
-                         #      "space": 1
-                         #  },
-                         #  {
-                         #      "text": "In the shadow of an ever-expanding universe, where celestial bodies dance in the"
-                         #              " silent ballet of the cosmos, there lies a planet now cloaked in darkness. The Dark Dust,"
-                         #              " a cosmic malaise born from the deepest recesses of space, has descended upon this world,"
-                         #              " veiling it from the life-giving rays of its star. Ecosystems falter, and despair grips"
-                         #              " the inhabitants as their vibrant home edges toward oblivion."
-                         #  },
-                         #  {
-                         #      "text": "Against this backdrop of encroaching doom, the Aurora Orb emerges from the annals"
-                         #              " of legend. Crafted in the forge of time by beings whose existence predates the stars"
-                         #              " themselves, this Orb is said to radiate with an ethereal light, powerful enough to"
-                         #              " scatter the Dark Dust and restore balance to the cosmos."
-                         #  },
-                         #  {
-                         #      "text": "Charlie, a remarkable chicken chosen by destiny, ventures beyond the stars on a"
-                         #              " mission to find the Aurora Orb. His journey, rich with cosmic mysteries and guarded by"
-                         #              " ancient beings, showcases the bravery that dwells within the most unexpected champions."
-                         #  },
-                         #  {
-                         #      "continue": True
-                         #  }
+                         {
+                             "text": "The Dark Dust",
+                             "delay": 0.6
+                         },
+                         {
+                             "text": "Enveloped by the cosmos, a planet stands on the brink of desolation, smothered by The Dark Dust. This celestial scourge blocks out the sun, threatening all life with eternal darkness. Without the sun's warmth and light, the world's ecosystems are collapsing, and despair tightens its grip on every soul."
+                         },
+                         {
+                             "text": "At the heart of this planet's ancient defense is a marvel of cosmic engineering: a device powered by the Aurora Orb. This Orb, cycling every thousand years, is the key to dispelling The Dark Dust. However, as the last Orb's light fades, the planet teeters on the edge of ruin."
+                         },
+                         {
+                             "text": "Legends whisper of other Aurora Orbs scattered across the galaxy, hidden and guarded by celestial custodians. These Orbs, radiant with potent light, hold the power to recharge the planet's defenses and push back the encroaching darkness."
+                         },
+                         {
+                             "text": "Enter Charlie, an unassuming hero chosen by fate. With the courage of the cosmos in his heart, he sets forth on an epic quest. His mission: to traverse the galaxy, confront ancient guardians, and secure an Aurora Orb to save his world from the shadow of The Dark Dust."
+                         },
+                         {
+                             "continue": True
+                         }
                      ],
                      storyLineVisited=[
                          {
@@ -1667,146 +1656,151 @@ class Game:
                              "text": "You are back in Capital City"
                          },
                      ],
-                     items=[],
                      neutral=Neutral(
                          name="Archibald Thorne",
-                         questItem=Item(name="Aurora Orb"),
+                         questItem=Special(name="The Aurora Orb"),
                          storyLine=[
-                             #  {
-                             #      "text": "Archibald Thorne, a seasoned "
-                             #              "navigator of the cosmos, leaned "
-                             #              "closer, his voice a blend of "
-                             #              "wisdom and urgency. ",
+                              {
+                                  "text": "Archibald Thorne, a seasoned "
+                                          "navigator of the cosmos, leaned "
+                                          "closer, his voice a blend of "
+                                          "wisdom and urgency. ",
 
-                             #  },
-                             #  {
-                             #      "neutral": "Charlie, the fate of our world "
-                             #                 "hangs in the balance. The Dark "
-                             #                 "Dust threatens to consume all "
-                             #                 "that is vibrant and alive. But "
-                             #                 "you, my friend, have a destiny "
-                             #                 "that extends beyond the stars."
-                             #  },
-                             #  {
-                             #      "neutral": "Your journey will take you beyond "
-                             #                 "the known, through the tapestry of stars, "
-                             #                 "to worlds that have only existed in the "
-                             #                 "whispers of the old. You must find the "
-                             #                 "Aurora Orb and bring its light back to "
-                             #                 "Yolkaris."
-                             #  },
-                             #  {
-                             #      "text": "He paused, ensuring Charlie's full "
-                             #              "attention.",
-                             #  },
-                             #  {
-                             #      "neutral": "To embark on this pivotal journey, you'll need a vessel unlike any other."
-                             #                 " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
-                             #                 " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
-                             #                 " courage, will be your chariot among the stars.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "neutral": "Your first destination is Mystara, a planet veiled in mystery and ancient"
-                             #                 " secrets. There, you will find the clues necessary to guide you on your quest for the"
-                             #                 " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
-                             #                 " to navigating the challenges that lie between the realms of known and unknown.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
-                             #              " indecipherable to the uninitiated."
-                             #  },
-                             #  {
-                             #      "neutral": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
-                             #                 " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
-                             #                 " braving the infinite night."
-                             #  },
-                             #  {
-                             #      "continue": True
-                             #  },
-                             #  {
-                             #      "clear": True
-                             #  },
-                             #  {
-                             #      "text": "Embark on the Yolkaris Odyssey with"
-                             #              " these words of guidance:"
-                             #  },
-                             #  {
-                             #      "text": "In this tale, your journey begins"
-                             #              " in Yolkaris, a realm of myths and"
-                             #              " mysteries."
-                             #  },
-                             #  {
-                             #      "text": "- Use the 'map' command to find your"
-                             #              " path within this enchanted land.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Traverse the land through 'north',"
-                             #              " 'south', 'east', and 'west'. Discover your"
-                             #              " destiny.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- In your quest, 'search' the areas"
-                             #              " for hidden treasures and secrets.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Keep your inventory filled with"
-                             #              " artifacts and tools. Check it with the"
-                             #              " 'inventory' command.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- When your health is low, 'potion'"
-                             #              " can be used to restore your vitality.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- Keep an eye on your 'stats' to"
-                             #              " track your progress.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- If you require guidance, simply"
-                             #              " type 'help' to view a list of available"
-                             #              " commands.",
-                             #      "space": 0
-                             #  },
-                             #  {
-                             #      "text": "- To begin anew or end your"
-                             #              " adventure, use 'reset' or 'quit' anytime."
-                             #  },
-                             #  {
-                             #      "text": "Good fortune on your quest. May your"
-                             #              " journey be filled with wonder.",
-                             #      "space": 0
-                             #  },
+                              },
+                             {
+                                  "text": "'Charlie, the fate of our world "
+                                  "hangs in the balance. The Dark "
+                                  "Dust threatens to consume all "
+                                  "that is vibrant and alive. But "
+                                  "you, my friend, have a destiny "
+                                  "that extends beyond the stars.'"
+                              },
+                             {
+                                  "text": "'Your journey will take you beyond "
+                                  " the known, through the tapestry of stars,"
+                                  " to worlds that have only existed in the"
+                                  " whispers of the old. You must find the"
+                                  " Aurora Orb and bring its light back to"
+                                  " Yolkaris.' He paused, ensuring Charlie's"
+                                  " full attention."
+                              },
+
+                             {
+                                  "text": "'To embark on this pivotal journey, you'll need a vessel unlike any other."
+                                  " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
+                                  " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
+                                  " courage, will be your chariot among the stars.'",
+
+                              },
+                             {
+                                  "continue": True
+                              },
+                             {
+                                  "text": "Your first destination is Mystara, a planet veiled in mystery and ancient"
+                                  " secrets. There, you will find the clues necessary to guide you on your quest for the"
+                                  " Aurora Orb. Remember, the Nebula Voyager II is not just your transport; it's the key"
+                                  " to navigating the challenges that lie between the realms of known and unknown.",
+
+                              },
+                             {
+                                  "text": "He handed Charlie a celestial map, marked with coordinates and symbols"
+                                          " indecipherable to the uninitiated."
+                              },
+                             {
+                                  "text": "The journey ahead is perilous, fraught with wonders and dangers alike. But"
+                                  " I believe in you, Charlie. You have within you the heart of a voyager, capable of"
+                                  " braving the infinite night."
+                              },
+                             {
+                                  "continue": True
+                              },
+                             {
+                                  "clear": True
+                              },
+                             {
+                                  "text": "Embark on the Yolkaris Odyssey with"
+                                          " these words of guidance:"
+                              },
+                             {
+                                  "text": "In this tale, your journey begins"
+                                          " in Yolkaris, a realm of myths and"
+                                          " mysteries."
+                              },
+                             {
+                                  "text": "- Use the 'map' command to find your"
+                                          " path within this enchanted land.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- Traverse the land through 'north',"
+                                          " 'south', 'east', and 'west'. Discover your"
+                                          " destiny.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- In your quest, 'search' the areas"
+                                          " for hidden treasures and secrets.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- Keep your inventory filled with"
+                                          " artifacts and tools. Check it with the"
+                                          " 'inventory' command.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- When your health is low, 'potion'"
+                                          " can be used to restore your vitality.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- Keep an eye on your 'stats' to"
+                                          " track your progress.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- If you require guidance, simply"
+                                          " type 'help' to view a list of available"
+                                          " commands.",
+                                          "space": 0
+
+                              },
+                             {
+                                  "text": "- To begin anew or end your"
+                                          " adventure, use 'reset' or 'quit' anytime."
+                              },
+                             {
+                                  "text": "Good fortune on your quest. May your"
+                                          " journey be filled with wonder.",
+
+                              },
                          ],
                          storyLineVisited=[
                              {
                                  "text": "The hallowed halls of the observatory felt heavier as Charlie stepped in, the weight of unmet expectations pressing down."
                              },
                              {
-                                 "neutral": "Archibald Thorne, peering through his grand telescope, turned, his gaze filled with a mix of anticipation and concern.",
+                                 "text": "Archibald Thorne, peering through his grand telescope, turned, his gaze filled with a mix of anticipation and concern.",
                                  "space": 1,
                              },
                              {
-                                 "neutral": "Charlie, my boy, what news do you bring from the stars?",
-                                 "space": 0,
+                                 "text": "Charlie, my boy, what news do you bring from the stars?",
                              },
                              {
                                  "text": "I've journeyed far and wide, Archibald, yet the Aurora Orb remains beyond my grasp.",
-                                 "space": 0,
                              },
                              {
-                                 "neutral": "Ah, the cosmos is vast and its secrets well-guarded. Do not despair, Charlie. This is but a setback on a path filled with many. The Orb is out there, waiting for one worthy and persistent enough to uncover it.",
+                                 "text": "Ah, the cosmos is vast and its secrets well-guarded. Do not despair, Charlie. This is but a setback on a path filled with many. The Orb is out there, waiting for one worthy and persistent enough to uncover it.",
                                  "space": 1,
                              },
                              {
-                                 "neutral": "Return to the stars, Charlie. Your quest is far from over, and Yolkaris' hope still shines bright within you. Remember, the journey itself forges the hero, not merely the triumph.",
+                                 "text": "Return to the stars, Charlie. Your quest is far from over, and Yolkaris' hope still shines bright within you. Remember, the journey itself forges the hero, not merely the triumph.",
                                  "space": 1,
                              },
                              {
@@ -1822,23 +1816,21 @@ class Game:
                                  "text": "As Charlie stepped into the observatory, a hush fell over the gathered crowd, anticipation hanging thick in the air."
                              },
                              {
-                                 "neutral": "Archibald Thorne, his eyes gleaming with hope, turned from his telescope to face Charlie, the room's silence pregnant with expectation.",
+                                 "text": "Archibald Thorne, his eyes gleaming with hope, turned from his telescope to face Charlie, the room's silence pregnant with expectation.",
                                  "space": 1,
                              },
                              {
-                                 "neutral": "Is it true, Charlie? Have you brought back the light to Yolkaris?",
-                                 "space": 0,
+                                 "text": "Is it true, Charlie? Have you brought back the light to Yolkaris?",
                              },
                              {
                                  "text": "Yes, Archibald. The Aurora Orb is with me. We can now cleanse the dark dust from our skies.",
-                                 "space": 0,
                              },
                              {
                                  "text": "A collective gasp filled the observatory as Charlie held up the Orb. Its glow, soft yet potent, seemed to pulse with the heartbeat of the planet itself.",
                                  "space": 1,
                              },
                              {
-                                 "neutral": "Incredible! Charlie, you've done more than just retrieve an ancient relic; you've given us all a future. Let's waste no time. To the activation chamber!",
+                                 "text": "Incredible! Charlie, you've done more than just retrieve an ancient relic; you've given us all a future. Let's waste no time. To the activation chamber!",
                                  "space": 1,
                              },
                              {
@@ -1850,7 +1842,7 @@ class Game:
                                  "space": 1,
                              },
                              {
-                                 "neutral": "You've done it, Charlie! Yolkaris is saved!",
+                                 "text": "You've done it, Charlie! Yolkaris is saved!",
                                  "space": 1,
                              },
                              {
@@ -1924,13 +1916,10 @@ class Game:
                      neutral=Neutral("Eudora Quasar",
                                      storyLine=[
                                          {
-                                             "neutral": "Ah, Charlie,",
+                                             "text": "'Ah, Charlie,' she exclaimed, her voice echoing slightly in the vast space.",
                                          },
                                          {
-                                             "text": "she exclaimed, her voice echoing slightly in the vast space."
-                                         },
-                                         {
-                                             "neutral": "I've been expecting you. Archibald sent word of your quest. It's not"
+                                             "text": "I've been expecting you. Archibald sent word of your quest. It's not"
                                              " every day we get to send someone off to the stars."
                                          },
                                          {
@@ -1939,7 +1928,7 @@ class Game:
                                              " workbench, its surface smooth and enigmatic."
                                          },
                                          {
-                                             "neutral": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
+                                             "text": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
                                              " It can carry you across the galaxies, transforming from this compact egg to a fully"
                                              " equipped starship at your command."
                                          },
@@ -1960,15 +1949,12 @@ class Game:
                                              )
                                          },
                                          {
-                                             "text": "You have received an item: Nebula Voyager II"
-                                         },
-                                         {
                                              "text": "Charlie examined the Nebula Voyager II, a mix of awe and curiosity in his eyes."
                                              " Eudora explained its operation, how a twist and a press could unfold the universe's"
                                              " mysteries before him."
                                          },
                                          {
-                                             "neutral": "As you embark on your journey to Mystara and beyond, remember, the path will"
+                                             "text": "As you embark on your journey to Mystara and beyond, remember, the path will"
                                              " not be easy, but the Nebula is more than a vessel. It's a companion, one that will"
                                              " guide you through the darkest reaches and bring you home."
                                          },
@@ -1986,15 +1972,13 @@ class Game:
                                      ],
                                      storyLineVisited=[
                                          {
-                                             "neutral": "Charlie, back so soon? How's the Nebula Voyager II treating you?",
-                                             "space": 0,
+                                             "text": "Charlie, back so soon? How's the Nebula Voyager II treating you?",
                                          },
                                          {
                                              "text": "It's been fantastic, Eudora. Couldn't have gotten far without it.",
-                                             "space": 0,
                                          },
                                          {
-                                             "neutral": "Great to hear. Remember, every adventure is a chance to learn something new. Safe travels, Charlie.",
+                                             "text": "Great to hear. Remember, every adventure is a chance to learn something new. Safe travels, Charlie.",
                                              "space": 1,
                                          },
                                          {
@@ -2052,18 +2036,81 @@ class Game:
                              "text": "Returning to Astral Port"
                          }
                      ],
+                     neutral=Neutral(
+                         name="SpaceWalker Jones",
+                         storyLine=[
+                             {
+                                 "text": "In the bustling heart of Astral Port, where the universe's many paths cross, Charlie caught sight of a familiar figure. Spacewalker Jones, the interstellar adventurer from the enigmatic planet known as Earth, approached with a stride that spoke of countless journeys. His smile was as bright as the nebulas he'd traversed.",
+                                 "space": 1
+                             },
+                             {
+                                 "text": "'Charlie, my intrepid explorer!' Jones greeted, his voice a comforting echo of adventures past. 'How fares your quest through the stars?'"
+                             },
+                             {
+                                 "text": "As they shared tales over exotic brews that fizzed with starlight, Charlie recounted the tale of Yolkaris's plight and the Dark Dust's shadow. Jones's eyes gleamed with intrigue and a hint of nostalgia for his own voyages."
+                             },
+                             {
+                                 "text": "'Ah, the Aurora Orb,' Jones mused, eyes reflecting a galaxy of knowledge. 'Not just a relic, Charlie, but a beacon of salvation. The key to reigniting the ancient safeguard that dispels The Dark Dust. Your path, it seems, leads to the Old Citadel. Within its age-old walls lie the clues to finding the Orb, hidden amidst legends and guarded by time itself.'"
+                             },
+                             {
+                                 "text": "Gratitude shone in Charlie's eyes. 'Your wisdom lights my path, Jones. I'll head for the Citadel at dawn.'"
+                             },
+                             {
+                                 "text": "Jones leaned in, his voice dropping to a conspiratorial whisper. 'Before you venture forth, Charlie, I have something for you.' From his rugged, star-worn coat, he produced a shimmering vestment. 'The Celestial Aegis,' he announced, his eyes twinkling with pride. 'Won in a duel on the rings of Saturn, it's saved my hide more times than I care to admit.'"
+                             },
+                             {
+                                 "item": Armour(
+                                     name="The Celestial Aegis",
+                                     description="The Celestial Aegis is not merely armor; it is a masterpiece of interstellar craft, melding ancient alchemy with cutting-edge technology. Fashioned from a lightweight, nearly indestructible alloy known only to the forges of a hidden world, this armor shimmers with a celestial gleam. It adjusts to the wearer's form, providing comfort without sacrificing protection. Engraved with symbols that tell tales of heroism across the galaxies, the Celestial Aegis is a beacon of hope and a shield against despair.",
+                                     defense=15
+                                 )
+                             },
+                             {
+                                 "text": "Charlie's eyes widened with gratitude. 'Jones, I don't know how to thank you,' he said, his voice heavy with emotion. 'This... This is more than I could have ever asked for. The Celestial Aegis will be my guardian in the light and the shadow. Thank you, my friend, for this incredible gift.'"
+                             },
+                             {
+                                 "text": "'Wear it well, Charlie. It's been through the galaxy and back, and now it's yours. May it shield you against the darkness.'"
+                             },
+                             {
+                                 "text": "With a clasp of hands that bridged worlds, the two friends shared a moment of unspoken understanding. The Celestial Aegis, a mantle of protection and a symbol of their bond, rested now on Charlie's shoulders. As Jones disappeared into the throng, his parting words echoed in Charlie's heart: 'The universe awaits, Charlie. Let curiosity be your compass.'",
+                             },
+                             {
+                                 "text": "Buoyed by the encounter and the weight of the Celestial Aegis upon him, Charlie set his sights on the Old Citadel, its mysteries now a beacon in the night, guiding him towards his fate."
+                             }
+                         ]
+                     ),
+                     position=(0, 0)
                      ),
                 Area(name="Quantum Quarters",
                      storyLine=[
                          {
-                             "text": "Quantum Quarters, a district where the future is now. The architecture defies"
-                                     " gravity, and technology unseen on any other planet makes daily life a constant marvel."
-                                     " Here, the impossible is just another part of the day."
+                             "clear": True
+                         },
+                         {
+                             "text": "Quantum Quarters, where the future blends seamlessly with the present. The gravity-defying architecture and unparalleled technology make it a marvel of modern civilization. To Charlie, each moment here is a step into the realms of the unimaginable."
+                         },
+                         {
+                             "text": "The day's adventures had left Charlie in awe, yet physically drained. 'Even space travelers need to rest,' he thought, the weight of his quest momentarily pressing down on him."
+                         },
+                         {
+                             "text": "With the night drawing in, Charlie sought out a place to stay. The glow of a nearby inn, its sign shimmering with holographic allure, promised a much-needed sanctuary."
+                         },
+                         {
+                             "text": "'Do you have a room for the night?' Charlie inquired at the inn's front desk. The innkeeper, with a welcoming nod, assured him, 'We always have a place for intrepid explorers. You'll find your room to be most... rejuvenating.'"
+                         },
+                         {
+                             "text": "Charlie couldn't resist a soft chuckle. 'A night in Quantum Quarters,' he mused, excitement tinged with fatigue. Following the innkeeper's instructions, he made his way to his room, a cozy corner of the future he'd come to admire."
+                         },
+                         {
+                             "text": "That night, Charlie slept more soundly than he had in ages, the bed conforming perfectly to his weary body. As dawn broke, he awoke refreshed, the challenges of his quest awaiting. After a quick breakfast that seemed to energize him further, Charlie was ready. 'Back to the quest,' he declared, stepping out into the morning light, his spirit renewed for the adventures ahead."
                          }
                      ],
                      storyLineVisited=[
                          {
-                             "text": "Returning to Quantum Quarters"
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to Quantum Quarters, Charlie felt a familiar sense of awe at the futuristic landscape. 'Back again,' he thought, 'but this time, I know exactly where I'm heading for a good rest.'"
                          }
                      ],
                      ),
@@ -2135,53 +2182,43 @@ class Game:
                          defense=10,
                          fought=False
                      ),
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ]
                      ),
                 Area(name="Observatory",
                      storyLine=[
                          {
-                             "text": "The Observatory, a temple to the stars where ancient and modern knowledge"
-                                     " converge. Astronomers and seers alike peer into the depths of space, seeking answers"
-                                     " to questions as old as time itself"
+                             "clear": True
+                         },
+                         {
+                             "text": "The Observatory, a temple to the stars where ancient and modern knowledge converge. Astronomers and seers alike peer into the depths of space, seeking answers to questions as old as time itself."
+                         },
+                         {
+                             "text": "Intrigued by the mix of science and mysticism, Charlie approached one of the astronomers, a wise figure whose eyes sparkled with the light of countless stars. 'Can you tell me more about these stars?' Charlie asked, his curiosity piqued."
+                         },
+                         {
+                             "neutral": "'Ah, traveler,' the astronomer began, turning from the telescope. 'Each star you see is a story, a history of the universe waiting to be told. Some hold the secrets of ancient civilizations; others, the future of ones yet to rise. And there,' he pointed towards a distant light, 'lies the path to your destiny.'"
+                         },
+                         {
+                             "text": "Charlie's heart raced as he followed the astronomer's gaze. 'My destiny?' he echoed, a sense of purpose swelling within him. 'Yes,' the astronomer nodded solemnly. 'The journey you're on is intertwined with the fate of those stars. The Aurora Orb you seek is more than a tool; it's a key to understanding the cosmos itself.'"
+                         },
+                         {
+                             "text": "With renewed determination, Charlie thanked the astronomer and stepped away from the telescope. The Observatory had offered him a glimpse into the vastness of the universe, and with it, the knowledge that his quest was part of something much larger."
                          }
                      ],
                      storyLineVisited=[
                          {
-                             "text": "Returning to Observatory"
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to the Observatory, Charlie felt a familiar sense of wonder. 'Back among the stars,' he thought, already searching the sky for the celestial bodies the astronomer had shown him. 'Each visit brings me closer to understanding my place in the universe.'"
                          }
                      ],
-                     neutral=Neutral(
-                         name="SpaceWalker Jones",
-                         storyLine=[
-                             {
-                                 "text": "In the heart of Astral Port, amidst the hum of intergalactic commerce and the kaleidoscope of alien diversity, Charlie spots a familiar face. Spacewalker Jones, his old friend from the distant and peculiar planet Earth, approaches with a wide grin.",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "Jones, whose tales of adventure span the cosmos, greets Charlie with the warmth of a thousand suns. 'Charlie, my friend! It's been too long,' he exclaims, clapping Charlie on the back. 'How's the quest going?'",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "Over cups of steaming galactic brew, Jones listens intently to Charlie's tale of Yolkaris and the encroaching Dark Dust. With each word, his eyes twinkle with the promise of adventure and knowledge.",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "'Ah, the Aurora Orb, you say? Fascinating!' Jones muses, leaning back. 'I've heard whispers of such artifacts during my travels. Powers beyond imagination... But it's the Old Citadel that you should seek out. Within its walls lie secrets ancient and profound.'",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "Charlie, heartened by Jones's guidance, feels a renewed vigor. 'Thank you, Jones. I knew you'd have some wisdom to share,' he says, a smile breaking across his face.",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "'Remember, Charlie,' Jones replies, his gaze piercing the starlit void outside, 'the universe is vast, filled with mysteries waiting to be unraveled. Keep your curiosity alive; it's the most powerful tool you have.'",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "With a final hearty laugh, Jones melds back into the tapestry of the port, leaving Charlie to ponder the journey ahead. The brief reunion, a reminder of the bonds forged across the stars, propels Charlie forward, the Old Citadel and its secrets calling to him.",
-                                 "space": 1
-                             }
-                         ]
-                     )),
+                     ),
                 Area(name="Sanctuary",
                      storyLine=[
                          {
@@ -2223,7 +2260,14 @@ class Game:
                          ],
                          storyLineWonFight=[
                              {
-                                 "text": "With Viktor Draven bested, the Sanctuary's oppressive atmosphere lifts, replaced by a hopeful clarity. Charlie stands victorious, a beacon of resolve in the face of darkness.",
+                                 "text": "As the final echoes of the battle fade, Viktor Draven, overcome by Charlie's unwavering determination, extends his hand, offering the Starforged Blade. 'Your strength and courage have earned my respect,' Viktor concedes, the weight of his defeat tempered by admiration. 'Take this blade, may it serve you as well as it has served me.' With a nod of respect, Charlie accepts the weapon, the gesture marking not just a victory, but an unexpected bond forged in the heat of battle."
+                             },
+                             {
+                                 "weapon": Weapon(
+                                     name="The Starforged Blade",
+                                     description="The Starforged Blade is a weapon not just made but born of cosmic forces. Forged in the heart of a dying star and cooled in the darkness of a nebula, this blade resonates with the energy of the cosmos itself. It has a sleek, lightweight design, with a handle that adapts to the wielder's grip, and a blade that emits a soft, ethereal glow. The Starforged Blade is capable of cutting through the fabric of reality, allowing it to slice through physical and ethereal obstacles alike.",
+                                     attack=20
+                                 )
                              }
                          ],
                          storyLineLostFight=[
@@ -2293,14 +2337,34 @@ class Game:
                              {
                                  "item": Special(
                                      name="Holographic Cosmos Codex",
-                                     description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance."
-                                 )
+                                     description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance.",
+                                     storyLine=[
+                                         {
+                                             "text": "Charlie carefully takes the Holographic Cosmos Codex from his inventory. With a sense of reverence and anticipation, he activates the device. Immediately, the room is transformed into a miniature universe, with stars, planets, and nebulae swirling around in a breathtaking display of light and color."
+                                         },
+                                         {
+                                             "text": "This is magnificent."
+                                         },
+                                         {
+                                             "text": "The Codex, responsive to his touch, zooms in on a particular sector marked by a radiant glow. It's Luminara, highlighted among countless star systems, its significance underscored by ancient symbols that orbit it like satellites."
+                                         },
+                                         {
+                                             "text": "As he interacts with the holographic map, Charlie realizes the Codex is more than a mere tool; it's a key to unlocking the next phase of his journey."
+                                         },
+                                         {
+                                             "text": "The Orb is on Luminara. This Codex has shown me the way. Luminara holds the answers I've been seeking."
+                                         },
+                                         {
+                                             "text": "He watches as the Codex folds back into its original form, the galaxy it displayed now etched in his mind's eye."
+                                         },
+                                         {
+                                             "text": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
+                                         }
+                                     ]
+                                 ),
                              },
                              {
-                                 "text": "You have found an item: Holographic Cosmos Codex"
-                             },
-                             {
-                                 "text": "What mysteries do you hold? he wonders aloud, his voice a mere whisper in the vast chamber.",
+                                 "text": "'What mysteries do you hold?' he wonders aloud, his voice a mere whisper in the vast chamber.",
                              },
 
                          ],
@@ -2314,7 +2378,7 @@ class Game:
                                  "text": "In the quiet aftermath, the Citadel seems to stand a bit lighter, as if acknowledging Charlie's growth. Calista Starcross, now an ally, offers silent guidance through the echoing corridors."
                              }
                          ],
-                         health=70,
+                         health=80,
                          attack=25,
                          defense=15,
                          fought=False
@@ -2344,8 +2408,8 @@ class Game:
                              "text": "The air vibrates with the buzz of anti-gravity vehicles and a symphony of alien dialects. Markets brim with otherworldly artifacts, presenting technology so advanced it borders on the magical."
                          },
                          {
-                             "text": "An unseen voice welcomes him: 'Welcome to Luminara, the heart of the cosmos, where the neon lights illuminate paths to the unknown.'"
-                         }
+                             "continue": True
+                         },
                      ],
                      storyLineVisited=[
                          {
@@ -2356,6 +2420,11 @@ class Game:
                          },
                          {
                              "text": "'Back again in this mesmerizing place' Charlie muses."
+                         }
+                     ],
+                     neutral=[
+                         {
+                             "text": "An unseen voice welcomes him: 'Welcome to Luminara, the heart of the cosmos, where the neon lights illuminate paths to the unknown.'"
                          }
                      ],
                      position=(0, 0)
@@ -2375,7 +2444,7 @@ class Game:
                              "text": "Inhabitants of this city glide between the clouds, some on wings of light, others on sleek vehicles that hum quietly through the air. The atmosphere is one of peace and tranquility, a stark contrast to the bustling Neon Nexus below."
                          },
                          {
-                             "text": "Charlie steps onto a platform that gently floats to the city's heart. 'This is unlike anything I've ever seen,' he whispers to himself, his heart alight with the thrill of discovery."
+                             "text": "Charlie steps onto a platform that gently floats to the city's heart. With wonder in his eyes, he murmurs to himself, 'I've never witnessed anything quite like this,' his heart alight with the thrill of discovery."
                          }
                      ],
                      storyLineVisited=[
@@ -2399,7 +2468,10 @@ class Game:
                              "text": "As Charlie navigates the bustling avenues, a hurried figure bumps into him, sending them both sprawling to the ground."
                          },
                          {
-                             "text": "My apologies!' the stranger exclaims, scrambling to his feet. He glances nervously over his shoulder at three imposing figures charging towards them."
+                             "text": "'My apologies!' the stranger exclaims, scrambling to his feet. He glances nervously over his shoulder at three imposing figures charging towards them."
+                         },
+                         {
+                             "continue": True
                          },
                          {
                              "text": "With a swift tap on his uniform device, the stranger shouted an oddly familiar command, 'Beam me ...', and in a brilliant flash of light, he vanished, leaving Charlie standing amidst the dust with the looming figures."
@@ -2411,7 +2483,7 @@ class Game:
                              "text": "Charlie, brushing himself off, paused for a moment, a spark of recognition flickering in his eyes. 'Was that Commander James ...?' he mused aloud, the realization dawning on him."
                          },
                          {
-                             "text": "Yet, he shook his head slightly, dismissing the thought with a chuckle. 'No, that's impossible,' he concluded, yet the idea lingered, a thrilling whisper of adventure from beyond the stars."
+                             "text": "Yet, he shook his head slightly, dismissing the thought with a chuckle. 'Nah, that's silly,' he concluded, yet the idea lingered, a thrilling whisper of adventure from beyond the stars."
                          }
                      ],
                      storyLineVisited=[
@@ -2559,17 +2631,107 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": ""
+                             "text": "Charlie steps into the Garden of Glass Stars, a place of unimaginable beauty. Here, the ground mirrors the heavens above, with countless glass flowers reflecting the light of distant stars. The air is filled with a serene glow, casting prismatic colors in every direction. It's a tranquil sanctuary that belies the danger lurking within."
                          },
+                         {
+                             "text": "As Charlie moves deeper, the air grows thick with anticipation. The beauty of the garden starts to twist, illusions of peace shattering to reveal the lurking presence of the Broken Star Prince. Once a guardian of cosmic balance, now corrupted by the very Orb he swore to protect. His form shifts, a mirage made of light and glass, commanding swarms of Shardlings that dance menacingly in the air."
+                         },
+                         {
+                             "text": "This must be where the Orb lies. But to reach it, I'll need to confront the prince and his illusions. There's a story here, one of fall and redemption. I can sense it."
+                         },
+                         {
+                             "text": "Charlie realizes that brute force won't win this battle. It will take empathy, understanding, and the courage to look beyond the illusions, to see the prince not as an enemy, but as another victim of the Orb's corrupting power. The path to reclaiming the Orb and restoring balance lies in unlocking the prince's lost sense of duty, in reminding him of who he once was."
+                         }
                      ],
                      storyLineVisited=[
                          {
                              "clear": True
                          },
                          {
-                             "text": ""
+                             "text": "Returning to the Garden, the stars above still shine with a gentle light, reassuring Charlie that the path to redemption, for both the garden and its fallen protector, remains open."
                          }
                      ],
+                     enemy=Enemy(
+                         name="The Broken Star Prince",
+                         storyLine=[
+                             {
+                                 "text": "The Broken Star Prince, a silhouette of sorrow and lost glory, confronts Charlie. 'Why do you intrude upon my domain of shattered hopes?' he asks, his voice a melody of despair and power."
+                             },
+                             {
+                                 "text": "I seek the Orb, not to challenge you, but to heal what has been broken. You were once its protector, not its prisoner."
+                             },
+                             {
+                                 "text": "The Prince's illusions intensify, a desperate attempt to protect what he believes is his to guard. Yet, in Charlie's words, a flicker of the prince's former self emerges, questioning, seeking."
+                             },
+                             {
+                                 "text": "The battle is not with swords or might, but with the heart. Charlie navigates through the illusions, reaching out to the essence of the prince, reminding him of his true purpose."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "The garden waits in silence, the battle of wills and hearts a memory etched in its glassy expanse. The prince, now a guardian reborn, watches over the restored beauty, a sentinel of peace."
+                             }
+                         ],
+                         storyLineFought=[
+                             {
+                                 "text": "The struggle against the Prince's illusions is fierce, a testament to the Orb's corrupting influence. Yet, Charlie's resolve is stronger, weaving through the mirage to reach the heart of the guardian."
+                             }
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With empathy and courage, Charlie dispels the illusions, bringing the Prince back from the brink of eternal solitude. Together, they unlock the path to the Orb, a journey's end and a new beginning."
+                             },
+                             {
+                                 "text": "The Broken Star Prince, his gaze softened, approaches Charlie. 'Your heart... it's different,' he says, his voice a mere whisper. 'You've shown me something I thought I'd lost: hope.'"
+                             },
+                             {
+                                 "text": "'Take the Orb,' the Prince continues, stepping aside to reveal the glowing artifact nestled among the garden's ethereal blooms. 'It was meant for one such as you, Charlie. Someone who fights not for conquest, but for healing.'"
+                             },
+                             {
+                                 "text": "Charlie, moved by the Prince's transformation, nods solemnly. 'I'll use it to protect and heal Yolkaris,' he promises, his voice steady. 'Your trust... I won't betray it.'"
+                             },
+                             {
+                                 "text": "As he takes the Orb, a sense of purpose fills him. The Garden of Glass Stars, once a place of danger, now seems serene, its beauty untainted by the shadows of the past. With the Orb in hand, Charlie knows the path ahead is clear. It's time to return home and save his world."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "In the dance of light and shadow, Charlie falters, the illusions too convincing, the Prince's sorrow too deep. Yet, defeat is not the end, but a chance to rise and try again, with a heart renewed."
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "In the heart of the garden, peace reigns once more. The Broken Star Prince, now free from the Orb's grasp, stands vigilant, a protector restored by Charlie's unwavering spirit."
+                             }
+                         ],
+                         health=10,
+                         attack=20,
+                         defense=10,
+                         fought=False
+                     ),
+                     items=[
+                         Special(
+                             name="The Aurora Orb",
+                             description="An ancient, luminescent sphere pulsating with a soft, inner light. Its surface is smooth, almost liquid to the touch, and it seems to contain the very essence of dawn's first light. Crafted by celestial architects in the infancy of the cosmos, the Orb holds the power to cleanse darkness and restore balance.",
+                             storyLine=[
+                                 {
+                                     "clear": True
+                                 },
+                                 {
+                                     "text": "Holding The Aurora Orb in his hands, Charlie feels a warmth spreading through his feathers, as if the first rays of dawn were breaking the hold of an eternal night. Its glow illuminates his face, casting long shadows behind him, and for a moment, the weight of his quest lifts."
+                                 },
+                                 {
+                                     "text": "'This... this is the heart of Yolkaris' salvation,' he whispers, awe coloring his voice. The Orb's light seems to dance, responding to his touch, to his very presence. 'With this, I can bring back the light, heal the planet, and save my people.'"
+                                 },
+                                 {
+                                     "text": "As he inspects the Orb, Charlie discovers intricate patterns etched into its surface, patterns that move and change like the currents of a living ocean. 'The stories were true,' he marvels, 'its power is beyond imagination. But it's not just a tool; it feels... alive, like it's part of Yolkaris itself.'"
+                                 },
+                                 {
+                                     "text": "Determined, Charlie tightens his grip on the Orb. 'I will not fail,' he vows, the Orb's radiance reflecting in his determined gaze. 'The journey back will be perilous, but the hope this Orb represents... it's worth every risk.'"
+                                 }
+                             ]
+                         )
+                     ]
                      ),
             ]
 
@@ -2631,11 +2793,11 @@ class Game:
                 ]
             }
 
-        self.location_objects = {
-            "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas, yolkaris_travel),
-            "Mystara": Mystara(mystara_size, mystara_areas, mystara_travel),
-            "Luminara": Luminara(luminara_size, luminara_areas, luminara_travel)
-        }
+            self.location_objects = {
+                "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas, yolkaris_travel),
+                "Mystara": Mystara(mystara_size, mystara_areas, mystara_travel),
+                "Luminara": Luminara(luminara_size, luminara_areas, luminara_travel)
+            }
 
     def create_player(self) -> None:
         """
@@ -2652,39 +2814,7 @@ class Game:
                     attack=15,
                     defense=10,
                     potions=[],
-                    inventory=[
-                        Special(
-                            name="Holographic Cosmos Codex",
-                            description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance.",
-                            storyLine=[
-                                {
-                                    "text": "Charlie carefully takes the Holographic Cosmos Codex from his inventory. With a sense of reverence and anticipation, he activates the device. Immediately, the room is transformed into a miniature universe, with stars, planets, and nebulae swirling around in a breathtaking display of light and color."
-                                },
-                                {
-                                    "text": "This is magnificent."
-                                },
-                                {
-                                    "text": "The Codex, responsive to his touch, zooms in on a particular sector marked by a radiant glow. It's Luminara, highlighted among countless star systems, its significance underscored by ancient symbols that orbit it like satellites."
-                                },
-                                {
-                                    "text": "As he interacts with the holographic map, Charlie realizes the Codex is more than a mere tool; it's a key to unlocking the next phase of his journey."
-                                },
-                                {
-                                    "text": "The Orb is on Luminara. This Codex has shown me the way. Luminara holds the answers I've been seeking."
-                                },
-                                {
-                                    "text": "He watches as the Codex folds back into its original form, the galaxy it displayed now etched in his mind's eye."
-                                },
-                                {
-                                    "text": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
-                                }
-                            ]
-                        ),
-                        Spaceship(
-                            name="Spaceship",
-                            description="Testing Spaceship"
-                        )
-                    ]
+                    inventory=[]
                 )
                 break
             else:
