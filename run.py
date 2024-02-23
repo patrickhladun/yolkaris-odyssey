@@ -129,7 +129,6 @@ class Interaction:
             self.print_story_line(area.storyLineVisited)
 
     def with_neutral(self, neutral, visited):
-        add_space()
         if not visited:
             self.print_story_line(neutral.storyLine)
         elif visited and neutral.questItem:
@@ -720,17 +719,17 @@ class Game:
                          },
                          {
                              "text": "Summoned by the echoes of old tales and"
-                                     " the allure of the unknown, he weaves through"
-                                     " the city's veiled streets to the Timekeeper. At"
-                                     " the foot of the slumbering clock, a vestige of"
-                                     " arcane power, a quest of fate unfolds for"
-                                     " Charlie."
+                             " the allure of the unknown, he weaves through"
+                             " the city's veiled streets to the Timekeeper. At"
+                             " the foot of the slumbering clock, a vestige of"
+                             " arcane power, a quest of fate unfolds for"
+                             " Charlie."
                          },
                          {
                              "text": "Embarking on a quest through time's"
-                                     " woven fabric, he seeks to stir ancient echoes,"
-                                     " awakening the chronicles lost to the ages.",
-                             "space": 0
+                             " woven fabric, he seeks to stir ancient echoes,"
+                             " awakening the chronicles lost to the ages.",
+                             "space": 1
                          }
                      ],
                      storyLineVisited=[
@@ -794,23 +793,22 @@ class Game:
                          questItem=Item(name="The Time Crystal"),
                          storyLine=[
                              {
-                                 "neutral": "Ah, Charlie! The Grand Clock, our"
-                                            " timeless guardian, has ceased its rhythmic"
-                                            " heartbeat. Its magic wanes. The Time"
-                                            " Crystal in Crystal Hills is the key to its"
-                                            " revival.",
-                                 "space": 0,
+                                 "text": "'Ah, Charlie! The Grand Clock, our"
+                                 " timeless guardian, has ceased its rhythmic"
+                                 " heartbeat. Its magic wanes. The Time"
+                                 " Crystal in Crystal Hills is the key to its"
+                                 " revival.'",
                              },
                              {
-                                 "text": "Fear not, Timekeeper. I shall"
+                                 "text": "'Fear not, Timekeeper. I shall"
                                  " reclaim the crystal and rekindle the"
-                                 " clock's ancient magic.",
-                                 "space": 0,
+                                 " clock's ancient magic.'",
                              },
                              {
-                                 "neutral": "Be swift, for the sands of time"
-                                            " wait for no one. Our fate rests in your"
-                                            " wings.",
+                                 "text": "'Be swift, for the sands of time"
+                                 " wait for no one. Our fate rests in your"
+                                 " wings.'",
+                                 "space": 1
                              },
                              {
                                  "continue": True
@@ -820,93 +818,82 @@ class Game:
                              },
                              {
                                  "text": "Embark on the Yolkaris Odyssey with"
-                                         " these words of guidance:"
+                                 " these words of guidance:",
+                                 "space": 1
                              },
                              {
                                  "text": "In this tale, your journey begins"
-                                         " in Yolkaris, a realm of myths and"
-                                         " mysteries."
+                                 " in Yolkaris, a realm of myths and"
+                                 " mysteries.",
+                                 "space": 1
                              },
                              {
                                  "text": "- Use the 'map' command to find your"
-                                         " path within this enchanted land.",
-                                 "space": 0
+                                         " path within this enchanted land."
                              },
                              {
                                  "text": "- Traverse the land through 'north',"
                                          " 'south', 'east', and 'west'. Discover your"
-                                         " destiny.",
-                                 "space": 0
+                                         " destiny."
                              },
                              {
                                  "text": "- In your quest, 'search' the areas"
-                                         " for hidden treasures and secrets.",
-                                 "space": 0
+                                         " for hidden treasures and secrets."
                              },
                              {
                                  "text": "- Keep your inventory filled with"
                                          " artifacts and tools. Check it with the"
-                                         " 'inventory' command.",
-                                 "space": 0
+                                         " 'inventory' command."
                              },
                              {
                                  "text": "- When your health is low, 'potion'"
-                                         " can be used to restore your vitality.",
-                                 "space": 0
+                                         " can be used to restore your vitality."
                              },
                              {
                                  "text": "- Keep an eye on your 'stats' to"
-                                         " track your progress.",
-                                 "space": 0
+                                         " track your progress."
                              },
                              {
                                  "text": "- If you require guidance, simply"
                                          " type 'help' to view a list of available"
-                                         " commands.",
-                                 "space": 0
+                                         " commands."
                              },
                              {
                                  "text": "- To begin anew or end your"
-                                         " adventure, use 'reset' or 'quit' anytime."
+                                 " adventure, use 'reset' or 'quit' anytime.",
+                                 "space": 1
                              },
                              {
                                  "text": "Good fortune on your quest. May your"
-                                         " journey be filled with wonder.",
-                                 "space": 0
+                                         " journey be filled with wonder."
                              },
                          ],
                          storyLineVisited=[
                              {
-                                 "neutral": "Hey Charlie, do you have the"
-                                            " crystal?",
-                                 "space": 0,
+                                 "text": "Hey Charlie, do you have the"
+                                 " crystal?",
                              },
                              {
                                  "text": "No I do not.",
-                                 "space": 0,
                              },
                              {
-                                 "neutral": "Without the crystal I can't fix the."
-                                            " clock. You need to find the crystal.",
-                                 "space": 0,
+                                 "text": "Without the crystal I can't fix the."
+                                 " clock. You need to find the crystal.",
                              },
                          ],
                          storyLineCompleted=[
                              {
-                                 "neutral": "Ah, Charlie, you've returned! And"
-                                            " with the Time Crystal, no less?",
-                                 "space": 0,
+                                 "text": "Ah, Charlie, you've returned! And"
+                                 " with the Time Crystal, no less?",
                              },
                              {
                                  "text": "Yes, Timekeeper. The journey was"
                                  " perilous, but the crystal is here.",
-                                 "space": 0,
                              },
                              {
-                                 "neutral": "Splendid! Let's not waste another"
-                                            " moment. Hand it over, and let's witness"
-                                            " history reborn.",
-                                 "space": 0,
+                                 "text": "Splendid! Let's not waste another"
+                                 " moment. Hand it over, and let's witness"
+                                 " history reborn.",
                              },
                              {
                                  "continue": True
@@ -1041,31 +1028,26 @@ class Game:
                                  {
                                      "text": "2. What do you call a"
                                              " chicken that haunts the barn? A"
-                                             " poultry-geist!",
-                                     "space": 0
+                                             " poultry-geist!"
                                  },
                                  {
                                      "text": "3. Why did the rooster go to"
                                              " the comedy show? To"
                                              " cockle-doodle-DOO its best"
-                                             " impression!",
-                                     "space": 0
+                                             " impression!"
                                  },
                                  {
                                      "text": "4. What does a chicken need"
                                              " to lay an egg every day?"
-                                             " Hen-durance!",
-                                     "space": 0
+                                             " Hen-durance!"
                                  },
                                  {
                                      "text": "5. How do chickens stay fit?"
-                                             " Egg-ercise!",
-                                     "space": 0
+                                             " Egg-ercise!"
                                  },
                                  {
                                      "text": "6. What do you call a crazy"
-                                             " chicken? A cuckoo cluck!",
-                                     "space": 0
+                                             " chicken? A cuckoo cluck!"
                                  },
                                  {
                                      "text": "7. Why did the chicken stop"
