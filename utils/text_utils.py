@@ -50,6 +50,8 @@ def paragraph(
     wrapped_text = textwrap.fill(long_string, width=74)
     lines = wrapped_text.split('\n')
 
+    text(' ' * 3 + lines[0], color=color)
+
     for i, line in enumerate(lines):
         if i == len(lines) - 1:
             text(line, space=space, color=color)
