@@ -2712,11 +2712,19 @@ class Game:
 
         # Display player's basic stats
         add_space()
+        attack = player.attack + player.weapon.attack if player.weapon else player.attack
+        defense = player.defense + player.armour.defense if player.armour else player.defense
         text(f"Player {player.name}:")
         text(
-            f"Health: {player.health}, Attack: {player.attack}, Defense: {player.defense}")
-        text(f"Armour: {player.armour.name if player.armour else 'None'}")
-        text(f"Weapon: {player.weapon.name if player.weapon else 'None'}")
+            f"Health: {player.health}, Attack: {attack}, Defense: {defense}")
+
+        #####
+        # Not sure how to properly break these functions
+        #####
+        text(f"Armour: {player.armour.name if player.armour else 'None'} {
+             '- adds ' + str(player.armour.defense) + ' to Defense' if player.armour else ''}")
+        text(f"Weapon: {player.weapon.name if player.weapon else 'None'} {
+             '- adds ' + str(player.weapon.attack) + ' to Attack' if player.weapon else ''}")
 
         # potions count
         potions_count = len(player.potions)
