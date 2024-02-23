@@ -530,11 +530,9 @@ class Weapon(Item):
             self,
             name: str,
             description: str,
-            attack: int,
-            actions: list) -> None:
+            attack: int) -> None:
         super().__init__(name, description)
         self.attack = attack
-        self.actions = actions
 
 
 class Armour(Item):
@@ -1376,12 +1374,7 @@ class Game:
                              name="Feathered Blade",
                              description="A blade made from the"
                                          " finest feathers, light and sharp.",
-                             attack=18,
-                             actions=[
-                                 "Slice",
-                                 "Stab",
-                                 "Thrust"
-                             ]
+                             attack=18
                          ),
                      ],
                      ),
