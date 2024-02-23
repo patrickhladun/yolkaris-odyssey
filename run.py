@@ -689,8 +689,6 @@ class Game:
         if level == 1:
 
             yolkaris_size = (4, 2)
-            mystara_size = (2, 1)
-            luminara_size = (2, 1)
 
             yolkaris_areas = [
                 Area(name="Capital City",
@@ -1625,9 +1623,9 @@ class Game:
                      )
             ]
 
-            mystara_areas = []
-
-            luminara_areas = []
+            self.location_objects = {
+                "Yolkaris": Yolkaris(yolkaris_size, yolkaris_areas)
+            }
 
         elif level == 2:
 
