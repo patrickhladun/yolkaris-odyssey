@@ -37,7 +37,7 @@ def text(
 
 def paragraph(
     long_string,
-    space=1,
+    space=0,
     delay=0.1,
     color=default_color
 ):
@@ -55,10 +55,11 @@ def paragraph(
     for i in range(1, len(lines)):
         line = lines[i]
         if i == len(lines) - 1:
-            text(line, space=space, color=color)
+            text(line, color=color)
         else:
             text(line, color=color)
-        time.sleep(delay)
+
+    add_space(space=space, delay=delay)
 
 
 def add_space(space: int = 0, delay: float = 0.2):
@@ -67,8 +68,11 @@ def add_space(space: int = 0, delay: float = 0.2):
     - space: the number of new lines to print
     - delay: the delay between each new line
     """
-    line_space = '\n' * space
-    print(' ' + line_space)
+    if space > 1:
+        line_space = '\n' * (space - 1)
+        print(line_space)
+    elif space == 1:
+        print('\n', end='')
     time.sleep(delay)
 
 
