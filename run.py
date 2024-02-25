@@ -1654,7 +1654,7 @@ class Game:
 
             yolkaris_size = (2, 2)
             mystara_size = (2, 3)
-            luminara_size = (3, 3)
+            luminara_size = (2, 2)
 
             yolkaris_areas = [
                 Area(name="Capital City",
@@ -2489,53 +2489,62 @@ class Game:
                              "text": "The Cloud City welcomes Charlie back with its tranquil beauty and floating serenity. The peaceful ambiance wraps around him like a familiar embrace."
                          }
                      ],
+                     neutral=Neutral(
+                         name="Smithy",
+                         storyLine=[
+                             {
+                                 "text": "Charlie, frustrated by the state of his armor, asks around for someone who can help him with repairs."
+                             },
+                             {
+                                 "text": "'I know just the person,' Smithy responds with a knowing nod. 'Follow me.' With that, he leads Charlie across the bustling city on a levitating platform, navigating the neon-lit streets until they arrive at a nondescript building."
+                             },
+                             {
+                                 "text": "'But where's the person you mentioned?' Charlie asks, puzzled as they step inside."
+                             },
+                             {
+                                 "text": "'I am Smithy,' the craftsman announces, his voice echoing in the workshop. 'Show me the armor.'"
+                             },
+                             {
+                                 "text": "Examining the armor with practiced hands, Smithy carefully disassembles the damaged sections, revealing the intricate mechanisms within. With precision born of years of experience, he meticulously repairs each component, his movements fluid and deliberate."
+                             },
+                             {
+                                 "text": "As he works, delicate arcs of energy dance across the surface of the armor, evidence of Smithy's mastery over his craft. With a final adjustment, he reassembles the armor, its celestial glow restored to full brilliance."
+                             },
+                             {
+                                 "text": "'This is a beautiful piece,' he remarks with satisfaction, admiring his handiwork. 'Good as new and with no loss of power.'"
+                             },
+                             {
+                                 "item": Armour(
+                                     name="The Celestial Aegis",
+                                     description="The Celestial Aegis is not merely armor; it is a masterpiece of interstellar craft, melding ancient alchemy with cutting-edge technology. Fashioned from a lightweight, nearly indestructible alloy known only to the forges of a hidden world, this armor shimmers with a celestial gleam. It adjusts to the wearer's form, providing comfort without sacrificing protection. Engraved with symbols that tell tales of heroism across the galaxies, the Celestial Aegis is a beacon of hope and a shield against despair.",
+                                     defense=32
+                                 )
+                             },
+                             {
+                                 "text": "'Thank you,' Charlie says gratefully. 'What do I owe you?'"
+                             },
+                             {
+                                 "text": "'Nothing,' Smithy replies with a smile. 'I'm happy to help. Good luck on your journey, and if you're ever around, come say hello.'"
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "Smithy's workshop remains a beacon of craftsmanship and generosity, a place where travelers find respite and assistance in times of need."
+                             }
+                         ]
                      ),
-                Area(name="Galactic Grove",
+                     position=(0, 1)
+                     ),
+                Area(name="The Garden of Glass Stars",
                      storyLine=[
                          {
                              "clear": True
                          },
                          {
-                             "text": "Galactic Grove buzzes with the vibrant life of a city that never sleeps. Neon lights bathe the streets in a kaleidoscope of colors, and the air vibrates with the hum of interstellar commerce. It's a crossroads for travelers from across the cosmos, each with their own tales of adventure."
+                             "text": "Charlie steps into the Garden of Glass Stars, a place of unimaginable beauty. Here, the ground mirrors the heavens above, with countless glass flowers reflecting the light of distant stars. The air is filled with a serene glow, casting prismatic colors in every direction. It's a tranquil sanctuary that belies the danger lurking within."
                          },
                          {
-                             "text": "As Charlie navigates the bustling avenues, a hurried figure bumps into him, sending them both sprawling to the ground."
-                         },
-                         {
-                             "text": "'My apologies!' the stranger exclaims, scrambling to his feet. He glances nervously over his shoulder at three imposing figures charging towards them."
-                         },
-                         {
-                             "continue": True
-                         },
-                         {
-                             "text": "With a swift tap on his uniform device, the stranger shouted an oddly familiar command, 'Beam me ...', and in a brilliant flash of light, he vanished, leaving Charlie standing amidst the dust with the looming figures."
-                         },
-                         {
-                             "text": "The trio scanned the area, confusion and anger mixing in their tones. 'Where'd he go?' one bellowed, looking around bewildered."
-                         },
-                         {
-                             "text": "Charlie, brushing himself off, paused for a moment, a spark of recognition flickering in his eyes. 'Was that Commander James ...?' he mused aloud, the realization dawning on him."
-                         },
-                         {
-                             "text": "Yet, he shook his head slightly, dismissing the thought with a chuckle. 'Nah, that's silly,' he concluded, yet the idea lingered, a thrilling whisper of adventure from beyond the stars."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         }
-                     ],
-                     ),
-                Area(name="The Labyrinth of Lost Souls",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Charlie cautiously enters the Labyrinth of Lost Souls, a network of ever-shifting passages veiled in the whispers of the past. With each step, the air grows denser, whispers of ancient tragedies hanging heavily around him. The labyrinth's deceptive quiet masks the dangers lurking within its walls."
+                             "text": "As Charlie moves deeper, the air grows thick with anticipation. The beauty of the garden starts to twist, illusions of peace shattering to reveal the lurking presence of The Guardian of Shattered Dreams."
                          },
                      ],
                      storyLineVisited=[
