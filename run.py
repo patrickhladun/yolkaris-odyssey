@@ -900,6 +900,9 @@ class Game:
                              " Charlie."
                          },
                          {
+                             "continue": True
+                         },
+                         {
                              "text": "Embarking on a quest through time's"
                              " woven fabric, he seeks to stir ancient echoes,"
                              " awakening the chronicles lost to the ages.",
@@ -1820,10 +1823,10 @@ class Game:
                              "text": "Legends whisper of other Aurora Orbs scattered across the galaxy, hidden and guarded by celestial custodians. These Orbs, radiant with potent light, hold the power to recharge the planet's defenses and push back the encroaching darkness."
                          },
                          {
-                             "text": "Enter Charlie, an unassuming hero chosen by fate. With the courage of the cosmos in his heart, he sets forth on an epic quest. His mission: to traverse the galaxy, confront ancient guardians, and secure an Aurora Orb to save his world from the shadow of The Dark Dust."
+                             "continue": True
                          },
                          {
-                             "continue": True
+                             "text": "Enter Charlie, an unassuming hero chosen by fate. With the courage of the cosmos in his heart, he sets forth on an epic quest. His mission: to traverse the galaxy, confront ancient guardians, and secure an Aurora Orb to save his world from the shadow of The Dark Dust."
                          }
                      ],
                      story_line_visited=[
@@ -1862,16 +1865,15 @@ class Game:
                                   " Yolkaris.' He paused, ensuring Charlie's"
                                   " full attention."
                               },
-
+                             {
+                                  "continue": True
+                              },
                              {
                                   "text": "'To embark on this pivotal journey, you'll need a vessel unlike any other."
                                   " Seek out the enigmatic engineer, Eudora Quasar. She possesses the Nebula Voyager II,"
                                   " a marvel of cosmic engineering. This ship, compact as an egg yet vast as your"
                                   " courage, will be your chariot among the stars.'",
 
-                              },
-                             {
-                                  "continue": True
                               },
                              {
                                   "text": "Your first destination is Mystara, a planet veiled in mystery and ancient"
@@ -2110,6 +2112,9 @@ class Game:
                                              " workbench, its surface smooth and enigmatic."
                                          },
                                          {
+                                             "continue": True
+                                         },
+                                         {
                                              "text": "This,is the Nebula Voyager II. A marvel of engineering, if I do say so myself."
                                              " It can carry you across the galaxies, transforming from this compact egg to a fully"
                                              " equipped starship at your command."
@@ -2129,6 +2134,9 @@ class Game:
                                                  " mysteries of the universe. The Nebula Voyager II is a testament to the spirit of"
                                                  " exploration, inviting its passengers to embark on journeys beyond the stars."
                                              )
+                                         },
+                                         {
+                                             "continue": True
                                          },
                                          {
                                              "text": "Charlie examined the Nebula Voyager II, a mix of awe and curiosity in his eyes."
@@ -2443,7 +2451,7 @@ class Game:
                                  "text": "In the quiet aftermath, the Citadel seems to stand a bit lighter, as if acknowledging Charlie's growth. Calista Starcross, now an ally, offers silent guidance through the echoing corridors."
                              }
                          ],
-                         health=1,
+                         health=80,
                          attack=40,
                          defense=60,
                          fought=False
@@ -2796,6 +2804,9 @@ class Game:
                                  "text": "'I sense your quest for knowledge and empowerment, traveler,' Virtue AI continues, its voice a symphony of cosmic resonance. 'Allow me to assist you on your journey through the Neon Nexus, where the pathways of destiny intertwine.'"
                              },
                              {
+                                 "continue": True
+                             },
+                             {
                                  "text": "'Indeed,' Charlie acknowledges, his voice tinged with gratitude. 'I seek both repair for my armor and a weapon befitting this vibrant realm.'"
                              },
                              {
@@ -2803,6 +2814,9 @@ class Game:
                              },
                              {
                                  "text": "'To mend your armor, you must venture to Cloud City,' Virtue AI advises, its voice echoing with clarity. 'There, amidst the wisps of floating clouds, craftsmen of unparalleled skill await to restore your defenses.'"
+                             },
+                             {
+                                 "continue": True
                              },
                              {
                                  "text": "'Once your armor is made whole, your path leads to The Garden of Glass Stars,' Virtue AI continues, its guidance unwavering. 'It is there that you shall confront The Guardian of Shattered Dreams, a formidable adversary whose judgment will determine your worthiness.'"
@@ -2844,6 +2858,9 @@ class Game:
                              "text": "Inhabitants of this city glide between the clouds, some on wings of light, others on sleek vehicles that hum quietly through the air. The atmosphere is one of peace and tranquility, a stark contrast to the bustling Neon Nexus below."
                          },
                          {
+                             "continue": True
+                         },
+                         {
                              "text": "Charlie steps onto a platform that gently floats to the city's heart. With wonder in his eyes, he murmurs to himself, 'I've never witnessed anything quite like this,' his heart alight with the thrill of discovery."
                          }
                      ],
@@ -2865,6 +2882,9 @@ class Game:
                                  "text": "'I know just the person,' Smithy responds with a knowing nod. 'Follow me.' With that, he leads Charlie across the bustling city on a levitating platform, navigating the neon-lit streets until they arrive at a nondescript building."
                              },
                              {
+                                 "continue": True
+                             },
+                             {
                                  "text": "'But where's the person you mentioned?' Charlie asks, puzzled as they step inside."
                              },
                              {
@@ -2872,6 +2892,9 @@ class Game:
                              },
                              {
                                  "text": "Examining the armor with practiced hands, Smithy carefully disassembles the damaged sections, revealing the intricate mechanisms within. With precision born of years of experience, he meticulously repairs each component, his movements fluid and deliberate."
+                             },
+                             {
+                                 "continue": True
                              },
                              {
                                  "text": "As he works, delicate arcs of energy dance across the surface of the armor, evidence of Smithy's mastery over his craft. With a final adjustment, he reassembles the armor, its celestial glow restored to full brilliance."
@@ -2882,7 +2905,7 @@ class Game:
                              {
                                  "item": Armour(
                                      name="The Celestial Aegis",
-                                     description="The Celestial Aegis is not merely armor; it is a masterpiece of interstellar craft, melding ancient alchemy with cutting-edge technology. Fashioned from a lightweight, nearly indestructible alloy known only to the forges of a hidden world, this armor shimmers with a celestial gleam. It adjusts to the wearer's form, providing comfort without sacrificing protection. Engraved with symbols that tell tales of heroism across the galaxies, the Celestial Aegis is a beacon of hope and a shield against despair.",
+                                     received="You have received The Celestial Aegis. Now restored to its full glory, shines with a protective aura unmatched by any other.",
                                      defense=32
                                  )
                              },
