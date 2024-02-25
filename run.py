@@ -3472,7 +3472,6 @@ class Game:
         new_location = self.get_current_location()
         new_location.player_position = (0, 0)
         new_location.player_prev_position = (0, 0)
-        new_location.mark_visited((0, 0))
 
         add_space()
         current_location.print_travel_story_line('from')
@@ -3481,6 +3480,12 @@ class Game:
         add_space()
         add_space()
         new_location.print_travel_story_line('to')
+
+        ask_user("continue")
+
+        # Check for interaction in the new location and mark it as visited
+        new_location.check_for_interaction((0, 0), self.player)
+        new_location.mark_visited((0, 0))
 
     def select_potion(self):
         """
