@@ -820,16 +820,17 @@ class Game:
                   " thrilling adventure as Charlie, a courageous chicken with a"
                   " spirit of exploration. This game takes you to the"
                   " beautiful planet of Yolkaris, where every corner is filled"
-                  " with wonder and mystery.")
-        paragraph("Yolkaris Odyssey presents three enthralling tales, each"
-                  " unfolding in its own unique way. Discover the mysteries"
-                  " hidden within the dense forests of Mystara, experience the"
-                  " ethereal beauty of Luminara's radiant fields, and delve"
-                  " into the ancient, forgotten lore that pervades every inch"
-                  " of Yolkaris. Each path you choose leads to new discoveries"
-                  " and adventures.")
+                  " with wonder and mystery.", space=1)
+        paragraph("Yolkaris Odyssey offers two distinct adventures. The first"
+                  " is a concise journey focusing on a single planet, ideal"
+                  " for those seeking a swift and engaging experience. The"
+                  " second expands the horizon to include two additional"
+                  " planets, Mystara and Luminara, each with its own"
+                  " challenges and secrets to uncover. Your mission in both"
+                  " adventures is to save Yolkaris from imminent threats,"
+                  " navigating through dangers and unraveling mysteries to"
+                  " ensure the survival of your world.")
         game_level = self.select_game_level()
-        game_level = 2
         self.setup_areas(game_level)
         clear_terminal()
         loading(['Generating game', '.', '.', '.',
