@@ -804,36 +804,36 @@ class Game:
         """
         This method sets up the game.
         """
-        # clear_terminal()
-        # game_title()
-        # text("Welcome to Yolkaris Odyssey, a text-base"
-        #      " adventure game.", delay=0.1)
-        # text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+        clear_terminal()
+        game_title()
+        text("Welcome to Yolkaris Odyssey, a text-base"
+             " adventure game.", delay=0.1)
+        text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
         ask_user(type='continue',
                  prompt='Press enter to start the game: ', space=0)
         clear_terminal()
         self.create_player()
-        # clear_terminal()
-        # text(f"Hey {self.player.name}!", delay=0.6, space=1)
-        # paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
-        #           " thrilling adventure as Charlie, a courageous chicken with a"
-        #           " spirit of exploration. This game takes you to the"
-        #           " beautiful planet of Yolkaris, where every corner is filled"
-        #           " with wonder and mystery.")
-        # paragraph("Yolkaris Odyssey presents three enthralling tales, each"
-        #           " unfolding in its own unique way. Discover the mysteries"
-        #           " hidden within the dense forests of Mystara, experience the"
-        #           " ethereal beauty of Luminara's radiant fields, and delve"
-        #           " into the ancient, forgotten lore that pervades every inch"
-        #           " of Yolkaris. Each path you choose leads to new discoveries"
-        #           " and adventures.")
-        # game_level = self.select_game_level()
+        clear_terminal()
+        text(f"Hey {self.player.name}!", delay=0.6, space=1)
+        paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
+                  " thrilling adventure as Charlie, a courageous chicken with a"
+                  " spirit of exploration. This game takes you to the"
+                  " beautiful planet of Yolkaris, where every corner is filled"
+                  " with wonder and mystery.")
+        paragraph("Yolkaris Odyssey presents three enthralling tales, each"
+                  " unfolding in its own unique way. Discover the mysteries"
+                  " hidden within the dense forests of Mystara, experience the"
+                  " ethereal beauty of Luminara's radiant fields, and delve"
+                  " into the ancient, forgotten lore that pervades every inch"
+                  " of Yolkaris. Each path you choose leads to new discoveries"
+                  " and adventures.")
+        game_level = self.select_game_level()
         game_level = 2
         self.setup_areas(game_level)
         clear_terminal()
-        # loading(['Generating game', '.', '.', '.',
-        #         '.', '.', '.', '.'], 'Game generated')
-        # loading(['Starting game', '.', '.', '.', '.'])
+        loading(['Generating game', '.', '.', '.',
+                '.', '.', '.', '.'], 'Game generated')
+        loading(['Starting game', '.', '.', '.', '.'])
         self.assign_player_to_location()
         self.current_location = 0
         starting_location = self.get_current_location()
