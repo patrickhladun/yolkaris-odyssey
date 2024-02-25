@@ -18,7 +18,7 @@ color_ask_user = Fore.BLUE + Style.BRIGHT
 
 def text(
     text,
-    delay=0.2,
+    delay=0.1,
     space=0,
     color=default_color
 ):
@@ -37,7 +37,7 @@ def text(
 
 def paragraph(
     long_string,
-    space=1,
+    space=0,
     delay=0.1,
     color=default_color
 ):
@@ -50,22 +50,29 @@ def paragraph(
     wrapped_text = textwrap.fill(long_string, width=74)
     lines = wrapped_text.split('\n')
 
-    for i, line in enumerate(lines):
+    text(' ' * 3 + lines[0], color=color)
+
+    for i in range(1, len(lines)):
+        line = lines[i]
         if i == len(lines) - 1:
-            text(line, space=space, color=color)
+            text(line, color=color)
         else:
             text(line, color=color)
-    time.sleep(delay)
+
+    add_space(space=space, delay=delay)
 
 
-def add_space(space: int = 0, delay: float = 0.2):
+def add_space(space: int = 1, delay: float = 0.2):
     """
     This prints a new line to the terminal.
-    - space: the number of new lines to print
+    - space: the number of new lines to print (default is 1)
     - delay: the delay between each new line
     """
-    line_space = '\n' * space
-    print(' ' + line_space)
+    if space > 1:
+        line_space = '\n' * (space - 1)
+        print(line_space)
+    elif space == 1:
+        print('\n', end='')
     time.sleep(delay)
 
 
