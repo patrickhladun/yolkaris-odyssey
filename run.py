@@ -146,7 +146,8 @@ class Interaction:
             if item.received:
                 paragraph(f"{item.received}", space=1)
             else:
-                paragraph(f"You have received an item: '{item.name}'.", space=1)
+                paragraph(f"You have received an item: '{
+                          item.name}'.", space=1)
             if item.description:
                 paragraph(item.description, space=1)
             self.player.inventory.append(item)
@@ -995,12 +996,6 @@ class Game:
                              {
                                  "text": "Embark on the Yolkaris Odyssey with"
                                  " these words of guidance:",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "In this tale, your journey begins"
-                                 " in Yolkaris, a realm of myths and"
-                                 " mysteries.",
                                  "space": 1
                              },
                              {
@@ -3232,7 +3227,7 @@ class Game:
         #####
         text(f"Armour: {player.armour.name if player.armour else 'None'}"
              " {'- adds ' + str(player.armour.defense) + ' to Defense' if"
-              " player.armour else ''}")
+             " player.armour else ''}")
         text(f"Weapon: {player.weapon.name if player.weapon else 'None'}"
              " {'- adds ' + str(player.weapon.attack) + ' to Attack' if"
              " player.weapon else ''}")
