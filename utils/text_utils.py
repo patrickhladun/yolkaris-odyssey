@@ -18,7 +18,7 @@ color_ask_user = Fore.BLUE + Style.BRIGHT
 
 def text(
     text,
-    delay=0.2,
+    delay=0.1,
     space=0,
     color=default_color
 ):
