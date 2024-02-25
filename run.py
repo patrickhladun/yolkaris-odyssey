@@ -213,7 +213,7 @@ class Interaction:
             if enemy.health <= 0:
                 self.print_story_line(enemy.story_line_defeated)
                 return
-            elif enemy.fought:
+            if enemy.fought:
                 self.print_story_line(enemy.story_line_fought)
                 text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
                      f"defense: {enemy.defense}", space=1)
