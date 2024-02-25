@@ -6,11 +6,17 @@ from utils import (text, paragraph, add_space, clear_terminal, ask_user,
 
 
 class Character:
+    """
+    Initializes a character.
+    """
     def __init__(self, name: str) -> None:
         self.name = name
 
 
 class Player(Character):
+    """
+    Initializes a player character.
+    """
     def __init__(
             self,
             name: str,
@@ -33,7 +39,6 @@ class Enemy(Character):
     """
     Initializes an enemy character.
     """
-
     def __init__(
             self,
             name: str,
@@ -62,6 +67,9 @@ class Enemy(Character):
 
 
 class Neutral(Character):
+    """
+    Initializes a neutral character.
+    """
     def __init__(
             self,
             name,
@@ -78,11 +86,16 @@ class Neutral(Character):
 
 
 class Interaction:
+    """
+    Aandles the interaction between the player and the game elements.
+    """
     def __init__(self, player):
         self.player = player
 
     def add_new_item(self, item):
-
+        """
+        Adds a new item to the player's inventory.
+        """
         if isinstance(item, Weapon):
             if item.name == 'none':
                 self.player.weapon = None
@@ -136,6 +149,9 @@ class Interaction:
             self.player.inventory.append(item)
 
     def print_story_line(self, storyLine):
+        """
+        Prints the story line to the terminal.
+        """
         for line in storyLine:
             space = line['space'] if 'space' in line else 1
             delay = line['delay'] if 'delay' in line else 0.0
@@ -152,6 +168,9 @@ class Interaction:
                 reset_game(game)
 
     def with_area(self, area, visited):
+        """
+        Handles the interaction with an area.
+        """
         add_space()
         if not visited:
             self.print_story_line(area.storyLine)
@@ -159,6 +178,9 @@ class Interaction:
             self.print_story_line(area.storyLineVisited)
 
     def with_neutral(self, neutral, visited):
+        """
+        Handles the interaction with a neutral character.
+        """
         if not visited:
             self.print_story_line(neutral.storyLine)
         elif visited and neutral.questItem:
@@ -176,6 +198,9 @@ class Interaction:
             self.print_story_line(neutral.storyLineVisited)
 
     def with_enemy(self, enemy, location, visited):
+        """
+        Handles the interaction with an enemy.
+        """
         if not visited:
             self.print_story_line(enemy.storyLine)
             text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
@@ -209,11 +234,17 @@ class Interaction:
 
 
 class Combat:
+    """
+    Handles the combat between the player and an enemy.
+    """
     def __init__(self, player, enemy):
         self.player = player
         self.enemy = enemy
 
     def combat(self):
+        """
+        Handles the combat between the player and the enemy.
+        """
         # Set the fought attribute to True
         self.enemy.fought = True
 
@@ -232,6 +263,9 @@ class Combat:
         return "retreat"
 
     def to_fight_or_not_to_fight(self):
+        """
+        Handles the decision to fight or retreat.
+        """
         if ask_user('combat'):
             result = self.combat()
             return result
@@ -239,15 +273,24 @@ class Combat:
             return "retreat"
 
     def continue_or_flee(self):
+        """
+        Prompts the player to continue or flee the battle.
+        """
         return ask_user('retreat')
 
     def player_attack(self):
+        """
+        Handles the player's attack on the enemy.
+        """
         player_attack_power = self.calculate_player_attack_power()
         damage = self.calculate_damage(player_attack_power, self.enemy.defense)
         self.enemy.health -= damage
         text(f"You hit the enemy causing {damage} damage.")
 
     def enemy_attack(self):
+        """
+        Handles the enemy's attack on the player.
+        """
         damage = self.calculate_damage(
             self.enemy.attack, self.calculate_player_defense()
         )
@@ -255,28 +298,43 @@ class Combat:
         text(f"Enemy hits you causing {damage} damage.")
 
     def calculate_player_attack_power(self):
+        """
+        Calculates the player's attack power.
+        """
         base_attack = self.player.attack
         weapon_bonus = self.player.weapon.attack if self.player.weapon else 0
         return base_attack + weapon_bonus
 
     def calculate_player_defense(self):
+        """
+        Calculates the player's defense.
+        """
         base_defense = self.player.defense
         armor_bonus = self.player.armour.defense if self.player.armour else 0
         return base_defense + armor_bonus
 
     def calculate_damage(self, attack, defense):
+        """
+        Calculates the damage caused by the attack.
+        """
         return max(
             int(random.uniform(0.5 * attack, attack) -
                 random.uniform(0, defense)), 1
         )
 
     def display_combat_status(self):
+        """
+        Displays the combat status.
+        """
         text(f"Player: health:{self.player.health}")
         if self.enemy.health > 0:
             text(f"Enemy: health:{self.enemy.health}", delay=0.3, space=1)
 
 
 class Location:
+    """
+    Used to create a location in the game. 
+    """
     def __init__(
             self,
             name: str,
@@ -307,11 +365,14 @@ class Location:
         self.contents[position] = element
 
     def is_visited(self, position):
+        """
+        Checks if the position has been visited.
+        """
         return self.visited[position[1]][position[0]]
 
     def randomly_place_elements(self):
         """
-        This method randomly places elements in the location.
+        Randomly places elements in the location.
         """
         for area in self.areas:
             if (
@@ -327,13 +388,16 @@ class Location:
                 self.place_on_map(area)
 
     def get_random_position(self):
+        """
+        Returns a random position.
+        """
         x = random.randint(0, self.size[0] - 1)
         y = random.randint(0, self.size[1] - 1)
         return (x, y)
 
     def display_map(self) -> None:
         """
-        This method displays the map of the current location.
+        Displays the map of the current location.
         """
         for y in range(self.size[1]):
             for x in range(self.size[0]):
@@ -353,7 +417,7 @@ class Location:
 
     def mark_visited(self, position) -> None:
         """
-        This method marks the position as visited.
+        Marks the position as visited.
         """
         x, y = position
         if 0 <= x < self.size[0] and 0 <= y < self.size[1]:
@@ -361,17 +425,23 @@ class Location:
 
     def is_valid_position(self, position) -> bool:
         """
-        This method checks if the position is valid.
+        Checks if the position is valid.
         """
         x, y = position
         return 0 <= x < self.size[0] and 0 <= y < self.size[1]
 
     def return_to_previous_position(self):
+        """
+        Returns the player to the previous position.
+        """
         self.player_position = self.player_prev_position
         area_name = self.get_area_name_by_position(self.player_prev_position)
         text(f"You have returned to the {area_name}.")
 
     def get_area_name_by_position(self, position):
+        """
+        Returns the name of the area at the specified position.
+        """
         area = self.contents.get(position)
         if area and isinstance(area, Area):
             return area.name
@@ -379,6 +449,9 @@ class Location:
             return "Unknown Area"
 
     def check_for_interaction(self, position, player):
+        """
+        Checks for interaction with the area at the specified position.
+        """
         visited = self.is_visited(position)
         if position in self.contents:
             element = self.contents[position]
@@ -397,6 +470,9 @@ class Location:
                     interaction.with_neutral(element.neutral, visited)
 
     def print_contents(self):
+        """
+        Prints the contents of the location.
+        """
         if not self.contents:
             print("There are no items or enemies in this location.")
             return
@@ -410,6 +486,9 @@ class Location:
             print(f"Position {position}: {element_type} - {element_info}")
 
     def search_area(self, player):
+        """
+        Searches the area for items.
+        """
         position = self.player_position
         if position in self.contents:
             area = self.contents[position]
@@ -440,6 +519,9 @@ class Location:
                 text("You searched the area but found nothing.")
 
     def interact_with_area_items(self, item, area, player):
+        """
+        Interacts with the items in the area.
+        """
         if isinstance(item, Weapon):
             name = item.name
             add_space()
@@ -489,12 +571,18 @@ class Location:
                 area.items.remove(item)
 
     def print_travel_story_line(self, direction):
+        """
+        Prints the travel story line.
+        """
         if direction in self.travel:
             for line in self.travel[direction]:
                 paragraph(line, space=1, delay=0.6)
 
 
 class Yolkaris(Location):
+    """
+    Initializes the Yolkaris location.
+    """
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Yolkaris",
@@ -506,6 +594,9 @@ class Yolkaris(Location):
 
 
 class Mystara(Location):
+    """
+    Initializes the Mystara location.
+    """
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Mystara",
@@ -517,6 +608,9 @@ class Mystara(Location):
 
 
 class Luminara(Location):
+    """
+    Initializes the Luminara location.
+    """
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Luminara",
@@ -528,6 +622,9 @@ class Luminara(Location):
 
 
 class Area:
+    """
+    Initializes an area in the game.
+    """
     def __init__(
             self,
             name: str,
@@ -550,6 +647,9 @@ class Area:
 
 
 class Item:
+    """
+    Initializes an item in the game.
+    """
     def __init__(self, name: str, description: str = None, received: str = None) -> None:
         self.name = name
         self.description = description
@@ -557,6 +657,9 @@ class Item:
 
 
 class Weapon(Item):
+    """
+    Initializes a weapon in the game.
+    """
     def __init__(
             self,
             name: str,
@@ -568,6 +671,9 @@ class Weapon(Item):
 
 
 class Armour(Item):
+    """
+    Initializes an armour in the game.
+    """
     def __init__(
             self,
             name: str,
@@ -579,6 +685,9 @@ class Armour(Item):
 
 
 class Potion(Item):
+    """
+    Initializes a potion in the game.
+    """
     def __init__(
             self,
             name: str,
@@ -588,6 +697,9 @@ class Potion(Item):
 
 
 class Book(Item):
+    """
+    Initializes a book in the game.
+    """
     def __init__(
             self,
             name: str,
@@ -599,11 +711,17 @@ class Book(Item):
 
 
 class Spaceship(Item):
+    """
+    Initializes a spaceship in the game.
+    """
     def __init__(self, name: str, description: str) -> None:
         super().__init__(name, description)
 
 
 class Special(Item):
+    """
+    Initializes a special item in the game.
+    """
     def __init__(self, name: str, description: str = None, storyLine: list = None, received: str = None) -> None:
         super().__init__(name, description, received)
         self.storyLine = storyLine
@@ -611,7 +729,7 @@ class Special(Item):
 
 def game_title() -> None:
     """
-    This is the main menu.
+    Displays the game title.
     """
     yolkaris = text2art("Yolkaris", font="dos_rebel", chr_ignore=True)
     odyssey = text2art("Odyssey", font="dos_rebel", chr_ignore=True)
@@ -621,7 +739,7 @@ def game_title() -> None:
 
 def show_help() -> None:
     """
-    This function displays the available commands.
+    Displays the available commands.
     """
     text("Available Commands:", space=1)
 
@@ -642,6 +760,9 @@ def show_help() -> None:
 
 
 def reset_game(game_instance=None):
+    """
+    Resets the game.
+    """
     # If a game instance is provided, use it; otherwise, create a new one
     if game_instance is None:
         game_instance = Game()
@@ -653,8 +774,10 @@ class Game:
     """
     This is the main class for the game.
     """
-
     def __init__(self) -> None:
+        """
+        Initializes the game.
+        """
         self.location_objects = {}
         self.current_location = 0
         self.game_over = False
@@ -717,7 +840,9 @@ class Game:
             self.choose_action()
 
     def setup_areas(self, level) -> None:
-
+        """
+        Sets up the areas in the game.
+        """
         if level == 1:
 
             yolkaris_size = (4, 2)
@@ -3079,7 +3204,7 @@ class Game:
 
     def choose_action(self) -> None:
         """
-        This method displays the available actions and prompts the player to
+        Displays the available actions and prompts the player to
         choose an action. The method then calls the appropriate method based on 
         the player's choice.
         """
@@ -3120,7 +3245,7 @@ class Game:
 
     def search_current_area(self):
         """
-        This method searches the current area for items.
+        Searches the current area for items.
         """
         current_location = self.get_current_location()
         current_location.search_area(self.player)
@@ -3153,6 +3278,9 @@ class Game:
         current_location.player = self.player
 
     def location_and_position(self) -> None:
+        """
+        This method displays the current location and the player's position.
+        """
         current_location = self.get_current_location()
         area_name = current_location.get_area_name_by_position(
             current_location.player_position)
@@ -3169,7 +3297,7 @@ class Game:
 
     def update_player_position(self, dx: int, dy: int) -> None:
         """
-        This method updates the player's position in the current location.
+        Updates the player's position in the current location.
         dx: int - The change in the x-axis
         dy: int - The change in the y-axis
         """
@@ -3192,33 +3320,39 @@ class Game:
 
     def move_north(self) -> None:
         """
-        This method moves the player north.
+        Moves the player north.
         """
         self.update_player_position(0, -1)
 
     def move_south(self) -> None:
         """
-        This method moves the player south.
+        Moves the player south.
         """
         self.update_player_position(0, 1)
 
     def move_east(self) -> None:
         """
-        This method moves the player east.
+        Moves the player east.
         """
         self.update_player_position(1, 0)
 
     def move_west(self) -> None:
         """
-        This method moves the player west.
+        Moves the player west.
         """
         self.update_player_position(-1, 0)
 
     def show_location_contents(self):
+        """
+        Displays the contents of the current location.
+        """
         current_location = self.get_current_location()
         current_location.print_contents()
 
     def show_inventory(self):
+        """
+        Displays the player's inventory and prompts the player to interact with
+        an item in the inventory."""
         if not self.player.inventory:
             text("Your inventory is empty.")
             return
@@ -3244,6 +3378,9 @@ class Game:
             text("Invalid input. Please enter a number.")
 
     def interact_with_inventory_item(self, index):
+        """
+        Interacts with an item in the player's inventory.
+        """
         item = self.player.inventory[index]
         name = item.name
         add_space()
@@ -3258,6 +3395,9 @@ class Game:
             text("Invalid action.")
 
     def use_inventory_item(self, item):
+        """
+        Uses an item in the player's inventory.
+        """
         name = item.name
 
         if isinstance(item, Book):
@@ -3269,6 +3409,9 @@ class Game:
             Interaction.print_story_line(self, item.storyLine)
 
     def travel_to_new_location(self):
+        """
+        Travels to a new location.
+        """
         # Initial locations
         base_destinations = {'Yolkaris': ['Mystara'], 'Mystara': [
             'Yolkaris'], 'Luminara': ['Yolkaris', 'Mystara']}
@@ -3296,8 +3439,13 @@ class Game:
         add_space()
 
         # Get the user's choice
-        choice = ask_user(
-            "number", prompt="Where do you want to go? ", numbers=[str(i) for i in range(1, len(available_destinations) + 1)])
+        choice = ask_user("number", prompt="Where do you want to go? ", numbers=[
+                          '0'] + [str(i) for i in range(1, len(available_destinations) + 1)])
+
+        if choice == 0:
+            print('Exit the Spaceship ')
+            return
+
         selected_location_name = available_destinations[int(choice) - 1]
 
         # Find the index of the selected location in the original locations list
@@ -3318,6 +3466,9 @@ class Game:
         new_location.print_travel_story_line('to')
 
     def select_potion(self):
+        """
+        Selects a potion from the player's inventory to use.
+        """
         if not self.player.potions:
             text("Your inventory is empty.")
             return
@@ -3347,6 +3498,9 @@ class Game:
             text("Invalid input. Please enter a number.")
 
     def use_potion(self, potion):
+        """
+        Uses a potion from the player's inventory.
+        """
         player = self.player
         max_health = 100
         if player.health == max_health:
@@ -3360,6 +3514,9 @@ class Game:
                 f"You used a {potion.name}. Your health is now {player.health}.")
 
     def inspect_inventory_item(self, item):
+        """
+        Inspects an item in the player's inventory.
+        """
         name = item.name
         description = item.description
         add_space()
