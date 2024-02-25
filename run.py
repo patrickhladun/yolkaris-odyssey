@@ -1,13 +1,14 @@
 import random
 from art import text2art
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
-                   loading )
+                   loading)
 
 
 class Character:
     """
     Initializes a character.
     """
+
     def __init__(self, name: str) -> None:
         self.name = name
 
@@ -16,6 +17,7 @@ class Player(Character):
     """
     Initializes a player character.
     """
+
     def __init__(
             self,
             name: str,
@@ -38,27 +40,28 @@ class Enemy(Character):
     """
     Initializes an enemy character.
     """
+
     def __init__(
             self,
             name: str,
-            storyLine: list,
-            storyLineVisited: list,
-            storyLineFought: list,
-            storyLineWonFight: list,
-            storyLineLostFight: list,
-            storyLineDefeated: list,
+            story_line: list,
+            story_line_visited: list,
+            story_line_fought: list,
+            story_line_won_fight: list,
+            story_line_lost_fight: list,
+            story_line_defeated: list,
             health: int,
             attack: int,
             defense: int,
             fought: bool = False
     ) -> None:
         super().__init__(name)
-        self.storyLine = storyLine
-        self.storyLineVisited = storyLineVisited
-        self.storyLineFought = storyLineFought
-        self.storyLineWonFight = storyLineWonFight
-        self.storyLineLostFight = storyLineLostFight
-        self.storyLineDefeated = storyLineDefeated
+        self.story_line = story_line
+        self.story_line_visited = story_line_visited
+        self.story_line_fought = story_line_fought
+        self.story_line_won_fight = story_line_won_fight
+        self.story_line_lost_fight = story_line_lost_fight
+        self.story_line_defeated = story_line_defeated
         self.health = health
         self.attack = attack
         self.defense = defense
@@ -69,25 +72,27 @@ class Neutral(Character):
     """
     Initializes a neutral character.
     """
+
     def __init__(
             self,
             name,
-            storyLine,
-            storyLineVisited=None,
-            storyLineCompleted=None,
-            questItem=None
+            story_line,
+            story_line_visited=None,
+            story_line_completed=None,
+            quest_item=None
     ) -> None:
         super().__init__(name)
-        self.storyLine = storyLine
-        self.storyLineVisited = storyLineVisited
-        self.storyLineCompleted = storyLineCompleted
-        self.questItem = questItem
+        self.story_line = story_line
+        self.story_line_visited = story_line_visited
+        self.story_line_completed = story_line_completed
+        self.quest_item = quest_item
 
 
 class Interaction:
     """
     Aandles the interaction between the player and the game elements.
     """
+
     def __init__(self, player):
         self.player = player
 
@@ -138,7 +143,6 @@ class Interaction:
             self.player.inventory.append(item)
 
         elif isinstance(item, Item):
-            print('Desription in Item')
             if item.received:
                 text(f"{item.name}", space=1)
             else:
@@ -147,13 +151,13 @@ class Interaction:
                 paragraph(item.description, space=1)
             self.player.inventory.append(item)
 
-    def print_story_line(self, storyLine):
+    def print_story_line(self, story_line):
         """
         Prints the story line to the terminal.
         """
-        for line in storyLine:
+        for line in story_line:
             space = line['space'] if 'space' in line else 1
-            delay = line['delay'] if 'delay' in line else 0.0
+            delay = line['delay'] if 'delay' in line else 0.2
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
@@ -172,48 +176,48 @@ class Interaction:
         """
         add_space()
         if not visited:
-            self.print_story_line(area.storyLine)
+            self.print_story_line(area.story_line)
         else:
-            self.print_story_line(area.storyLineVisited)
+            self.print_story_line(area.story_line_visited)
 
     def with_neutral(self, neutral, visited):
         """
         Handles the interaction with a neutral character.
         """
         if not visited:
-            self.print_story_line(neutral.storyLine)
-        elif visited and neutral.questItem:
+            self.print_story_line(neutral.story_line)
+        elif visited and neutral.quest_item:
             has_quest_item = any(
-                item.name == neutral.questItem.name for item in self.player.inventory
+                item.name == neutral.quest_item.name for item in self.player.inventory
             )
-            if has_quest_item and neutral.questItem:
-                # Player has the quest item, proceed with the special storyline
-                self.print_story_line(neutral.storyLineCompleted)
+            if has_quest_item and neutral.quest_item:
+                # Player has the quest item, proceed with the special story_line
+                self.print_story_line(neutral.story_line_completed)
                 reset_game()
             else:
-                # Player does not have the quest item or no quest item specified, proceed with the visited storyline
-                self.print_story_line(neutral.storyLineVisited)
+                # Player does not have the quest item or no quest item specified, proceed with the visited story_line
+                self.print_story_line(neutral.story_line_visited)
         else:
-            self.print_story_line(neutral.storyLineVisited)
+            self.print_story_line(neutral.story_line_visited)
 
     def with_enemy(self, enemy, location, visited):
         """
         Handles the interaction with an enemy.
         """
         if not visited:
-            self.print_story_line(enemy.storyLine)
+            self.print_story_line(enemy.story_line)
             text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
                  f"defense: {enemy.defense}", space=1)
         else:
             if enemy.health <= 0:
-                self.print_story_line(enemy.storyLineDefeated)
+                self.print_story_line(enemy.story_line_defeated)
                 return
             elif enemy.fought:
-                self.print_story_line(enemy.storyLineFought)
+                self.print_story_line(enemy.story_line_fought)
                 text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
                      f"defense: {enemy.defense}", space=1)
             else:
-                self.print_story_line(enemy.storyLineVisited)
+                self.print_story_line(enemy.story_line_visited)
                 text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
                      f"defense: {enemy.defense}", space=1)
 
@@ -225,17 +229,18 @@ class Interaction:
             return False
         elif results == "won":
             text(f"You have defeated {enemy.name}!", space=1)
-            self.print_story_line(enemy.storyLineWonFight)
+            self.print_story_line(enemy.story_line_won_fight)
             return True
         elif results == "lost":
             text(f"You have been defeated by {enemy.name}!", space=1)
-            self.print_story_line(enemy.storyLineLostFight)
+            self.print_story_line(enemy.story_line_lost_fight)
 
 
 class Combat:
     """
     Handles the combat between the player and an enemy.
     """
+
     def __init__(self, player, enemy):
         self.player = player
         self.enemy = enemy
@@ -334,6 +339,7 @@ class Location:
     """
     Used to create a location in the game. 
     """
+
     def __init__(
             self,
             name: str,
@@ -582,6 +588,7 @@ class Yolkaris(Location):
     """
     Initializes the Yolkaris location.
     """
+
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Yolkaris",
@@ -596,6 +603,7 @@ class Mystara(Location):
     """
     Initializes the Mystara location.
     """
+
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Mystara",
@@ -610,6 +618,7 @@ class Luminara(Location):
     """
     Initializes the Luminara location.
     """
+
     def __init__(self, size, areas, travel=None) -> None:
         super().__init__(
             name="Luminara",
@@ -624,11 +633,12 @@ class Area:
     """
     Initializes an area in the game.
     """
+
     def __init__(
             self,
             name: str,
-            storyLine: list,
-            storyLineVisited: list,
+            story_line: list,
+            story_line_visited: list,
             visited: bool = False,
             enemy=None,
             neutral=None,
@@ -636,8 +646,8 @@ class Area:
             items=None,
     ) -> None:
         self.name = name
-        self.storyLine = storyLine
-        self.storyLineVisited = storyLineVisited
+        self.story_line = story_line
+        self.story_line_visited = story_line_visited
         self.visited = visited
         self.enemy = enemy
         self.neutral = neutral
@@ -649,6 +659,7 @@ class Item:
     """
     Initializes an item in the game.
     """
+
     def __init__(self, name: str, description: str = None, received: str = None) -> None:
         self.name = name
         self.description = description
@@ -659,6 +670,7 @@ class Weapon(Item):
     """
     Initializes a weapon in the game.
     """
+
     def __init__(
             self,
             name: str,
@@ -673,6 +685,7 @@ class Armour(Item):
     """
     Initializes an armour in the game.
     """
+
     def __init__(
             self,
             name: str,
@@ -687,6 +700,7 @@ class Potion(Item):
     """
     Initializes a potion in the game.
     """
+
     def __init__(
             self,
             name: str,
@@ -699,20 +713,22 @@ class Book(Item):
     """
     Initializes a book in the game.
     """
+
     def __init__(
             self,
             name: str,
             description: str,
-            storyLine: list,
+            story_line: list,
             received: str = None) -> None:
         super().__init__(name, description, received)
-        self.storyLine = storyLine
+        self.story_line = story_line
 
 
 class Spaceship(Item):
     """
     Initializes a spaceship in the game.
     """
+
     def __init__(self, name: str, description: str) -> None:
         super().__init__(name, description)
 
@@ -721,9 +737,10 @@ class Special(Item):
     """
     Initializes a special item in the game.
     """
-    def __init__(self, name: str, description: str = None, storyLine: list = None, received: str = None) -> None:
+
+    def __init__(self, name: str, description: str = None, story_line: list = None, received: str = None) -> None:
         super().__init__(name, description, received)
-        self.storyLine = storyLine
+        self.story_line = story_line
 
 
 def game_title() -> None:
@@ -773,6 +790,7 @@ class Game:
     """
     This is the main class for the game.
     """
+
     def __init__(self) -> None:
         """
         Initializes the game.
@@ -848,7 +866,7 @@ class Game:
 
             yolkaris_areas = [
                 Area(name="Capital City",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -886,7 +904,7 @@ class Game:
                              "space": 1
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -903,7 +921,7 @@ class Game:
                              description="A tome chronicling the saga of"
                                          " Yolkaris' Grand Clock, whose ticking has"
                                          " ceased.",
-                             storyLine=[
+                             story_line=[
                                  {
                                      "clear": True
                                  },
@@ -944,8 +962,8 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="Timekeeper",
-                         questItem=Special(name="The Time Crystal"),
-                         storyLine=[
+                         quest_item=Special(name="The Time Crystal"),
+                         story_line=[
                              {
                                  "text": "'Ah, Charlie! The Grand Clock, our"
                                  " timeless guardian, has ceased its rhythmic"
@@ -1022,7 +1040,7 @@ class Game:
                                          " journey be filled with wonder."
                              },
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "Hey Charlie, do you have the"
                                  " crystal?",
@@ -1035,7 +1053,7 @@ class Game:
                                  " clock. You need to find the crystal.",
                              },
                          ],
-                         storyLineCompleted=[
+                         story_line_completed=[
                              {
                                  "text": "Ah, Charlie, you've returned! And"
                                  " with the Time Crystal, no less?",
@@ -1092,7 +1110,7 @@ class Game:
                      position=(0, 0),
                      ),
                 Area(name="Bounty Harbour",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1111,7 +1129,7 @@ class Game:
                                      " and mysterious seas."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1123,7 +1141,7 @@ class Game:
                      position=(1, 0),
                      ),
                 Area(name="Cluckington Valley",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1148,7 +1166,7 @@ class Game:
                              "delay": 0.6
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1166,7 +1184,7 @@ class Game:
                                          "lift the spirits of anyone brave enough to"
                                          "open its pages, offering a light-hearted"
                                          " escape into the world of feathered humor.",
-                             storyLine=[
+                             story_line=[
                                  {
                                      "text": "Giggles from the Canopy:"
                                              " The Laughing Tree's Joke Book",
@@ -1219,7 +1237,7 @@ class Game:
                      position=(0, 1),
                      ),
                 Area(name="Crystal Hills",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1279,7 +1297,7 @@ class Game:
                                      " coat, gazed at Charlie with a wry smile."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True},
                          {
@@ -1287,7 +1305,7 @@ class Game:
                          }],
                      enemy=Enemy(
                          name="Phineas Blackthorn",
-                         storyLine=[
+                         story_line=[
                              {
                                  "continue": True
                              },
@@ -1326,14 +1344,14 @@ class Game:
                                  " Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "Hey, welcome back, Charlie! Are you"
                                  " ready this time to take on the challenge?"
                                  " Can we fight? Ha ha ha! Sorry.",
                              },
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "Ah, Charlie, back for another"
                                  " round, I see. Ready to continue where we"
@@ -1341,7 +1359,7 @@ class Game:
                                  " The challenge awaits.",
                              },
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "You have defeated Phineas Blackthorn."
                                          " With a gracious nod and a smile, Phineas"
@@ -1356,7 +1374,7 @@ class Game:
                                  "item": Special(name="The Time Crystal")
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "Phineas Blackthorn couldn't help"
                                          " but raise an eyebrow and quip"
@@ -1377,7 +1395,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "What else do you need, Charlie?"
                                          " You've already bested me in our challenge,"
@@ -1391,7 +1409,7 @@ class Game:
                      position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1423,7 +1441,7 @@ class Game:
                              "continue": True
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1433,7 +1451,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="Shadow Stalker",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "You've entered my domain, little"
                                  " chicken. But know this, none shall cross"
@@ -1462,19 +1480,19 @@ class Game:
                                  " accepted the challenge."
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "You're back, Charlie. I hope you"
                                  " brought your feather duster this time!"
                              },
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "You've returned, Charlie. Ready"
                                  " to face me again?"
                              },
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "You have defeated the Shadow"
                                          " Stalker."
@@ -1499,7 +1517,7 @@ class Game:
                                          " a faint whisper reached Charlie's ears."
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "The Shadow Stalker's eyes gleamed"
                                          " with malice as it spoke."
@@ -1518,7 +1536,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "You've defeated me, Charlie. I have"
                                  " no more fight left in me."
@@ -1538,7 +1556,7 @@ class Game:
                      ],
                      ),
                 Area(name="Clucker's Canyon",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1568,7 +1586,7 @@ class Game:
                              " clues about The Time Crystal."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1584,7 +1602,7 @@ class Game:
                      ],
                      ),
                 Area(name="Bubble Beach",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1601,7 +1619,7 @@ class Game:
                                      " ripples across the water."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1617,7 +1635,7 @@ class Game:
                      ],
                      ),
                 Area(name="Peckers Peak",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1667,7 +1685,7 @@ class Game:
                              "continue": True
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1677,7 +1695,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="Viktor Thornhart",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "You've ventured into my territory,"
                                  " stranger. Prepare to face the consequences."
@@ -1698,19 +1716,19 @@ class Game:
                                          " guardian of these sacred grounds."
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "You've returned, Charlie. Ready"
                                  " to face me again?"
                              },
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "You've returned, Charlie. Ready"
                                  " to face me again?"
                              },
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "With a final, determined effort, you"
                                  " overcome Viktor Thornhart's defenses."
@@ -1730,7 +1748,7 @@ class Game:
                                  " strongest feathers known."
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "Viktor Thornhart's eyes gleamed"
                                          " with malice as he spoke."
@@ -1749,7 +1767,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "You've defeated me, Charlie. I have"
                                  " no more fight left in me."
@@ -1782,7 +1800,7 @@ class Game:
 
             yolkaris_areas = [
                 Area(name="Capital City",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -1806,7 +1824,7 @@ class Game:
                              "continue": True
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -1816,8 +1834,8 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="Archibald Thorne",
-                         questItem=Special(name="The Aurora Orb"),
-                         storyLine=[
+                         quest_item=Special(name="The Aurora Orb"),
+                         story_line=[
                               {
                                   "text": "Archibald Thorne, a seasoned "
                                           "navigator of the cosmos, leaned "
@@ -1939,7 +1957,7 @@ class Game:
 
                               },
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "The hallowed halls of the observatory felt heavier as Charlie stepped in, the weight of unmet expectations pressing down."
                              },
@@ -1969,7 +1987,7 @@ class Game:
                                  "continue": True
                              }
                          ],
-                         storyLineCompleted=[
+                         story_line_completed=[
                              {
                                  "text": "As Charlie stepped into the observatory, a hush fell over the gathered crowd, anticipation hanging thick in the air."
                              },
@@ -2021,7 +2039,7 @@ class Game:
                      position=(0, 0),
                      ),
                 Area(name="Bounty Harbour",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2040,7 +2058,7 @@ class Game:
                                      " and mysterious seas."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2050,7 +2068,7 @@ class Game:
                      ]
                      ),
                 Area(name="Gearhaven District",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2061,7 +2079,7 @@ class Game:
                                      " her skilled hands."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2076,7 +2094,7 @@ class Game:
                          )
                      ],
                      neutral=Neutral("Eudora Quasar",
-                                     storyLine=[
+                                     story_line=[
                                          {
                                              "text": "'Ah, Charlie,' she exclaimed, her voice echoing slightly in the vast space.",
                                          },
@@ -2132,7 +2150,7 @@ class Game:
                                              " Gearhaven District behind him, he knew he was ready to face whatever the cosmos held."
                                          }
                                      ],
-                                     storyLineVisited=[
+                                     story_line_visited=[
                                          {
                                              "text": "Charlie, back so soon? How's the Nebula Voyager II treating you?",
                                          },
@@ -2150,7 +2168,7 @@ class Game:
                                      ),
                      ),
                 Area(name="Cluckington Valley",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2159,7 +2177,7 @@ class Game:
                              "space": 1
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2178,7 +2196,7 @@ class Game:
 
             mystara_areas = [
                 Area(name="Astral Port",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2198,7 +2216,7 @@ class Game:
                              "text": "'This place is incredible,' Charlie murmurs to himself, marveling at the diversity of species and the myriad of goods on display. 'But I can't get distracted. I must stay focused on my mission.' With determination in his eyes, he sets off to explore the port, ready to uncover its secrets."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2211,7 +2229,7 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="SpaceWalker Jones",
-                         storyLine=[
+                         story_line=[
                               {
                                   "text": "In the bustling heart of Astral Port, where the universe's many paths cross, Charlie caught sight of a familiar figure. Spacewalker Jones, the interstellar adventurer from the enigmatic planet known as Earth, approached with a stride that spoke of countless journeys. His smile was as bright as the nebulas he'd traversed."
                               },
@@ -2262,7 +2280,7 @@ class Game:
                                   "text": "Buoyed by the encounter and the weight of the Celestial Aegis upon him, Charlie set his sights on the Old Citadel, its mysteries now a beacon in the night, guiding him towards his fate."
                               }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "'Ah, Charlie, back for more adventures?' Jones grinned, his eyes twinkling with mischief. 'Seems like you can't stay away from the excitement of the Astral Port.'"
                              }
@@ -2277,7 +2295,7 @@ class Game:
                      position=(0, 0),
                      ),
                 Area(name="Old Citadel",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2303,7 +2321,7 @@ class Game:
                              "text": "Buoyed by determination, Charlie ventures deeper into the heart of the Citadel, his mind ablaze with the possibilities that await him. 'Whatever challenges lie ahead, I will face them with courage and resolve,' he vows, his spirit unyielding in the face of uncertainty."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2313,7 +2331,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="Calista Starcross",
-                         storyLine=[
+                         story_line=[
 
                              {
                                  "text": "Before him stands Calista Starcross, guardian of the Citadel's deepest secrets. Her eyes, glowing with an ethereal light, fix upon Charlie. 'You tread on sacred ground, seeker. What brings you to the heart of history?' she inquires, her tone a blend of curiosity and caution."
@@ -2331,17 +2349,17 @@ class Game:
                                  "text": "'Very well,' Calista nods, stepping back as the air around her crackles with arcane energy. 'Show me that your purpose is true, and perhaps the Citadel will reveal its secrets to you.'"
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "'You return, still seeking the Citadel's secrets,' Calista observes as Charlie reenters the ancient halls. 'Have you discovered the courage to face what lies ahead?'"
                              }
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "'Our last encounter was but a prelude,' Calista declares, her voice echoing off the stone. 'Let us see if you've grown in wisdom and strength.'"
                              }
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "As the battle fades, Calista Starcross acknowledges Charlie's victory with a nod of respect. 'You have proven yourself, seeker. The Citadel's secrets await those who are truly ready to understand them.'"
                              },
@@ -2404,7 +2422,7 @@ class Game:
                                  "text": "'What mysteries do you hold?' he wonders aloud, his voice a mere whisper in the vast chamber.",
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "Defeated, Charlie feels the weight of his shortcomings. 'You lack the readiness to uncover what lies within,' Calista's voice softens, not in mockery but as a mentor's counsel. 'Return when time has honed your resolve.'"
                              },
@@ -2418,7 +2436,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "In the quiet aftermath, the Citadel seems to stand a bit lighter, as if acknowledging Charlie's growth. Calista Starcross, now an ally, offers silent guidance through the echoing corridors."
                              }
@@ -2437,7 +2455,7 @@ class Game:
                      position=(1, 2),
                      ),
                 Area(name="Moonlight Market",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2451,7 +2469,7 @@ class Game:
                              "continue", True
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2461,7 +2479,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="Nomo Gerhad",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "Ambling through the Moonlight Market's labyrinth of stalls, Charlie immerses himself in the vibrant tapestry of cosmic commerce. His senses are alive with the exotic scents of alien spices and the colorful displays of interstellar artifacts. It's a place where the universe converges, offering treasures from every corner of the galaxy."
                              },
@@ -2493,17 +2511,17 @@ class Game:
                                  "text": "Faced with a dire choice, Charlie must quickly decide: confront Nomo Gerhad in a desperate bid for self-defense or attempt to outpace the thief's malevolence in a sprint for safety."
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "'Fancy seeing you here again,' Nomo taunts, a smirk playing on his lips. 'Ready for another lesson, or will you surprise me this time?'"
                              },
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "Bruised from their last encounter, Charlie faces Nomo with a newfound resolve. 'You won't best me again,' he declares, the market's ambient light glinting off his determination."
                              },
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "After defeating Nomo Gerhad, Charlie stands victorious amidst the bustling Moonlight Market. As the echoes of their clash fade into the ambient noise, Nomo, humbled by Charlie's strength and determination, extends an offer of peace. With a weary yet genuine voice, he pleads for mercy, promising not only to spare Charlie's life but also to bestow upon him a legendary artifact: The Starforged Blade."
                              },
@@ -2524,7 +2542,7 @@ class Game:
                                  )
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "Overwhelmed by Nomo's guile, Charlie stumbles, the market's din fading as darkness claims him. 'Better luck next time,' Nomo's voice echoes mockingly in the void."
                              },
@@ -2538,7 +2556,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "Ambling through the market once more, Charlie's eyes meet Nomo's. There's no malice this time, only a nod of respect. 'You've earned your peace,' Nomo concedes, disappearing into the crowd."
                              },
@@ -2557,7 +2575,7 @@ class Game:
                      position=(0, 1),
                      ),
                 Area(name="Forgery",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2577,7 +2595,7 @@ class Game:
                              "text": "Viktor assesses Charlie for a moment, then gestures towards the heart of the forge. 'Then let the trial begin. Show me the resolve that burns within you, and I shall lend strength to your arm and shield.'"
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2587,22 +2605,22 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="Viktor Draven",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "In the heart of the Forgery, where every spark is a promise of power, Viktor stands ready. 'The forge's trial is harsh, but fair. Only through overcoming its heat can one truly ascend,' Viktor proclaims, readying himself for the challenge ahead."
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "'Returning to the heat of battle, I see. Very well, let us continue where we left off,' Viktor states, the forge's glow reflecting in his eyes."
                              }
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "'You've shown resilience, but the forge demands more. Let's test the temper of your spirit,' Viktor challenges, the forge roaring in agreement."
                              }
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "With Viktor Draven bested, the intensity of the forge seems to soften, replaced by a warm glow of respect. 'You have proven your worth, Charlie. Your spirit burns bright enough to withstand the forge's fury,' Viktor concedes, his voice carrying a hint of pride. 'Let me enhance your weapon and armor; may they carry the strength of the forge.'"
                              },
@@ -2621,12 +2639,12 @@ class Game:
                                  )
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "'The forge is unforgiving, and today, it has deemed you unworthy,' Viktor states, a tone of finality in his voice. 'Return when you are ready to withstand its test.'"
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "In the calm that now envelops the Forgery, Viktor works silently, his actions a testament to his newfound respect for Charlie. The air is filled with the promise of creation, a reminder of the bond formed in the crucible of the forge."
                              }
@@ -2644,7 +2662,7 @@ class Game:
                      ]
                      ),
                 Area(name="Quantum Quarters",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2670,7 +2688,7 @@ class Game:
                              "text": "That night, Charlie slept more soundly than he had in ages, the bed conforming perfectly to his weary body. As dawn broke, he awoke refreshed, the challenges of his quest awaiting. After a quick breakfast that seemed to energize him further, Charlie was ready. 'Back to the quest,' he declared, stepping out into the morning light, his spirit renewed for the adventures ahead."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2686,7 +2704,7 @@ class Game:
                      ]
                      ),
                 Area(name="Observatory",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2712,7 +2730,7 @@ class Game:
                              "text": "With renewed determination, Charlie thanked the astronomer and stepped away from the telescope. The Observatory had offered him a glimpse into the vastness of the universe, and with it, the knowledge that his quest was part of something much larger."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2735,7 +2753,7 @@ class Game:
 
             luminara_areas = [
                 Area(name="Neon Nexus of Luminara",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2752,7 +2770,7 @@ class Game:
                              "continue": True
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2765,7 +2783,7 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="Virtue AI",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "'Welcome, traveler,' the voice resonates, its tone imbued with an otherworldly wisdom. 'I am Virtue AI, the guardian of knowledge within the galactic dataweb. Within me lies the collective wisdom of countless civilizations and the boundless depths of the cosmos.'"
                              },
@@ -2791,7 +2809,7 @@ class Game:
                                  "text": "'Should The Guardian of Shattered Dreams deem you worthy, a weapon of unparalleled might shall be yours,' Virtue AI proclaims, its words echoing with the weight of destiny. 'But be prepared, for the trials ahead will test not only your strength but also your resolve.'"
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "Returning to the presence of Virtue AI, Charlie feels a sense of reassurance as he once again stands before the embodiment of cosmic knowledge and guidance."
                              }
@@ -2810,7 +2828,7 @@ class Game:
                      position=(0, 0)
                      ),
                 Area(name="The Cloud City",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2827,7 +2845,7 @@ class Game:
                              "text": "Charlie steps onto a platform that gently floats to the city's heart. With wonder in his eyes, he murmurs to himself, 'I've never witnessed anything quite like this,' his heart alight with the thrill of discovery."
                          }
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2837,7 +2855,7 @@ class Game:
                      ],
                      neutral=Neutral(
                          name="Smithy",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "Charlie, frustrated by the state of his armor, asks around for someone who can help him with repairs."
                              },
@@ -2873,7 +2891,7 @@ class Game:
                                  "text": "'Nothing,' Smithy replies with a smile. 'I'm happy to help. Good luck on your journey, and if you're ever around, come say hello.'"
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "Smithy's workshop remains a beacon of craftsmanship and generosity, a place where travelers find respite and assistance in times of need."
                              }
@@ -2882,7 +2900,7 @@ class Game:
                      position=(0, 1)
                      ),
                 Area(name="The Garden of Glass Stars",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2893,7 +2911,7 @@ class Game:
                              "text": "As Charlie moves deeper, the air grows thick with anticipation. The beauty of the garden starts to twist, illusions of peace shattering to reveal the lurking presence of The Guardian of Shattered Dreams."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -2903,7 +2921,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="The Guardian of Shattered Dreams",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "From the shadows of the Garden of Glass Stars emerges the Guardian of Shattered Dreams, a figure cloaked in sorrow and the remnants of lost glory. 'Why do you dare trespass upon my realm of shattered hopes?' he questions, his voice a haunting blend of despair and lingering power."
                              },
@@ -2917,17 +2935,17 @@ class Game:
                                  "text": "Their battle transcends mere physicality, a clash of wills and hearts amidst the glassy expanse of the garden. Charlie reaches out with compassion, seeking to mend the broken spirit of the guardian."
                              }
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "Silence envelops the garden, a testament to the battle of spirits that once raged within its crystalline confines. Now, the guardian, reborn from the ashes of despair, stands watch over the restored beauty, a sentinel of peace."
                              }
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "The struggle against the illusions is fierce, a reflection of the inner turmoil that plagues the guardian. Yet, Charlie's resolve remains unyielding, his determination unwavering as he navigates through the mirage."
                              }
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "With empathy and courage, Charlie dispels the illusions, guiding the guardian back from the brink of eternal solitude. Together, they unlock the path to redemption, a journey's end and a new beginning."
                              },
@@ -2951,7 +2969,7 @@ class Game:
                                  "text": "As he takes hold of the blade, a sense of purpose fills him. The Garden of Glass Stars, once a place of turmoil, now radiates with a newfound peace. With the Diamond Edge in hand, Charlie knows he is ready to face whatever challenges lie ahead."
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "In the shifting landscape of illusions, Charlie falters, the weight of the guardian's sorrow overwhelming. But defeat is not the end; it is a chance to rise again, stronger and more resolute than before."
                              },
@@ -2965,7 +2983,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "Within the heart of the garden, peace reigns once more. The Guardian of Shattered Dreams, now freed from the grip of despair, stands tall, a testament to the power of redemption and forgiveness."
                              }
@@ -2984,7 +3002,7 @@ class Game:
                      ]
                      ),
                 Area(name="The Labyrinth of Lost Souls",
-                     storyLine=[
+                     story_line=[
                          {
                              "clear": True
                          },
@@ -2992,7 +3010,7 @@ class Game:
                              "text": "Charlie cautiously enters the Labyrinth of Lost Souls, a network of ever-shifting passages veiled in the whispers of the past. With each step, the air grows denser, whispers of ancient tragedies hanging heavily around him. The labyrinth's deceptive quiet masks the dangers lurking within its walls."
                          },
                      ],
-                     storyLineVisited=[
+                     story_line_visited=[
                          {
                              "clear": True
                          },
@@ -3002,7 +3020,7 @@ class Game:
                      ],
                      enemy=Enemy(
                          name="The Lost Guardian",
-                         storyLine=[
+                         story_line=[
                              {
                                  "text": "As Charlie steps into the ancient shrine, he is met by the imposing figure of The Lost Guardian. The air crackles with ancient power as the Guardian speaks, 'Why do you disturb the sanctity of this place?'"
                              },
@@ -3013,17 +3031,17 @@ class Game:
                                  "text": "The Guardian regards Charlie for a long moment. 'The Orb is sacred, guarded for millennia. Only one who proves their worth may claim it. Are you prepared to face this trial?'"
                              },
                          ],
-                         storyLineVisited=[
+                         story_line_visited=[
                              {
                                  "text": "'You return, brave soul,' The Lost Guardian observes as Charlie re-enters the shrine. 'Your heart remains steadfast. Let us conclude this trial.'"
                              }
                          ],
-                         storyLineFought=[
+                         story_line_fought=[
                              {
                                  "text": "'The challenge is not yet over,' The Lost Guardian declares, readying for battle. 'Show me the strength of your resolve.'"
                              }
                          ],
-                         storyLineWonFight=[
+                         story_line_won_fight=[
                              {
                                  "text": "Defeated, The Lost Guardian bows in respect. 'Your strength and wisdom are evident, warrior. The Aurora Orbs are yours to claim. Take this sack; it will hold a couple dozen orbs, each capable of protecting Yolkaris for a millennium.'"
                              },
@@ -3034,7 +3052,7 @@ class Game:
                                  "item": Special(
                                      name="The Aurora Orb",
                                      description="An ancient, luminescent sphere pulsating with a soft, inner light. Its surface is smooth, almost liquid to the touch, and it seems to contain the very essence of dawn's first light. Crafted by celestial architects in the infancy of the cosmos, the Orb holds the power to cleanse darkness and restore balance.",
-                                     storyLine=[
+                                     story_line=[
                                          {
                                              "clear": True
                                          },
@@ -3054,7 +3072,7 @@ class Game:
                                  )
                              }
                          ],
-                         storyLineLostFight=[
+                         story_line_lost_fight=[
                              {
                                  "text": "'You have shown bravery, but it was not enough,' The Lost Guardian intones as Charlie falls. 'Return when you are stronger, for the Orb requires a champion of unmatched valor.'"
                              },
@@ -3068,7 +3086,7 @@ class Game:
                                  "gameover": True
                              }
                          ],
-                         storyLineDefeated=[
+                         story_line_defeated=[
                              {
                                  "text": "The shrine is silent now, the trial completed. The Lost Guardian stands as a testament to Charlie's courage, a reminder of the day when light was chosen over shadow."
                              }
@@ -3401,11 +3419,11 @@ class Game:
 
         if isinstance(item, Book):
             text(f"You have read the {name}.")
-            Interaction.print_story_line(self, item.storyLine)
+            Interaction.print_story_line(self, item.story_line)
         elif isinstance(item, Spaceship):
             self.travel_to_new_location()
         elif isinstance(item, Special):
-            Interaction.print_story_line(self, item.storyLine)
+            Interaction.print_story_line(self, item.story_line)
 
     def travel_to_new_location(self):
         """
