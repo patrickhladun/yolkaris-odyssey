@@ -762,8 +762,8 @@ def show_help() -> None:
 
     text("  north      - Move North (up)", delay=0.1)
     text("  south      - Move South (down)", delay=0.1)
-    text("  east       - Move East (up)", delay=0.1)
-    text("  west       - Move West (up)", delay=0.1, space=1)
+    text("  east       - Move East (right)", delay=0.1)
+    text("  west       - Move West (left)", delay=0.1, space=1)
 
     text("  map        - Show the map", delay=0.1)
     text("  search     - Search the area for items", delay=0.1)
