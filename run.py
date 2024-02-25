@@ -1,7 +1,7 @@
 import random
 from art import text2art
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
-                   loading)
+                   loading, color_error)
 
 
 class Character:
