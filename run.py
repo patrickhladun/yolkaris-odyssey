@@ -84,31 +84,61 @@ class Interaction:
     def add_new_item(self, item):
 
         if isinstance(item, Weapon):
-            text(f"You have received the '{item.name}'.", space=1)
-            paragraph(item.description, space=1)
+            if item.name == 'none':
+                self.player.weapon = None
+                return
+            if item.received:
+                text(f"{item.name}", space=1)
+            else:
+                text(f"You have received the '{item.name}'.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
             self.player.weapon = item
 
         elif isinstance(item, Armour):
-            text(f"You have received the '{item.name}'.", space=1)
-            paragraph(item.description, space=1)
+            if item.name == 'none':
+                self.player.armour = None
+                return
+            if item.received:
+                text(f"{item.name}", space=1)
+            else:
+                text(f"You have received '{item.name}'.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
             self.player.armour = item
 
         elif isinstance(item, Potion):
             text(f"You have received {item.name}.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
             self.player.potions.append(item)
 
         elif isinstance(item, Book):
-            text(f"You have received a book '{item.name}'.", space=1)
+            if item.received:
+                text(f"{item.name}", space=1)
+            else:
+                text(f"You have received a book: '{item.name}'.", space=1)
+            self.player.inventory.append(item)
+
+        elif isinstance(item, Special):
+            if item.received:
+                text(f"{item.received}", space=1)
             self.player.inventory.append(item)
 
         elif isinstance(item, Item):
-            text(f"You have received an item '{item.name}'.", space=1)
+            print('Desription in Item')
+            if item.received:
+                text(f"{item.name}", space=1)
+            else:
+                text(f"You have received an item: '{item.name}'.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
             self.player.inventory.append(item)
 
     def print_story_line(self, storyLine):
         for line in storyLine:
             space = line['space'] if 'space' in line else 1
-            delay = line['delay'] if 'delay' in line else 0.1
+            delay = line['delay'] if 'delay' in line else 0.0
             color = line['color'] if 'color' in line else None
             if 'clear' in line:
                 clear_terminal()
