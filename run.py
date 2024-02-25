@@ -1227,6 +1227,9 @@ class Game:
                                  "text": "Well done, Charlie. You've proven"
                                  " yourself worthy. You can now go and take"
                                  " the Time Crystal; you have earned it."
+                             },
+                             {
+                                 "item": Special(name="The Time Crystal")
                              }
                          ],
                          storyLineLostFight=[
@@ -1261,9 +1264,6 @@ class Game:
                          attack=40,
                          defense=20
                      ),
-                     items=[
-                         Special(name="The Time Crystal")
-                     ],
                      position=(3, 1),
                      ),
                 Area(name="Yonder Forest",
@@ -1923,8 +1923,7 @@ class Game:
                          {
                              "text": "You are back in Bounty Harbour",
                          }
-                     ],
-                     items=[],
+                     ]
                      ),
                 Area(name="Gearhaven District",
                      storyLine=[
@@ -1946,7 +1945,12 @@ class Game:
                              "text": "You are back in Gearhaven District",
                          }
                      ],
-                     items=[],
+                     items=[
+                         Potion(
+                             name="Medium Potion",
+                             health=50
+                         )
+                     ],
                      neutral=Neutral("Eudora Quasar",
                                      storyLine=[
                                          {
@@ -2041,10 +2045,9 @@ class Game:
                          }
                      ],
                      items=[
-                         {
-                             "item": Potion(name="Small Potion", health=25),
-                             "quantity": 1
-                         }
+                         Potion(
+                             name="Small Potion",
+                             health=25)
                      ],
                      )
             ]
@@ -2056,10 +2059,19 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Astral Port, where the pulse of intergalactic trade beats strong. Ships from"
-                                     " across the universe dock here, their hulls brimming with goods from distant worlds. The"
-                                     " air hums with the languages of a thousand planets, a testament to the port's role as a"
-                                     " crossroads of the cosmos."
+                             "text": "Astral Port unfolds before Charlie, a vibrant tapestry woven from the threads of a thousand worlds. Here, the heart of intergalactic trade pulses with fervor, a symphony composed of alien dialects and the whispers of distant suns. It's a crossroads where the cosmos itself converges, trading not just in goods, but in stories and dreams."
+                         },
+                         {
+                             "text": "After the vast silence of space, this cacophony of life is a welcome embrace. To think, the stories this port holds could fill the skies of Yolkaris with stars anew."
+                         },
+                         {
+                             "text": "Charlie's heart quickens as he steps into the bustling Astral Port. The sights and sounds of alien cultures intertwine, filling him with a sense of wonder and excitement. Every corner holds a new mystery, every conversation a potential clue on his quest for the Aurora Orb."
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "text": "'This place is incredible,' Charlie murmurs to himself, marveling at the diversity of species and the myriad of goods on display. 'But I can't get distracted. I must stay focused on my mission.' With determination in his eyes, he sets off to explore the port, ready to uncover its secrets."
                          },
                      ],
                      storyLineVisited=[
@@ -2067,268 +2079,112 @@ class Game:
                              "clear": True
                          },
                          {
-                             "text": "Returning to Astral Port"
+                             "text": "Returning to Astral Port feels like coming home after a long journey. The familiar sights and sounds welcome Charlie back, reassuring him that he's on the right path. But there's also a sense of urgency in the air, a reminder that time is of the essence."
+                         },
+                         {
+                             "text": "'I've been here before, but now the stakes are higher,' Charlie muses, scanning the bustling crowds for familiar faces. 'I need to find SpaceWalker Jones and gather any new information on the Aurora Orb.' With renewed determination, he plunges back into the vibrant chaos of the Astral Port, ready to continue his quest."
                          }
                      ],
                      neutral=Neutral(
                          name="SpaceWalker Jones",
                          storyLine=[
+                              {
+                                  "text": "In the bustling heart of Astral Port, where the universe's many paths cross, Charlie caught sight of a familiar figure. Spacewalker Jones, the interstellar adventurer from the enigmatic planet known as Earth, approached with a stride that spoke of countless journeys. His smile was as bright as the nebulas he'd traversed."
+                              },
                              {
-                                 "text": "In the bustling heart of Astral Port, where the universe's many paths cross, Charlie caught sight of a familiar figure. Spacewalker Jones, the interstellar adventurer from the enigmatic planet known as Earth, approached with a stride that spoke of countless journeys. His smile was as bright as the nebulas he'd traversed.",
-                                 "space": 1
-                             },
+                                  "continue", True
+                              },
                              {
-                                 "text": "'Charlie, my intrepid explorer!' Jones greeted, his voice a comforting echo of adventures past. 'How fares your quest through the stars?'"
-                             },
+                                  "text": "'Charlie, my intrepid explorer!' Jones greeted, his voice a comforting echo of adventures past. 'How fares your quest through the stars?'"
+                              },
                              {
-                                 "text": "As they shared tales over exotic brews that fizzed with starlight, Charlie recounted the tale of Yolkaris's plight and the Dark Dust's shadow. Jones's eyes gleamed with intrigue and a hint of nostalgia for his own voyages."
-                             },
+                                  "text": "As they shared tales over exotic brews that fizzed with starlight, Charlie recounted the tale of Yolkaris's plight and the Dark Dust's shadow. Jones's eyes gleamed with intrigue and a hint of nostalgia for his own voyages."
+                              },
                              {
-                                 "text": "'Ah, the Aurora Orb,' Jones mused, eyes reflecting a galaxy of knowledge. 'Not just a relic, Charlie, but a beacon of salvation. The key to reigniting the ancient safeguard that dispels The Dark Dust. Your path, it seems, leads to the Old Citadel. Within its age-old walls lie the clues to finding the Orb, hidden amidst legends and guarded by time itself.'"
-                             },
+                                  "text": "'Ah, the Aurora Orb,' Jones mused, eyes reflecting a galaxy of knowledge. 'Not just a relic, Charlie, but a beacon of salvation. The key to reigniting the ancient safeguard that dispels The Dark Dust. Your path, it seems, leads to the Old Citadel. Within its age-old walls lie the clues to finding the Orb, hidden amidst legends and guarded by time itself.'"
+                              },
                              {
-                                 "text": "Gratitude shone in Charlie's eyes. 'Your wisdom lights my path, Jones. I'll head for the Citadel at dawn.'"
-                             },
+                                  "continue", True
+                              },
                              {
-                                 "text": "Jones leaned in, his voice dropping to a conspiratorial whisper. 'Before you venture forth, Charlie, I have something for you.' From his rugged, star-worn coat, he produced a shimmering vestment. 'The Celestial Aegis,' he announced, his eyes twinkling with pride. 'Won in a duel on the rings of Saturn, it's saved my hide more times than I care to admit.'"
-                             },
+                                  "text": "Gratitude shone in Charlie's eyes. 'Your wisdom lights my path, Jones. I'll head for the Citadel at dawn.'"
+                              },
                              {
-                                 "item": Armour(
-                                     name="The Celestial Aegis",
-                                     description="The Celestial Aegis is not merely armor; it is a masterpiece of interstellar craft, melding ancient alchemy with cutting-edge technology. Fashioned from a lightweight, nearly indestructible alloy known only to the forges of a hidden world, this armor shimmers with a celestial gleam. It adjusts to the wearer's form, providing comfort without sacrificing protection. Engraved with symbols that tell tales of heroism across the galaxies, the Celestial Aegis is a beacon of hope and a shield against despair.",
-                                     defense=15
-                                 )
-                             },
+                                  "text": "Jones leaned in, his voice dropping to a conspiratorial whisper. 'Before you venture forth, Charlie, I have something for you.' From his rugged, star-worn coat, he produced a shimmering vestment. 'The Celestial Aegis,' he announced, his eyes twinkling with pride. 'Won in a duel on the rings of Saturn, it's saved my hide more times than I care to admit.'"
+                              },
                              {
-                                 "text": "Charlie's eyes widened with gratitude. 'Jones, I don't know how to thank you,' he said, his voice heavy with emotion. 'This... This is more than I could have ever asked for. The Celestial Aegis will be my guardian in the light and the shadow. Thank you, my friend, for this incredible gift.'"
-                             },
+                                  "item": Armour(
+                                      name="The Celestial Aegis",
+                                      description="The Celestial Aegis is not merely armor; it is a masterpiece of interstellar craft, melding ancient alchemy with cutting-edge technology. Fashioned from a lightweight, nearly indestructible alloy known only to the forges of a hidden world, this armor shimmers with a celestial gleam. It adjusts to the wearer's form, providing comfort without sacrificing protection. Engraved with symbols that tell tales of heroism across the galaxies, the Celestial Aegis is a beacon of hope and a shield against despair.",
+                                      defense=26
+                                  )
+                              },
                              {
-                                 "text": "'Wear it well, Charlie. It's been through the galaxy and back, and now it's yours. May it shield you against the darkness.'"
-                             },
+                                  "continue", True
+                              },
                              {
-                                 "text": "With a clasp of hands that bridged worlds, the two friends shared a moment of unspoken understanding. The Celestial Aegis, a mantle of protection and a symbol of their bond, rested now on Charlie's shoulders. As Jones disappeared into the throng, his parting words echoed in Charlie's heart: 'The universe awaits, Charlie. Let curiosity be your compass.'",
-                             },
+                                  "text": "Charlie's eyes widened with gratitude. 'Jones, I don't know how to thank you,' he said, his voice heavy with emotion. 'This... This is more than I could have ever asked for. The Celestial Aegis will be my guardian in the light and the shadow. Thank you, my friend, for this incredible gift.'"
+                              },
                              {
-                                 "text": "Buoyed by the encounter and the weight of the Celestial Aegis upon him, Charlie set his sights on the Old Citadel, its mysteries now a beacon in the night, guiding him towards his fate."
+                                  "text": "'Wear it well, Charlie. It's been through the galaxy and back, and now it's yours. May it shield you against the darkness.'"
+                              },
+                             {
+                                  "continue", True
+                              },
+                             {
+                                  "text": "With a clasp of hands that bridged worlds, the two friends shared a moment of unspoken understanding. The Celestial Aegis, a mantle of protection and a symbol of their bond, rested now on Charlie's shoulders. As Jones disappeared into the throng, his parting words echoed in Charlie's heart: 'The universe awaits, Charlie. Let curiosity be your compass.'",
+                              },
+                             {
+                                  "text": "Buoyed by the encounter and the weight of the Celestial Aegis upon him, Charlie set his sights on the Old Citadel, its mysteries now a beacon in the night, guiding him towards his fate."
+                              }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "'Ah, Charlie, back for more adventures?' Jones grinned, his eyes twinkling with mischief. 'Seems like you can't stay away from the excitement of the Astral Port.'"
                              }
                          ]
                      ),
-                     position=(0, 0)
-                     ),
-                Area(name="Quantum Quarters",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Quantum Quarters, where the future blends seamlessly with the present. The gravity-defying architecture and unparalleled technology make it a marvel of modern civilization. To Charlie, each moment here is a step into the realms of the unimaginable."
-                         },
-                         {
-                             "text": "The day's adventures had left Charlie in awe, yet physically drained. 'Even space travelers need to rest,' he thought, the weight of his quest momentarily pressing down on him."
-                         },
-                         {
-                             "text": "With the night drawing in, Charlie sought out a place to stay. The glow of a nearby inn, its sign shimmering with holographic allure, promised a much-needed sanctuary."
-                         },
-                         {
-                             "text": "'Do you have a room for the night?' Charlie inquired at the inn's front desk. The innkeeper, with a welcoming nod, assured him, 'We always have a place for intrepid explorers. You'll find your room to be most... rejuvenating.'"
-                         },
-                         {
-                             "text": "Charlie couldn't resist a soft chuckle. 'A night in Quantum Quarters,' he mused, excitement tinged with fatigue. Following the innkeeper's instructions, he made his way to his room, a cozy corner of the future he'd come to admire."
-                         },
-                         {
-                             "text": "That night, Charlie slept more soundly than he had in ages, the bed conforming perfectly to his weary body. As dawn broke, he awoke refreshed, the challenges of his quest awaiting. After a quick breakfast that seemed to energize him further, Charlie was ready. 'Back to the quest,' he declared, stepping out into the morning light, his spirit renewed for the adventures ahead."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Returning to Quantum Quarters, Charlie felt a familiar sense of awe at the futuristic landscape. 'Back again,' he thought, 'but this time, I know exactly where I'm heading for a good rest.'"
-                         }
-                     ],
-                     ),
-                Area(name="Moonlight Market",
-                     storyLine=[
-                         {
-                             "text": "Moonlight Market, illuminated by the soft glow of the twin moons. Stalls"
-                                     " overflow with exotic spices, rare artifacts, and treasures untold. It's a treasure"
-                                     " hunter's dream, a place where fortunes can be found or lost with a single deal."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "text": "Returning to Moonlight Market"
-                         }
-                     ],
-                     enemy=Enemy(
-                         name="Nomo Gerhad",
-                         storyLine=[
-                             {
-                                 "text": "Ambling through the Moonlight Market's labyrinth of stalls, Charlie immerses himself in the vibrant tapestry of cosmic commerce. His senses are alive with the exotic scents of alien spices and the colorful displays of interstellar artifacts. It's a place where the universe converges, offering treasures from every corner of the galaxy."
-                             },
-                             {
-                                 "text": "His wanderlust momentarily sated by small purchases, Charlie's attention is suddenly snatched by a familiar figure darting through the throng. 'Caesar!' he calls out, recognizing the silhouette of an old friend. With a mix of excitement and curiosity, he weaves through the crowd, his calls drowned by the cacophony of the market."
-                             },
-                             {
-                                 "text": "The figure leads him into a shadow-clad alley, away from the luminous glow of the stalls. The bustling sounds of the market fade into an eerie silence, replaced by the muted echoes of their footsteps. 'Caesar, wait!' Charlie urges, but as the figure turns, a chilling transformation unfolds."
-                             },
-                             {
-                                 "text": "Before Charlie stands not Caesar, but a creature with a pale, featureless face, its form shifting unsettlingly. This is Nomo Gerhad, known amongst the market's shadows as a shapeshifting thief. Unlike his kin, who often use their gifts for benign purposes, Nomo preys on the unsuspecting, luring them with the guise of familiar faces."
-                             },
-                             {
-                                 "text": 'With a sinister grace, Nomo produces a knife, its blades gleaming ominously in the dim light. "Empty your pockets, little one," he hisses, a threat veiled in quiet menace.'
-                             },
-                             {
-                                 "text": "You've picked the wrong target. I won't be parting with my belongings today."
-                             },
-                             {
-                                 "text": "Faced with a dire choice, Charlie must quickly decide: confront Nomo Gerhad in a desperate bid for self-defense or attempt to outpace the thief's malevolence in a sprint for safety."
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "text": "'Fancy seeing you here again,' Nomo taunts, a smirk playing on his lips. 'Ready for another lesson, or will you surprise me this time?'"
-                             },
-                         ],
-                         storyLineFought=[
-                             {
-                                 "text": "Bruised from their last encounter, Charlie faces Nomo with a newfound resolve. 'You won't best me again,' he declares, the market's ambient light glinting off his determination."
-                             },
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "With a decisive blow, Charlie bests Nomo Gerhad, watching as the creature's guise fades, leaving behind only the truth of his deceit. 'Your tricks end here,' Charlie proclaims, victorious."
-                             },
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "Overwhelmed by Nomo's guile, Charlie stumbles, the market's din fading as darkness claims him. 'Better luck next time,' Nomo's voice echoes mockingly in the void."
-                             },
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "text": "Ambling through the market once more, Charlie's eyes meet Nomo's. There's no malice this time, only a nod of respect. 'You've earned your peace,' Nomo concedes, disappearing into the crowd."
-                             },
-                         ],
-                         health=60,
-                         attack=20,
-                         defense=10,
-                         fought=False
-                     ),
                      items=[
                          Potion(
-                             name="Small Potion",
-                             health=25
+                             name="Medium Potion",
+                             health=50
                          )
-                     ]
-                     ),
-                Area(name="Observatory",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "The Observatory, a temple to the stars where ancient and modern knowledge converge. Astronomers and seers alike peer into the depths of space, seeking answers to questions as old as time itself."
-                         },
-                         {
-                             "text": "Intrigued by the mix of science and mysticism, Charlie approached one of the astronomers, a wise figure whose eyes sparkled with the light of countless stars. 'Can you tell me more about these stars?' Charlie asked, his curiosity piqued."
-                         },
-                         {
-                             "neutral": "'Ah, traveler,' the astronomer began, turning from the telescope. 'Each star you see is a story, a history of the universe waiting to be told. Some hold the secrets of ancient civilizations; others, the future of ones yet to rise. And there,' he pointed towards a distant light, 'lies the path to your destiny.'"
-                         },
-                         {
-                             "text": "Charlie's heart raced as he followed the astronomer's gaze. 'My destiny?' he echoed, a sense of purpose swelling within him. 'Yes,' the astronomer nodded solemnly. 'The journey you're on is intertwined with the fate of those stars. The Aurora Orb you seek is more than a tool; it's a key to understanding the cosmos itself.'"
-                         },
-                         {
-                             "text": "With renewed determination, Charlie thanked the astronomer and stepped away from the telescope. The Observatory had offered him a glimpse into the vastness of the universe, and with it, the knowledge that his quest was part of something much larger."
-                         }
                      ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Returning to the Observatory, Charlie felt a familiar sense of wonder. 'Back among the stars,' he thought, already searching the sky for the celestial bodies the astronomer had shown him. 'Each visit brings me closer to understanding my place in the universe.'"
-                         }
-                     ],
-                     ),
-                Area(name="Sanctuary",
-                     storyLine=[
-                         {
-                             "text": "Sanctuary, a haven of peace in a universe of chaos. Here, weary travelers find"
-                                     " solace among verdant gardens and tranquil waters, a place to rest and rejuvenate"
-                                     " before continuing on their cosmic journeys."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "text": "Returning to Sanctuary"
-                         }
-                     ],
-                     enemy=Enemy(
-                         name="Viktor Draven",
-                         storyLine=[
-                             {
-                                 "text": "In the serene silence of Sanctuary, a shadow looms large, casting an ominous pall over the hallowed grounds. Standing at its heart is Viktor Draven, once a revered guardian of the Sanctuary, now turned rogue. His betrayal is shrouded in mystery, a tale of power corrupting absolutely."
-                             },
-                             {
-                                 "text": "Viktor's eyes, once bright with the light of protection, now glint with malevolence. 'So, you seek the Aurora Orb,' he muses, a cold smile playing upon his lips. 'A noble quest, but one that ends here, with me.'"
-                             },
-                             {
-                                 "text": "'Prepare yourself, for I will not let you pass. The secrets of the Sanctuary are mine to guard, even from the likes of you,' Viktor declares, his voice echoing ominously."
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "text": "Charlie's return to the Sanctuary brings him face-to-face once more with Viktor Draven. The air crackles with tension, the unresolved conflict between them palpable."
-                             },
-                             {
-                                 "text": "'You show great tenacity to return here, but it will not be enough. I stand firm, unwavering. Leave now, or face defeat,' Viktor warns, his stance unyielding."
-                             }
-                         ],
-                         storyLineFought=[
-                             {
-                                 "text": "'Our last encounter was merely a preview. Now, witness the true extent of my power,' Viktor boasts, readying himself for the impending clash."
-                             }
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "As the final echoes of the battle fade, Viktor Draven, overcome by Charlie's unwavering determination, extends his hand, offering the Starforged Blade. 'Your strength and courage have earned my respect,' Viktor concedes, the weight of his defeat tempered by admiration. 'Take this blade, may it serve you as well as it has served me.' With a nod of respect, Charlie accepts the weapon, the gesture marking not just a victory, but an unexpected bond forged in the heat of battle."
-                             },
-                             {
-                                 "weapon": Weapon(
-                                     name="The Starforged Blade",
-                                     description="The Starforged Blade is a weapon not just made but born of cosmic forces. Forged in the heart of a dying star and cooled in the darkness of a nebula, this blade resonates with the energy of the cosmos itself. It has a sleek, lightweight design, with a handle that adapts to the wielder's grip, and a blade that emits a soft, ethereal glow. The Starforged Blade is capable of cutting through the fabric of reality, allowing it to slice through physical and ethereal obstacles alike.",
-                                     attack=20
-                                 )
-                             }
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "'You have fought valiantly but in vain,' Viktor sneers, looming over Charlie. 'The Sanctuary remains under my watch, its secrets sealed away.'"
-                             }
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "text": "As Charlie revisits the now peaceful Sanctuary, he reflects on his victory over Viktor Draven. The guardian's fall from grace serves as a somber reminder of the fine line between protector and tyrant."
-                             }
-                         ],
-                         health=60,
-                         attack=20,
-                         defense=10,
-                         fought=False
-                     ),
+                     position=(0, 0),
                      ),
                 Area(name="Old Citadel",
                      storyLine=[
                          {
+                             "clear": True
+                         },
+                         {
                              "text": "The Old Citadel, a monument to epochs past, whispers tales of glory and ruin. As Charlie steps into its shadowed halls, he is met not by silence, but by a voice as clear as crystal."
                          },
+                         {
+                             "text": "The air is heavy with the weight of history, each stone bearing witness to the passage of time. Charlie can almost feel the echoes of ancient footsteps reverberating through the corridors, stirring memories long forgotten."
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "text": "'What secrets lie hidden within these ancient walls?' Charlie wonders, his curiosity piqued by the Citadel's enigmatic presence. 'And what role do they play in the cosmic tapestry that binds us all?'"
+                         },
+                         {
+                             "text": "With each step, Charlie feels the weight of expectation pressing down upon him, a reminder of the quest that brought him to this hallowed place. 'I must tread carefully,' he reminds himself, his senses sharp as he prepares to uncover the Citadel's secrets."
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "text": "Buoyed by determination, Charlie ventures deeper into the heart of the Citadel, his mind ablaze with the possibilities that await him. 'Whatever challenges lie ahead, I will face them with courage and resolve,' he vows, his spirit unyielding in the face of uncertainty."
+                         }
                      ],
                      storyLineVisited=[
                          {
-                             "text": "Returning to the Old Citadel"
+                             "clear": True
+                         },
+                         {
+                             "text": "As Charlie retraces his steps through the ancient halls of the Citadel, he feels a sense of familiarity wash over him. 'This place holds more than just memories,' he realizes, his curiosity reignited by the prospect of uncovering new truths."
                          }
                      ],
                      enemy=Enemy(
@@ -2340,6 +2196,9 @@ class Game:
                              },
                              {
                                  "text": "Charlie, taken aback by her sudden appearance, senses the weight of the moment. Here stands a being tied to the Citadel's ancient legacy, offering not just confrontation but a test of worth."
+                             },
+                             {
+                                 "continue", True
                              },
                              {
                                  "text": "'I seek the truths buried within these walls,' Charlie responds, his resolve firm. 'And I will face whatever trials you deem necessary.'"
@@ -2363,7 +2222,25 @@ class Game:
                                  "text": "As the battle fades, Calista Starcross acknowledges Charlie's victory with a nod of respect. 'You have proven yourself, seeker. The Citadel's secrets await those who are truly ready to understand them.'"
                              },
                              {
+                                 "text": "But there was a cost of this win, Charlie lost his blade."
+                             },
+                             {
+                                 "item": Weapon(
+                                     name="none",
+                                     attack=0
+                                 )
+                             },
+                             {
+                                 "item": Armour(
+                                     name="none",
+                                     defense=0
+                                 )
+                             },
+                             {
                                  "text": "Amidst the silence of the Old Citadel, where whispers of the past linger like ghosts, Charlie stumbles upon an object unlike any other. Nestled in an alcove, hidden from the untrained eye, lies the Holographic Cosmos Codex. This ancient artifact, bound by time yet untouched by it, exudes a faint glow, inviting the curious and the brave. Its surface is adorned with intricate etchings that seem to dance in the dim light, telling tales of cosmic journeys and celestial secrets.",
+                             },
+                             {
+                                 "continue", True
                              },
                              {
                                  "text": "Charlie reaches out, his fingers brushing against the Codex, feeling the pulse of history within.",
@@ -2371,40 +2248,50 @@ class Game:
                              {
                                  "item": Special(
                                      name="Holographic Cosmos Codex",
-                                     description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance.",
-                                     storyLine=[
-                                         {
-                                             "text": "Charlie carefully takes the Holographic Cosmos Codex from his inventory. With a sense of reverence and anticipation, he activates the device. Immediately, the room is transformed into a miniature universe, with stars, planets, and nebulae swirling around in a breathtaking display of light and color."
-                                         },
-                                         {
-                                             "text": "This is magnificent."
-                                         },
-                                         {
-                                             "text": "The Codex, responsive to his touch, zooms in on a particular sector marked by a radiant glow. It's Luminara, highlighted among countless star systems, its significance underscored by ancient symbols that orbit it like satellites."
-                                         },
-                                         {
-                                             "text": "As he interacts with the holographic map, Charlie realizes the Codex is more than a mere tool; it's a key to unlocking the next phase of his journey."
-                                         },
-                                         {
-                                             "text": "The Orb is on Luminara. This Codex has shown me the way. Luminara holds the answers I've been seeking."
-                                         },
-                                         {
-                                             "text": "He watches as the Codex folds back into its original form, the galaxy it displayed now etched in his mind's eye."
-                                         },
-                                         {
-                                             "text": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
-                                         }
-                                     ]
+                                     received="You have picked up The Holographic Cosmos Codex",
+                                     description="An encyclopedic device that, upon activation, unfolds into a 3D map of the galaxy, each sector revealing a part of the cosmic chronicle that culminates in the revelation of Luminara's significance."
                                  ),
                              },
                              {
-                                 "text": "'What mysteries do you hold?' he wonders aloud, his voice a mere whisper in the vast chamber.",
+                                 "text": "With a sense of reverence and anticipation, he activates the device. Immediately, the room is transformed into a miniature universe, with stars, planets, and nebulae swirling around in a breathtaking display of light and color."
                              },
-
+                             {
+                                 "text": "'This is magnificent.'"
+                             },
+                             {
+                                 "text": "The Codex, responsive to his touch, zooms in on a particular sector marked by a radiant glow. It's Luminara, highlighted among countless star systems, its significance underscored by ancient symbols that orbit it like satellites."
+                             },
+                             {
+                                 "text": "As he interacts with the holographic map, Charlie realizes the Codex is more than a mere tool; it's a key to unlocking the next phase of his journey."
+                             },
+                             {
+                                 "text": "The Orb is on Luminara. This Codex has shown me the way. Luminara holds the answers I've been seeking."
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "text": "He watches as the Codex folds back into its original form, the galaxy it displayed now etched in his mind's eye."
+                             },
+                             {
+                                 "text": "To Luminara, then. It's time to uncover the secrets it holds and bring back the light to Yolkaris."
+                             },
+                             {
+                                 "text": "'What mysteries do you hold?' he wonders aloud, his voice a mere whisper in the vast chamber.",
+                             }
                          ],
                          storyLineLostFight=[
                              {
                                  "text": "Defeated, Charlie feels the weight of his shortcomings. 'You lack the readiness to uncover what lies within,' Calista's voice softens, not in mockery but as a mentor's counsel. 'Return when time has honed your resolve.'"
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
                              }
                          ],
                          storyLineDefeated=[
@@ -2412,12 +2299,308 @@ class Game:
                                  "text": "In the quiet aftermath, the Citadel seems to stand a bit lighter, as if acknowledging Charlie's growth. Calista Starcross, now an ally, offers silent guidance through the echoing corridors."
                              }
                          ],
-                         health=80,
-                         attack=25,
-                         defense=15,
+                         health=1,
+                         attack=40,
+                         defense=60,
                          fought=False
                      ),
                      items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ],
+                     position=(1, 2),
+                     ),
+                Area(name="Moonlight Market",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Moonlight Market, illuminated by the soft glow of the twin moons. Stalls overflow with exotic spices, rare artifacts, and treasures untold. It's a treasure hunter's dream, a place where fortunes can be found or lost with a single deal."
+                         },
+                         {
+                             "text": "Charlie steps into the bustling Moonlight Market, marveling at the kaleidoscope of colors and scents that fill the air. Each stall holds a promise of adventure, a chance to uncover hidden gems amidst the chaos of commerce."
+                         },
+                         {
+                             "continue", True
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "As Charlie returns to the Moonlight Market, memories of his previous encounters here flood his mind. The familiar sights and sounds offer both comfort and a sense of foreboding, a reminder of the dangers lurking in the shadows."
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="Nomo Gerhad",
+                         storyLine=[
+                             {
+                                 "text": "Ambling through the Moonlight Market's labyrinth of stalls, Charlie immerses himself in the vibrant tapestry of cosmic commerce. His senses are alive with the exotic scents of alien spices and the colorful displays of interstellar artifacts. It's a place where the universe converges, offering treasures from every corner of the galaxy."
+                             },
+                             {
+                                 "text": "His wanderlust momentarily sated by small purchases, Charlie's attention is suddenly snatched by a familiar figure darting through the throng. 'Caesar!' he calls out, recognizing the silhouette of an old friend. With a mix of excitement and curiosity, he weaves through the crowd, his calls drowned by the cacophony of the market."
+                             },
+                             {
+                                 "continue", True
+                             },
+                             {
+                                 "text": "The figure leads him into a shadow-clad alley, away from the luminous glow of the stalls. The bustling sounds of the market fade into an eerie silence, replaced by the muted echoes of their footsteps. 'Caesar, wait!' Charlie urges, but as the figure turns, a chilling transformation unfolds."
+                             },
+                             {
+                                 "text": "Before Charlie stands not Caesar, but a creature with a pale, featureless face, its form shifting unsettlingly. This is Nomo Gerhad, known amongst the market's shadows as a shapeshifting thief. Unlike his kin, who often use their gifts for benign purposes, Nomo preys on the unsuspecting, luring them with the guise of familiar faces."
+                             },
+                             {
+                                 "continue", True
+                             },
+                             {
+                                 "text": 'With a sinister grace, Nomo produces a knife, its blades gleaming ominously in the dim light. "Empty your pockets, little one," he hisses, a threat veiled in quiet menace.'
+                             },
+                             {
+                                 "text": "You've picked the wrong target. I won't be parting with my belongings today."
+                             },
+                             {
+                                 "continue", True
+                             },
+                             {
+                                 "text": "Faced with a dire choice, Charlie must quickly decide: confront Nomo Gerhad in a desperate bid for self-defense or attempt to outpace the thief's malevolence in a sprint for safety."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "'Fancy seeing you here again,' Nomo taunts, a smirk playing on his lips. 'Ready for another lesson, or will you surprise me this time?'"
+                             },
+                         ],
+                         storyLineFought=[
+                             {
+                                 "text": "Bruised from their last encounter, Charlie faces Nomo with a newfound resolve. 'You won't best me again,' he declares, the market's ambient light glinting off his determination."
+                             },
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "After defeating Nomo Gerhad, Charlie stands victorious amidst the bustling Moonlight Market. As the echoes of their clash fade into the ambient noise, Nomo, humbled by Charlie's strength and determination, extends an offer of peace. With a weary yet genuine voice, he pleads for mercy, promising not only to spare Charlie's life but also to bestow upon him a legendary artifact: The Starforged Blade."
+                             },
+                             {
+                                 "text": "With a hint of surprise and cautious curiosity, Charlie regards Nomo, recognizing the gravity of the moment. The thief's surrender is not just a concession but a testament to the power of honor and resilience. Accepting Nomo's offer, Charlie's grip on his weapon loosens, signaling not just a cessation of hostilities but the forging of an unexpected bond."
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "text": "In the exchange that follows, Nomo relinquishes the Starforged Blade to Charlie, its cosmic energies resonating with the promise of new beginnings. As the blade changes hands, so too does the dynamic between adversaries, transforming a rivalry into a mutual respect born from the crucible of battle. With the Starforged Blade now in his possession, Charlie prepares to embark on the next chapter of his journey, guided by the echoes of the market and the weight of newfound responsibility."
+                             },
+                             {
+                                 "item": Weapon(
+                                     name="The Starforged Blade",
+                                     description="The Starforged Blade is a weapon not just made but born of cosmic forces. Forged in the heart of a dying star and cooled in the darkness of a nebula, this blade resonates with the energy of the cosmos itself. It has a sleek, lightweight design, with a handle that adapts to the wielder's grip, and a blade that emits a soft, ethereal glow. The Starforged Blade is capable of cutting through the fabric of reality, allowing it to slice through physical and ethereal obstacles alike.",
+                                     attack=18
+                                 )
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "Overwhelmed by Nomo's guile, Charlie stumbles, the market's din fading as darkness claims him. 'Better luck next time,' Nomo's voice echoes mockingly in the void."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "Ambling through the market once more, Charlie's eyes meet Nomo's. There's no malice this time, only a nod of respect. 'You've earned your peace,' Nomo concedes, disappearing into the crowd."
+                             },
+                         ],
+                         health=40,
+                         attack=40,
+                         defense=14,
+                         fought=False
+                     ),
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ],
+                     position=(0, 1),
+                     ),
+                Area(name="Forgery",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "The Forgery, a furnace of creation and transformation. Here, amid roaring flames and molten metal, Viktor Draven, the master forger and guardian, shapes destiny with fire and hammer. As Charlie steps into the forge, the intense heat and the rhythmic sound of metal striking metal greet him."
+                         },
+                         {
+                             "text": "Viktor Draven, standing before an ancient anvil, his gaze intense as the flames, acknowledges Charlie with a nod. 'So, the seeker arrives,' he declares, his voice as strong as the materials he manipulates. 'You come seeking enhancement, but know this; only those proven worthy may benefit from my craft.'"
+                         },
+                         {
+                             "continue": True
+                         },
+                         {
+                             "text": "Charlie, undeterred by Viktor's formidable presence, steps forward. 'I understand the risks,' he responds, his determination clear. 'I'm ready to prove my worth.'"
+                         },
+                         {
+                             "text": "Viktor assesses Charlie for a moment, then gestures towards the heart of the forge. 'Then let the trial begin. Show me the resolve that burns within you, and I shall lend strength to your arm and shield.'"
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "As Charlie returns to the Forgery, the air heavy with anticipation, Viktor Draven awaits. 'Back so soon? Let's see if your determination holds as strong as your metal,' he muses."
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="Viktor Draven",
+                         storyLine=[
+                             {
+                                 "text": "In the heart of the Forgery, where every spark is a promise of power, Viktor stands ready. 'The forge's trial is harsh, but fair. Only through overcoming its heat can one truly ascend,' Viktor proclaims, readying himself for the challenge ahead."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "'Returning to the heat of battle, I see. Very well, let us continue where we left off,' Viktor states, the forge's glow reflecting in his eyes."
+                             }
+                         ],
+                         storyLineFought=[
+                             {
+                                 "text": "'You've shown resilience, but the forge demands more. Let's test the temper of your spirit,' Viktor challenges, the forge roaring in agreement."
+                             }
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With Viktor Draven bested, the intensity of the forge seems to soften, replaced by a warm glow of respect. 'You have proven your worth, Charlie. Your spirit burns bright enough to withstand the forge's fury,' Viktor concedes, his voice carrying a hint of pride. 'Let me enhance your weapon and armor; may they carry the strength of the forge.'"
+                             },
+                             {
+                                 "item": Weapon(
+                                     name="The Starforged Blade",
+                                     received="The Starforged Blade was enhanced by Viktor's skilled hands, its edge now gleaming with a new, deadly light.",
+                                     attack=28
+                                 )
+                             },
+                             {
+                                 "item": Armour(
+                                     name="The Celestial Aegis",
+                                     received="The Celestial Aegis, now reinforced by Viktor's forging mastery, shines with a protective aura unmatched by any other.",
+                                     defense=34
+                                 )
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "'The forge is unforgiving, and today, it has deemed you unworthy,' Viktor states, a tone of finality in his voice. 'Return when you are ready to withstand its test.'"
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "In the calm that now envelops the Forgery, Viktor works silently, his actions a testament to his newfound respect for Charlie. The air is filled with the promise of creation, a reminder of the bond formed in the crucible of the forge."
+                             }
+                         ],
+                         health=60,
+                         attack=46,
+                         defense=24,
+                         fought=False
+                     ),
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ]
+                     ),
+                Area(name="Quantum Quarters",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Quantum Quarters, where the future blends seamlessly with the present. The gravity-defying architecture and unparalleled technology make it a marvel of modern civilization. To Charlie, each moment here is a step into the realms of the unimaginable."
+                         },
+                         {
+                             "text": "The day's adventures had left Charlie in awe, yet physically drained. 'Even space travelers need to rest,' he thought, the weight of his quest momentarily pressing down on him."
+                         },
+                         {
+                             "text": "With the night drawing in, Charlie sought out a place to stay. The glow of a nearby inn, its sign shimmering with holographic allure, promised a much-needed sanctuary."
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "text": "'Do you have a room for the night?' Charlie inquired at the inn's front desk. The innkeeper, with a welcoming nod, assured him, 'We always have a place for intrepid explorers. You'll find your room to be most... rejuvenating.'"
+                         },
+                         {
+                             "text": "Charlie couldn't resist a soft chuckle. 'A night in Quantum Quarters,' he mused, excitement tinged with fatigue. Following the innkeeper's instructions, he made his way to his room, a cozy corner of the future he'd come to admire."
+                         },
+                         {
+                             "text": "That night, Charlie slept more soundly than he had in ages, the bed conforming perfectly to his weary body. As dawn broke, he awoke refreshed, the challenges of his quest awaiting. After a quick breakfast that seemed to energize him further, Charlie was ready. 'Back to the quest,' he declared, stepping out into the morning light, his spirit renewed for the adventures ahead."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to Quantum Quarters, Charlie felt a familiar sense of awe at the futuristic landscape. 'Back again,' he thought, 'but this time, I know exactly where I'm heading for a good rest.'"
+                         }
+                     ],
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
+                     ]
+                     ),
+                Area(name="Observatory",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "The Observatory, a temple to the stars where ancient and modern knowledge converge. Astronomers and seers alike peer into the depths of space, seeking answers to questions as old as time itself."
+                         },
+                         {
+                             "text": "Intrigued by the mix of science and mysticism, Charlie approached one of the astronomers, a wise figure whose eyes sparkled with the light of countless stars. 'Can you tell me more about these stars?' Charlie asked, his curiosity piqued."
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "neutral": "'Ah, traveler,' the astronomer began, turning from the telescope. 'Each star you see is a story, a history of the universe waiting to be told. Some hold the secrets of ancient civilizations; others, the future of ones yet to rise. And there,' he pointed towards a distant light, 'lies the path to your destiny.'"
+                         },
+                         {
+                             "text": "Charlie's heart raced as he followed the astronomer's gaze. 'My destiny?' he echoed, a sense of purpose swelling within him. 'Yes,' the astronomer nodded solemnly. 'The journey you're on is intertwined with the fate of those stars. The Aurora Orb you seek is more than a tool; it's a key to understanding the cosmos itself.'"
+                         },
+                         {
+                             "continue", True
+                         },
+                         {
+                             "text": "With renewed determination, Charlie thanked the astronomer and stepped away from the telescope. The Observatory had offered him a glimpse into the vastness of the universe, and with it, the knowledge that his quest was part of something much larger."
+                         }
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Returning to the Observatory, Charlie felt a familiar sense of wonder. 'Back among the stars,' he thought, already searching the sky for the celestial bodies the astronomer had shown him. 'Each visit brings me closer to understanding my place in the universe.'"
+                         }
+                     ],
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         ),
                          Potion(
                              name="Small Potion",
                              health=25
@@ -2456,10 +2639,49 @@ class Game:
                              "text": "'Back again in this mesmerizing place' Charlie muses."
                          }
                      ],
-                     neutral=[
-                         {
-                             "text": "An unseen voice welcomes him: 'Welcome to Luminara, the heart of the cosmos, where the neon lights illuminate paths to the unknown.'"
-                         }
+                     neutral=Neutral(
+                         name="Virtue AI",
+                         storyLine=[
+                             {
+                                 "text": "'Welcome, traveler,' the voice resonates, its tone imbued with an otherworldly wisdom. 'I am Virtue AI, the guardian of knowledge within the galactic dataweb. Within me lies the collective wisdom of countless civilizations and the boundless depths of the cosmos.'"
+                             },
+                             {
+                                 "text": "Charlie, awestruck by the AI's presence, gazes into the shimmering void before him, recognizing the magnitude of this encounter. Here stands a being of unfathomable intellect, a guide through the labyrinth of the universe."
+                             },
+                             {
+                                 "text": "'I sense your quest for knowledge and empowerment, traveler,' Virtue AI continues, its voice a symphony of cosmic resonance. 'Allow me to assist you on your journey through the Neon Nexus, where the pathways of destiny intertwine.'"
+                             },
+                             {
+                                 "text": "'Indeed,' Charlie acknowledges, his voice tinged with gratitude. 'I seek both repair for my armor and a weapon befitting this vibrant realm.'"
+                             },
+                             {
+                                 "text": "'Fear not, for within the Neon Nexus lie artisans skilled in the art of repair and merchants who trade in the finest arms,' Virtue AI assures, its ethereal form shimmering with a celestial glow. 'Follow my guidance, and together, we shall navigate the currents of destiny.'"
+                             },
+                             {
+                                 "text": "'To mend your armor, you must venture to Cloud City,' Virtue AI advises, its voice echoing with clarity. 'There, amidst the wisps of floating clouds, craftsmen of unparalleled skill await to restore your defenses.'"
+                             },
+                             {
+                                 "text": "'Once your armor is made whole, your path leads to The Garden of Glass Stars,' Virtue AI continues, its guidance unwavering. 'It is there that you shall confront The Guardian of Shattered Dreams, a formidable adversary whose judgment will determine your worthiness.'"
+                             },
+                             {
+                                 "text": "'Should The Guardian of Shattered Dreams deem you worthy, a weapon of unparalleled might shall be yours,' Virtue AI proclaims, its words echoing with the weight of destiny. 'But be prepared, for the trials ahead will test not only your strength but also your resolve.'"
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "Returning to the presence of Virtue AI, Charlie feels a sense of reassurance as he once again stands before the embodiment of cosmic knowledge and guidance."
+                             }
+                         ]
+                     ),
+                     items=[
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         ),
+                         Potion(
+                             name="Small Potion",
+                             health=25
+                         )
                      ],
                      position=(0, 0)
                      ),
@@ -2552,6 +2774,105 @@ class Game:
                              "clear": True
                          },
                          {
+                             "text": "Returning to the Garden, the stars above still shine with a gentle light, reassuring Charlie that the path to redemption, for both the garden and its fallen protector, remains open."
+                         }
+                     ],
+                     enemy=Enemy(
+                         name="The Guardian of Shattered Dreams",
+                         storyLine=[
+                             {
+                                 "text": "From the shadows of the Garden of Glass Stars emerges the Guardian of Shattered Dreams, a figure cloaked in sorrow and the remnants of lost glory. 'Why do you dare trespass upon my realm of shattered hopes?' he questions, his voice a haunting blend of despair and lingering power."
+                             },
+                             {
+                                 "text": "'I seek not to challenge you, but to reclaim what was lost,' Charlie responds, his words laced with empathy. 'You were once a guardian of honor, not a prisoner of despair.'"
+                             },
+                             {
+                                 "text": "Illusions weave around them, a manifestation of the guardian's inner turmoil, his struggle against the corruption that clouds his purpose. Yet amidst the illusions, a glimmer of his former self surfaces, a spark of longing for redemption."
+                             },
+                             {
+                                 "text": "Their battle transcends mere physicality, a clash of wills and hearts amidst the glassy expanse of the garden. Charlie reaches out with compassion, seeking to mend the broken spirit of the guardian."
+                             }
+                         ],
+                         storyLineVisited=[
+                             {
+                                 "text": "Silence envelops the garden, a testament to the battle of spirits that once raged within its crystalline confines. Now, the guardian, reborn from the ashes of despair, stands watch over the restored beauty, a sentinel of peace."
+                             }
+                         ],
+                         storyLineFought=[
+                             {
+                                 "text": "The struggle against the illusions is fierce, a reflection of the inner turmoil that plagues the guardian. Yet, Charlie's resolve remains unyielding, his determination unwavering as he navigates through the mirage."
+                             }
+                         ],
+                         storyLineWonFight=[
+                             {
+                                 "text": "With empathy and courage, Charlie dispels the illusions, guiding the guardian back from the brink of eternal solitude. Together, they unlock the path to redemption, a journey's end and a new beginning."
+                             },
+                             {
+                                 "text": "Approaching Charlie with softened eyes, the Guardian of Shattered Dreams speaks, his voice a mere whisper. 'Your compassion... it's a beacon of hope in the darkness,' he acknowledges, a glimmer of gratitude in his gaze."
+                             },
+                             {
+                                 "text": "'Take this,' the guardian continues, stepping aside to reveal the gleaming Diamond Edge. 'It was once mine, but now it belongs to you. May it serve you well in your quest.'"
+                             },
+                             {
+                                 "item": Weapon(
+                                     name="The Diamond Blade",
+                                     description="The Diamond Blade, forged from cosmic tears, shines with radiant light. Its honed edges cut effortlessly through any material, while celestial engravings adorn its hilt, depicting constellations and cosmic wonders. Durable and resilient, this blade embodies both strength and purity, a symbol of heroism in the vast expanse of the cosmos.",
+                                     attack=38
+                                 )
+                             },
+                             {
+                                 "text": "Moved by the guardian's transformation, Charlie accepts the Diamond Edge with reverence. 'I'll wield it with honor and humility,' he vows, his voice echoing with solemn determination."
+                             },
+                             {
+                                 "text": "As he takes hold of the blade, a sense of purpose fills him. The Garden of Glass Stars, once a place of turmoil, now radiates with a newfound peace. With the Diamond Edge in hand, Charlie knows he is ready to face whatever challenges lie ahead."
+                             }
+                         ],
+                         storyLineLostFight=[
+                             {
+                                 "text": "In the shifting landscape of illusions, Charlie falters, the weight of the guardian's sorrow overwhelming. But defeat is not the end; it is a chance to rise again, stronger and more resolute than before."
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
+                             }
+                         ],
+                         storyLineDefeated=[
+                             {
+                                 "text": "Within the heart of the garden, peace reigns once more. The Guardian of Shattered Dreams, now freed from the grip of despair, stands tall, a testament to the power of redemption and forgiveness."
+                             }
+                         ],
+                         health=30,
+                         attack=32,
+                         defense=30,
+                         fought=False
+                     ),
+                     position=(1, 1),
+                     items=[
+                         Potion(
+                             name="Medium Potion",
+                             health=25
+                         )
+                     ]
+                     ),
+                Area(name="The Labyrinth of Lost Souls",
+                     storyLine=[
+                         {
+                             "clear": True
+                         },
+                         {
+                             "text": "Charlie cautiously enters the Labyrinth of Lost Souls, a network of ever-shifting passages veiled in the whispers of the past. With each step, the air grows denser, whispers of ancient tragedies hanging heavily around him. The labyrinth's deceptive quiet masks the dangers lurking within its walls."
+                         },
+                     ],
+                     storyLineVisited=[
+                         {
+                             "clear": True
+                         },
+                         {
                              "text": "Returning to the labyrinth, Charlie senses a familiar tension in the air. The paths seem to coil tighter, as if aware of his previous triumph."
                          }
                      ],
@@ -2559,222 +2880,80 @@ class Game:
                          name="The Lost Guardian",
                          storyLine=[
                              {
-                                 "text": "Deep within the labyrinth's heart, amidst echoes of countless lost souls, a figure looms. Shrouded in the remnants of its former glory, 'I am The Lost Guardian,' it intones, its voice a hollow echo of its once noble purpose. 'Once protector, now prisoner, bound to these corridors for eternity.'"
+                                 "text": "As Charlie steps into the ancient shrine, he is met by the imposing figure of The Lost Guardian. The air crackles with ancient power as the Guardian speaks, 'Why do you disturb the sanctity of this place?'"
                              },
                              {
-                                 "text": "Many have wandered these paths, lost forever to time. What makes you different, traveler? Will you free me from my torment, or join the shadows I guard?"
-                             }
+                                 "text": "'I seek the Aurora Orb,' Charlie replies, his voice steady. 'Yolkaris is dying under the Dark Dust, and only the Orb can save it.'"
+                             },
+                             {
+                                 "text": "The Guardian regards Charlie for a long moment. 'The Orb is sacred, guarded for millennia. Only one who proves their worth may claim it. Are you prepared to face this trial?'"
+                             },
                          ],
                          storyLineVisited=[
                              {
-                                 "text": "'You return, brave or foolish. My chains bind me still. Will you break them, or are you yet another shadow passing through?'"
+                                 "text": "'You return, brave soul,' The Lost Guardian observes as Charlie re-enters the shrine. 'Your heart remains steadfast. Let us conclude this trial.'"
                              }
                          ],
                          storyLineFought=[
                              {
-                                 "text": "The battle reignites, the Guardian's attacks more desperate, as if struggling against its own nature. Charlie, undeterred, seeks not just to defeat, but to understand, to restore."
+                                 "text": "'The challenge is not yet over,' The Lost Guardian declares, readying for battle. 'Show me the strength of your resolve.'"
                              }
                          ],
                          storyLineWonFight=[
                              {
-                                 "text": "With a final, compassionate plea, Charlie reaches through the Guardian's aggression, touching the vestige of honor within. The Guardian halts, its fury quelled. 'You... you have reminded me. I guard not to imprison, but to protect. Go forth, with my blessing.'"
+                                 "text": "Defeated, The Lost Guardian bows in respect. 'Your strength and wisdom are evident, warrior. The Aurora Orbs are yours to claim. Take this sack; it will hold a couple dozen orbs, each capable of protecting Yolkaris for a millennium.'"
+                             },
+                             {
+                                 "text": "Charlie accepts the sack with gratitude. 'Thank you, Guardian. I will return home and save Yolkaris from the darkness.' With the Orbs secure, Charlie knows the future of his world is bright once more."
+                             },
+                             {
+                                 "item": Special(
+                                     name="The Aurora Orb",
+                                     description="An ancient, luminescent sphere pulsating with a soft, inner light. Its surface is smooth, almost liquid to the touch, and it seems to contain the very essence of dawn's first light. Crafted by celestial architects in the infancy of the cosmos, the Orb holds the power to cleanse darkness and restore balance.",
+                                     storyLine=[
+                                         {
+                                             "clear": True
+                                         },
+                                         {
+                                             "text": "Holding The Aurora Orb in his hands, Charlie feels a warmth spreading through his feathers, as if the first rays of dawn were breaking the hold of an eternal night. Its glow illuminates his face, casting long shadows behind him, and for a moment, the weight of his quest lifts."
+                                         },
+                                         {
+                                             "text": "'This... this is the heart of Yolkaris' salvation,' he whispers, awe coloring his voice. The Orb's light seems to dance, responding to his touch, to his very presence. 'With this, I can bring back the light, heal the planet, and save my people.'"
+                                         },
+                                         {
+                                             "text": "As he inspects the Orb, Charlie discovers intricate patterns etched into its surface, patterns that move and change like the currents of a living ocean. 'The stories were true,' he marvels, 'its power is beyond imagination. But it's not just a tool; it feels... alive, like it's part of Yolkaris itself.'"
+                                         },
+                                         {
+                                             "text": "Determined, Charlie tightens his grip on the Orb. 'I will not fail,' he vows, the Orb's radiance reflecting in his determined gaze. 'The journey back will be perilous, but the hope this Orb represents... it's worth every risk.'"
+                                         }
+                                     ]
+                                 )
                              }
                          ],
                          storyLineLostFight=[
                              {
-                                 "text": "The Guardian's relentless assault proves too much. As darkness encroaches, Charlie hears a faint, regretful whisper, 'Forgive me... I have forgotten myself.'"
+                                 "text": "'You have shown bravery, but it was not enough,' The Lost Guardian intones as Charlie falls. 'Return when you are stronger, for the Orb requires a champion of unmatched valor.'"
+                             },
+                             {
+                                 "text": "Game Over!",
+                             },
+                             {
+                                 "continue": True
+                             },
+                             {
+                                 "gameover": True
                              }
                          ],
                          storyLineDefeated=[
                              {
-                                 "text": "Where the Guardian once stood, now there is peace. The labyrinth's oppressive air lifts slightly, a silent tribute to the Guardian's release."
+                                 "text": "The shrine is silent now, the trial completed. The Lost Guardian stands as a testament to Charlie's courage, a reminder of the day when light was chosen over shadow."
                              }
                          ],
-                         health=75,
-                         attack=25,
-                         defense=15,
+                         health=100,
+                         attack=32,
+                         defense=36,
                          fought=False
                      ),
-                     ),
-                Area(name="Lightwave Lake",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         }
-                     ],
-                     ),
-                Area(name="Penumbral Plains",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         }
-                     ],
-                     ),
-                Area(name="The Crystal Chambers",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         }
-                     ],
-                     ),
-                Area(name="The Temple of the Ancients",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         },
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": ""
-                         }
-                     ],
-                     ),
-                Area(name="The Garden of Glass Stars",
-                     storyLine=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Charlie steps into the Garden of Glass Stars, a place of unimaginable beauty. Here, the ground mirrors the heavens above, with countless glass flowers reflecting the light of distant stars. The air is filled with a serene glow, casting prismatic colors in every direction. It's a tranquil sanctuary that belies the danger lurking within."
-                         },
-                         {
-                             "text": "As Charlie moves deeper, the air grows thick with anticipation. The beauty of the garden starts to twist, illusions of peace shattering to reveal the lurking presence of the Broken Star Prince. Once a guardian of cosmic balance, now corrupted by the very Orb he swore to protect. His form shifts, a mirage made of light and glass, commanding swarms of Shardlings that dance menacingly in the air."
-                         },
-                         {
-                             "text": "This must be where the Orb lies. But to reach it, I'll need to confront the prince and his illusions. There's a story here, one of fall and redemption. I can sense it."
-                         },
-                         {
-                             "text": "Charlie realizes that brute force won't win this battle. It will take empathy, understanding, and the courage to look beyond the illusions, to see the prince not as an enemy, but as another victim of the Orb's corrupting power. The path to reclaiming the Orb and restoring balance lies in unlocking the prince's lost sense of duty, in reminding him of who he once was."
-                         }
-                     ],
-                     storyLineVisited=[
-                         {
-                             "clear": True
-                         },
-                         {
-                             "text": "Returning to the Garden, the stars above still shine with a gentle light, reassuring Charlie that the path to redemption, for both the garden and its fallen protector, remains open."
-                         }
-                     ],
-                     enemy=Enemy(
-                         name="The Broken Star Prince",
-                         storyLine=[
-                             {
-                                 "text": "The Broken Star Prince, a silhouette of sorrow and lost glory, confronts Charlie. 'Why do you intrude upon my domain of shattered hopes?' he asks, his voice a melody of despair and power."
-                             },
-                             {
-                                 "text": "I seek the Orb, not to challenge you, but to heal what has been broken. You were once its protector, not its prisoner."
-                             },
-                             {
-                                 "text": "The Prince's illusions intensify, a desperate attempt to protect what he believes is his to guard. Yet, in Charlie's words, a flicker of the prince's former self emerges, questioning, seeking."
-                             },
-                             {
-                                 "text": "The battle is not with swords or might, but with the heart. Charlie navigates through the illusions, reaching out to the essence of the prince, reminding him of his true purpose."
-                             }
-                         ],
-                         storyLineVisited=[
-                             {
-                                 "text": "The garden waits in silence, the battle of wills and hearts a memory etched in its glassy expanse. The prince, now a guardian reborn, watches over the restored beauty, a sentinel of peace."
-                             }
-                         ],
-                         storyLineFought=[
-                             {
-                                 "text": "The struggle against the Prince's illusions is fierce, a testament to the Orb's corrupting influence. Yet, Charlie's resolve is stronger, weaving through the mirage to reach the heart of the guardian."
-                             }
-                         ],
-                         storyLineWonFight=[
-                             {
-                                 "text": "With empathy and courage, Charlie dispels the illusions, bringing the Prince back from the brink of eternal solitude. Together, they unlock the path to the Orb, a journey's end and a new beginning."
-                             },
-                             {
-                                 "text": "The Broken Star Prince, his gaze softened, approaches Charlie. 'Your heart... it's different,' he says, his voice a mere whisper. 'You've shown me something I thought I'd lost: hope.'"
-                             },
-                             {
-                                 "text": "'Take the Orb,' the Prince continues, stepping aside to reveal the glowing artifact nestled among the garden's ethereal blooms. 'It was meant for one such as you, Charlie. Someone who fights not for conquest, but for healing.'"
-                             },
-                             {
-                                 "text": "Charlie, moved by the Prince's transformation, nods solemnly. 'I'll use it to protect and heal Yolkaris,' he promises, his voice steady. 'Your trust... I won't betray it.'"
-                             },
-                             {
-                                 "text": "As he takes the Orb, a sense of purpose fills him. The Garden of Glass Stars, once a place of danger, now seems serene, its beauty untainted by the shadows of the past. With the Orb in hand, Charlie knows the path ahead is clear. It's time to return home and save his world."
-                             }
-                         ],
-                         storyLineLostFight=[
-                             {
-                                 "text": "In the dance of light and shadow, Charlie falters, the illusions too convincing, the Prince's sorrow too deep. Yet, defeat is not the end, but a chance to rise and try again, with a heart renewed."
-                             }
-                         ],
-                         storyLineDefeated=[
-                             {
-                                 "text": "In the heart of the garden, peace reigns once more. The Broken Star Prince, now free from the Orb's grasp, stands vigilant, a protector restored by Charlie's unwavering spirit."
-                             }
-                         ],
-                         health=10,
-                         attack=20,
-                         defense=10,
-                         fought=False
-                     ),
-                     items=[
-                         Special(
-                             name="The Aurora Orb",
-                             description="An ancient, luminescent sphere pulsating with a soft, inner light. Its surface is smooth, almost liquid to the touch, and it seems to contain the very essence of dawn's first light. Crafted by celestial architects in the infancy of the cosmos, the Orb holds the power to cleanse darkness and restore balance.",
-                             storyLine=[
-                                 {
-                                     "clear": True
-                                 },
-                                 {
-                                     "text": "Holding The Aurora Orb in his hands, Charlie feels a warmth spreading through his feathers, as if the first rays of dawn were breaking the hold of an eternal night. Its glow illuminates his face, casting long shadows behind him, and for a moment, the weight of his quest lifts."
-                                 },
-                                 {
-                                     "text": "'This... this is the heart of Yolkaris' salvation,' he whispers, awe coloring his voice. The Orb's light seems to dance, responding to his touch, to his very presence. 'With this, I can bring back the light, heal the planet, and save my people.'"
-                                 },
-                                 {
-                                     "text": "As he inspects the Orb, Charlie discovers intricate patterns etched into its surface, patterns that move and change like the currents of a living ocean. 'The stories were true,' he marvels, 'its power is beyond imagination. But it's not just a tool; it feels... alive, like it's part of Yolkaris itself.'"
-                                 },
-                                 {
-                                     "text": "Determined, Charlie tightens his grip on the Orb. 'I will not fail,' he vows, the Orb's radiance reflecting in his determined gaze. 'The journey back will be perilous, but the hope this Orb represents... it's worth every risk.'"
-                                 }
-                             ]
-                         )
-                     ]
                      ),
             ]
 
