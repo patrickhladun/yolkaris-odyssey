@@ -550,18 +550,20 @@ class Area:
 
 
 class Item:
-    def __init__(self, name: str, description: str = None) -> None:
+    def __init__(self, name: str, description: str = None, received: str = None) -> None:
         self.name = name
         self.description = description
+        self.received = received
 
 
 class Weapon(Item):
     def __init__(
             self,
             name: str,
-            description: str,
-            attack: int) -> None:
-        super().__init__(name, description)
+            attack: int,
+            description: str = None,
+            received: str = None) -> None:
+        super().__init__(name, description, received)
         self.attack = attack
 
 
@@ -569,9 +571,10 @@ class Armour(Item):
     def __init__(
             self,
             name: str,
-            description: str,
-            defense: int) -> None:
-        super().__init__(name, description)
+            defense: int,
+            description: str = None,
+            received: str = None) -> None:
+        super().__init__(name, description, received)
         self.defense = defense
 
 
@@ -589,8 +592,9 @@ class Book(Item):
             self,
             name: str,
             description: str,
-            storyLine: list) -> None:
-        super().__init__(name, description)
+            storyLine: list,
+            received: str = None) -> None:
+        super().__init__(name, description, received)
         self.storyLine = storyLine
 
 
@@ -600,8 +604,8 @@ class Spaceship(Item):
 
 
 class Special(Item):
-    def __init__(self, name: str, description: str = None, storyLine: list = None) -> None:
-        super().__init__(name, description)
+    def __init__(self, name: str, description: str = None, storyLine: list = None, received: str = None) -> None:
+        super().__init__(name, description, received)
         self.storyLine = storyLine
 
 
