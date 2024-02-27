@@ -3275,7 +3275,7 @@ class Game:
         elif action == "quit":
             self.game_over = True
         else:
-            text("Invalid action. Use help to view available commands.")
+            text("Invalid command. Use 'help' to view available commands.", color=color_error)
 
     def reset_game(self) -> None:
         """
