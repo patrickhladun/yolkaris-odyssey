@@ -3246,6 +3246,7 @@ class Game:
         choose an action. The method then calls the appropriate method based on 
         the player's choice.
         """
+
         action = ask_user(prompt=">> ")
         if action == "help":
             show_help()
@@ -3273,6 +3274,8 @@ class Game:
             self.reset_game()
         elif action == "quit":
             self.game_over = True
+        else:
+            text("Invalid action. Use help to view available commands.")
 
     def reset_game(self) -> None:
         """
