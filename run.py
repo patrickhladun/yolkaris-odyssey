@@ -146,7 +146,8 @@ class Interaction:
             if item.received:
                 paragraph(f"{item.received}", space=1)
             else:
-                paragraph(f"You have received an item: '{item.name}'.", space=1)
+                paragraph(f"You have received an item: '{
+                          item.name}'.", space=1)
             if item.description:
                 paragraph(item.description, space=1)
             self.player.inventory.append(item)
@@ -848,7 +849,7 @@ class Game:
         text("Select your Game:", delay=0.2, space=1)
         text("   1. The Broken Clock", delay=0.2)
         text("   2. The Dark Dust", delay=0.2, space=1)
-        return ask_user(type="number", numbers=['1', '2', '3'])
+        return ask_user(type="number", numbers=['1', '2'])
 
     def start_game(self) -> None:
         """
@@ -995,12 +996,6 @@ class Game:
                              {
                                  "text": "Embark on the Yolkaris Odyssey with"
                                  " these words of guidance:",
-                                 "space": 1
-                             },
-                             {
-                                 "text": "In this tale, your journey begins"
-                                 " in Yolkaris, a realm of myths and"
-                                 " mysteries.",
                                  "space": 1
                              },
                              {
@@ -3230,8 +3225,14 @@ class Game:
         #####
         # Not sure how to properly break these functions
         #####
-        text(f"Armour: {player.armour.name if player.armour else 'None'} {'- adds ' + str(player.armour.defense) + ' to Defense' if player.armour else ''}")
-        text(f"Weapon: {player.weapon.name if player.weapon else 'None'} {'- adds ' + str(player.weapon.attack) + ' to Attack' if player.weapon else ''}")
+        armour = player.armour.name if player.armour else "None"
+        weapon = player.weapon.name if player.weapon else "None"
+        armour_defense = '- adds ' + str(player.armour.defense) \
+            + ' to Defense' if player.armour else ''
+        weapon_attack = '- adds ' + str(player.weapon.attack) \
+            + ' to Attack' if player.weapon else ''
+        text(f"Armour: {armour} {armour_defense}")
+        text(f"Weapon: {weapon} {weapon_attack}")
 
         # potions count
         potions_count = len(player.potions)
@@ -3247,6 +3248,7 @@ class Game:
         choose an action. The method then calls the appropriate method based on 
         the player's choice.
         """
+
         action = ask_user(prompt=">> ")
         if action == "help":
             show_help()
@@ -3274,6 +3276,8 @@ class Game:
             self.reset_game()
         elif action == "quit":
             self.game_over = True
+        else:
+            text("Invalid command. Use 'help' to view available commands.", color=color_error)
 
     def reset_game(self) -> None:
         """
