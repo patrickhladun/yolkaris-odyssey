@@ -849,7 +849,7 @@ class Game:
         text("Select your Game:", delay=0.2, space=1)
         text("   1. The Broken Clock", delay=0.2)
         text("   2. The Dark Dust", delay=0.2, space=1)
-        return ask_user(type="number", numbers=['1', '2', '3'])
+        return ask_user(type="number", numbers=['1', '2'])
 
     def start_game(self) -> None:
         """
