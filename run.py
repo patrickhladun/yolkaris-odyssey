@@ -3225,12 +3225,14 @@ class Game:
         #####
         # Not sure how to properly break these functions
         #####
-        text(f"Armour: {player.armour.name if player.armour else 'None'}"
-             " {'- adds ' + str(player.armour.defense) + ' to Defense' if"
-             " player.armour else ''}")
-        text(f"Weapon: {player.weapon.name if player.weapon else 'None'}"
-             " {'- adds ' + str(player.weapon.attack) + ' to Attack' if"
-             " player.weapon else ''}")
+        armour = player.armour.name if player.armour else "None"
+        weapon = player.weapon.name if player.weapon else "None"
+        armour_defense = '- adds ' + str(player.armour.defense) \
+            + ' to Defense' if player.armour else ''
+        weapon_attack = '- adds ' + str(player.weapon.attack) \
+            + ' to Attack' if player.weapon else ''
+        text(f"Armour: {armour} {armour_defense}")
+        text(f"Weapon: {weapon} {weapon_attack}")
 
         # potions count
         potions_count = len(player.potions)
