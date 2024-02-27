@@ -146,8 +146,7 @@ class Interaction:
             if item.received:
                 paragraph(f"{item.received}", space=1)
             else:
-                paragraph(f"You have received an item: '{
-                          item.name}'.", space=1)
+                paragraph(f"You have received an item: '{item.name}'.", space=1)
             if item.description:
                 paragraph(item.description, space=1)
             self.player.inventory.append(item)
