@@ -383,10 +383,10 @@ game_one = {
                 quest_item=Special(name="The Time Crystal"),
                 story_line=[
                     {
-                        "text": "'Ah, Charlie! The Grand Clock, our has its "
-                        "timeless guardian, ceased rhythmic heartbeat. Its "
-                        "magic wanes. The Time Crystal in Crystal Hills is "
-                        "the key to its revival.' ",
+                        "text": "'Ah, Charlie! The Grand Clock, our"
+                        "timeless guardian, has ceased its rhythmic"
+                        "heartbeat. Its magic wanes. The Time Crystal in"
+                        "Crystal Hills is the key to its revival.'",
                     },
                     {
                         "text": "'Fear not, Timekeeper. I shall reclaim the "
@@ -462,45 +462,43 @@ game_one = {
                 ],
                 story_line_completed=[
                     {
-                        "text": "Ah, Charlie, you've returned! And"
-                        " with the Time Crystal, no less?",
+                        "text": "Ah, Charlie, you've returned! And with the "
+                        "Time Crystal, no less?",
                     },
                     {
-                        "text": "Yes, Timekeeper. The journey was"
-                        " perilous, but the crystal is here.",
+                        "text": "Yes, Timekeeper. The journey was perilous, "
+                        "but the crystal is here.",
                     },
                     {
-                        "text": "Splendid! Let's not waste another"
-                        " moment. Hand it over, and let's witness"
-                        " history reborn.",
+                        "text": "Splendid! Let's not waste another moment. "
+                        " Hand it over, and let's witness history reborn.",
                     },
                     {
                         "continue": True
                     },
                     {
-                        "text": "With a careful hand, the Timekeeper"
-                                " places the crystal into the heart of the"
-                                " Grand Clock. Ancient gears begin to turn, a"
-                                " soft ticking fills the air, growing louder,"
-                                " until the whole town is enveloped in the"
-                                " familiar sound of time's steady march.",
+                        "text": "With a careful hand, the Timekeeper places"
+                        "the Timekeeper places the crystal into the heart of"
+                        "the Grand Clock. Ancient gears begin to turn, a"
+                        "soft ticking fills the air, growing louder, until"
+                        "the whole town is enveloped in the familiar sound"
+                        "of time's steady march.",
                         "space": 1,
                     },
                     {
                         "text": "The townsfolk gather, eyes wide with"
-                                " wonder as the Grand Clock's hands resume"
-                                " their eternal dance. Cheers erupt, and"
-                                " Charlie, standing beside the Timekeeper,"
-                                " watches as the shadow of stagnation lifts,"
-                                " giving way to a renewed flow of time.",
+                        "wonder as the Grand Clock's hands resume their"
+                        "eternal dance. Cheers erupt, and Charlie, standing"
+                        "beside the Timekeeper, watches as the shadow of"
+                        "stagnation lifts, giving way to a renewed flow of"
+                        "time.",
                         "space": 1,
                     },
                     {
-                        "text": "You've done it, Charlie! The heart"
-                        " of Yolkaris beats once more, thanks to you."
-                        " This day will be remembered as the moment"
-                        " when time itself was mended by the courage"
-                        " of a single soul.",
+                        "text": "'You've done it, Charlie! The heart of"
+                        "Yolkaris beats once more, thanks to you. This day"
+                        "will be remembered as the moment when time itself"
+                        "was mended by the courage of a single soul.'",
                         "space": 1,
                     },
                     {
@@ -514,40 +512,36 @@ game_one = {
                     }
                 ]
             ),
-items=[
+            items=[
                 Book(
                     name="The Broken Clock Book",
                     description="A tome chronicling the saga of Yolkaris' "
                                 "Grand Clock, whose ticking has ceased.",
                     story_line=[
                         {
-                            "clear": True
-                        },
-                        {
-                            "text": "The Broken Clock: A Tale of Time's "
-                            "Standstill",
+                            "text": "The Broken Clock: A Tale of"
+                                    " Time's Standstill",
                             "delay": 0.6,
                             "space": 1
                         },
                         {
-                            "text": "In the heart of Yolkaris stands the "
-                            "Grand Clock, once the pulsing chronometer of the "
-                            "realm. Legends say its hands moved in harmony "
-                            "with the cosmic dance, until silence befell. The "
-                            "clock's halt has shrouded Yolkaris in a temporal "
-                            "anomaly, threatening the very fabric of time "
-                            "itself.",
+                            "text": "In the heart of Yolkaris stands the Grand"
+                            "Clock, once the pulsing chronometer of the realm."
+                            "Legends say its hands moved in harmony with the"
+                            "cosmic dance, until silence befell. The clock's"
+                            "halt has shrouded Yolkaris in a temporal anomaly,"
+                            "threatening the very fabric of time itself.",
                             "space": 1
                         },
                         {
-                            "text": "The Time Crystal, hidden within the "
-                            "enigmatic Crystal Hills, holds the secret to "
-                            "awakening the clock. This book, penned by the "
-                            "last Timekeeper, serves as a guide for the brave "
-                            "soul daring enough to embark on this perilous "
-                            "quest. To restore the clock's magic and revive "
-                            "the rhythm of Yolkaris, the Time Crystal must be "
-                            "retrieved before the threads of time unravel "
+                            "text": "The Time Crystal, hidden within the"
+                            "enigmatic Crystal Hills, holds the secret to"
+                            "awakening the clock. This book, penned by the"
+                            "last Timekeeper, serves as a guide for the brave"
+                            "soul daring enough to embark on this perilous"
+                            "quest. To restore the clock's magic and revive"
+                            "the rhythm of Yolkaris, the Time Crystal must be"
+                            "retrieved before the threads of time unravel"
                             "completely.",
                             "space": 1
                         },
@@ -562,18 +556,16 @@ items=[
                         "clear": True
                     },
                     {
-                        "text": "Bounty Harbour bustles with life, a hub "
-                                " for seafaring souls and wandering traders. The"
-                                " aroma of the ocean mingles with exotic spices,"
-                                " weaving a tapestry of adventure and mystery in"
-                                " the air."
+                        "text": "Bounty Harbour bustles with life, a hub for"
+                        "seafaring souls and wandering traders. The aroma of"
+                        "the ocean mingles with exotic spices, weaving a"
+                        "tapestry of adventure and mystery in the air."
                     },
                     {
-                        "text": "Charlie, amidst the vibrant chatter of"
-                                " the marketplace and rhythmic creaking of ships,"
-                                " takes in the colorful tapestry of sails and"
-                                " flags, each narrating tales of distant lands"
-                                " and mysterious seas."
+                        "text": "Charlie, amidst the vibrant chatter of the"
+                        "marketplace and rhythmic creaking of ships, takes in"
+                        "the colorful tapestry of sails and flags, each"
+                        "narrating tales of distant lands and mysterious seas."
                     },
                 ],
                 story_line_visited=[
@@ -594,22 +586,21 @@ items=[
                     },
                     {
                         "text": "Cluckington Valley stretches beneath the"
-                                " gaze of ancient, watchful peaks, a tapestry of"
-                                " verdure and life woven across the land's broad"
-                                " back. Its fields, a green so vibrant they seem"
-                                " to pulse with the heartbeats of the earth"
-                                " itself, are dotted with wildflowers that perform"
-                                " silent operas to an audience of bees.",
+                        "gaze of ancient, watchful peaks, a tapestry of"
+                        "verdure and life woven across the land's broad back."
+                        "Its fields, a green so vibrant they seem to pulse"
+                        "with the heartbeats of the earth itself, are dotted"
+                        "with wildflowers that perform silent operas to an"
+                        "audience of bees.",
                         "space": 1
                     },
                     {
                         "text": "A peculiar fact about the valley is its"
-                                " infamous 'Laughing Tree,' a gnarled oak whose"
-                                " branches creak in patterns that sound eerily"
-                                " like chicken laughter, especially on windy"
-                                " nights. Locals say it's the valley's way of"
-                                " reminding everyone that nature has its own"
-                                " sense of humor.",
+                        "infamous 'Laughing Tree,' a gnarled oak whose"
+                        "branches creak in patterns that sound eerily like"
+                        "chicken laughter, especially on windy nights. Locals"
+                        "say it's the valley's way of reminding everyone that"
+                        "nature has its own sense of humor.",
                         "delay": 0.6
                     }
                 ],
@@ -624,54 +615,49 @@ items=[
                 items=[
                     Book(
                         name="The Laughing Tree's Joke Book",
-                        description="A collection of the most"
-                                    "whimsical and hearty chuckles sourced"
-                                    "directly from the Laughing Tree of"
-                                    "Cluckington Valley. This book promises to"
-                                    "lift the spirits of anyone brave enough to"
-                                    "open its pages, offering a light-hearted"
-                                    " escape into the world of feathered humor.",
+                        description="A collection of the most whimsical and "
+                        "hearty chuckles sourced directly from the Laughing "
+                        "Tree of Cluckington Valley. This book promises to "
+                        "lift the spirits of anyone brave enough to open its "
+                        "pages, offering a light-hearted escape into the "
+                        "world of feathered humor.",
                         story_line=[
                             {
-                                "text": "Giggles from the Canopy:"
-                                        " The Laughing Tree's Joke Book",
+                                "text": "Giggles from the Canopy: The "
+                                "Laughing Tree's Joke Book",
                                 "delay": 0.6,
                                 "space": 1
                             },
                             {
-                                "text": "1. Why did the chicken join"
-                                        " a band? Because it had the"
-                                        " drumsticks ready!",
+                                "text": "1. Why did the chicken join a band? "
+                                "Because it had the drumsticks ready! ",
                                 "space": 1
                             },
                             {
-                                "text": "2. What do you call a"
-                                        " chicken that haunts the barn? A"
-                                        " poultry-geist!"
+                                "text": "2. What do you call a chicken that "
+                                "haunts the barn? A poultry-geist!"
                             },
                             {
-                                "text": "3. Why did the rooster go to"
-                                        " the comedy show? To"
-                                        " cockle-doodle-DOO its best"
-                                        " impression!"
+                                "text": "3. Why did the rooster go to the "
+                                "comedy show? To cockle-doodle-DOO its best "
+                                "impression!"
                             },
                             {
-                                "text": "4. What does a chicken need"
-                                        " to lay an egg every day?"
-                                        " Hen-durance!"
+                                "text": "4. What does a chicken need to lay "
+                                "an egg every day? Hen-durance!"
                             },
                             {
-                                "text": "5. How do chickens stay fit?"
-                                        " Egg-ercise!"
+                                "text": "5. How do chickens stay fit? "
+                                "Egg-ercise!"
                             },
                             {
-                                "text": "6. What do you call a crazy"
-                                        " chicken? A cuckoo cluck!"
+                                "text": "6. What do you call a crazy chicken? "
+                                "A cuckoo cluck!"
                             },
                             {
-                                "text": "7. Why did the chicken stop"
-                                        " in the middle of the road? It saw"
-                                        " the sign: 'Egg Xing'!",
+                                "text": "7. Why did the chicken stop in the "
+                                " middle of the road? It saw the sign: 'Egg "
+                                "Xing'!",
                                 "space": 1
                             }
                         ]
@@ -689,59 +675,56 @@ items=[
                         "clear": True
                     },
                     {
-                        "text": "After his long and arduous journey,"
-                                " Charlie, the brave chicken from Yolkaris, finally"
-                                " stood at the threshold of Crystal Hills. The"
-                                " path he had traversed had been fraught with"
-                                " challenges and perils, but he had endured,"
-                                " driven by the unwavering purpose of obtaining"
-                                " the Time Crystal."
+                        "text": "After his long and arduous journey, "
+                        "Charlie, the brave chicken from Yolkaris, finally "
+                        "stood at the threshold of Crystal Hills. The "
+                        "path he had traversed had been fraught with "
+                        "challenges and perils, but he had endured, "
+                        "driven by the unwavering purpose of obtaining "
+                        "the Time Crystal."
                     },
                     {
-                        "text": "Before him lay the Crystal Hills, a"
-                                " place of legend and wonder. The hills shimmered"
-                                " with the radiant glow of Time Crystals, each one"
-                                " a fragment of the past and the future. It had"
-                                " taken him many moons to reach this sacred place,"
-                                " and the weight of his quest rested heavily on"
-                                " his wings."
+                        "text": "Before him lay the Crystal Hills, a "
+                        "place of legend and wonder. The hills shimmered "
+                        "with the radiant glow of Time Crystals, each one "
+                        "a fragment of the past and the future. It had "
+                        "taken him many moons to reach this sacred place, "
+                        "and the weight of his quest rested heavily on "
+                        "his wings."
                     },
                     {
                         "text": "The air was thick with an aura of"
-                                " ancient magic, and the very ground beneath his"
-                                " feet seemed to vibrate with the essence of time"
-                                " itself. Charlie could feel the watchful eyes of"
-                                " the guardian, Phineas Blackthorn, as he neared"
-                                " the heart of the Crystal Hills."
+                        "ancient magic, and the very ground beneath his "
+                        "feet seemed to vibrate with the essence of time "
+                        "itself. Charlie could feel the watchful eyes of "
+                        "the guardian, Phineas Blackthorn, as he neared "
+                        "the heart of the Crystal Hills."
                     },
                     {
                         "continue": True
                     },
                     {
-                        "text": "As Charlie continued his journey through"
-                                " the surreal and disorienting landscape of"
-                                " crystals, he couldn't help but reflect on the"
-                                " trials that had brought him here. The Time"
-                                " Crystal, the key to saving Yolkaris from"
-                                " impending darkness, was within his grasp, but"
-                                " first, he had to face the formidable guardian"
-                                " and prove himself."
+                        "text": "As Charlie continued his journey through the"
+                        "surreal and disorienting landscape of crystals, he"
+                        "couldn't help but reflect on the trials that had"
+                        "brought him here. The Time Crystal, the key to saving"
+                        "Yolkaris from impending darkness, was within his"
+                        "grasp, but first, he had to face the formidable"
+                        "guardian and prove himself."
                     },
                     {
-                        "text": "Phineas emerged from the shimmering"
-                                " crystals as if he were a part of the very fabric"
-                                " of time itself. His presence commanded the"
-                                " attention of the crystals that surrounded him,"
-                                " their luminous glow accentuating his enigmatic"
-                                " presence."
+                        "text": "Phineas emerged from the shimmering crystals"
+                        "as if he were a part of the very fabric of time"
+                        "itself. His presence commanded the attention of the"
+                        "crystals that surrounded him, their luminous glow"
+                        "accentuating his enigmatic presence."
                     },
                     {
-                        "text": "As Charlie stood before Phineas"
-                                " Blackthorn, the guardian of the Time"
-                                " Crystals, a tense atmosphere hung in the"
-                                " air. The guardian, an enigmatic figure with"
-                                " a monocle and an impeccably groomed feather"
-                                " coat, gazed at Charlie with a wry smile."
+                        "text": "As Charlie stood before Phineas Blackthorn,"
+                        "the guardian of the Time Crystals, a tense atmosphere"
+                        "hung in the air. The guardian, an enigmatic figure"
+                        "with a monocle and an impeccably groomed feather"
+                        "coat, gazed at Charlie with a wry smile."
                     },
                 ],
                 story_line_visited=[
@@ -757,65 +740,64 @@ items=[
                             "continue": True
                         },
                         {
-                            "text": "Ah, young traveler, You've reached"
-                            " the heart of the Crystal Hills, but before"
-                            " you can claim the Time Crystal, there's a"
-                            " challenge you must face."
+                            "text": "Ah, young traveler, You've reached the "
+                            "heart of the Crystal Hills, but before you can "
+                            "claim the Time Crystal, there's a challenge you "
+                            "must face."
                         },
                         {
                             "text": "Charlie furrowed his brow, awaiting"
-                                    " Phineas's instructions."
+                            "Phineas's instructions."
                         },
                         {
-                            "text": "We shall have a test of your"
-                            " skills and intelligence. If you succeed,"
-                            " the Time Crystal will be yours. Fail, let's"
-                            " just say you'll be the butt of some"
-                            " egg-cellent jokes! Oh, ho ho! Ha ha ha! Hee"
-                            " hee! Ah, ha ha! Hohoho! Ha ha ha! Heeheehe!"
-                            " Ahahaha! Ho ho ho! Ha ha ha! Hee hee! Ah,"
-                            " ha ha! Hilarious! Ho ho ho! Ha ha ha! Hee"
-                            " hee! Ah, ha ha! Tremendous! Oh, ho ho! Ha"
-                            " Marvelous! Ho ho ho! Ha ha! Uncontrollable!"
-                            " Oh, ho ho! Ha ha! Hee hee! Oh, I am sorry,"
+                            "text": "We shall have a test of your skills"
+                            "and intelligence. If you succeed, the Time"
+                            "Crystal will be yours. Fail, let's just say"
+                            "you'll be the butt of some egg-cellent jokes! Oh,"
+                            "ho ho! Ha ha ha! Hee hee! Ah, ha ha! Hohoho! Ha"
+                            "ha ha! Heeheehe! Ahahaha! Ho ho ho! Ha ha ha! Hee"
+                            "hee! Ah, ha ha! Hilarious! Ho ho ho! Ha ha ha!"
+                            "Hee hee! Ah, ha ha! Tremendous! Oh, ho ho! Ha"
+                            "Marvelous! Ho ho ho! Ha ha! Uncontrollable! Oh,"
+                            "ho ho! Ha ha! Hee hee! Oh, I am sorry,"
                         },
                         {
                             "continue": True
                         },
                         {
                             "text": "Phineas finally said, his laughter"
-                                    " subsiding."
+                            "subsiding."
                         },
                         {
-                            "text": "Do you accept the challenge?"
-                            " Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
+                            "text": "Do you accept the challenge? "
+                            "Ha ha ha! Hee hee! Ah, ha ha! Hilarious!"
                         }
                     ],
                     story_line_visited=[
                         {
-                            "text": "Hey, welcome back, Charlie! Are you"
-                            " ready this time to take on the challenge?"
-                            " Can we fight? Ha ha ha! Sorry.",
+                            "text": "Hey, welcome back, Charlie! Are you "
+                            "ready this time to take on the challenge? Can "
+                            "we fight? Ha ha ha! Sorry.",
                         },
                     ],
                     story_line_fought=[
                         {
-                            "text": "Ah, Charlie, back for another"
-                            " round, I see. Ready to continue where we"
-                            " left off, or have you come to reconsider?"
-                            " The challenge awaits.",
+                            "text": "Ah, Charlie, back for another round, I "
+                            "see. Ready to continue where we left off, or "
+                            "have you come to reconsider? The challenge '"
+                            "awaits.",
                         },
                     ],
                     story_line_won_fight=[
                         {
-                            "text": "You have defeated Phineas Blackthorn."
-                                    " With a gracious nod and a smile, Phineas"
-                                    " Blackthorn conceded."
+                            "text": "You have defeated Phineas Blackthorn. "
+                            "With a gracious nod and a smile, Phineas "
+                            "Blackthorn conceded."
                         },
                         {
-                            "text": "Well done, Charlie. You've proven"
-                            " yourself worthy. You can now go and take"
-                            " the Time Crystal; you have earned it."
+                            "text": "Well done, Charlie. You've proven "
+                            "yourself worthy. You can now go and take the "
+                            "Time Crystal; you have earned it."
                         },
                         {
                             "item": Special(name="The Time Crystal")
@@ -823,14 +805,14 @@ items=[
                     ],
                     story_line_lost_fight=[
                         {
-                            "text": "Phineas Blackthorn couldn't help"
-                                    " but raise an eyebrow and quip"
+                            "text": "Phineas Blackthorn couldn't help but "
+                            "raise an eyebrow and quip"
                         },
                         {
-                            "text": "Well, Charlie, I suppose you'll"
-                            " have to stick to egg-citing adventures for"
-                            " now. The Time Crystal remains elusive, like"
-                            " a chicken chasing its tail!"
+                            "text": "Well, Charlie, I suppose you'll have to "
+                            "stick to egg-citing adventures for now. The Time "
+                            "Crystal remains elusive, like a chicken chasing "
+                            "its tail"
                         },
                         {
                             "text": "Game Over!",
@@ -844,9 +826,9 @@ items=[
                     ],
                     story_line_defeated=[
                         {
-                            "text": "What else do you need, Charlie?"
-                                    " You've already bested me in our challenge,"
-                                    " and I have no more tests to offer.",
+                            "text": "What else do you need, Charlie? You've "
+                            "already bested me in our challenge, and I have "
+                            "no more tests to offer.",
                         },
                     ],
                     health=50,
@@ -861,28 +843,28 @@ items=[
                         "clear": True
                     },
                     {
-                        "text": "Yonder Forest loomed ahead, a dense"
-                                " canopy of ancient trees whispering secrets from"
-                                " centuries past. Its shadowy depths, untouched by"
-                                " time, held both allure and mystery."
+                        "text": "Yonder Forest loomed ahead, a dense canopy "
+                        "of ancient trees whispering secrets from centuries "
+                        "past. Its shadowy depths, untouched by time, held "
+                        "both allure and mystery."
                     },
                     {
-                        "text": "Charlie paused at the forest's edge, the"
-                                " cool shade brushing against his feathers like a"
-                                " promise of the unknown. 'This forest has seen"
-                                " more seasons than we can fathom,' he thought,"
-                                " 'each tree a silent guardian of history.'"
+                        "text": "Charlie paused at the forest's edge, the "
+                        "cool shade brushing against his feathers like a "
+                        "promise of the unknown. 'This forest has seen more "
+                        "seasons than we can fathom,' he thought, 'each tree "
+                        "a silent guardian of history.'"
                     },
                     {
-                        "text": "I better keep moving and make it"
-                        " through this forest before night falls. It's"
-                        " wise not to linger here when the shadows grow"
-                        " long. There's no telling what lurks in the dark."
+                        "text": "I better keep moving and make it through "
+                        "this forest before night falls. It's wise not to "
+                        "linger here when the shadows grow long. There's no "
+                        "telling what lurks in the dark."
                     },
                     {
-                        "text": "Taking a deep breath, Charlie stepped"
-                                " forward. The forest floor felt soft underfoot,"
-                                " inviting him deeper into the green shadows."
+                        "text": "Taking a deep breath, Charlie stepped "
+                        "forward. The forest floor felt soft underfoot, "
+                        "inviting him deeper into the green shadows."
                     },
                     {
                         "continue": True
@@ -901,30 +883,28 @@ items=[
                     story_line=[
                         {
                             "text": "You've entered my domain, little"
-                            " chicken. But know this, none shall cross"
-                            " these woods without challenging me. It is"
-                            " the law of the shadows."
+                            " chicken. But know this, none shall cross these "
+                            "woods without challenging me. It is the law of "
+                            "the shadows."
                         },
                         {
-                            "text": "The Shadow Stalker's voice was"
-                                    " chilling, echoing through the darkened"
-                                    " forest, causing the leaves to shiver and the"
-                                    " air to grow heavy with tension. Charlie"
-                                    " stood firm, ready to face the impending"
-                                    " challenge."
+                            "text": "The Shadow Stalker's voice was chilling, "
+                            "echoing through the darkened forest, causing the "
+                            "leaves to shiver and the air to grow heavy with "
+                            "tension. Charlie stood firm, ready to face the "
+                            "impending challenge. "
                         },
                         {
-                            "text": "Why do you enforce such a law,"
-                            " Shadow Stalker? What drives you to demand"
-                            " challenges from those who enter?"
+                            "text": "Why do you enforce such a law, Shadow "
+                            "Stalker? What drives you to demand challenges "
+                            "from those who enter?"
                         },
 
                         {
-                            "text": "I seek to prove my dominance,"
-                            " Charlie. I crave the thrill of battle and"
-                            " the taste of victory. The law of the shadows"
-                            " is my way, and you, by entering, have"
-                            " accepted the challenge."
+                            "text": "I seek to prove my dominance, Charlie. I "
+                            "crave the thrill of battle and the taste of "
+                            "victory. The law of the shadows is my way, and "
+                            "you, by entering, have accepted the challenge."
                         }
                     ],
                     story_line_visited=[
@@ -945,33 +925,33 @@ items=[
                                     " Stalker."
                         },
                         {
-                            "text": "The creature vanished into the"
-                                    " shadows, defeated. As the darkness receded,"
-                                    " a faint whisper reached Charlie's ears."
+                            "text": "The creature vanished into the shadows, "
+                            "defeated. As the darkness receded, a faint "
+                            "whisper reached Charlie's ears."
                         },
                         {
-                            "text": "You may have bested me, but your"
-                            " quest is far from over, Charlie. Seek the"
-                            " mighty Feathered Blade that once belonged"
-                            " to the legendary warrior, Sir Cluckington."
-                            " The elusive Feathered Blade can be found"
-                            " concealed within the depths of the Yonder"
-                            " Forest, waiting for a worthy owner."
+                            "text": "You may have bested me, but your quest "
+                            "is far from over, Charlie. Seek the mighty "
+                            "Feathered Blade that once belonged to the "
+                            "legendary warrior, Sir Cluckington. The elusive "
+                            "Feathered Blade can be found concealed within "
+                            "the depths of the Yonder Forest, waiting for a "
+                            "worthy owner. "
                         },
                         {
-                            "text": "The creature vanished into the"
-                                    " shadows, defeated. As the darkness receded,"
-                                    " a faint whisper reached Charlie's ears."
+                            "text": "The creature vanished into the shadows, "
+                            "defeated. As the darkness receded, a faint "
+                            "whisper reached Charlie's ears."
                         }
                     ],
                     story_line_lost_fight=[
                         {
-                            "text": "The Shadow Stalker's eyes gleamed"
-                                    " with malice as it spoke."
+                            "text": "The Shadow Stalker's eyes gleamed with "
+                            "malice as it spoke."
                         },
                         {
-                            "text": "You're no match for me, little"
-                            " chicken. You'll never leave this forest."
+                            "text": "You're no match for me, little chicken. "
+                            "You'll never leave this forest."
                         },
                         {
                             "text": "Game Over!",
@@ -985,8 +965,8 @@ items=[
                     ],
                     story_line_defeated=[
                         {
-                            "text": "You've defeated me, Charlie. I have"
-                            " no more fight left in me."
+                            "text": "You've defeated me, Charlie. I have no "
+                            "more fight left in me."
                         },
                     ],
                     health=30,
@@ -996,8 +976,8 @@ items=[
                 items=[
                     Weapon(
                         name="Feathered Blade",
-                        description="A blade made from the"
-                                    " finest feathers, light and sharp.",
+                        description="A blade made from the finest feathers, "
+                        "light and sharp.",
                         attack=18
                     ),
                 ],
@@ -1008,21 +988,20 @@ items=[
                         "clear": True
                     },
                     {
-                        "text": "Clucker's Canyon, with its echoing"
-                                " walls and towering red cliffs, is a marvel of"
-                                " nature on Yolkaris. The canyon has witnessed"
-                                " the rise and fall of many civilizations,"
-                                " holding secrets of the past within its rugged"
-                                " landscape. It's said that the echoes in the"
-                                " canyon are the voices of ancient Yolkarians."
+                        "text": "Clucker's Canyon, with its echoing walls and "
+                        "towering red cliffs, is a marvel of nature on "
+                        "Yolkaris. The canyon has witnessed the rise and fall "
+                        "of many civilizations, holding secrets of the past "
+                        "within its rugged landscape. It's said that the "
+                        "echoes in the canyon are the voices of ancient "
+                        "Yolkarians. "
                     },
                     {
-                        "text": "The canyon is not just a historical"
-                                " site but also a treasure trove of mystery."
-                                " Explorers and treasure hunters often delve"
-                                " into its depths, seeking lost artifacts of the"
-                                " chicken civilizations that once flourished"
-                                " here."
+                        "text": "The canyon is not just a historical site "
+                        "but also a treasure trove of mystery. Explorers and "
+                        "treasure hunters often delve into its depths, "
+                        "seeking lost artifacts of the chicken civilizations "
+                        "that once flourished here. "
                     },
                     {
                         "text": "I wonder what stories these cliffs"
@@ -1054,16 +1033,16 @@ items=[
                         "clear": True
                     },
                     {
-                        "text": "Bubble Beach is famous for its iridescent bubbles"
-                                " that float up from the sea. The bubbles are said to"
-                                " contain tiny galaxies, a reminder of the vastness of"
-                                " the universe."
+                        "text": "Bubble Beach is famous for its iridescent "
+                        "bubbles that float up from the sea. The bubbles are "
+                        "said to contain tiny galaxies, a reminder of the "
+                        "vastness of the universe."
                     },
                     {
-                        "text": "These bubbles are mesmerizing. Each one holds a"
-                                " tiny galaxy. It's a reminder of how small we are in this"
-                                " vast universe. But even the smallest pebble can make"
-                                " ripples across the water."
+                        "text": "These bubbles are mesmerizing. Each one "
+                        "holds a tiny galaxy. It's a reminder of how small we "
+                        "are in this vast universe. But even the smallest "
+                        "pebble can make ripples across the water."
                     }
                 ],
                 story_line_visited=[
@@ -1087,46 +1066,47 @@ items=[
                             "clear": True
                         },
                         {
-                            "text": "Peckers Peak, the crowning glory of Yolkaris,"
-                                    " stands tall, its heights veiled in the whispers"
-                                    " of ancient tales. This revered summit, where the"
-                                    " skies kiss the earth, was once the sacred"
-                                    " observatory of the elder chickens."
+                            "text": "Peckers Peak, the crowning glory of "
+                            "Yolkaris, stands tall, its heights veiled in the "
+                            "whispers of ancient tales. This revered summit, "
+                            "where the skies kiss the earth, was once the "
+                            "sacred observatory of the elder chickens."
                         },
                         {
-                            "text": "Here, under the canvas of the cosmos, they"
-                                    " unraveled the mysteries of the stars, leaving a"
-                                    " legacy etched in the winds. As Charlie's path"
-                                    " ascends, each step is a journey through time."
+                            "text": "Here, under the canvas of the cosmos, "
+                            "they unraveled the mysteries of the stars, "
+                            "leaving a legacy etched in the winds. As "
+                            "Charlie's path ascends, each step is a journey "
+                            "through time."
                         },
                         {
-                            "text": "The winds carry legends, and the stones are"
-                                    " etched with the wisdom of ages. Reaching the"
-                                    " peak, Charlie is enveloped in a world of awe,"
-                                    " the horizon stretching infinitely."
+                            "text": "The winds carry legends, and the stones "
+                            "are etched with the wisdom of ages. Reaching the "
+                            "peak, Charlie is enveloped in a world of awe, "
+                            "the horizon stretching infinitely."
                         },
                         {
-                            "text": "The air is thick with the essence of bygone eras,"
-                                    " and the silence speaks of hidden truths. Atop"
-                                    " this celestial altar, where the ancient chickens"
-                                    " once gazed upon the heavens."
+                            "text": "The air is thick with the essence of "
+                            "bygone eras, and the silence speaks of hidden "
+                            "truths. Atop this celestial altar, where the "
+                            "ancient chickens once gazed upon the heavens."
                         },
                         {
                             "continue": True
                         },
                         {
-                            "text": "Charlie feels an overwhelming connection to the"
-                                    " stars. Their ancient wisdom, like a forgotten"
-                                    " song, resonates within him, guiding his heart."
-                                    " The whispers of Peckers Peak instill in him a"
-                                    " sense of purpose."
+                            "text": "Charlie feels an overwhelming connection "
+                            "to the stars. Their ancient wisdom, like a "
+                            "forgotten song, resonates within him, guiding "
+                            "his heart. The whispers of Peckers Peak instill "
+                            "in him a sense of purpose."
                         },
                         {
-                            "text": "Wow, the view from here is incredible!"
-                            " I can see the whole of Yolkaris and Crystal Hills."
-                            " It's said that the ancient chickens gazed at the stars"
-                            " from here, plotting their courses across the skies. If"
-                            " only I had their knowledge now..."
+                            "text": "Wow, the view from here is incredible! I "
+                            "can see the whole of Yolkaris and Crystal Hills. "
+                            "It's said that the ancient chickens gazed at the "
+                            "stars from here, plotting their courses across "
+                            "the skies. If only I had their knowledge now..."
                         },
                         {
                             "continue": True
@@ -1144,65 +1124,65 @@ items=[
                         name="Viktor Thornhart",
                         story_line=[
                             {
-                                "text": "You've ventured into my territory,"
-                                " stranger. Prepare to face the consequences."
+                                "text": "You've ventured into my territory, "
+                                "stranger. Prepare to face the consequences."
                             },
                             {
-                                "text": "Who are you, and why do you guard"
-                                " this place?"
+                                "text": "Who are you, and why do you guard "
+                                "this place?"
                             },
                             {
-                                "text": "I am Viktor Thornhart, protector of"
-                                " these hallowed grounds. The secrets hidden"
-                                " here are not for the untested. If you wish"
-                                " to proceed, you must prove your worth."
+                                "text": "I am Viktor Thornhart, protector of "
+                                "these hallowed grounds. The secrets hidden "
+                                "here are not for the untested. If you wish "
+                                "to proceed, you must prove your worth."
                             },
                             {
                                 "text": "The tension in the air thickens as"
-                                        " you prepare to face Viktor, the enigmatic"
-                                        " guardian of these sacred grounds."
+                                "you prepare to face Viktor, the enigmatic"
+                                "guardian of these sacred grounds."
                             }
                         ],
                         story_line_visited=[
                             {
-                                "text": "You've returned, Charlie. Ready"
-                                " to face me again?"
+                                "text": "You've returned, Charlie. Ready to "
+                                "face me again?"
                             },
                         ],
                         story_line_fought=[
                             {
-                                "text": "You've returned, Charlie. Ready"
-                                " to face me again?"
+                                "text": "You've returned, Charlie. Ready to "
+                                "face me again?"
                             },
                         ],
                         story_line_won_fight=[
                             {
                                 "text": "With a final, determined effort, you"
-                                " overcome Viktor Thornhart's defenses."
-                                " 'You've proven your mettle, Charlie. I"
-                                " yield.' Viktor's stern demeanorc softens,"
-                                " acknowledging your strength."
+                                "overcome Viktor Thornhart's defenses. "
+                                "'You've proven your mettle, Charlie. I "
+                                "yield.' Viktor's stern demeanorc softens, "
+                                "acknowledging your strength."
                             },
                             {
-                                "text": "`I'll share a secret with you,"
-                                " Charlie. In the heart of these peaks,"
-                                " you'll find the Feathered Armor.`"
+                                "text": "`I'll share a secret with you, "
+                                "Charlie. In the heart of these peaks, you'll "
+                                "find the Feathered Armor.`"
                             },
                             {
-                                "text": "Viktor's words pique your curiosity"
-                                " as he reveals the existence of the finest"
-                                " armor, crafted from the lightest and"
-                                " strongest feathers known."
+                                "text": "Viktor's words pique your curiosity "
+                                "as he reveals the existence of the finest "
+                                "armor, crafted from the lightest and "
+                                "strongest feathers known."
                             }
                         ],
                         story_line_lost_fight=[
                             {
-                                "text": "Viktor Thornhart's eyes gleamed"
-                                        " with malice as he spoke."
+                                "text": "Viktor Thornhart's eyes gleamed with "
+                                "malice as he spoke."
                             },
                             {
-                                "text": "You're no match for me, little"
-                                " chicken. You'll never leave this place."
+                                "text": "You're no match for me, little "
+                                "chicken. You'll never leave this place."
                             },
                             {
                                 "text": "Game Over!",
@@ -1216,8 +1196,8 @@ items=[
                         ],
                         story_line_defeated=[
                             {
-                                "text": "You've defeated me, Charlie. I have"
-                                " no more fight left in me."
+                                "text": "You've defeated me, Charlie. I have "
+                                "no more fight left in me."
                             },
                         ],
                         health=30,
@@ -1227,8 +1207,8 @@ items=[
                     items=[
                         Armour(
                             name="Feathered Armor",
-                            description="Armor made from the finest"
-                                        " feathers, light and strong.",
+                            description="Armor made from the finest feathers, "
+                            "light and strong.",
                             defense=20
                         ),
                     ]
@@ -2604,3 +2584,4 @@ game_two = {
         ]
     }
 }
+
