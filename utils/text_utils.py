@@ -31,7 +31,7 @@ def text(
     """
     line_space = '\n' * space
     colored_text = (color + text_line if color else text_line) + \
-                   Fore.RESET + line_space
+        Fore.RESET + line_space
     print(colored_text)
     time.sleep(delay)
 
