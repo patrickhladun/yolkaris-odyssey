@@ -801,8 +801,8 @@ game_one = {
                  story_line_visited=[
                      {
                          "text": "Hey, welcome back, Charlie! Are you ready "
-                                 "this time to take on the challenge? Can we fight? "
-                                 "Ha ha ha! Sorry.",
+                                 "this time to take on the challenge? Can we "
+                                 "fight? Ha ha ha! Sorry.",
                      },
                  ],
                  story_line_fought=[
@@ -1030,8 +1030,8 @@ game_one = {
                              "civilizations that once flourished here. "
                  },
                  {
-                     "text": "I wonder what stories these cliffscould if "
-                             "tell they could talk. Ancient voices... I hope "
+                     "text": "I wonder what stories these cliffs could tell "
+                             "if they could talk. Ancient voices... I hope "
                              "they can guide me on my quest. Mystery and "
                              "treasure... sounds like an adventure waiting to "
                              "happen. Lost artifacts... maybe they hold clues "
@@ -1407,7 +1407,8 @@ game_two = {
                      },
                      {
                          "text": "- If you require guidance, simply type "
-                                 "'help' to view a list of available commands.",
+                                 "'help' to view a list of available "
+                                 "commands.",
                          "space": 0
                      },
                      {
