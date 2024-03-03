@@ -2807,8 +2807,8 @@ game_two = {
                      health=25
                  ),
                  Potion(
-                     name="Small Potion",
-                     health=25
+                     name="Medium Potion",
+                     health=50
                  )
              ]
              ),
