@@ -69,7 +69,7 @@ class Location:
         """
         x = random.randint(0, self.size[0] - 1)
         y = random.randint(0, self.size[1] - 1)
-        return (x, y)
+        return x, y
 
     def display_map(self) -> None:
         """
@@ -215,7 +215,7 @@ class Location:
             name = item.name
             add_space()
             text(f"You found a {name}.")
-            if ask_user(type="confirm", prompt="Do you want to equip it?"):
+            if ask_user(prompt_type="confirm", prompt="Do you want to equip it?"):
                 if player.armour:
                     area.items.append(player.armour)
                 player.armour = item
@@ -226,7 +226,7 @@ class Location:
             name = item.name
             add_space()
             text(f"You found a {name}.")
-            if ask_user(type="confirm", prompt="Do you want to take it?"):
+            if ask_user(prompt_type="confirm", prompt="Do you want to take it?"):
                 player.potions.append(item)
                 area.items.remove(item)
                 text(f"You have added the {name} to your inventory.",
@@ -236,7 +236,7 @@ class Location:
             name = item.name
             add_space()
             text(f"You found a {name}.")
-            if ask_user(type="confirm", prompt="Do you want to take it?"):
+            if ask_user(prompt_type="confirm", prompt="Do you want to take it?"):
                 player.inventory.append(item)
                 area.items.remove(item)
                 text("You have added the book to your inventory.",
@@ -246,7 +246,7 @@ class Location:
             name = item.name
             add_space()
             text(f"You found a {name}.")
-            if ask_user(type="confirm", prompt="Do you want to take it?"):
+            if ask_user(prompt_type="confirm", prompt="Do you want to take it?"):
                 player.inventory.append(item)
                 area.items.remove(item)
 
