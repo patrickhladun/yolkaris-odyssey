@@ -480,7 +480,11 @@ class Game:
                           numbers=numbers)
 
         if choice == 0:
-            print('Exit the Spaceship ')
+            add_space(1)
+            paragraph("Charlie chose to stay grounded this time. With a swift "
+                      "gesture, he watched the spaceship shrink into a small "
+                      "egg, which he then carefully tucked into his pocket.",
+                      space=1)
             return
 
         selected_location_name = available_destinations[int(choice) - 1]
