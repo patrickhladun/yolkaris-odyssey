@@ -2,6 +2,7 @@ import random
 from utils import (clear_terminal, paragraph, text, ask_user, add_space)
 from .items import Weapon, Armour, Potion, Book, Special, Item
 
+
 class Interaction:
     """
     Aandles the interaction between the player and the game elements.

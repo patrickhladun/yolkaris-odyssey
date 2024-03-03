@@ -1,10 +1,14 @@
-
 class Item:
     """
     Initializes an item in the game.
     """
 
-    def __init__(self, name: str, description: str = None, received: str = None) -> None:
+    def __init__(
+            self,
+            name: str,
+            description: str = None,
+            received: str = None
+    ) -> None:
         self.name = name
         self.description = description
         self.received = received
@@ -82,7 +86,7 @@ class Special(Item):
     Initializes a special item in the game.
     """
 
-    def __init__(self, name: str, description: str = None, story_line: list = None, received: str = None) -> None:
+    def __init__(self, name: str, description: str = None,
+                 story_line: list = None, received: str = None) -> None:
         super().__init__(name, description, received)
         self.story_line = story_line
-
