@@ -17,10 +17,10 @@ color_ask_user = Fore.BLUE + Style.BRIGHT
 
 
 def text(
-    text,
-    delay=0.1,
-    space=0,
-    color=default_color
+        text_line,
+        delay=0.1,
+        space=0,
+        color=default_color
 ):
     """
     Prints text to the terminal with optional color.
@@ -36,10 +36,10 @@ def text(
 
 
 def paragraph(
-    long_string,
-    space=0,
-    delay=0.1,
-    color=default_color
+        long_string,
+        space=0,
+        delay=0.1,
+        color=default_color
 ):
     """
     Prints a paragraph of text to the terminal with optional color.
@@ -84,7 +84,7 @@ def clear_terminal():
 
 
 def ask_user(
-        type: str = None,
+        prompt_type: str = None,
         color=color_ask_user,
         prompt: str = None,
         error: str = None,
