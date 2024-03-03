@@ -8,6 +8,7 @@ from game.locations import (Location, Yolkaris, Mystara, Luminara,
 from game.items import Book, Spaceship, Special
 from game.interactions import Interaction
 
+
 def game_intro() -> None:
     """
     Displays the game intro.
@@ -18,10 +19,10 @@ def game_intro() -> None:
     text(yolkaris)
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
-            " adventure game.", delay=0.1)
+         " adventure game.", delay=0.1)
     text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
-    ask_user(type='continue',
-                prompt='Press enter to start the game: ', space=1)
+    ask_user(prompt_type='continue',
+             prompt='Press enter to start the game: ', space=1)
 
 
 def show_help() -> None:
@@ -58,23 +59,23 @@ def reset_game(game_instance=None):
 
 
 def select_game_level():
-        """
-        This method allows the player to select the game level.
-        """
-        text("Select your Game:", delay=0.2, space=1)
-        text("   1. The Broken Clock", delay=0.2)
-        text("   2. The Dark Dust", delay=0.2, space=1)
-        return ask_user(type="number", numbers=['1', '2'])
+    """
+    This method allows the player to select the game level.
+    """
+    text("Select your Game:", delay=0.2, space=1)
+    text("   1. The Broken Clock", delay=0.2)
+    text("   2. The Dark Dust", delay=0.2, space=1)
+    return ask_user(prompt_type="number", numbers=['1', '2'])
 
 
 def inspect_inventory_item(item):
-        """
-        Inspects an item in the player's inventory.
-        """
-        name = item.name
-        description = item.description
-        add_space()
-        paragraph(f"{name}: {description}")
+    """
+    Inspects an item in the player's inventory.
+    """
+    name = item.name
+    description = item.description
+    add_space()
+    paragraph(f"{name}: {description}")
 
 
 class Game:
@@ -100,8 +101,8 @@ class Game:
         clear_terminal()
         text(f"Hey {self.player.name}!", delay=0.6, space=1)
         paragraph("Welcome to Yolkaris Odyssey! You're about to embark on a"
-                  " thrilling adventure as Charlie, a courageous chicken with a"
-                  " spirit of exploration. This game takes you to the"
+                  " thrilling adventure as Charlie, a courageous chicken with "
+                  "a spirit of exploration. This game takes you to the"
                   " beautiful planet of Yolkaris, where every corner is filled"
                   " with wonder and mystery.", space=1)
         paragraph("Yolkaris Odyssey offers two distinct adventures. The first"
@@ -133,11 +134,11 @@ class Game:
             self.choose_action()
 
     def reset_game(self) -> None:
-            """
-            This method resets the game.
-            """
-            self.setup_game()
-            self.start_game()
+        """
+        This method resets the game.
+        """
+        self.setup_game()
+        self.start_game()
 
     def setup_areas(self, level) -> None:
         """
@@ -153,7 +154,7 @@ class Game:
             }
 
         elif level == 2:
-            
+
             self.location_objects = {
                 "Yolkaris": Yolkaris(
                     game_two["yolkaris_size"],
@@ -178,7 +179,7 @@ class Game:
         """
         while True:
             username = ask_user(
-                type=None, prompt="Please enter your username: ")
+                prompt_type=None, prompt="Please enter your username: ")
             if 3 <= len(username) <= 24 and username.isalnum() and "_" \
                     not in username:
                 self.player = Player(
@@ -191,11 +192,11 @@ class Game:
                 )
                 break
             else:
-                paragraph(
-                    "Invalid username. It should be between 3 to 24 characters"
-                    ",contain only letters and numbers, and no underscores.",
-                    color=color_error,
-                )
+                paragraph("Invalid username. It should be between 3 to 24 "
+                          "characters ,contain only letters and numbers, and "
+                          "no underscores.",
+                          color=color_error,
+                          )
 
     def show_player_stats(self) -> None:
         """
@@ -206,8 +207,10 @@ class Game:
 
         # Display player's basic stats
         add_space()
-        attack = player.attack + player.weapon.attack if player.weapon else player.attack
-        defense = player.defense + player.armour.defense if player.armour else player.defense
+        attack = player.attack + player.weapon.attack if player.weapon \
+            else player.attack
+        defense = player.defense + player.armour.defense if player.armour \
+            else player.defense
         text(f"Player {player.name}:")
         text(
             f"Health: {player.health}, Attack: {attack}, Defense: {defense}")
@@ -218,9 +221,9 @@ class Game:
         armour = player.armour.name if player.armour else "None"
         weapon = player.weapon.name if player.weapon else "None"
         armour_defense = '- adds ' + str(player.armour.defense) \
-            + ' to Defense' if player.armour else ''
+                         + ' to Defense' if player.armour else ''
         weapon_attack = '- adds ' + str(player.weapon.attack) \
-            + ' to Attack' if player.weapon else ''
+                        + ' to Attack' if player.weapon else ''
         text(f"Armour: {armour} {armour_defense}")
         text(f"Weapon: {weapon} {weapon_attack}")
 
@@ -267,7 +270,8 @@ class Game:
         elif action == "quit":
             self.game_over = True
         else:
-            text("Invalid command. Use 'help' to view available commands.", color=color_error)
+            text("Invalid command. Use 'help' to view available commands.",
+                 color=color_error)
 
     def search_current_area(self):
         """
@@ -281,11 +285,13 @@ class Game:
         Retrieves the current location object based on the player's position.
 
         This method accesses the `location_objects` dictionary using the
-        `current_location` index, which represents the player's current location
+        `current_location` index, which represents the player's current
+        location
 
         Returns the current location object where the player is at present.
         """
-        # Retrieve the name of the current location based on the player's position
+        # Retrieve the name of the current location based on the player's
+        # position
         current_location_name = list(self.location_objects.keys())[
             self.current_location
         ]
@@ -331,7 +337,8 @@ class Game:
         current_location = self.get_current_location()
 
         # Update previous position before changing the current position
-        current_location.player_prev_position = current_location.player_position
+        current_location.player_prev_position = \
+            current_location.player_position
 
         # Calculate the new position
         new_position = (current_location.player_position[0] + dx,
@@ -389,7 +396,8 @@ class Game:
             name = item.name
             text(f"{index}. {name}")
         add_space()
-        prompt = "Select an item number to interact with, or type '0' to cancel: "
+        prompt = "Select an item number to interact with, " \
+                 "or type '0' to cancel: "
         choices = [str(i) for i in range(1, len(self.player.inventory) + 1)]
         choice = ask_user("number", numbers=choices, prompt=prompt)
         try:
@@ -447,14 +455,15 @@ class Game:
         add_space()
         text("Select a location to travel to:", space=1)
 
-        # Check if the player has the special item and adjust available locations accordingly
+        # Check if the player has the special item and adjust available
+        # locations accordingly
         has_special_item = any(
             item.name == special_item_name for item in self.player.inventory
         ) if self.player.inventory else False
 
         if has_special_item and current_location.name == 'Mystara':
-            available_destinations = base_destinations[current_location.name] + [
-                'Luminara']
+            available_destinations = base_destinations[current_location.name] \
+                                     + ['Luminara']
         else:
             available_destinations = base_destinations[current_location.name]
 
@@ -465,8 +474,10 @@ class Game:
         add_space()
 
         # Get the user's choice
-        choice = ask_user("number", prompt="Where do you want to go? ", numbers=[
-                          '0'] + [str(i) for i in range(1, len(available_destinations) + 1)])
+        numbers = [str(i) for i in range(1, len(available_destinations) + 1)]
+        choice = ask_user("number",
+                          prompt="Where do you want to go? (type '0' to quit)",
+                          numbers=numbers)
 
         if choice == 0:
             print('Exit the Spaceship ')
@@ -474,7 +485,8 @@ class Game:
 
         selected_location_name = available_destinations[int(choice) - 1]
 
-        # Find the index of the selected location in the original locations list
+        # Find the index of the selected location in the original
+        # locations list
         self.current_location = ['Yolkaris', 'Mystara',
                                  'Luminara'].index(selected_location_name)
 
@@ -485,7 +497,7 @@ class Game:
         add_space()
         current_location.print_travel_story_line('from')
         loading([f'{current_location.name} ', '* ', '* ', '* ', '* ',
-                '* ', '* ', '* ', '* ', '* ', '* ', f'{new_location.name}'])
+                 '* ', '* ', '* ', '* ', '* ', '* ', f'{new_location.name}'])
         add_space()
         add_space()
         new_location.print_travel_story_line('to')
@@ -541,8 +553,8 @@ class Game:
             if player.health > max_health:
                 player.health = max_health
             player.potions.remove(potion)
-            text(
-                f"You used a {potion.name}. Your health is now {player.health}.")
+            text(f"You used a {potion.name}. Your health is "
+                 f"now {player.health}.")
 
 
 if __name__ == "__main__":
