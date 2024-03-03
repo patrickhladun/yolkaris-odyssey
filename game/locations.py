@@ -3294,8 +3294,8 @@ game_two = {
                      }
                  ],
                  health=30,
-                 attack=32,
-                 defense=30,
+                 attack=28,
+                 defense=26,
                  fought=False
              ),
              position=(1, 1),
