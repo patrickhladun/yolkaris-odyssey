@@ -1,43 +1,41 @@
 import random
 from utils import (clear_terminal, paragraph, text, ask_user, add_space)
 from .items import Weapon, Armour, Potion, Book, Special, Item
+from .game_manager import game_manager
 
 
 class Interaction:
     """
-    Aandles the interaction between the player and the game elements.
+    Handles the interaction between the player and the game elements.
     """
 
     def __init__(self, player):
         self.player = player
+
+    def equip(self, item, item_type):
+        """
+        Equips the player with the item.
+        """
+        if item.name == 'none':
+            self.player[item_type] = None
+            return
+        if item.received:
+            paragraph(f"{item.received}", space=1)
+        else:
+            paragraph(f"You have received the '{item.name}'.", space=1)
+        if item.description:
+            paragraph(item.description, space=1)
+        self.player[item_type] = item
 
     def add_new_item(self, item):
         """
         Adds a new item to the player's inventory.
         """
         if isinstance(item, Weapon):
-            if item.name == 'none':
-                self.player.weapon = None
-                return
-            if item.received:
-                paragraph(f"{item.received}", space=1)
-            else:
-                paragraph(f"You have received the '{item.name}'.", space=1)
-            if item.description:
-                paragraph(item.description, space=1)
-            self.player.weapon = item
+            self.equip(item, 'weapon')
 
         elif isinstance(item, Armour):
-            if item.name == 'none':
-                self.player.armour = None
-                return
-            if item.received:
-                paragraph(f"{item.received}", space=1)
-            else:
-                paragraph(f"You have received '{item.name}'.", space=1)
-            if item.description:
-                paragraph(item.description, space=1)
-            self.player.armour = item
+            self.equip(item, 'armour')
 
         elif isinstance(item, Potion):
             paragraph(f"You have received {item.name}.", space=1)
@@ -61,7 +59,8 @@ class Interaction:
             if item.received:
                 paragraph(f"{item.received}", space=1)
             else:
-                paragraph(f"You have received an item: '{item.name}'.", space=1)
+                paragraph(f"You have received an item: '{item.name}'.",
+                          space=1)
             if item.description:
                 paragraph(item.description, space=1)
             self.player.inventory.append(item)
@@ -83,7 +82,7 @@ class Interaction:
             elif 'item' in line:
                 self.add_new_item(line['item'])
             elif 'gameover' in line:
-                reset_game(game)
+                game_manager.reset_game()
 
     def with_area(self, area, visited):
         """
@@ -103,13 +102,16 @@ class Interaction:
             self.print_story_line(neutral.story_line)
         elif visited and neutral.quest_item:
             has_quest_item = any(
-                item.name == neutral.quest_item.name for item in self.player.inventory
+                item.name == neutral.quest_item.name for item in
+                self.player.inventory
             )
             if has_quest_item and neutral.quest_item:
-                # Player has the quest item, proceed with the special story_line
+                # Player has the quest item, proceed with the special
+                # story_line
                 self.print_story_line(neutral.story_line_completed)
             else:
-                # Player does not have the quest item or no quest item specified, proceed with the visited story_line
+                # Player does not have the quest item or no quest item
+                # specified, proceed with the visited story_line
                 self.print_story_line(neutral.story_line_visited)
         else:
             self.print_story_line(neutral.story_line_visited)
@@ -120,7 +122,8 @@ class Interaction:
         """
         if not visited:
             self.print_story_line(enemy.story_line)
-            text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
+            text(f"{enemy.name} stats - health: {enemy.health}, "
+                 f" attack: {enemy.attack}, "
                  f"defense: {enemy.defense}", space=1)
         else:
             if enemy.health <= 0:
@@ -128,12 +131,16 @@ class Interaction:
                 return
             if enemy.fought:
                 self.print_story_line(enemy.story_line_fought)
-                text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
-                     f"defense: {enemy.defense}", space=1)
+                text(
+                    f"{enemy.name} stats - health: {enemy.health}, "
+                    f"attack: {enemy.attack}, "
+                    f"defense: {enemy.defense}", space=1)
             else:
                 self.print_story_line(enemy.story_line_visited)
-                text(f"{enemy.name} stats - health: {enemy.health}, attack: {enemy.attack}, "
-                     f"defense: {enemy.defense}", space=1)
+                text(
+                    f"{enemy.name} stats - health: {enemy.health}, "
+                    f"attack: {enemy.attack}, "
+                    f"defense: {enemy.defense}", space=1)
 
         combat = Combat(self.player, enemy)
         results = combat.to_fight_or_not_to_fight()
@@ -247,4 +254,3 @@ class Combat:
         text(f"Player: health:{self.player.health}")
         if self.enemy.health > 0:
             text(f"Enemy: health:{self.enemy.health}", delay=0.3, space=1)
-

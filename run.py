@@ -1,7 +1,7 @@
 from art import text2art
 from utils import (text, paragraph, add_space, clear_terminal, ask_user,
                    loading, color_error)
-
+from game.game_manager import game_manager
 from game.characters import Player
 from game.locations import (Location, Yolkaris, Mystara, Luminara,
                             game_one, game_two)
@@ -38,10 +38,10 @@ def show_help() -> None:
 
     text("  map        - Show the map", delay=0.1)
     text("  search     - Search the area for items", delay=0.1)
-    text("  help       - Show this help message", delay=0.1)
-    text("  inventory  - Show your inventory", delay=0.1)
+    text("  help       - Show available commands", delay=0.1)
+    text("  inventory  - Show inventory", delay=0.1)
     text("  potion     - Use a potion", delay=0.1)
-    text("  stats      - Show your stats", delay=0.1)
+    text("  stats      - Show player stats", delay=0.1)
     text("  reset      - Reset the game", delay=0.1)
     text("  quit       - Quit the game", delay=0.1)
     text(" ")
@@ -87,6 +87,7 @@ class Game:
         """
         Initializes the game.
         """
+        self.interaction = Interaction(self)
         self.location_objects = {}
         self.current_location = 0
         self.game_over = False
@@ -132,13 +133,6 @@ class Game:
         """
         while not self.game_over:
             self.choose_action()
-
-    def reset_game(self) -> None:
-        """
-        This method resets the game.
-        """
-        self.setup_game()
-        self.start_game()
 
     def setup_areas(self, level) -> None:
         """
@@ -257,7 +251,7 @@ class Game:
             self.move_west()
         elif action == "stats":
             self.show_player_stats()
-        elif action == "contents":
+        elif action == "contents":  # used for debugging purposes only
             self.show_location_contents()
         elif action in ["search", "s"]:
             self.search_current_area()
@@ -266,7 +260,7 @@ class Game:
         elif action in ["potion", "potions", "p"]:
             self.select_potion()
         elif action == "reset":
-            self.reset_game()
+            game_manager.reset_game()
         elif action == "quit":
             self.game_over = True
         else:
@@ -436,11 +430,11 @@ class Game:
 
         if isinstance(item, Book):
             text(f"You have read the {name}.")
-            Interaction.print_story_line(self, item.story_line)
+            self.interaction.print_story_line(item.story_line)
         elif isinstance(item, Spaceship):
             self.travel_to_new_location()
         elif isinstance(item, Special):
-            Interaction.print_story_line(self, item.story_line)
+            self.interaction.print_story_line(item.story_line)
 
     def travel_to_new_location(self):
         """
@@ -562,6 +556,4 @@ class Game:
 
 
 if __name__ == "__main__":
-    game = Game()
-    game.setup_game()
-    game.start_game()
+    game_manager.start_game()

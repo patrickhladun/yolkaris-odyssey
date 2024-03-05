@@ -567,6 +567,19 @@ game_one = {
                              "space": 1
                          },
                      ]
+                 ),
+                 Weapon(
+                     name="Rusty Sword",
+                     description="A sword with a rusty blade, but still "
+                                 "sharp enough to cut through vines and "
+                                 "bushes.",
+                     attack=10
+                 ),
+                 Armour(
+                     name="Leather Armour",
+                     description="A set of light leather armour that "
+                                 "provides basic protection.",
+                     defense=5
                  )
              ],
              position=(0, 0),
