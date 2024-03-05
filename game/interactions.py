@@ -17,15 +17,16 @@ class Interaction:
         Equips the player with the item.
         """
         if item.name == 'none':
-            self.player[item_type] = None
+            setattr(self.player, item_type, None)
             return
         if item.received:
             paragraph(f"{item.received}", space=1)
         else:
-            paragraph(f"You have received the '{item.name}'.", space=1)
+            msg = f"You have received '{item.name}'." if item_type == 'armour' else f"You have received the '{item.name}'."
+            paragraph(msg, space=1)
         if item.description:
             paragraph(item.description, space=1)
-        self.player[item_type] = item
+        setattr(self.player, item_type, item)
 
     def add_new_item(self, item):
         """
