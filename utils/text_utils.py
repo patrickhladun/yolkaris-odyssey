@@ -17,10 +17,10 @@ color_ask_user = Fore.BLUE + Style.BRIGHT
 
 
 def text(
-    text,
-    delay=0.1,
-    space=0,
-    color=default_color
+        text_line,
+        delay=0.1,
+        space=0,
+        color=default_color
 ):
     """
     Prints text to the terminal with optional color.
@@ -30,16 +30,17 @@ def text(
     - color: the color to apply to the text
     """
     line_space = '\n' * space
-    colored_text = (color + text if color else text) + Fore.RESET + line_space
+    colored_text = (color + text_line if color else text_line) + \
+        Fore.RESET + line_space
     print(colored_text)
     time.sleep(delay)
 
 
 def paragraph(
-    long_string,
-    space=0,
-    delay=0.1,
-    color=default_color
+        long_string,
+        space=0,
+        delay=0.1,
+        color=default_color
 ):
     """
     Prints a paragraph of text to the terminal with optional color.
@@ -77,19 +78,19 @@ def add_space(space: int = 1, delay: float = 0.2):
 
 
 def clear_terminal():
-    """ 
+    """
     Clears terminal.
     """
     os.system('clear')
 
 
 def ask_user(
-        type: str = None,
+        prompt_type: str = None,
         color=color_ask_user,
         prompt: str = None,
         error: str = None,
         space: int = 0,
-        numbers: list = ['1', '2']
+        numbers=None
 ):
     """
     Prompts the user for input with an optional color.
@@ -97,14 +98,16 @@ def ask_user(
     - color: the color to apply to the prompt text
     - prompt: the prompt text to display (optional)
     """
-    if type == "continue":
+    if numbers is None:
+        numbers = ['1', '2']
+    if prompt_type == "continue":
         prompt = prompt if prompt else "Press enter to continue: "
         line_space = '\n' * (space - 1) if space > 0 else ''
         print(color + prompt + Fore.RESET, end="")
         input().strip().lower()
         if space > 0:
             print(line_space)
-    elif type == "number":
+    elif prompt_type == "number":
         while True:
             prompt = prompt if prompt else "Select a number: "
             print(color + prompt + Fore.RESET, end="")
@@ -114,9 +117,10 @@ def ask_user(
             elif choice == '0':
                 return 0
             else:
-                error = error if error else "Invalid choice. Please select a correct number."
+                error = error if error else ("Invalid choice. Please select a "
+                                             "correct number.")
                 text(color_error + error + Fore.RESET, space=1)
-    elif type == "confirm":
+    elif prompt_type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
             print(color + prompt + " (y/n): " + Fore.RESET, end="")
@@ -125,18 +129,21 @@ def ask_user(
                 return True
             elif choice in ['no', 'n']:
                 return False
-            error = error if error else "Invalid input. Please enter 'yes' or 'no'."
+            error = error if error else ("Invalid input. Please enter 'yes' "
+                                         "or 'no'.")
             text(color_error + error + Fore.RESET, space=1)
-    elif type == "item":
-        prompt = prompt if prompt else "Do you want to 'use' or 'inspect' the item? (u/i): "
+    elif prompt_type == "item":
+        prompt = prompt if prompt else ("Do you want to 'use' or 'inspect' "
+                                        "the item? (u/i):")
         while True:
             print(color + prompt + Fore.RESET, end="")
             choice = input().lower().strip()
             if choice in ['use', 'u', 'inspect', 'i']:
                 return choice
-            error = error if error else "Invalid input. Please enter 'u' or 'i'."
+            error = error if error else ("Invalid input. Please enter 'u' or "
+                                         "'i'.")
             text(color_error + error + Fore.RESET, space=1)
-    elif type == "combat":
+    elif prompt_type == "combat":
         prompt = "Do you want to 'fight' or 'retreat'? "
         while True:
             print(color + prompt + Fore.RESET, end="")
@@ -145,9 +152,10 @@ def ask_user(
                 return True
             elif choice == 'retreat':
                 return False
-            error = error if error else "Invalid input. Please enter 'fight' or 'retreat'."
+            error = error if error else ("Invalid input. Please enter 'fight' "
+                                         "or 'retreat'.")
             text(color_error + error + Fore.RESET, space=1)
-    elif type == "retreat":
+    elif prompt_type == "retreat":
         prompt = "To continue press enter or 'retreat': "
         while True:
             print(color + prompt + Fore.RESET, end="")
@@ -156,14 +164,17 @@ def ask_user(
                 return True
             elif choice == '':
                 return False
-            error = error if error else "Invalid input. Please enter 'retreat' or enter."
+            error = error if error else ("Invalid input. Please enter "
+                                         "'retreat' or enter.")
             text(color_error + error + Fore.RESET, space=1)
     else:
         print(color + (prompt if prompt else "") + Fore.RESET, end="")
         return input().strip().lower()
 
 
-def loading(content: list = ["Loading", ".", ".", "."], ending: str = None):
+def loading(content=None, ending: str = None):
+    if content is None:
+        content = ["Loading", ".", ".", "."]
     for i in content:
         print(default_color + i + Fore.RESET, end='', flush=True)
         time.sleep(0.5)
