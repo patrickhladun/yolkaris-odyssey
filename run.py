@@ -42,8 +42,7 @@ def show_help() -> None:
     text("  inventory  - Show inventory", delay=0.1)
     text("  potion     - Use a potion", delay=0.1)
     text("  stats      - Show player stats", delay=0.1)
-    text("  reset      - Reset the game", delay=0.1)
-    text("  quit       - Quit the game", delay=0.1)
+    text("  restart    - Restart the game", delay=0.1)
     text(" ")
 
 
@@ -259,10 +258,8 @@ class Game:
             self.show_inventory()
         elif action in ["potion", "potions", "p"]:
             self.select_potion()
-        elif action == "reset":
+        elif action == "restart":
             game_manager.reset_game()
-        elif action == "quit":
-            self.game_over = True
         else:
             text("Invalid command. Use 'help' to view available commands.",
                  color=color_error)
