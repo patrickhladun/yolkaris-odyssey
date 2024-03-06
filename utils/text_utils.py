@@ -151,8 +151,9 @@ def ask_user(
             choice = input().lower().strip()
             if choice in ['use', 'u', 'inspect', 'i', '0']:
                 return choice
-            error = error if error else ("Invalid input. Please enter 'u' or "
-                                         "'i'.")
+            error = error if error else ("Invalid input. Please enter 'u' to "
+                                         "use, 'i' to inspect the item or "
+                                         "'0' to cancel.")
             text(color_error + error + Fore.RESET, space=1)
     elif prompt_type == "combat":
         prompt = "Do you want to 'fight' or 'retreat'? "
