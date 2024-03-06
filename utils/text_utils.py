@@ -120,6 +120,17 @@ def ask_user(
                 error = error if error else ("Invalid choice. Please select a "
                                              "correct number.")
                 text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "game":
+        while True:
+            prompt = prompt if prompt else "Select a game: "
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().strip()
+            if choice in numbers:
+                return int(choice)
+            error = error if error else ("Invalid choice. Please select a "
+                                             "correct number.")
+            text(color_error + error + Fore.RESET, space=1)
+                
     elif prompt_type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
