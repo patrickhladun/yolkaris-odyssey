@@ -343,7 +343,7 @@ class Game:
             current_location.player_position = new_position
             current_location.check_for_interaction(new_position, self.player)
         else:
-            print("You can't move in that direction.")
+            text("You can't move in that direction.", color=color_error)
 
     def move_north(self) -> None:
         """
