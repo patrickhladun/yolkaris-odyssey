@@ -74,7 +74,8 @@ def inspect_inventory_item(item):
     name = item.name
     description = item.description
     add_space()
-    paragraph(f"{name}: {description}")
+    paragraph(f"{name}", space=1)
+    paragraph(f"{description}", space=1)
 
 
 class Game:
