@@ -416,6 +416,8 @@ class Game:
             self.use_inventory_item(item)
         elif action.lower() in ['inspect', 'i']:
             inspect_inventory_item(item)
+        elif action == '0':
+            text("Exiting inventory.")
         else:
             text("Invalid action.")
 

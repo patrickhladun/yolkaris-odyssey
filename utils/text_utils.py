@@ -145,11 +145,11 @@ def ask_user(
             text(color_error + error + Fore.RESET, space=1)
     elif prompt_type == "item":
         prompt = prompt if prompt else ("Do you want to 'use' or 'inspect' "
-                                        "the item? (u/i):")
+                                        "the item? (u/i), type '0' to cancel:")
         while True:
             print(color + prompt + Fore.RESET, end="")
             choice = input().lower().strip()
-            if choice in ['use', 'u', 'inspect', 'i']:
+            if choice in ['use', 'u', 'inspect', 'i', '0']:
                 return choice
             error = error if error else ("Invalid input. Please enter 'u' or "
                                          "'i'.")
