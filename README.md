@@ -9,7 +9,11 @@ In "Yolkaris Odyssey," players embark on an epic journey through fantastical wor
 
 ![Yolkaris Odyssey](./readme/yolkaris-odyssey.webp)
 
+## Table of Contents
+
 ## Project Goals
+[Back to Top](#table-of-contents)
+
 The primary goal of creating "Yolkaris Odyssey" was to delve into the world of game development, leveraging my programming skills to build something fun, interactive, and engaging. I aimed to:
 
 - **Explore Game Mechanics:** Learn the ins and outs of game design and development by creating a game from scratch.
@@ -17,6 +21,8 @@ The primary goal of creating "Yolkaris Odyssey" was to delve into the world of g
 - **Engage Players with Storytelling:** Craft a compelling narrative that players can influence through their decisions, making each playthrough unique.
 
 ## Player Goals
+[Back to Top](#table-of-contents)
+
 "Yolkaris Odyssey" is designed with the player's enjoyment and engagement at the forefront. Players are encouraged to:
 
 - **Embark on an Adventure:** Dive into the rich, text-based world of Yolkaris, filled with lore, mystery, and intrigue.
@@ -26,6 +32,8 @@ Solve Puzzles: Engage with puzzles and challenges that test your wit and reward 
 This game is for anyone who loves the idea of embarking on an interstellar journey, enjoys narrative-driven experiences, and appreciates the charm of text-based adventures. Whether you're a seasoned gamer or new to this genre, "Yolkaris Odyssey" offers a welcoming and intriguing experience.
 
 ## User Stories
+[Back to Top](#table-of-contents)
+
 - As a player, I want to choose the type of game (quick adventure or full exploration) to select a gaming experience that matches my available time and interest level.
 - As a player, I wish to move in a non-linear fashion, exploring the game world freely and making decisions on where to go next, ensuring my adventure feels personalized and unique.
 - As a player, I'd like to interact with objects and characters in the game, allowing me to engage with the story more deeply and influence the outcome based on my choices.
@@ -37,6 +45,8 @@ This game is for anyone who loves the idea of embarking on an interstellar journ
 - As a user, I want to explore various locations within the game, each with its own unique challenges and story elements, providing a rich and diverse world to discover.
 
 ## Game flowchart
+[Back to Top](#table-of-contents)
+
 Creating the flowchart for "Yolkaris Odyssey" helped me structure the game's complex elements, including combat, story progression, and exploration. I used draw.io for its user-friendly interface and comprehensive features, allowing me to map out the game from start to finish without restrictions. This detailed flowchart includes all player commands, the combat system, story interactions, and mechanics for traveling between locations. It was a crucial step in developing a clear, navigable game experience, ensuring players have a roadmap through their adventure in "Yolkaris Odyssey."
 
 [Game Flowchart - PDF](./readme/yolkaris-odyssey-flowchart.pdf)
@@ -44,6 +54,7 @@ Creating the flowchart for "Yolkaris Odyssey" helped me structure the game's com
 ![Game Flowchart - JPG](./readme/yolkaris-odyssey-flowchart.webp)
 
 ## Files and Folder Structure
+[Back to Top](#table-of-contents)
 
 During the development process, I initially had all the game logic written in a single file called `run.py`. However, upon receiving advice from my mentor, who recommended better organization, I decided to refactor the game. This led to the creation of a `game` folder, where I moved relevant classes into separate files, improving maintainability and readability.
 
@@ -60,6 +71,7 @@ In addition to the `game` folder, I also have a `utils` folder that includes:
 This organizational structure has greatly improved the manageability of the game code and enhanced its readability.
 
 ## Technology used
+[Back to Top](#table-of-contents)
 
 - **HTML5 and CSS**: Used to customize the [Code Institute template](https://github.com/Code-Institute-Org/python-essentials-template).
 - **Python**: The primary programming language used to develop this game.
@@ -75,7 +87,10 @@ This organizational structure has greatly improved the manageability of the game
 - **VSCode**: Mainly used as the primary text editor for writing the game code.
 - **PyCharm**: Utilized for debugging code in real-time with breakpoints, as well as identifying warnings and errors.
 
-## Cloning the project
+## Deployment and development
+
+### Cloning the project
+[Back to Top](#table-of-contents)
 
 1. Install Git: If you haven't already installed Git on your computer, download and install it from the Git website. Follow the installation instructions for your operating system.
 2. Create project folder `mkdir yolkaris-odyssey`
@@ -83,12 +98,14 @@ This organizational structure has greatly improved the manageability of the game
 4. Clone the repository `git clone https://github.com/patrickhladun/yolkaris-odyssey.git .`
 
 ### Running the game in terminal
+[Back to Top](#table-of-contents)
 
 1. Open your terminal and change directory to the cloned project folder.
 2. Install the required packages with `pip install -r requirements.txt`
 3. Run the game `python run.py`
 
 ### Deploying the Game to Heroku
+[Back to Top](#table-of-contents)
 
 1. Login or Create Heroku Account: If you don't have one, create a Heroku account. Otherwise, log in to your existing account.
 2. Create New App: From the Heroku dashboard, click the "New" button in the top right corner. Select "Create new app" from the drop-down menu.
@@ -98,10 +115,14 @@ This organizational structure has greatly improved the manageability of the game
 6. Deploy from GitHub: Navigate to the "Deploy" section by clicking the "Deploy" tab in the top navbar. Select "GitHub" as the deployment method and connect your GitHub repository by searching for its name in the search bar. Click "connect" to link the repository to Heroku.
 7. Deploy Branch: Scroll down and click "Deploy Branch" to initiate the deployment process. Heroku will notify you once the app is deployed, and you'll be provided with a button to view the deployed app.
 
-## Running the game with Docker
+### Running the game with Docker
+[Back to Top](#table-of-contents)
+
 To enjoy this game locally, Docker provides a convenient way to do so. I've prepared a Dockerfile to facilitate building the necessary container. Follow these steps to build and run the Docker container:
 
-### Installing Docker
+#### Installing Docker
+[Back to Top](#table-of-contents)
+
 Firstly, ensure you have Docker installed on your system. You can download the appropriate version for your operating system from the official Docker website:
 [Download Docker](https://docs.docker.com/get-docker/)
 
@@ -109,7 +130,9 @@ Alternatively, if you're using macOS or Linux and are familiar with Homebrew, yo
 
 ```brew --cask install docker```
 
-### Building and Running the Docker Container
+#### Building and Running the Docker Container
+[Back to Top](#table-of-contents)
+
 Once Docker is installed and running, proceed with the following steps:
 
 1. Build the Container: This command creates a Docker image based on the instructions in the Dockerfile.
@@ -129,6 +152,7 @@ Once Docker is installed and running, proceed with the following steps:
 - `yolkaris-odyssey` specifies the name of the Docker image to run as a container.
 
 ## How to play
+[Back to Top](#table-of-contents)
 
 Embark on an epic journey in Yolkaris Odyssey, a captivating text-based adventure game set in the vibrant world of Yolkaris. Uncover hidden mysteries, tackle thrilling quests, and endeavor to restore the Grand Clock to its former glory. Here's how to kickstart your adventure:
 
@@ -154,6 +178,7 @@ Embark on an epic journey in Yolkaris Odyssey, a captivating text-based adventur
 - `reset`: Resets the game, allowing you to start over from the main screen.
 
 ## Features
+[Back to Top](#table-of-contents)
 
 - **Rich Storyline:** Embark on a thrilling adventure as Charlie, a courageous chicken determined to save the planet Yolkaris from the encroaching Dark Dust. Explore a narrative filled with cosmic mysteries, ancient lore, and a quest for the legendary Aurora Orb.
 - **Diverse Locations:** Travel across three beautifully rendered planets, each with its own unique ecosystems, challenges, and secrets. From the vibrant Yolkaris to the mysterious Mystara and the radiant Luminara, immerse yourself in diverse settings.
@@ -165,6 +190,7 @@ Embark on an epic journey in Yolkaris Odyssey, a captivating text-based adventur
 - **Non-linear Exploration:** Enjoy the freedom to explore the game’s universe in a non-linear fashion. Choose which quests to pursue and which areas to explore first, making each playthrough uniquely yours.
 
 ## Testing
+[Back to Top](#table-of-contents)
 
 To ensure the code is aligned with PEP8 standards, I have use PyCharms built-in PEP8 compliance checker. I've also utilized the [Code Institute Python Linter](https://pep8ci.herokuapp.com/) to confirm that the code is compliant with PEP8 standards. This has helped me maintain a consistent coding style and structure throughout the project. 
 
@@ -261,6 +287,7 @@ Having played the game extensively myself, I've personally verified its function
 |Winning the combat|In the round player hits enemy and enemy health goes to 0 or below|story_line_win is printed and user stays in the area|Works as expected|
 
 ## Issues and Resolutions
+[Back to Top](#table-of-contents)
 
 - Repetitive Code Warning: While working on the add_new_item method, I encountered a warning about repeated code. To address this, I refactored the method by introducing a new equip method within the Interaction class. This new method handles the logic of equipping the player with items, resulting in cleaner and more maintainable code.
 
@@ -504,6 +531,7 @@ def ask_user(
 - [Issue 1 - Input execution timing issue during text output](https://github.com/patrickhladun/yolkaris-odyssey/issues/1)
 
 ## Enhancements and Future Features
+[Back to Top](#table-of-contents)
 
 As Yolkaris Odyssey evolves, here are some exciting features and enhancements that could elevate the gaming experience:
 
@@ -521,12 +549,14 @@ As Yolkaris Odyssey evolves, here are some exciting features and enhancements th
 By incorporating these features and enhancements, Yolkaris Odyssey can evolve into a rich and immersive text-based adventure game that captivates players and keeps them coming back for more.
 
 ## Credits
+[Back to Top](#table-of-contents)
 
 - [code institute template](https://github.com/Code-Institute-Org/python-essentials-template) to start the project
 - [code institute CI Python Linter](https://pep8ci.herokuapp.com/) to check the code for PEP8 compliance
 - [imgbb](https://imgbb.com/) for hosting the game image
 
 ### Acknowledgements
+[Back to Top](#table-of-contents)
 
 - My mentor, Precious Ijege for providing me with advice on breaking the code to multiple files
 - My kids for playing the game and showing me all the errors ;)
