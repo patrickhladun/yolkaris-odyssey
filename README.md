@@ -1,5 +1,5 @@
 # Yolkaris Odyssey - CI Project 3<!-- omit from toc -->
-version 1.0.3
+version 1.0.4
 
 Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer with a passion for learning and trying new things, I ventured into the realm of game development without a background in gaming. This project is a text-based adventure game built with Python, inspired by the classic games that have intrigued and entertained us over the years.
 

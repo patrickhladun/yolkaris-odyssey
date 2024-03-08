@@ -20,7 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun. (v.1.0.3)", delay=0.1, space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.4)", delay=0.1, space=1)
 
 
 def show_help() -> None:
