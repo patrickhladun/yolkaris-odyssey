@@ -250,8 +250,6 @@ class Game:
             self.move_west()
         elif action == "stats":
             self.show_player_stats()
-        elif action == "contents":  # used for debugging purposes only
-            self.show_location_contents()
         elif action in ["search", "s"]:
             self.search_current_area()
         elif action in ["inventory", "i"]:
@@ -365,13 +363,6 @@ class Game:
         Moves the player west.
         """
         self.update_player_position(-1, 0)
-
-    def show_location_contents(self):
-        """
-        Displays the contents of the current location.
-        """
-        current_location = self.get_current_location()
-        current_location.print_contents()
 
     def show_inventory(self):
         """
