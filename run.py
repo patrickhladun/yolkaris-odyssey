@@ -20,7 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.0)", delay=0.1, space=1)
     ask_user(prompt_type='continue',
              prompt='Press enter to start the game: ', space=1)
 
