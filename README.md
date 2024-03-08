@@ -232,30 +232,23 @@ Having played the game extensively myself, I've personally verified its function
 As Yolkaris Odyssey evolves, here are some exciting features and enhancements that could elevate the gaming experience:
 
 1. **Player Accounts**: Introduce a player account system to allow users to save their progress, earn achievements, and track their in-game accomplishments over time.
-
 2. **Saving Game State**: Implement a saving mechanism to allow players to save their current game progress and resume their adventure at a later time.
-
 3. **Character Creation and Attributes**: Expand character customization options by introducing a character creation system. Players can define attributes such as stamina, intelligence, luck, mana, and more, influencing their gameplay experience and decision-making abilities.
-
 4. **Larger and More Diverse Locations**: Enrich the world of Yolkaris with a variety of captivating locations to explore. From bustling cities to mysterious forests and treacherous dungeons, offer players a diverse range of environments to immerse themselves in.
-
 5. **Quests and Storylines**: Introduce compelling quests and storylines that unfold dynamically based on player choices and actions. From epic battles to intricate puzzles, provide engaging challenges that keep players invested in the narrative.
-
 6. **NPC Interactions**: Enhance player immersion by incorporating rich NPC interactions. Allow players to engage in meaningful conversations with characters inhabiting the world of Yolkaris, each with their own stories, quests, and personalities.
-
 7. **Crafting and Trading**: Introduce crafting mechanics that enable players to gather resources, craft items, and trade with other characters. From potions and weapons to rare artifacts, offer a wide array of crafting options to empower players in their journey.
-
 8. **Dynamic Events and Challenges**: Spice up the gameplay experience with dynamic events and challenges that occur spontaneously throughout the game world. From sudden enemy invasions to hidden treasure hunts, keep players on their toes with unexpected surprises.
-
 9. **Companions and Allies**: Allow players to recruit companions and allies to aid them in their adventures. From loyal pets to skilled mercenaries, offer a diverse roster of characters that players can enlist to accompany them on their quests.
-
 10. **Player-driven Economy**: Create a player-driven economy where players can buy, sell, and trade goods with one another. Establish marketplaces, auction houses, and trading posts where players can interact and exchange resources, fostering a vibrant in-game economy.
 
 By incorporating these features and enhancements, Yolkaris Odyssey can evolve into a rich and immersive text-based adventure game that captivates players and keeps them coming back for more.
 
 ## Credits
 
-- [code institute template](https://github.com/Code-Institute-Org/python-essentials-template)
+- [code institute template](https://github.com/Code-Institute-Org/python-essentials-template) to start the project
+- [code institute CI Python Linter](https://pep8ci.herokuapp.com/) to check the code for PEP8 compliance
+- [imgbb](https://imgbb.com/) for hosting the game image
 
 ### Acknowledgements
 
