@@ -20,9 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun. (v.1.0.0)", delay=0.1, space=1)
-    ask_user(prompt_type='continue',
-             prompt='Press enter to start the game: ', space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.1)", delay=0.1, space=1)
 
 
 def show_help() -> None:
@@ -173,7 +171,8 @@ class Game:
         """
         while True:
             username = ask_user(
-                prompt_type=None, prompt="Please enter your username: ")
+                prompt_type=None, prompt="Please enter the username to start "
+                                         "your adventure: ")
             if 3 <= len(username) <= 24 and username.isalnum() and "_" \
                     not in username:
                 self.player = Player(
@@ -232,7 +231,7 @@ class Game:
     def choose_action(self) -> None:
         """
         Displays the available actions and prompts the player to
-        choose an action. The method then calls the appropriate method based on 
+        choose an action. The method then calls the appropriate method based on
         the player's choice.
         """
 

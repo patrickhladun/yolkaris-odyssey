@@ -22,7 +22,9 @@ class Interaction:
         if item.received:
             paragraph(f"{item.received}", space=1)
         else:
-            msg = f"You have received '{item.name}'." if item_type == 'armour' else f"You have received the '{item.name}'."
+            msg = (f"You have received "
+                   "'{item.name}'." if item_type == 'armour' else f"You "
+                   f"have received the '{item.name}'.")
             paragraph(msg, space=1)
         if item.description:
             paragraph(item.description, space=1)

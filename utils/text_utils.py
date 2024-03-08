@@ -128,9 +128,8 @@ def ask_user(
             if choice in numbers:
                 return int(choice)
             error = error if error else ("Invalid choice. Please select a "
-                                             "correct number.")
+                                         "correct number.")
             text(color_error + error + Fore.RESET, space=1)
-                
     elif prompt_type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
