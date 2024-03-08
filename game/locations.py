@@ -499,7 +499,6 @@ game_one = {
                                  "air, growing louder, until the whole town "
                                  "is enveloped in the familiar sound of "
                                  "time's steady march. ",
-                         "space": 1,
                      },
                      {
                          "text": "The townsfolk gather, eyes wide with a "
@@ -508,7 +507,6 @@ game_one = {
                                  "Charlie, standing beside the Timekeeper, "
                                  "watches as the shadow of stagnation lifts, "
                                  "giving way to renewed flow of time. ",
-                         "space": 1,
                      },
                      {
                          "text": "'You've done it, Charlie! The heart of "
@@ -516,7 +514,24 @@ game_one = {
                                  "This day will be remembered as the moment "
                                  "when time itself was mended by the courage "
                                  "of a single soul.'",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
+                     },
+                     {
+                         "text": "'Thank you for joining the adventure in "
+                                 "'The Broken Clock.' I hope you found joy "
+                                 "and excitement in unraveling the mysteries "
+                                 "of time and safeguarding the fabric of our "
+                                 "universe. Creating this journey has "
+                                 "been a profound experience for me, filled "
+                                 "with creativity and discovery. I'm grateful "
+                                 "for your willingness to embark on this "
+                                 "quest and for your invaluable support. "
+                                 "Congratulations on overcoming the trials of "
+                                 "time and restoring balance. Until our paths "
+                                 "cross again in future adventures, take care "
+                                 "and all the best, Patrick Hladun.'"
                      },
                      {
                          "text": "Game Over!",
@@ -1598,12 +1613,14 @@ game_two = {
                          "text": "Archibald Thorne, his eyes gleaming with "
                                  "hope, turned from his telescope to face "
                                  "Charlie, the room's silence pregnant with "
-                                 "expectation.",
-                         "space": 1,
+                                 "expectation."
                      },
                      {
                          "text": "Is it true, Charlie? Have you brought back "
                                  "the light to Yolkaris?",
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "Yes, Archibald. The Aurora Orb is with me. "
@@ -1615,14 +1632,15 @@ game_two = {
                                  "Charlie held up the Orb. Its glow, soft yet "
                                  "potent, seemed to pulse with the heartbeat "
                                  "of the planet itself.",
-                         "space": 1,
                      },
                      {
                          "text": "Incredible! Charlie, you've done more than "
                                  "just retrieve an ancient relic; you've "
                                  "given us all a future. Let's waste no time. "
                                  "To the activation chamber!",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "The assembly moved to the chamber, the "
@@ -1631,7 +1649,6 @@ game_two = {
                                  "initiated the activation sequence, and the "
                                  "Orb's light intensified, beams shooting "
                                  "skywards., ",
-                         "space": 1,
                      },
                      {
                          "text": "Outside, the dark dust began to like "
@@ -1640,11 +1657,12 @@ game_two = {
                                  "warm and life-giving, touched the planet "
                                  "once more, coaxing life back into the "
                                  "world., ",
-                         "space": 1,
                      },
                      {
                          "text": "You've done it, Charlie! Yolkaris is saved!",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "Cheers erupted, echoing through the as "
@@ -1653,7 +1671,19 @@ game_two = {
                                  "knew that this moment marked not just the "
                                  "end of a journey, but the dawn of a new "
                                  "era for Yolkaris.",
-                         "space": 1,
+                     },
+                     {
+                         "text": "'Thank you for playing my game. I hope you "
+                                 "had a great time exploring the world of "
+                                 "Yolkaris, embarking on this adventure, and "
+                                 "bringing light back to the planet. Your "
+                                 "engagement and dedication to completing "
+                                 "this quest mean the world to me. I had an "
+                                 "incredible time developing this game and I "
+                                 "hope you felt the passion and care put into "
+                                 "it. Congratulations on your triumph and "
+                                 "thank you once again for your support. Best "
+                                 "wishes, Patrick Hladun.'"
                      },
                      {
                          "text": "Game Over!",
