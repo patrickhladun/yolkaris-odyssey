@@ -182,7 +182,7 @@ To ensure the code is aligned with PEP8 standards, I have use PyCharms built-in 
 
 <details><summary>text_utils.py PEP8 Compliance</summary>
 
-![text_utils.py PEP8 Compliance](./readme/validation-text-utils.py.webp)
+![text_utils.py PEP8 Compliance](./readme/validation-text_utils.py.webp)
 
 </details>
 
