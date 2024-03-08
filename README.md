@@ -1,4 +1,4 @@
-# Yolkaris Odyssey - CI Project 3
+# Yolkaris Odyssey - CI Project 3<!-- omit from toc -->
 version 1.0.1
 
 Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer with a passion for learning and trying new things, I ventured into the realm of game development without a background in gaming. This project is a text-based adventure game built with Python, inspired by the classic games that have intrigued and entertained us over the years.
@@ -10,6 +10,30 @@ In "Yolkaris Odyssey," players embark on an epic journey through fantastical wor
 ![Yolkaris Odyssey](./readme/yolkaris-odyssey.webp)
 
 ## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Project Goals](#project-goals)
+- [Player Goals](#player-goals)
+- [User Stories](#user-stories)
+- [Game flowchart](#game-flowchart)
+- [Files and Folder Structure](#files-and-folder-structure)
+- [Technology used](#technology-used)
+- [Deployment and development](#deployment-and-development)
+    - [Cloning the project](#cloning-the-project)
+    - [Running the game in terminal](#running-the-game-in-terminal)
+    - [Deploying the Game to Heroku](#deploying-the-game-to-heroku)
+    - [Running the game with Docker](#running-the-game-with-docker)
+        - [Installing Docker](#installing-docker)
+        - [Building and Running the Docker Container](#building-and-running-the-docker-container)
+- [How to play](#how-to-play)
+    - [Game Commands](#game-commands)
+- [Features](#features)
+- [Testing](#testing)
+    - [Manual Testing](#manual-testing)
+- [Issues and Resolutions](#issues-and-resolutions)
+    - [Unresolved Issues](#unresolved-issues)
+- [Enhancements and Future Features](#enhancements-and-future-features)
+- [Credits](#credits)
+    - [Acknowledgements](#acknowledgements)
 
 ## Project Goals
 [Back to Top](#table-of-contents)
