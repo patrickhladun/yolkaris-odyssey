@@ -1,5 +1,5 @@
 # Yolkaris Odyssey - CI Project 3<!-- omit from toc -->
-version 1.0.3
+version 1.0.4
 
 Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer with a passion for learning and trying new things, I ventured into the realm of game development without a background in gaming. This project is a text-based adventure game built with Python, inspired by the classic games that have intrigued and entertained us over the years.
 
@@ -209,14 +209,40 @@ Embark on an epic journey in Yolkaris Odyssey, a captivating text-based adventur
 ## Features
 [Back to Top](#table-of-contents)
 
-- **Rich Storyline:** Embark on a thrilling adventure as Charlie, a courageous chicken determined to save the planet Yolkaris from the encroaching Dark Dust. Explore a narrative filled with cosmic mysteries, ancient lore, and a quest for the legendary Aurora Orb.
-- **Diverse Locations:** Travel across three beautifully rendered planets, each with its own unique ecosystems, challenges, and secrets. From the vibrant Yolkaris to the mysterious Mystara and the radiant Luminara, immerse yourself in diverse settings.
-- **Interactive Gameplay:** Engage in a dynamic world with interactive elements. Communicate with NPCs, make critical decisions that affect your journey, and face moral dilemmas that test your resolve.
-- **Combat System:** Encounter various enemies, from rogue guardians to celestial protectors gone awry. Utilize a strategic combat system to overcome adversaries, using a combination of strength, strategy, and special items.
-- **Inventory Management:** Collect items, weapons, and special artifacts that aid in your quest. Manage your inventory wisely to ensure you're prepared for the challenges ahead.
-- **Character Progression:** Develop Charlie’s abilities as you progress, enhancing his health, attack, and defense through encounters and discoveries. Equip him with unique armor and weapons to increase his chances of survival.
-- **Easter Eggs and Humor:** Discover easter eggs and humorous elements that lighten the mood, including references to popular culture and light-hearted interactions with characters.
-- **Non-linear Exploration:** Enjoy the freedom to explore the game’s universe in a non-linear fashion. Choose which quests to pursue and which areas to explore first, making each playthrough uniquely yours.
+### Selectable Storylines
+At the outset of "Yolkaris Odyssey," players are presented with the choice between two distinct adventures. They can opt for "The Broken Clock," offering a swift and engaging storyline, or embark on "The Dark Dust," which presents an extended exploration across multiple planets. This initial selection demonstrates the game's flexible narrative approach, allowing players to tailor their gaming experience to their preferred pace and complexity level.
+
+![Selectable Storylines](./readme/feature-selectable-storylines.gif)
+
+### Flexible Combat System
+"Yolkaris Odyssey" has a combat system where you can decide your moves. You can keep fighting or choose to leave, heal up, and then come back to fight again. This way, you can make your own strategy on when to fight and when to step back. It makes the game more exciting because you get to plan your next step.
+
+![Flexible Combat System](./readme/feature-flexible-combat-system.webp)
+
+### Simple Inventory System
+"Yolkaris Odyssey" offers a straightforward inventory system. Players can pick up items, check them, or use them when needed. This part of the game makes sure you can easily handle what you find on your adventure. It shows how keeping item management easy helps players focus more on the story and action.
+
+### Traveling Between Locations
+
+![Traveling Between Locations](./readme/feature-traveling-between-locations.gif)
+
+### Integrating Humor and Cultural References
+Incorporating easter eggs and humor, the game illustrates how light-hearted elements and pop culture references can enhance the gaming experience. This aspect of game design underscores the importance of thematic diversity and player connection.
+
+### Non-linear Exploration
+"Yolkaris Odyssey" lets you move freely on each planet's map. You can choose your own path and discover new things at your own pace. The game uses simple commands for moving around, so you can easily decide where to go next. With the "map" command, you can check the map anytime to see where you've been and where you haven't. This feature helps you keep track of your exploration and plan your adventure, making sure you don't miss out on any hidden secrets.
+
+![Non-linear Exploration](./readme/feature-exploration.webp)
+
+### Player Statistics Display
+In "Yolkaris Odyssey," you can check your character's stats anytime. This feature lets you see how much health you have left, what weapon or armor you're using, and more. It's useful for planning your next move in the game and making sure you're ready for whatever comes next. By keeping an eye on your stats, you can make better decisions about when to fight, when to heal, and how to use your items and equipment to your advantage.
+
+![Player Statistics Display](./readme/feature-stats.webp)
+
+### Full game play through featuring all the features
+Click the image to watch the full game play through on YouTube.
+
+[![Full game play through](./readme/video-thumbnail.webp)](https://www.youtube.com/watch?v=LQg0SNrVtpY "Full game play through")
 
 ## Testing
 [Back to Top](#table-of-contents)

@@ -20,7 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun. (v.1.0.3)", delay=0.1, space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.4)", delay=0.1, space=1)
 
 
 def show_help() -> None:
@@ -208,9 +208,6 @@ class Game:
         text(
             f"Health: {player.health}, Attack: {attack}, Defense: {defense}")
 
-        #####
-        # Not sure how to properly break these functions
-        #####
         armour = player.armour.name if player.armour else "None"
         weapon = player.weapon.name if player.weapon else "None"
         armour_defense = '- adds ' + str(player.armour.defense) \
@@ -250,8 +247,6 @@ class Game:
             self.move_west()
         elif action == "stats":
             self.show_player_stats()
-        elif action == "contents":  # used for debugging purposes only
-            self.show_location_contents()
         elif action in ["search", "s"]:
             self.search_current_area()
         elif action in ["inventory", "i"]:
@@ -365,13 +360,6 @@ class Game:
         Moves the player west.
         """
         self.update_player_position(-1, 0)
-
-    def show_location_contents(self):
-        """
-        Displays the contents of the current location.
-        """
-        current_location = self.get_current_location()
-        current_location.print_contents()
 
     def show_inventory(self):
         """

@@ -418,44 +418,56 @@ game_one = {
                      },
                      {
                          "text": "Embark on the Yolkaris Odyssey with these "
-                                 "words of guidance:",
-                         "space": 1
+                                 "words of guidance:"
                      },
                      {
                          "text": "- Use the 'map' command to find your path "
-                                 "within this enchanted land."
+                                 "within this enchanted land.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Traverse the land through 'north', "
                                  "'south', 'east', and 'west'. Discover your "
-                                 "destiny."
+                                 "destiny.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- In your quest, 'search' the areas for "
-                                 "hidden treasures and secrets."
+                                 "hidden treasures and secrets.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Keep your inventory filled with artifacts "
                                  "and tools. Check it with the 'inventory' "
-                                 "command."
+                                 "command.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- When your health is low, 'potion' can be "
-                                 "used to restore your vitality."
+                                 "used to restore your vitality.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Keep an eye on your 'stats' to track your "
-                                 "progress."
+                                 "progress.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- If you require guidance, simply type "
                                  "'help' to view a list of available "
-                                 "commands."
+                                 "commands.",
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- To begin anew or end your adventure, use "
                                  "'reset' or 'quit' anytime.",
-                         "space": 1
                      },
                      {
                          "text": "Good fortune on your quest. May your "
@@ -1509,41 +1521,48 @@ game_two = {
                      {
                          "text": "- Use the 'map' command to find your path "
                                  "within this enchanted land.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Traverse the land through 'north', "
                                  "'south', 'east', and 'west'. Discover your "
                                  "destiny.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- In your quest, 'search' the areas for "
                                  "hidden treasures and secrets.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Keep your inventory filled with artifacts "
                                  "and tools. Check it with the 'inventory' "
                                  "command.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
 
                      },
                      {
                          "text": "- When your health is low, 'potion' can be "
                                  "used to restore your vitality.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- Keep an eye on your 'stats' to track your "
                                  "progress.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- If you require guidance, simply type "
                                  "'help' to view a list of available "
                                  "commands.",
-                         "space": 0
+                         "space": 0,
+                         "delay": 0.0
                      },
                      {
                          "text": "- To begin anew or end your adventure, use "
