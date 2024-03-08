@@ -120,6 +120,17 @@ def ask_user(
                 error = error if error else ("Invalid choice. Please select a "
                                              "correct number.")
                 text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "game":
+        while True:
+            prompt = prompt if prompt else "Select a game: "
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().strip()
+            if choice in numbers:
+                return int(choice)
+            error = error if error else ("Invalid choice. Please select a "
+                                             "correct number.")
+            text(color_error + error + Fore.RESET, space=1)
+                
     elif prompt_type == "confirm":
         prompt = prompt if prompt else "Select 'yes' or 'no': "
         while True:
@@ -134,14 +145,15 @@ def ask_user(
             text(color_error + error + Fore.RESET, space=1)
     elif prompt_type == "item":
         prompt = prompt if prompt else ("Do you want to 'use' or 'inspect' "
-                                        "the item? (u/i):")
+                                        "the item? (u/i), type '0' to cancel:")
         while True:
             print(color + prompt + Fore.RESET, end="")
             choice = input().lower().strip()
-            if choice in ['use', 'u', 'inspect', 'i']:
+            if choice in ['use', 'u', 'inspect', 'i', '0']:
                 return choice
-            error = error if error else ("Invalid input. Please enter 'u' or "
-                                         "'i'.")
+            error = error if error else ("Invalid input. Please enter 'u' to "
+                                         "use, 'i' to inspect the item or "
+                                         "'0' to cancel.")
             text(color_error + error + Fore.RESET, space=1)
     elif prompt_type == "combat":
         prompt = "Do you want to 'fight' or 'retreat'? "

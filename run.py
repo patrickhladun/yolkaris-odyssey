@@ -20,7 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun.", delay=0.1, space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.0)", delay=0.1, space=1)
     ask_user(prompt_type='continue',
              prompt='Press enter to start the game: ', space=1)
 
@@ -42,8 +42,7 @@ def show_help() -> None:
     text("  inventory  - Show inventory", delay=0.1)
     text("  potion     - Use a potion", delay=0.1)
     text("  stats      - Show player stats", delay=0.1)
-    text("  reset      - Reset the game", delay=0.1)
-    text("  quit       - Quit the game", delay=0.1)
+    text("  restart    - Restart the game", delay=0.1)
     text(" ")
 
 
@@ -65,7 +64,7 @@ def select_game_level():
     text("Select your Game:", delay=0.2, space=1)
     text("   1. The Broken Clock", delay=0.2)
     text("   2. The Dark Dust", delay=0.2, space=1)
-    return ask_user(prompt_type="number", numbers=['1', '2'])
+    return ask_user(prompt_type="game", numbers=['1', '2'])
 
 
 def inspect_inventory_item(item):
@@ -75,7 +74,8 @@ def inspect_inventory_item(item):
     name = item.name
     description = item.description
     add_space()
-    paragraph(f"{name}: {description}")
+    paragraph(f"{name}", space=1)
+    paragraph(f"{description}", space=1)
 
 
 class Game:
@@ -259,10 +259,8 @@ class Game:
             self.show_inventory()
         elif action in ["potion", "potions", "p"]:
             self.select_potion()
-        elif action == "reset":
+        elif action == "restart":
             game_manager.reset_game()
-        elif action == "quit":
-            self.game_over = True
         else:
             text("Invalid command. Use 'help' to view available commands.",
                  color=color_error)
@@ -343,7 +341,7 @@ class Game:
             current_location.player_position = new_position
             current_location.check_for_interaction(new_position, self.player)
         else:
-            print("You can't move in that direction.")
+            text("You can't move in that direction.", color=color_error)
 
     def move_north(self) -> None:
         """
@@ -419,6 +417,8 @@ class Game:
             self.use_inventory_item(item)
         elif action.lower() in ['inspect', 'i']:
             inspect_inventory_item(item)
+        elif action == '0':
+            text("Exiting inventory.")
         else:
             text("Invalid action.")
 
