@@ -1,5 +1,5 @@
 # Yolkaris Odyssey - CI Project 3
-version 1.0.0
+version 1.0.1
 
 Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer with a passion for learning and trying new things, I ventured into the realm of game development without a background in gaming. This project is a text-based adventure game built with Python, inspired by the classic games that have intrigued and entertained us over the years.
 
@@ -73,9 +73,7 @@ This organizational structure has greatly improved the manageability of the game
 - **Midjourney**: Used to create the main game image, which was also utilized as the background.
 - **ChatGPT**: Utilized to enhance the game's storylines and narratives.
 - **VSCode**: Mainly used as the primary text editor for writing the game code.
-- **PyCharm**: Utilized for debugging code in real-time with breakpoints, as well as identifying warnings and errors. 
-
-On some stage of coding the game I have coded small [py-split](https://github.com/patrickhladun/py-split) script to help me split a long string into multiple lines of a specified maximum length, maintaining word integrity.
+- **PyCharm**: Utilized for debugging code in real-time with breakpoints, as well as identifying warnings and errors.
 
 ## Cloning the project
 
@@ -166,10 +164,51 @@ Embark on an epic journey in Yolkaris Odyssey, a captivating text-based adventur
 - **Easter Eggs and Humor:** Discover easter eggs and humorous elements that lighten the mood, including references to popular culture and light-hearted interactions with characters.
 - **Non-linear Exploration:** Enjoy the freedom to explore the game’s universe in a non-linear fashion. Choose which quests to pursue and which areas to explore first, making each playthrough uniquely yours.
 
-
 ## Testing
 
+To ensure the code is aligned with PEP8 standards, I have use PyCharms built-in PEP8 compliance checker. I've also utilized the [Code Institute Python Linter](https://pep8ci.herokuapp.com/) to confirm that the code is compliant with PEP8 standards. This has helped me maintain a consistent coding style and structure throughout the project. 
 
+<details><summary>run.py PEP8 Compliance</summary>
+
+![run.py PEP8 Compliance](./readme/validation-run.py.webp)
+
+</details>
+
+<details><summary>game_manager.py PEP8 Compliance</summary>
+
+![game_manager.py PEP8 Compliance](./readme/validation-game_manager.py.webp)
+
+</details>
+
+<details><summary>text_utils.py PEP8 Compliance</summary>
+
+![text_utils.py PEP8 Compliance](./readme/validation-text-utils.py.webp)
+
+</details>
+
+<details><summary>characters.py PEP8 Compliance</summary>
+
+![characters.py PEP8 Compliance](./readme/validation-characters.py.webp)
+
+</details>
+
+<details><summary>interactions.py PEP8 Compliance</summary>
+
+![interactions.py PEP8 Compliance](./readme/validation-interactions.py.webp)
+
+</details>
+
+<details><summary>items.py PEP8 Compliance</summary>
+
+![items.py PEP8 Compliance](./readme/validation-items.py.webp)
+
+</details>
+
+<details><summary>locations.py PEP8 Compliance</summary>
+
+![locations.py PEP8 Compliance](./readme/validation-locations.py.webp)
+
+</details>
 
 ### Manual Testing
 
@@ -221,7 +260,244 @@ Having played the game extensively myself, I've personally verified its function
 |Losing the combat|In the round player gets hit and health goes to 0 or below|story_line_lost is printed and game is over|Works as expected|
 |Winning the combat|In the round player hits enemy and enemy health goes to 0 or below|story_line_win is printed and user stays in the area|Works as expected|
 
-## Issues
+## Issues and Resolutions
+
+- Repetitive Code Warning: While working on the add_new_item method, I encountered a warning about repeated code. To address this, I refactored the method by introducing a new equip method within the Interaction class. This new method handles the logic of equipping the player with items, resulting in cleaner and more maintainable code.
+
+<details><summary>Original `add_new_item` Method with Repeated Code</summary>
+
+```python
+...
+    def add_new_item(self, item):
+        """
+        Adds a new item to the player's inventory.
+        """
+        if isinstance(item, Weapon):
+            if item.name == 'none':
+                self.player.weapon = None
+                return
+            if item.received:
+                paragraph(f"{item.received}", space=1)
+            else:
+                paragraph(f"You have received the '{item.name}'.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
+            self.player.weapon = item
+
+        elif isinstance(item, Armour):
+            if item.name == 'none':
+                self.player.armour = None
+                return
+            if item.received:
+                paragraph(f"{item.received}", space=1)
+            else:
+                paragraph(f"You have received '{item.name}'.", space=1)
+            if item.description:
+                paragraph(item.description, space=1)
+            self.player.armour = item
+...
+```
+</details>
+
+<details><summary>Refactored `add_new_item` Method with `equip` Method</summary>
+
+```python
+...
+    def equip(self, item, item_type):
+        """
+        Equips the player with the item.
+        """
+        if item.name == 'none':
+            setattr(self.player, item_type, None)
+            return
+        if item.received:
+            paragraph(f"{item.received}", space=1)
+        else:
+            msg = f"You have received '{item.name}'." if item_type == 'armour' else f"You have received the '{item.name}'."
+            paragraph(msg, space=1)
+        if item.description:
+            paragraph(item.description, space=1)
+        setattr(self.player, item_type, item)
+
+    def add_new_item(self, item):
+        """
+        Adds a new item to the player's inventory.
+        """
+        if isinstance(item, Weapon):
+            self.equip(item, 'weapon')
+
+        elif isinstance(item, Armour):
+            self.equip(item, 'armour')
+...
+```
+</details>
+
+- During the story development process, I encountered the need to split long lines of text to fit within the 79-character limit. To address this, I alternated between using a small script I developed called [py-split](https://github.com/patrickhladun/py-split) and PyCharm's "Fill Paragraph" quick fix feature when the "PEP 8: E501 line too long" warning appeared. However, I found that PyCharm's quick fix did not always produce the desired results, prompting me to rely more heavily on py-split to accurately split the text into multiple lines.
+
+- This is a text-based game where I needed precise formatting of text in the console. To achieve this, I developed two helper functions: text and paragraph. 
+
+<details><summary>text Function (for printing short text)</summary>
+
+```python
+def text(
+        text_line,
+        delay=0.1,
+        space=0,
+        color=default_color
+):
+    """
+    Prints text to the terminal with optional color.
+    - text: the text to print
+    - delay: the delay between each character
+    - space: the number of new lines to print after the text
+    - color: the color to apply to the text
+    """
+    line_space = '\n' * space
+    colored_text = (color + text_line if color else text_line) + \
+        Fore.RESET + line_space
+    print(colored_text)
+    time.sleep(delay)
+```
+</details>
+
+<details><summary>paragraph Function (for printing long text and breaking it to fit the console width)</summary>
+
+```python
+def paragraph(
+        long_string,
+        space=0,
+        delay=0.1,
+        color=default_color
+):
+    """
+    Prints a paragraph of text to the terminal with optional color.
+    - long_string: the text to wrap and print as a paragraph
+    - space: the number of new lines to print after the paragraph
+    - color: the color to apply to the text
+    """
+    wrapped_text = textwrap.fill(long_string, width=74)
+    lines = wrapped_text.split('\n')
+
+    text(' ' * 3 + lines[0], color=color)
+
+    for i in range(1, len(lines)):
+        line = lines[i]
+        if i == len(lines) - 1:
+            text(line, color=color)
+        else:
+            text(line, color=color)
+
+    add_space(space=space, delay=delay)
+```
+</details>
+
+- The game needed player input in many places and proper error handling. To sort this out I developed a helper function called `ask_user` that handles the input and error handling in different area of the game. This make sure errors are consistent and relevant to the user input.
+
+<details><summary>ask_user Function (for handling user input and error handling)</summary>
+
+```python
+...
+def ask_user(
+        prompt_type: str = None,
+        color=color_ask_user,
+        prompt: str = None,
+        error: str = None,
+        space: int = 0,
+        numbers=None
+):
+    """
+    Prompts the user for input with an optional color.
+    - type: the type of prompt ('continue' or 'confirm')
+    - color: the color to apply to the prompt text
+    - prompt: the prompt text to display (optional)
+    """
+    if numbers is None:
+        numbers = ['1', '2']
+    if prompt_type == "continue":
+        prompt = prompt if prompt else "Press enter to continue: "
+        line_space = '\n' * (space - 1) if space > 0 else ''
+        print(color + prompt + Fore.RESET, end="")
+        input().strip().lower()
+        if space > 0:
+            print(line_space)
+    elif prompt_type == "number":
+        while True:
+            prompt = prompt if prompt else "Select a number: "
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().strip()
+            if choice in numbers:
+                return int(choice)
+            elif choice == '0':
+                return 0
+            else:
+                error = error if error else ("Invalid choice. Please select a "
+                                             "correct number.")
+                text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "game":
+        while True:
+            prompt = prompt if prompt else "Select a game: "
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().strip()
+            if choice in numbers:
+                return int(choice)
+            error = error if error else ("Invalid choice. Please select a "
+                                             "correct number.")
+            text(color_error + error + Fore.RESET, space=1)
+                
+    elif prompt_type == "confirm":
+        prompt = prompt if prompt else "Select 'yes' or 'no': "
+        while True:
+            print(color + prompt + " (y/n): " + Fore.RESET, end="")
+            choice = input().lower().strip()
+            if choice in ['yes', 'y']:
+                return True
+            elif choice in ['no', 'n']:
+                return False
+            error = error if error else ("Invalid input. Please enter 'yes' "
+                                         "or 'no'.")
+            text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "item":
+        prompt = prompt if prompt else ("Do you want to 'use' or 'inspect' "
+                                        "the item? (u/i), type '0' to cancel:")
+        while True:
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().lower().strip()
+            if choice in ['use', 'u', 'inspect', 'i', '0']:
+                return choice
+            error = error if error else ("Invalid input. Please enter 'u' to "
+                                         "use, 'i' to inspect the item or "
+                                         "'0' to cancel.")
+            text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "combat":
+        prompt = "Do you want to 'fight' or 'retreat'? "
+        while True:
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().lower().strip()
+            if choice == 'fight':
+                return True
+            elif choice == 'retreat':
+                return False
+            error = error if error else ("Invalid input. Please enter 'fight' "
+                                         "or 'retreat'.")
+            text(color_error + error + Fore.RESET, space=1)
+    elif prompt_type == "retreat":
+        prompt = "To continue press enter or 'retreat': "
+        while True:
+            print(color + prompt + Fore.RESET, end="")
+            choice = input().lower().strip()
+            if choice == 'retreat':
+                return True
+            elif choice == '':
+                return False
+            error = error if error else ("Invalid input. Please enter "
+                                         "'retreat' or enter.")
+            text(color_error + error + Fore.RESET, space=1)
+    else:
+        print(color + (prompt if prompt else "") + Fore.RESET, end="")
+        return input().strip().lower()
+...
+```
+</details>
 
 ### Unresolved Issues
 
