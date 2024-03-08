@@ -5,6 +5,12 @@ Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer
 
 In "Yolkaris Odyssey," players embark on an epic journey through fantastical worlds, encountering diverse characters, and making decisions that shape the course of their adventure. I designed this game to challenge myself and to bring a simple yet captivating story to life through code. Join me in exploring the universe of Yolkaris, where every choice you make carves a path through the mysteries and wonders of this text-based adventure.
 
+
+![GitHub contributors](https://img.shields.io/github/issues/patrickhladun/yolkaris-odyssey?style=flat)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/patrickhladun/yolkaris-odyssey/main?style=flat)
+![GitHub language count](https://img.shields.io/github/languages/count/patrickhladun/yolkaris-odyssey?style=flat)
+![GitHub top language](https://img.shields.io/github/languages/top/patrickhladun/yolkaris-odyssey?style=flat)
+
 [Deployed Yolkaris Odyssey Game Link](https://yolkaris-odyssey-1ec6546cf850.herokuapp.com/)
 
 ![Yolkaris Odyssey](./readme/yolkaris-odyssey.webp)
