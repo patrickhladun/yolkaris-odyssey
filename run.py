@@ -20,7 +20,7 @@ def game_intro() -> None:
     text(odyssey)
     text("Welcome to Yolkaris Odyssey, a text-base"
          " adventure game.", delay=0.1)
-    text("Coded and designed by Patrick Hladun. (v.1.0.1)", delay=0.1, space=1)
+    text("Coded and designed by Patrick Hladun. (v.1.0.3)", delay=0.1, space=1)
 
 
 def show_help() -> None:
@@ -433,6 +433,7 @@ class Game:
         elif isinstance(item, Spaceship):
             self.travel_to_new_location()
         elif isinstance(item, Special):
+            add_space()
             self.interaction.print_story_line(item.story_line)
 
     def travel_to_new_location(self):

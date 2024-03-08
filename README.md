@@ -1,9 +1,14 @@
 # Yolkaris Odyssey - CI Project 3<!-- omit from toc -->
-version 1.0.1
+version 1.0.3
 
 Welcome to "Yolkaris Odyssey," my first attempt at coding a game. As a developer with a passion for learning and trying new things, I ventured into the realm of game development without a background in gaming. This project is a text-based adventure game built with Python, inspired by the classic games that have intrigued and entertained us over the years.
 
 In "Yolkaris Odyssey," players embark on an epic journey through fantastical worlds, encountering diverse characters, and making decisions that shape the course of their adventure. I designed this game to challenge myself and to bring a simple yet captivating story to life through code. Join me in exploring the universe of Yolkaris, where every choice you make carves a path through the mysteries and wonders of this text-based adventure.
+
+![GitHub contributors](https://img.shields.io/github/issues/patrickhladun/yolkaris-odyssey?style=flat)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/patrickhladun/yolkaris-odyssey/main?style=flat)
+![GitHub language count](https://img.shields.io/github/languages/count/patrickhladun/yolkaris-odyssey?style=flat)
+![GitHub top language](https://img.shields.io/github/languages/top/patrickhladun/yolkaris-odyssey?style=flat)
 
 [Deployed Yolkaris Odyssey Game Link](https://yolkaris-odyssey-1ec6546cf850.herokuapp.com/)
 

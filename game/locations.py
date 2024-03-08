@@ -499,7 +499,6 @@ game_one = {
                                  "air, growing louder, until the whole town "
                                  "is enveloped in the familiar sound of "
                                  "time's steady march. ",
-                         "space": 1,
                      },
                      {
                          "text": "The townsfolk gather, eyes wide with a "
@@ -508,7 +507,6 @@ game_one = {
                                  "Charlie, standing beside the Timekeeper, "
                                  "watches as the shadow of stagnation lifts, "
                                  "giving way to renewed flow of time. ",
-                         "space": 1,
                      },
                      {
                          "text": "'You've done it, Charlie! The heart of "
@@ -516,7 +514,24 @@ game_one = {
                                  "This day will be remembered as the moment "
                                  "when time itself was mended by the courage "
                                  "of a single soul.'",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
+                     },
+                     {
+                         "text": "'Thank you for joining the adventure in "
+                                 "'The Broken Clock.' I hope you found joy "
+                                 "and excitement in unraveling the mysteries "
+                                 "of time and safeguarding the fabric of our "
+                                 "universe. Creating this journey has "
+                                 "been a profound experience for me, filled "
+                                 "with creativity and discovery. I'm grateful "
+                                 "for your willingness to embark on this "
+                                 "quest and for your invaluable support. "
+                                 "Congratulations on overcoming the trials of "
+                                 "time and restoring balance. Until our paths "
+                                 "cross again in future adventures, take care "
+                                 "and all the best, Patrick Hladun.'"
                      },
                      {
                          "text": "Game Over!",
@@ -704,13 +719,10 @@ game_one = {
                          {
                              "text": "Giggles from the Canopy: The Laughing "
                                      "Tree's Joke Book",
-                             "delay": 0.6,
-                             "space": 1
                          },
                          {
                              "text": "1. Why did the chicken join a band? "
                                      "Because it had the drumsticks ready! ",
-                             "space": 1
                          },
                          {
                              "text": "2. What do you call a chicken that "
@@ -882,7 +894,50 @@ game_one = {
                                  "the Time Crystal; you have earned it."
                      },
                      {
-                         "item": Special(name="The Time Crystal")
+                         "item": Special(
+                             name="The Time Crystal",
+                             received="You have received the Time Crystal.",
+                             description="A radiant crystal that pulses with "
+                                         "the essence of time itself. Its "
+                                         "luminous glow is a testament to its "
+                                         "ancient power.",
+                             story_line=[
+                                 {
+                                     "text": "As Charlie holds the Time "
+                                             "Crystal, its pulsating light "
+                                             "syncs with his heartbeat, a "
+                                             "tangible rhythm of time itself. "
+                                             "'This... this crystal is the "
+                                             "heartbeat of the universe,' he "
+                                             "whispers, marveling at the "
+                                             "intricate patterns of light "
+                                             "dancing within."
+                                 },
+                                 {
+                                     "text": "With every pulse, visions of "
+                                             "past and future flicker before "
+                                             "him, a myriad of possibilities "
+                                             "contained within the crystal's "
+                                             "glow. 'To think, the key to "
+                                             "reviving the Grand Clock lies "
+                                             "within this small crystal,' "
+                                             "Charlie muses, a sense of "
+                                             "responsibility settling over "
+                                             "him."
+                                 },
+                                 {
+                                     "text": "'Time weaves the fabric of our "
+                                             "universe, and this crystal... "
+                                             "it's a thread in that "
+                                             "tapestry,' Charlie realizes. 'I "
+                                             "must deliver it to the "
+                                             "Timekeeper. Only then can we "
+                                             "mend the tear in our world's "
+                                             "fabric caused by the cessation "
+                                             "of the Grand Clock.'"
+                                 }
+                             ]
+                         )
                      }
                  ],
                  story_line_lost_fight=[
@@ -1410,7 +1465,7 @@ game_two = {
                          "continue": True
                      },
                      {
-                         "text": "'To embark on this pivotal journey, a a "
+                         "text": "'To embark on this pivotal journey, "
                                  "you'll need vessel unlike any other. Seek "
                                  "out the enigmatic engineer, Eudora Quasar. "
                                  "She possesses the Nebula Voyager II, marvel "
@@ -1558,12 +1613,14 @@ game_two = {
                          "text": "Archibald Thorne, his eyes gleaming with "
                                  "hope, turned from his telescope to face "
                                  "Charlie, the room's silence pregnant with "
-                                 "expectation.",
-                         "space": 1,
+                                 "expectation."
                      },
                      {
                          "text": "Is it true, Charlie? Have you brought back "
                                  "the light to Yolkaris?",
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "Yes, Archibald. The Aurora Orb is with me. "
@@ -1575,14 +1632,15 @@ game_two = {
                                  "Charlie held up the Orb. Its glow, soft yet "
                                  "potent, seemed to pulse with the heartbeat "
                                  "of the planet itself.",
-                         "space": 1,
                      },
                      {
                          "text": "Incredible! Charlie, you've done more than "
                                  "just retrieve an ancient relic; you've "
                                  "given us all a future. Let's waste no time. "
                                  "To the activation chamber!",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "The assembly moved to the chamber, the "
@@ -1591,7 +1649,6 @@ game_two = {
                                  "initiated the activation sequence, and the "
                                  "Orb's light intensified, beams shooting "
                                  "skywards., ",
-                         "space": 1,
                      },
                      {
                          "text": "Outside, the dark dust began to like "
@@ -1600,11 +1657,12 @@ game_two = {
                                  "warm and life-giving, touched the planet "
                                  "once more, coaxing life back into the "
                                  "world., ",
-                         "space": 1,
                      },
                      {
                          "text": "You've done it, Charlie! Yolkaris is saved!",
-                         "space": 1,
+                     },
+                     {
+                         "continue": True
                      },
                      {
                          "text": "Cheers erupted, echoing through the as "
@@ -1613,7 +1671,19 @@ game_two = {
                                  "knew that this moment marked not just the "
                                  "end of a journey, but the dawn of a new "
                                  "era for Yolkaris.",
-                         "space": 1,
+                     },
+                     {
+                         "text": "'Thank you for playing my game. I hope you "
+                                 "had a great time exploring the world of "
+                                 "Yolkaris, embarking on this adventure, and "
+                                 "bringing light back to the planet. Your "
+                                 "engagement and dedication to completing "
+                                 "this quest mean the world to me. I had an "
+                                 "incredible time developing this game and I "
+                                 "hope you felt the passion and care put into "
+                                 "it. Congratulations on your triumph and "
+                                 "thank you once again for your support. Best "
+                                 "wishes, Patrick Hladun.'"
                      },
                      {
                          "text": "Game Over!",
@@ -1634,19 +1704,50 @@ game_two = {
                      "clear": True
                  },
                  {
-                     "text": "Bounty Harbour bustles with life, a hub "
-                             " for seafaring souls and wandering traders. The"
-                             " aroma of the ocean mingles with exotic spices,"
-                             " weaving a tapestry of adventure and mystery in"
-                             " the air."
+                     "text": "Bounty Harbour, a bustling nexus of commerce "
+                             "and adventure, greets Charlie with the salty "
+                             "kiss of the sea and the rich scents of distant "
+                             "worlds. Here, the dock teems with life, a "
+                             "mosaic of sailors, merchants, and tales waiting "
+                             "to be told."
                  },
                  {
-                     "text": "Charlie, amidst the vibrant chatter of"
-                             " the marketplace and rhythmic creaking of ships,"
-                             " takes in the colorful tapestry of sails and"
-                             " flags, each narrating tales of distant lands"
-                             " and mysterious seas."
+                     "text": "Charlie weaves through the crowds, each step on "
+                             "the cobbled streets a journey through stories "
+                             "untold. The harbour's air is thick with the "
+                             "promise of the unknown, laden with the whispers "
+                             "of faraway places and the echoes of voyages "
+                             "past."
                  },
+                 {
+                     "text": "'So many paths that converge at a single "
+                             "point,' Charlie muses, his gaze lingering on "
+                             "the horizon where the sea meets the sky. 'Each "
+                             "vessel holds stories as vast as the ocean "
+                             "itself, each sailor a keeper of secrets.'"
+
+                 },
+                 {
+                     "continue": True
+                 },
+                 {
+                     "text": "Pausing to admire a ship setting sail, Charlie "
+                             "feels a surge of wanderlust. 'To embark on a "
+                             "journey without knowing where it might lead,' "
+                             "he reflects, 'that's the true spirit of "
+                             "adventure. Perhaps, one day, I'll find myself "
+                             "aboard, chasing the horizon and the tales it "
+                             "hides.'"
+                 },
+                 {
+                     "text": "As the sun dips lower, casting a golden glow "
+                             "over the harbour, Charlie takes a deep breath, "
+                             "filling his lungs with the briny air of "
+                             "possibility. 'For now,' he decides, 'my "
+                             "adventure lies ahead, on lands uncharted and "
+                             "mysteries unseen. But the call of the sea will "
+                             "always echo in my heart.'"
+                 }
              ],
              story_line_visited=[
                  {
@@ -1655,7 +1756,13 @@ game_two = {
                  {
                      "text": "You are back in Bounty Harbour",
                  }
-             ]
+             ],
+             items=[
+                 Potion(
+                     name="Small Potion",
+                     health=25
+                 )
+             ],
              ),
         Area(name="Gearhaven District",
              story_line=[
@@ -1682,8 +1789,8 @@ game_two = {
              ],
              items=[
                  Potion(
-                     name="Medium Potion",
-                     health=50
+                     name="Full Potion",
+                     health=100
                  )
              ],
              neutral=Neutral("Eudora Quasar",
@@ -1847,13 +1954,46 @@ game_two = {
                      "clear": True
                  },
                  {
-                     "text": "Cluckington Valley unfolds beneath the of "
-                             "watchful gaze ancient peaks, a lush expanse "
-                             "teeming with life. Its fields, radiant with a "
-                             "green vibrancy, pulse with the earth's own "
-                             "rhythms, while wildflowers perform silent "
-                             "symphonies for a buzzing audience of bees.",
-                     "space": 1
+                     "text": "Cluckington Valley unfolds beneath Charlie's "
+                     "gaze, a vibrant quilt of green fields and wildflowers, "
+                     "embraced by ancient peaks. The colors are so intense, "
+                     "it's as if the valley pulses with life, each beat a "
+                     "whisper of the earth's oldest stories. Wildflowers nod "
+                     "in the gentle breeze, conducting silent symphonies for "
+                     "bees and butterflies, the air sweet with the scent of "
+                     "nectar and fresh grass."
+                 },
+                 {
+                     "text": "Charlie stumbles upon the valley's most curious "
+                     "resident, the 'Laughing Tree' a gnarled oak standing "
+                     "alone, its branches swaying in the wind. The creaks and "
+                     "groans of wood sound remarkably like chuckles and "
+                     "guffaws, as if the tree itself shares a joke known only "
+                     "to the valley. 'Sounds like a gathering of old "
+                     "friends,' Charlie muses, a smile playing on his beak."
+                 },
+                 {
+                   "continue": True
+                 },
+                 {
+                     "text": "'They say it laughs to remind us not to take "
+                     "life too seriously,' an old hen nearby explains, her "
+                     "eyes twinkling with mischief. 'Or maybe it's just happy "
+                     "to see you, Charlie.' The idea that a tree could find "
+                     "amusement in his journey fills Charlie with a "
+                     "light-hearted courage. 'Well, I hope it finds my "
+                     "adventure entertaining,' he replies, laughter bubbling "
+                     "in his chest."
+                 },
+                 {
+                     "text": "As Charlie leaves the Laughing Tree behind, "
+                     "the sound of its mirth lingers in his ears, a "
+                     "comforting reminder that joy can be found in the most "
+                     "unexpected places. 'Keep laughing, old friend,' he "
+                     "calls back. 'I'll bring back stories to make you "
+                     "chuckle even harder.' And with that, he sets off once "
+                     "more, the laughter of the tree echoing like a blessing "
+                     "on the wind."
                  }
              ],
              story_line_visited=[
@@ -2264,7 +2404,7 @@ game_two = {
                      {
                          "item": Special(
                              name="Holographic Cosmos Codex",
-                             received="You have picked up The Holographic "
+                             received="You have received up The Holographic "
                                       "Cosmos Codex",
                              description="An encyclopedic device that, "
                                          "upon activation, unfolds into a "
@@ -2272,7 +2412,39 @@ game_two = {
                                          "sector revealing a part of the "
                                          "cosmic chronicle that culminates "
                                          "in the revelation of Luminara's "
-                                         "significance. "
+                                         "significance. ",
+                             story_line=[
+                                 {
+                                     "text": "Activating the Holographic "
+                                             "Cosmos Codex, Charlie watches "
+                                             "in awe as the room expands into "
+                                             "the universe itself. Stars, "
+                                             "planets, and galaxies swirl "
+                                             "around him, each telling its "
+                                             "own ancient story."
+                                 },
+                                 {
+                                     "text": "'This codex... it's not just a "
+                                             "map; it's a history of the "
+                                             "cosmos, and a guide to our "
+                                             "salvation,' Charlie realizes, "
+                                             "touching a galaxy and watching "
+                                             "its story unfold. 'Luminara's "
+                                             "significance, it's all here, "
+                                             "encrypted in starlight.'"
+                                 },
+                                 {
+                                     "text": "Determined, Charlie studies the "
+                                             "paths laid out before him, the "
+                                             "Codex guiding him towards the "
+                                             "hidden Aurora Orbs. 'With this "
+                                             "knowledge, I can navigate the "
+                                             "stars, find the Orbs, and bring "
+                                             "light back to Yolkaris,' he "
+                                             "vows, the Codex's light casting "
+                                             "hope in his eyes."
+                                 }
+                             ]
                          ),
                      },
                      {
@@ -3470,6 +3642,7 @@ game_two = {
                      {
                          "item": Special(
                              name="The Aurora Orb",
+                             received="You have received The Aurora Orb.",
                              description="An ancient, luminescent with "
                                          "sphere pulsating a soft, inner "
                                          "light. Its surface is smooth, "
@@ -3482,9 +3655,6 @@ game_two = {
                                          "cleanse darkness and restore "
                                          "balance.",
                              story_line=[
-                                 {
-                                     "clear": True
-                                 },
                                  {
                                      "text": "Holding The Aurora Orb in "
                                              "his hands, Charlie feels a "
