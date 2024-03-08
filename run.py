@@ -208,9 +208,6 @@ class Game:
         text(
             f"Health: {player.health}, Attack: {attack}, Defense: {defense}")
 
-        #####
-        # Not sure how to properly break these functions
-        #####
         armour = player.armour.name if player.armour else "None"
         weapon = player.weapon.name if player.weapon else "None"
         armour_defense = '- adds ' + str(player.armour.defense) \
