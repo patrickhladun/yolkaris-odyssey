@@ -81,4 +81,3 @@ class Neutral(Character):
         self.story_line_visited = story_line_visited
         self.story_line_completed = story_line_completed
         self.quest_item = quest_item
-
